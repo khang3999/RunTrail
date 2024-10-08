@@ -1,0 +1,21 @@
+.homepage {
+    display: flex; 
+    padding-left: 100px;
+    padding-right: 100px; 
+  }
+  
+  .sidebar {
+    display: block;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+    
+    .homepage { 
+      padding-left: 20px; 
+      padding-right: 20px;
+    }
+  }
+  
