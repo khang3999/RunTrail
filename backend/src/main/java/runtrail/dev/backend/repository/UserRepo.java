@@ -1,4 +1,7 @@
 package runtrail.dev.backend.repository;
 
-public interface UserRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+import runtrail.dev.backend.model.User;
+
+public interface UserRepo extends JpaRepository<User, Long> {
 }
