@@ -56,17 +56,14 @@ public class SpuController {
 
     @GetMapping("/filter")
     public Response<?> getSpuByFilter(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "id") String sort,
-            @RequestParam(defaultValue = "desc") String direction,
-            @RequestParam(defaultValue = "") String spuName
-
+            @RequestParam(defaultValue = "desc") String direction
     ) {
-        logger.info(spuName);
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
-        Pageable pageable = PageRequest.of(page,size,sortBy);
+        Pageable pageable = PageRequest.of(page -1,size,sortBy);
         Page<SpuDTO> listSpu = spuService.getSpuByFilter(pageable);
         return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
     }

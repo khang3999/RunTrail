@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import styles from './grid_product.module.css';
 import { useProductProvider } from '@/contexts/ProductProvider';
+import Pagination from '../Pagination';
 
 const ProductGrid = () => {
 	const {
@@ -18,17 +19,20 @@ const ProductGrid = () => {
 
 	if (isLoading) {
 		return (
-			<div className={styles.grid}>
-				{Array(productsPerPage)
-					.fill()
-					.map((_, index) => (
-						<div key={index} className={styles['product-card']}>
-							<Skeleton className={styles['product-image']} />
-							<Skeleton className={styles['product-name']} />
-							<Skeleton className={styles['product-name']} />
-							<Skeleton className={styles['product-name']} />
-						</div>
-					))}
+
+			<div>
+				<div className={styles.grid}>
+					{Array(productsPerPage)
+						.fill()
+						.map((_, index) => (
+							<div key={index} className={styles['product-card']}>
+								<Skeleton className={styles['product-image']} />
+								<Skeleton className={styles['product-name']} />
+								<Skeleton className={styles['product-name']} />
+								<Skeleton className={styles['product-name']} />
+							</div>
+						))}
+				</div>
 			</div>
 		);
 	}
@@ -67,25 +71,7 @@ const ProductGrid = () => {
 				))}
 			</div>
 
-			<div className={styles.pagination}>
-				<button
-					onClick={() =>
-						setCurrentPage((prev) => Math.max(prev - 1, 1))
-					}
-					disabled={currentPage === 1}
-				>
-					Previous
-				</button>
-				<span>{`Page ${currentPage} of ${totalPages}`}</span>
-				<button
-					onClick={() =>
-						setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-					}
-					disabled={currentPage === totalPages}
-				>
-					Next
-				</button>
-			</div>
+			<Pagination />
 		</div>
 	);
 };
