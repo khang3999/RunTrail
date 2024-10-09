@@ -2,7 +2,11 @@
 import Link from 'next/link'
 import React from 'react'
 
-function ProductItem() {
+function ProductItem(props) {
+    const product = props.product
+    const price = props.price
+    const brand = props.brand
+    console.log(product);
     return (
         <>
             <div className="group product-item rounded border-2">
@@ -21,7 +25,7 @@ function ProductItem() {
                     {/* Body */}
                     <div className="item-body h-[160px]">
                         <p className='brand font-extralight italic text-gray-400 mb-1'>Adidas</p>
-                        <Link href="/detail" className="title font-semibold line-clamp-2 text-ellipsis">Giày leo núi đẹp bán chạy nhất năm 2024</Link>
+                        <Link href="/detail" className="title font-semibold line-clamp-2 text-ellipsis">{product.spuName}</Link>
                         <div className="price flex flex-row items-center pt-3">
                             <p className='flex-1 text-[18px] text-red-600'>7.000.000đ</p>
                             <p className='flex-1 text-gray-400'><s>1.000.000đ</s></p>
