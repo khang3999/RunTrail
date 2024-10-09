@@ -1,25 +1,21 @@
 package runtrail.dev.backend.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Data
 @Entity
 @Table(name = "sku")
+
 public class SkuEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "spu_id")
-    private long spuId;
+    @ManyToOne
+    @JoinColumn(name = "spu_id", nullable = false)
+    private SpuEntity spu;
 
     @Column(name = "sku_name", nullable = false, length = 100)
     private String skuName;
@@ -37,7 +33,8 @@ public class SkuEntity {
     private long skuPrice;
 
     @Column(name = "sku_attri", columnDefinition = "json")
-    private String skuAttri; 
+    private String skuAttri;
+
 
     
 }

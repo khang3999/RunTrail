@@ -4,6 +4,7 @@ import HomeScreen from "./page/home/home_page";
 
 export default function Home() {
   return (
+    <div>
       <HomeScreen />
       <GoToTopButton />
     </div>

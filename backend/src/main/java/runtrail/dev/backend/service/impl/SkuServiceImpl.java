@@ -26,5 +26,10 @@ public class SkuServiceImpl implements SkuService {
         return skuRepository.findById(id);
     }
 
-   
+    @Override
+    public List<SkuEntity> getSkusByCategoryId(long categoryId) {
+        return skuRepository.findSkuEntitiesByCategoryId(categoryId);
+    }
+
+
 }
