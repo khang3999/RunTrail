@@ -11,10 +11,10 @@ function ProductProvider({ children }) {
 	React.useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const response = await fetch('http://localhost:8008/api/skus');
+				const response = await fetch('http://localhost:8008/api/v1/spu/filter');
 				const data = await response.json();
-				console.log(data);
-				setProducts(data);
+				const {metadata:{content:products}} = data;
+				setProducts(products);
 				setIsLoading(false);
 			} catch (error) {
 				console.error('Error fetching products:', error);

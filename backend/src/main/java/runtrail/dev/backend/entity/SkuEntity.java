@@ -1,13 +1,7 @@
 package runtrail.dev.backend.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Data
 @Entity
@@ -18,8 +12,9 @@ public class SkuEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "spu_id")
-    private long spuId;
+    @ManyToOne
+    @JoinColumn(name = "spu_id", nullable = false)
+    private SpuEntity spu;
 
     @Column(name = "sku_name", nullable = false, length = 100)
     private String skuName;
