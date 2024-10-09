@@ -1,42 +1,10 @@
 import GoToTopButton from "@/components/goToTopButton";
 import Image from "next/image";
+import HomeScreen from "./page/home/home_page";
 
 export default function Home() {
   return (
-    <div className="bg-white h-[3000vh]">
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      <p>Cho khang den</p>
-      {/* Thêm component GoToTopButton */}
+      <HomeScreen />
       <GoToTopButton />
     </div>
   );
