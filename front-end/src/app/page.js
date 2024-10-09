@@ -11,24 +11,27 @@ export default function Home() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-        try {
-            const response = await axios.get('https://api.example.com/products'); // Thay thế bằng URL API của bạn
-            setProducts(response.data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
+      try {
+        const response = await axios.get('https://api.example.com/products'); // Thay thế bằng URL API của bạn
+        setProducts(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchProducts();
-}, []);
+  }, []);
   return (
-
-    <div className='grid grid-cols-2 gap-x-6 gap-y-4 lg:grid-cols-6'>
-      {/* Product item */}
-      <ProductItem></ProductItem>
-      <ProductItemSkeleton />
-    </div>
+    <>
+      <div className='grid grid-cols-2 gap-x-6 gap-y-4 lg:grid-cols-6'>
+        {/* Product item */}
+        <ProductItem></ProductItem>
+        <ProductItemSkeleton />
+      </div>
+      <HomeScreen />
+      <GoToTopButton />
+    </>
   );
 }
