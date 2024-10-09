@@ -4,8 +4,9 @@ import HomeScreen from "./page/home/home_page";
 
 export default function Home() {
   return (
+    <>
       <HomeScreen />
       <GoToTopButton />
-    </div>
+    </>
   );
 }
