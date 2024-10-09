@@ -1,9 +1,10 @@
 import React from 'react';
-
+import BrandsFilter from "@/components/filters/BrandsFilter";
 const SideBarProduct = () => {
     return (
-        <div style={{ background: 'red', width: '100%', height: '100%' }}>
+        <div className='w-full h-full bg-white'>
             <h1>SideBarProduct</h1>
+            <BrandsFilter/>
         </div>
     );
 }
