@@ -1,7 +1,10 @@
 package runtrail.dev.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.entity.SpuEntity;
 import runtrail.dev.backend.repository.SpuRepository;
 import runtrail.dev.backend.service.SpuService;
@@ -25,5 +28,13 @@ public class SpuServiceImpl implements SpuService {
         return spuRepository.findById(id);
     }
 
-   
+    @Override
+    public Page<SpuEntity> findAllSpu(Pageable pageable) {
+        return spuRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<SpuDTO> getSpuByFilter(Pageable pageable) {
+        return spuRepository.findBySpuFilter(pageable);
+    }
 }

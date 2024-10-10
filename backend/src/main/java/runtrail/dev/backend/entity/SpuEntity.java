@@ -2,6 +2,7 @@ package runtrail.dev.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Setter;
 
 
 @Data
@@ -19,9 +20,9 @@ public class SpuEntity {
     @Column(name = "spu_description")
     private String spuDescription;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
+
+    @Column(name = "category_id")
+    private long categoryId;
 
     @Column(name = "brand_id")
     private long brandId;

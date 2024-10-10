@@ -32,20 +32,16 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public List<SkuEntity> getSkusByCategoryOrParent(Long categoryId) {
-        // Fetch the category to check the parentId
-        CategoryEntity category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+        // Step 1: Fetch all relevant category IDs (parent and subcategories)
+        List<Long> categoryIds = skuRepository.findCategoryAndSubcategories(categoryId);
 
-        Long parentId = category.getParentId();
-
-        // If parentId is -1, fetch SKUs for the category and its subcategories
-        if (parentId == -1) {
-            return skuRepository.findSkusByCategoryOrParent(categoryId);
-        } else {
-            // Otherwise, fetch SKUs only for the specified category
-            return skuRepository.findSkusByCategoryOrParent(categoryId);
-        }
+        // Step 2: Fetch all SKUs based on those category IDs
+        return skuRepository.findSkusByCategoryIds(categoryIds);
     }
 
 
+     @Override
+     public List<SkuEntity> getSkusByPriceRange(Long minPrice, Long maxPrice) {
+        return skuRepository.findBySkuPriceBetween(minPrice, maxPrice);
+     }
 }
