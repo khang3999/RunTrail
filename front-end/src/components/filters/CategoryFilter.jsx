@@ -2,11 +2,36 @@
 import { Menu } from "antd";
 import { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
-import { useCategory } from "@/contexts/CategoryContext";
+import { useProductProvider } from '@/contexts/ProductProvider';
 
 const { SubMenu } = Menu;
 const MenuComponent = ({ categories, openKeys, onOpenChange }) => {
-  const { setSelectedCategory } = useCategory();
+  const { setProducts } = useProductProvider();
+  const handleCategoryChange = async (categoryId) => {
+  
+    const param = new URLSearchParams();
+    param.append('categoryId', categoryId);
+
+    const queryString = param.toString();
+
+    
+    const res = await fetch(
+      `http://localhost:8008/api/v1/spu/filter?${queryString}`,
+      {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      }
+  );
+
+  const data = await res.json();
+  console.log(data);
+  
+  setProducts(data.metadata.content);
+}
+
+
   const renderMenuItems = (parentId) => {
     return categories
       .filter((category) => category.parentId === parentId)
@@ -16,8 +41,9 @@ const MenuComponent = ({ categories, openKeys, onOpenChange }) => {
             <SubMenu
               key={category.id}
               title={category.name}
-              onTitleClick={() => {
-                setSelectedCategory(category.id);
+              onTitleClick={() => {        
+                console.log(category.id);
+                handleCategoryChange(category.id);
               }}
             >
               {renderMenuItems(category.id)}
@@ -27,7 +53,7 @@ const MenuComponent = ({ categories, openKeys, onOpenChange }) => {
           return (
             <Menu.Item
               key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
+              onClick={() =>  handleCategoryChange(category.id)}
             >
               {category.name}
             </Menu.Item>
@@ -42,6 +68,8 @@ const MenuComponent = ({ categories, openKeys, onOpenChange }) => {
     </Menu>
   );
 };
+
+
 
 export default function CategoryFilter() {
   const [openKeys, setOpenKeys] = useState(["sub1"]);
@@ -78,6 +106,7 @@ export default function CategoryFilter() {
           categories={categories}
           openKeys={openKeys}
           onOpenChange={onOpenChange}
+          
         />
       )}
     </div>

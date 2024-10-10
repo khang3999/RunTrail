@@ -21,6 +21,13 @@ public interface SkuRepository extends JpaRepository<SkuEntity, Long> {
     List<SkuEntity> findSkusByCategoryIds(@Param("categoryIds") List<Long> categoryIds);
 
 
-    // Truy vấn để tìm các sản phẩm có giá nằm trong khoảng giá trị
-    List<SkuEntity> findBySkuPriceBetween(Long minPrice, Long maxPrice);
+
+    // Tìm các SKU theo danh sách spuId và trong khoảng giá
+    @Query("SELECT s FROM SkuEntity s JOIN s.spu sp " +
+            "WHERE (:brandId IS NULL OR sp.brandId = :brandId) " +
+            "AND s.skuPrice BETWEEN :minPrice AND :maxPrice")
+    List<SkuEntity> findByBrandAndPrice(Long brandId, Long minPrice, Long maxPrice);
+
+
+
 }
