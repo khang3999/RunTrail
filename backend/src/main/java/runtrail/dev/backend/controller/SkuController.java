@@ -17,7 +17,6 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
-
     // Lấy tất cả các SKU
     @GetMapping
     public ResponseEntity<List<SkuEntity>> getAllSkus() {
@@ -33,13 +32,16 @@ public class SkuController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Lọc sản phẩm theo giá
     @GetMapping("/filter")
-    public ResponseEntity<List<SkuEntity>> filterSkus(
+    public List<SkuEntity> filterSkus(
+            @RequestParam(required = false) Long brandId,
             @RequestParam(required = false, defaultValue = "0") Long minPrice,
             @RequestParam(required = false, defaultValue = "20000000") Long maxPrice) {
 
-        List<SkuEntity> filteredSkus = skuService.getSkusByPriceRange(minPrice, maxPrice);
-        return new ResponseEntity<>(filteredSkus, HttpStatus.OK);
+        System.out.println("Brand IDs: " + brandId);
+        System.out.println("Min Price: " + minPrice);
+        System.out.println("Max Price: " + maxPrice);
+        return skuService.filterSkus(brandId, minPrice, maxPrice);
     }
+
 }

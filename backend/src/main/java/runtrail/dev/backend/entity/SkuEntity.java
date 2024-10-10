@@ -32,7 +32,7 @@ public class SkuEntity {
     private long skuPrice;
 
     @Column(name = "sku_attri", columnDefinition = "json")
-    private String skuAttri; 
+    private String skuAttri;
 
     
 }
