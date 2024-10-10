@@ -34,59 +34,71 @@ const BrandsFilter = () => {
 
     // Hàm lọc sản phẩm theo các thương hiệu đã chọn
     const filterProductsByBrand = async () => {
+        let res = ""
         if (selectedBrands.length === 0) {
-            // Nếu không có thương hiệu nào được chọn, có thể bỏ qua hoặc lấy tất cả
-            return;
+            res = await fetch(
+                `http://localhost:8008/api/skus`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+        } else {
+            const selected = selectedBrands.join(',');
+            res = await fetch(
+                `http://localhost:8008/api/skus/filter?brandId=${selected}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
         }
 
-        const selected = selectedBrands.join(','); // Chuyển đổi mảng ID thành chuỗi
-        const res = await fetch(
-            `http://localhost:8008/api/skus/filter?brandId=${selected}`, // Gửi yêu cầu đến API
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
 
-        const data = await res.json(); // Nhận dữ liệu từ API
-        setProducts(data); // Cập nhật danh sách sản phẩm
+
+        const data = await res.json();
+        setProducts(data);
     };
 
     return (
-        <div className="w-80 mx-auto text-black">
-            <div className="border p-2 bg-white">
+        <div className="w-full max-w-lg mx-auto text-black">
+            <div className="p-4 bg-white rounded-lg shadow-md">
                 <input
                     type="text"
-                    placeholder="Tùy chọn tìm kiếm."
-                    className="w-full p-2 mb-2 border"
+                    placeholder="Tìm kiếm thương hiệu"
+                    className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <div className="max-h-48 overflow-y-auto">
                     {brands.map((brand) => (
-                        <div key={brand.id} className="flex items-center mb-1">
+                        <div key={brand.id} className="flex items-center mb-2">
                             <input
                                 type="checkbox"
-                                id={`brand-${brand.id}`} // ID checkbox
-                                checked={selectedBrands.includes(brand.id)} // Kiểm tra xem thương hiệu có được chọn không
-                                onChange={() => handleBrandChange(brand.id)} // Thay đổi trạng thái khi click
+                                id={`brand-${brand.id}`}
+                                checked={selectedBrands.includes(brand.id)}
+                                onChange={() => handleBrandChange(brand.id)}
                                 className="mr-2"
                             />
                             <label htmlFor={`brand-${brand.id}`} className="flex-grow text-sm">
-                                {brand.brandName} // Tên thương hiệu
+                                {brand.brandName}
                             </label>
                         </div>
                     ))}
                 </div>
             </div>
+
             <button
-                className="uppercase mt-4 py-2 rounded-lg border-gray-300 w-full border"
-                onClick={() => filterProductsByBrand()} // Gọi hàm lọc khi click
+                className="uppercase mt-4 py-3 rounded-lg border-gray-300 w-full text-black border transition-all"
+                onClick={() => filterProductsByBrand()}
             >
-                FILTER
+                Search
             </button>
         </div>
     );
 };
 
 export default BrandsFilter;
+

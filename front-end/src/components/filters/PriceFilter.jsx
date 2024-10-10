@@ -44,46 +44,47 @@ const PriceFilter = ({ brandId }) => {
 	};
 
 	return (
-		<div className="w-full">
-			<div className="px-1">
+		<div className="w-full max-w-lg mx-auto p-4">
+			<div className="px-2 mb-4">
 				<Slider
 					range
 					min={0}
 					max={20000000}
 					value={range}
 					onChange={handleRangeChange}
+					trackStyle={[{ backgroundColor: '#3b82f6' }]}
+					handleStyle={[{ borderColor: '#3b82f6' }, { borderColor: '#3b82f6' }]}
 				/>
 			</div>
-			<div className="flex items-center justify-between w-full">
+			<div className="flex items-center justify-between w-full mb-4 text-gray-700">
 				<span>{range[0].toLocaleString('vi-VN')}đ</span>
 				<span>{range[1].toLocaleString('vi-VN')}đ</span>
 			</div>
-			<div className="flex items-center justify-center flex-col mt-4">
+			<div className="flex flex-col sm:flex-row items-center justify-center gap-2">
 				<input
-					className="w-full outline-none border border-gray-300 rounded-lg p-2"
+					className="w-full sm:w-1/2 outline-none border border-gray-300 rounded-lg p-2"
 					type="number"
 					value={range[0]}
 					onChange={(e) =>
 						handleRangeChange([Number(e.target.value), range[1]])
 					}
 				/>
-				<span> - </span>
+				<span className="text-gray-500"> - </span>
 				<input
-					disabled
-					className="w-full outline-none border border-gray-300 rounded-lg p-2"
+					className="w-full sm:w-1/2 outline-none border border-gray-300 rounded-lg p-2"
 					type="number"
 					value={range[1]}
 					onChange={(e) =>
 						handleRangeChange([range[0], Number(e.target.value)])
 					}
 				/>
-				{/* Message */}
-				<div className="text-sm font-semibold mt-2">
-					{message && <p className="text-red-500">{message}</p>}
-				</div>
+			</div>
+			{/* Message */}
+			<div className="text-sm font-semibold mt-2 text-red-500 text-center">
+				{message && <p>{message}</p>}
 			</div>
 			<button
-				className="uppercase mt-4 py-2 rounded-lg border-gray-300 w-full border"
+				className="uppercase mt-4 py-2 rounded-lg border-gray-300 w-full border text-black transition-all"
 				onClick={() => handleFilterProducts()}
 			>
 				SEARCH
@@ -93,3 +94,4 @@ const PriceFilter = ({ brandId }) => {
 };
 
 export default PriceFilter;
+
