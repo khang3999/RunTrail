@@ -3,11 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useProductProvider } from '@/contexts/ProductProvider';
 
 const BrandsFilter = () => {
-    const [brands, setBrands] = useState([]); // Danh sách thương hiệu
-    const [selectedBrands, setSelectedBrands] = useState([]); // Thương hiệu đã chọn
-    const { setProducts } = useProductProvider(); // Hook để cập nhật danh sách sản phẩm
+    const [brands, setBrands] = useState([]);
+    const [selectedBrands, setSelectedBrands] = useState([]);
+    const { setProducts } = useProductProvider(); 
 
-    // Fetch danh sách các thương hiệu từ API
     useEffect(() => {
         const fetchBrandsData = async () => {
             const res = await fetch('http://localhost:8008/api/brands', {
@@ -18,50 +17,51 @@ const BrandsFilter = () => {
             });
 
             const data = await res.json();
-            setBrands(data); // Cập nhật danh sách thương hiệu
+            console.log(data);
+            
+            setBrands(data); 
         };
         fetchBrandsData();
     }, []);
 
-    // Hàm xử lý khi người dùng chọn hoặc bỏ chọn một thương hiệu
     const handleBrandChange = (brandId) => {
         if (selectedBrands.includes(brandId)) {
-            setSelectedBrands(selectedBrands.filter((id) => id !== brandId)); // Bỏ chọn
+            setSelectedBrands(selectedBrands.filter((id) => id !== brandId)); 
         } else {
-            setSelectedBrands([...selectedBrands, brandId]); // Chọn thương hiệu
+            setSelectedBrands([...selectedBrands, brandId]);
         }
     };
 
-    // Hàm lọc sản phẩm theo các thương hiệu đã chọn
+    // Hàm lọc sản phẩm theo các tiêu chí đã chọn
     const filterProductsByBrand = async () => {
-        let res = ""
-        if (selectedBrands.length === 0) {
-            res = await fetch(
-                `http://localhost:8008/api/skus`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
-        } else {
+        const params = new URLSearchParams();
+
+        if (selectedBrands.length > 0) {
             const selected = selectedBrands.join(',');
-            res = await fetch(
-                `http://localhost:8008/api/skus/filter?brandId=${selected}`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
+            params.append('brandId', selected);
         }
 
+        // Bạn có thể thêm các tham số khác vào đây
+        // Ví dụ, nếu có param price range:
+        // params.append('priceMin', 100);
+        // params.append('priceMax', 1000);
 
+        const queryString = params.toString();
+
+        const res = await fetch(
+            `http://localhost:8008/api/v1/spu/filter?${queryString}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
 
         const data = await res.json();
-        setProducts(data);
+        console.log(data);
+        
+        setProducts(data.metadata.content);
     };
 
     return (
@@ -101,4 +101,3 @@ const BrandsFilter = () => {
 };
 
 export default BrandsFilter;
-
