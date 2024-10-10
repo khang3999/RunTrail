@@ -7,12 +7,13 @@ import { useProductProvider } from '@/contexts/ProductProvider';
 const PriceFilter = () => {
 	const [range, setRange] = useState([0, 20000000]);
 	const [message, setMessage] = useState('');
-	const { setProducts } = useProductProvider();
+	const { setProducts, setTotalPages, setNumberOfElements } =
+		useProductProvider();
 
 	const handleFilterProductsByPrice = async () => {
 		console.log(`Search for prices between ${range[0]} and ${range[1]}`);
 		const response = await fetch(
-			`http://localhost:8008/api/skus/filter?minPrice=${range[0]}&maxPrice=${range[1]}`,
+			`http://localhost:8008/api/v1/spu/filter?minPrice=${range[0]}&maxPrice=${range[1]}`,
 			{
 				method: 'GET',
 				headers: {
@@ -20,15 +21,14 @@ const PriceFilter = () => {
 				},
 			}
 		);
-
 		const data = await response.json();
-		console.log(data);
-		if (data.length === 0) {
-			setProducts([]);
-			return;
-		} else {
-			setProducts(data);
-		}
+		setProducts([]);
+		const {
+			metadata: { content: products, totalPages, numberOfElements },
+		} = data;
+		setProducts(products);
+		setTotalPages(totalPages);
+		setNumberOfElements(numberOfElements);
 	};
 
 	const handleRangeChange = (value) => {
