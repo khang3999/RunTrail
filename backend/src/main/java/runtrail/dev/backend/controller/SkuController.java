@@ -17,11 +17,23 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
-    // Lấy tất cả các SKU
+
+    // This method handles both getting all SKUs and getting SKUs by category
     @GetMapping
-    public ResponseEntity<List<SkuEntity>> getAllSkus() {
-        List<SkuEntity> skus = skuService.getAllSkus();
-        return new ResponseEntity<>(skus, HttpStatus.OK);
+    public ResponseEntity<List<SkuEntity>> getAllSkus(
+            @RequestParam(value = "categoryId", required = false) Long categoryId) {
+
+        List<SkuEntity> skus;
+
+        if (categoryId != null) {
+            // Fetch SKUs by category
+            skus = skuService.getSkusByCategoryOrParent(categoryId);
+        } else {
+            // Fetch all SKUs
+            skus = skuService.getAllSkus();
+        }
+
+        return ResponseEntity.ok(skus);
     }
 
     // Lấy SKU theo ID
@@ -32,6 +44,8 @@ public class SkuController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
+    // Lọc sản phẩm theo giá
     @GetMapping("/filter")
     public List<SkuEntity> filterSkus(
             @RequestParam(required = false) Long brandId,
