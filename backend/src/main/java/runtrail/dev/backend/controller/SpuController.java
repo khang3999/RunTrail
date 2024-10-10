@@ -62,8 +62,10 @@ public class SpuController {
             @RequestParam(defaultValue = "desc") String direction,
             @RequestParam(defaultValue = "0") long minPrice,
             @RequestParam(defaultValue = "200000") long maxPrice,
-            @RequestParam(defaultValue = "") List<Long> brandIds
-    ) {
+            @RequestParam(defaultValue = "") List<Long> brandIds,
+            @RequestParam(defaultValue = "desc") String sortPrice
+
+            ) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
