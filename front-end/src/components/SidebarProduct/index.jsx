@@ -1,6 +1,6 @@
 import React from 'react';
-import FilterItem from '../filters/FilterItem';
-import PriceFilter from '../filters/PriceFilter';
+import FilterItem from '@/components/Filters/FilterItem';
+import PriceFilter from '@/components/Filters/PriceFilter';
 
 const SideBarProduct = () => {
 	return (

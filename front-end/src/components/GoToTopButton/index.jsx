@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import '@/assets/css/goToTopBtn.css'; 
 
-const GoToTopButton = () => {
+const Index = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     const scrollToTop = () => {
@@ -43,4 +43,4 @@ const GoToTopButton = () => {
     );
 };
 
-export default GoToTopButton;
+export default Index;

@@ -1,6 +1,7 @@
 import React from "react";
-import ProductGrid from "@/components/grid_product/grid_product";
-import SideBarProduct from "@/components/side_bar_product/side_bar_product";
+import ProductGrid from "@/components/GridProduct";
+import SideBarProduct from "@/components/SidebarProduct";
+import QuickFilter from "@/components/QuickFilter";
 import styles from "./home_page.module.css";
 
 const HomePage = () => {
@@ -10,6 +11,7 @@ const HomePage = () => {
         <SideBarProduct />
       </div>
       <div style={{ flex: 9 }}>
+          <QuickFilter />
         <ProductGrid />
       </div>
     </div>
