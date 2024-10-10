@@ -15,7 +15,6 @@ public class SkuServiceImpl implements SkuService {
     @Autowired
     private SkuRepository skuRepository;
 
-
     @Override
     public List<SkuEntity> getAllSkus() {
         return skuRepository.findAll();
@@ -26,8 +25,10 @@ public class SkuServiceImpl implements SkuService {
         return skuRepository.findById(id);
     }
 
-     @Override
-     public List<SkuEntity> getSkusByPriceRange(Long minPrice, Long maxPrice) {
-        return skuRepository.findBySkuPriceBetween(minPrice, maxPrice);
-     }
+    @Override
+    public List<SkuEntity> filterSkus(Long brandId, Long minPrice, Long maxPrice) {
+        return skuRepository.findByBrandAndPrice(brandId, minPrice, maxPrice);
+    }
+
+
 }

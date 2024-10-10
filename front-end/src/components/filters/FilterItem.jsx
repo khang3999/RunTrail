@@ -20,7 +20,7 @@ function FilterItem({ title, children }) {
 				</button>
 			</div>
 			{/* Children */}
-			<div className={`mt-4 w-full ${expand ? 'block' : 'hidden'}`}>
+			<div className={`mt-4 w-full flex ${expand ? 'block' : 'hidden'}`}>
 				{children}
 			</div>
 		</div>

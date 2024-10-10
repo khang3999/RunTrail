@@ -1,4 +1,5 @@
 import React from 'react';
+import BrandsFilter from "@/components/filters/BrandsFilter";
 import FilterItem from '../filters/FilterItem';
 import PriceFilter from '../filters/PriceFilter';
 
@@ -8,6 +9,11 @@ const SideBarProduct = () => {
 			<h1>SideBarProduct</h1>
 			{/* Filter by price */}
 			<div className="mt-4">
+
+				<FilterItem title={'Thương Hiệu'}>
+					<BrandsFilter/>
+				</FilterItem>
+
 				<FilterItem title={'Giá'}>
 					{/* Range price */}
 					<div>
