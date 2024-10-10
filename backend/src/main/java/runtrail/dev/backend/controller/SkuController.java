@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/skus")
+@RequestMapping("/api/v1/sku")
 public class SkuController {
 
     @Autowired
