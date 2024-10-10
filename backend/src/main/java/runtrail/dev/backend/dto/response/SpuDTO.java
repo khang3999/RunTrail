@@ -16,6 +16,8 @@ public class SpuDTO {
 
     private long brandId;
 
+    private String brandName;
+
     private long spuPrice;
 
     private String spuThumbnail;
