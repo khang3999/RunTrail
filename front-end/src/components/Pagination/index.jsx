@@ -15,8 +15,7 @@ export default function Pagination() {
         <div className="my-3 flex items-center gap-2">
             <span>{numberOfElements}</span>
             <PaginationItem isDisable={(currentPage === 1)} onClick={() => setCurrentPage(1)}>
-                <FontAwesomeIcon icon={faChevronLeft} className="fa-fw" />
-                <FontAwesomeIcon icon={faChevronLeft} className="fa-fw" />
+                start
             </PaginationItem>
             <PaginationItem isDisable={(currentPage === 1)} onClick={() => currentPage !== 1 && setCurrentPage(currentPage - 1)}>
                 <FontAwesomeIcon icon={faChevronLeft} className="fa-fw" />
@@ -30,7 +29,7 @@ export default function Pagination() {
                 <FontAwesomeIcon icon={faChevronRight} className="fa-fw" />
             </PaginationItem>
             <PaginationItem isDisable={(currentPage === totalPages)} onClick={() => setCurrentPage(totalPages)}>
-                end
+            end
             </PaginationItem>
         </div>
     )
