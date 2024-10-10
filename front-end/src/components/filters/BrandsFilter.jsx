@@ -1,6 +1,7 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useProductProvider } from '@/contexts/ProductProvider';
+import debounce from 'lodash.debounce';
 
 const BrandsFilter = () => {
     const [brands, setBrands] = useState([]);
@@ -17,22 +18,12 @@ const BrandsFilter = () => {
             });
 
             const data = await res.json();
-            
             setBrands(data); 
         };
         fetchBrandsData();
     }, []);
 
-    const handleBrandChange = (brandId) => {
-        if (selectedBrands.includes(brandId)) {
-            setSelectedBrands(selectedBrands.filter((id) => id !== brandId)); 
-        } else {
-            setSelectedBrands([...selectedBrands, brandId]);
-        }
-    };
-
-    // Hàm lọc sản phẩm theo các tiêu chí đã chọn
-    const filterProductsByBrand = async () => {
+    const filterProductsByBrand = async (selectedBrands) => {
         const params = new URLSearchParams();
 
         if (selectedBrands.length > 0) {
@@ -54,6 +45,20 @@ const BrandsFilter = () => {
 
         const data = await res.json();        
         setProducts(data.metadata.content);
+    };
+
+    // Sử dụng debounce để giảm tải gọi API
+    const debouncedFilterProducts = useCallback(debounce(filterProductsByBrand, 500), []);
+
+    const handleBrandChange = (brandId) => {
+        const updatedSelectedBrands = selectedBrands.includes(brandId)
+            ? selectedBrands.filter((id) => id !== brandId)
+            : [...selectedBrands, brandId];
+
+        setSelectedBrands(updatedSelectedBrands);
+
+        // Gọi hàm lọc sản phẩm với debounce
+        debouncedFilterProducts(updatedSelectedBrands);
     };
 
     return (
@@ -81,13 +86,6 @@ const BrandsFilter = () => {
                     ))}
                 </div>
             </div>
-
-            <button
-                className="uppercase mt-4 py-3 rounded-lg border-gray-300 w-full text-black border transition-all"
-                onClick={() => filterProductsByBrand()}
-            >
-                Search
-            </button>
         </div>
     );
 };
