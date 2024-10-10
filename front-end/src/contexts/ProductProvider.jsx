@@ -17,9 +17,13 @@ function ProductProvider({ children }) {
 	const fetchProducts = async () => {
 		try {
 			setIsLoading(true);
-			const response = await fetch(`http://localhost:8008/api/v1/spu/filter?page=${currentPage}&size=${productsPerPage}`);
+			const response = await fetch(
+				`http://localhost:8008/api/v1/spu/filter?page=${currentPage}&size=${productsPerPage}`
+			);
 			const data = await response.json();
-			const {metadata:{content:products,totalPages,numberOfElements}} = data;
+			const {
+				metadata: { content: products, totalPages, numberOfElements },
+			} = data;
 			setProducts(products);
 			setTotalPages(totalPages);
 			setNumberOfElements(numberOfElements);
@@ -51,7 +55,9 @@ function ProductProvider({ children }) {
 				indexOfLastProduct,
 				indexOfFirstProduct,
 				currentProducts,
-				numberOfElements
+				numberOfElements,
+				setTotalPages,
+				setNumberOfElements,
 			}}
 		>
 			{children}
