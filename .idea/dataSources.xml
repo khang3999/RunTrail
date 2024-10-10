@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="runtraildb@localhost" uuid="cfcd3b74-e697-4fb9-ba04-f36f517159da">
+    <data-source source="LOCAL" name="runtraildb@localhost" uuid="98e72f92-2a9d-4a37-aa38-9ff2a3049867">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
