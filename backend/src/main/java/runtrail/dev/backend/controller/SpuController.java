@@ -63,13 +63,13 @@ public class SpuController {
             @RequestParam(defaultValue = "0") long minPrice,
             @RequestParam(defaultValue = "200000") long maxPrice,
             @RequestParam(defaultValue = "") List<Long> brandIds,
-            @RequestParam(defaultValue = "desc") String sortPrice
+            @RequestParam(defaultValue = "") String contentOrderBy
 
             ) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
-        Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice,maxPrice,brandIds,pageable);
+        Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice,maxPrice,brandIds,contentOrderBy ,pageable);
         return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
     }
 
