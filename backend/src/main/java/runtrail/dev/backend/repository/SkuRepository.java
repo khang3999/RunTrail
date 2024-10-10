@@ -11,6 +11,12 @@ import java.util.List;
 @Repository
 public interface SkuRepository extends JpaRepository<SkuEntity, Long> {
     List<SkuEntity> findBySkuName(String skuName);
-    @Query("SELECT s FROM SkuEntity s JOIN s.spu spu WHERE spu.category.id = :categoryId")
-    List<SkuEntity> findSkuEntitiesByCategoryId(@Param("categoryId") Long categoryId);
+
+    @Query("SELECT s FROM SkuEntity s " +
+            "JOIN s.spu spu " +
+            "JOIN spu.category c " +
+            "WHERE c.id = :categoryId OR c.parentId = :categoryId")
+    List<SkuEntity> findSkusByCategoryOrParent(@Param("categoryId") Long categoryId);
+
+
 }

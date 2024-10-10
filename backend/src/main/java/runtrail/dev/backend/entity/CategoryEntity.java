@@ -18,8 +18,8 @@ public class CategoryEntity {
     @Column(name = "name")
     public String name;
 
-    @ManyToOne
 
+    @JoinColumn(name = "parent_id")
     private Long parentId;
 
 }

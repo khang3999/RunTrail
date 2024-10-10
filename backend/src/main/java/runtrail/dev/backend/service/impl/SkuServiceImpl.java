@@ -2,7 +2,9 @@ package runtrail.dev.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import runtrail.dev.backend.entity.CategoryEntity;
 import runtrail.dev.backend.entity.SkuEntity;
+import runtrail.dev.backend.repository.CategoryRepository;
 import runtrail.dev.backend.repository.SkuRepository;
 import runtrail.dev.backend.service.SkuService;
 
@@ -15,6 +17,8 @@ public class SkuServiceImpl implements SkuService {
     @Autowired
     private SkuRepository skuRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public List<SkuEntity> getAllSkus() {
@@ -27,8 +31,20 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public List<SkuEntity> getSkusByCategoryId(long categoryId) {
-        return skuRepository.findSkuEntitiesByCategoryId(categoryId);
+    public List<SkuEntity> getSkusByCategoryOrParent(Long categoryId) {
+        // Fetch the category to check the parentId
+        CategoryEntity category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        Long parentId = category.getParentId();
+
+        // If parentId is -1, fetch SKUs for the category and its subcategories
+        if (parentId == -1) {
+            return skuRepository.findSkusByCategoryOrParent(categoryId);
+        } else {
+            // Otherwise, fetch SKUs only for the specified category
+            return skuRepository.findSkusByCategoryOrParent(categoryId);
+        }
     }
 
 

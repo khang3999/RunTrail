@@ -27,7 +27,7 @@ public class SkuController {
 
         if (categoryId != null) {
             // Fetch SKUs by category
-            skus = skuService.getSkusByCategoryId(categoryId);
+            skus = skuService.getSkusByCategoryOrParent(categoryId);
         } else {
             // Fetch all SKUs
             skus = skuService.getAllSkus();
