@@ -17,7 +17,6 @@ const BrandsFilter = () => {
             });
 
             const data = await res.json();
-            console.log(data);
             
             setBrands(data); 
         };
@@ -38,13 +37,8 @@ const BrandsFilter = () => {
 
         if (selectedBrands.length > 0) {
             const selected = selectedBrands.join(',');
-            params.append('brandId', selected);
+            params.append('brandIds', selected);
         }
-
-        // Bạn có thể thêm các tham số khác vào đây
-        // Ví dụ, nếu có param price range:
-        // params.append('priceMin', 100);
-        // params.append('priceMax', 1000);
 
         const queryString = params.toString();
 
@@ -58,9 +52,7 @@ const BrandsFilter = () => {
             }
         );
 
-        const data = await res.json();
-        console.log(data);
-        
+        const data = await res.json();        
         setProducts(data.metadata.content);
     };
 

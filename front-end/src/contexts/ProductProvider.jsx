@@ -6,7 +6,7 @@ function ProductProvider({ children }) {
 	const [products, setProducts] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [currentPage, setCurrentPage] = React.useState(1);
-	const [productsPerPage] = React.useState(4);
+	const [productsPerPage] = React.useState(3);
 	const [totalPages, setTotalPages] = React.useState(0);
 	const [numberOfElements, setNumberOfElements] = React.useState(0);
 
