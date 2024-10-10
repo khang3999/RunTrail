@@ -13,7 +13,7 @@ public class SkuEntity {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "spu_id", referencedColumnName = "id")
+    @JoinColumn(name = "spu_id", nullable = false)
     private SpuEntity spu;
 
     @Column(name = "sku_name", nullable = false, length = 100)
