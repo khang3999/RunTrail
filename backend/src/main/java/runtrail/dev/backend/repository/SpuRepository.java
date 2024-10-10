@@ -17,6 +17,6 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
     List<SpuEntity> findBySpuName(String spuName);
 
     // find Spu filter and  contain price, thumb
-    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id,u.spuName,u.spuDescription,u.categoryId,u.brandId,(select min(s.skuPrice) from SkuEntity s where s.spu.id = u.id ),si.imgUrl,u.spuStatus)  FROM SpuEntity u inner join SpuImagesEntity si on u.id = si.spuId")
-    Page<SpuDTO> findBySpuFilter(Pageable pageable);
+    @Query("SELECT  new runtrail.dev.backend.dto.response.SpuDTO(u.id,u.spuName,u.spuDescription,u.categoryId,u.brandId,min(sk.skuPrice),'images',u.spuStatus) FROM SpuEntity u inner join SkuEntity sk on sk.spu.id = u.id where sk.skuPrice >= ?1 and sk.skuPrice <= ?2 and case when(?3 is not null) then (u.brandId in (?3)) else (1 = 1) end  GROUP BY (u.id)")
+    Page<SpuDTO> findBySpuFilter(long minPrice,long maxPrice,List<Long> brandIds,Pageable pageable);
 }
