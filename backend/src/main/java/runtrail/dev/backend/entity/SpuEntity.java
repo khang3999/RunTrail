@@ -31,6 +31,9 @@ public class SpuEntity {
     @Column(name = "brand_id")
     private long brandId;
 
+    @Column(name = "discount")
+    private int discount;
+
     @Column(name = "spu_status")
     private int spuStatus;
 }

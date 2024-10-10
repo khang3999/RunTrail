@@ -4,6 +4,8 @@ import ProductItemSkeleton from "@/components/productItemSkeleton";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import HomePage from "./page/home/home_page";
+import GoToTopButton from "@/components/goToTopButton";
 
 
 export default function Home() {
@@ -30,28 +32,8 @@ export default function Home() {
   }, []);
   return (
     <>
-      {loading ? (  // Kiểm tra trạng thái loading
-        <div className='grid grid-cols-2 gap-x-6 gap-y-4 lg:grid-cols-6'>
-          {/* Hiển thị nhiều skeletons */}
-          {Array.from({ length: 6 }).map((_, index) => (
-            <ProductItemSkeleton key={index} />
-          ))}
-        </div>
-      ) : (
-        <div className='grid grid-cols-2 gap-x-6 gap-y-4 lg:grid-cols-6'>
-          {/* Product item */}
-          {products.map((product) => {
-            return (
-              <>
-              <ProductItem key={product.id} product={product}></ProductItem>
-              </>
-            )
-          })
-          }
-        </div >)
-      }
-      {/* <HomeScreen /> */}
-      {/* <GoToTopButton /> */}
+      <HomePage/>
+      <GoToTopButton/>
     </>
   );
 }
