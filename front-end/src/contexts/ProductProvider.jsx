@@ -11,24 +11,24 @@ function ProductProvider({ children }) {
 	const [numberOfElements, setNumberOfElements] = React.useState(0);
 
 	React.useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				setIsLoading(true);
-				const response = await fetch(`http://localhost:8008/api/v1/spu/filter?page=${currentPage}&size=${productsPerPage}`);
-				const data = await response.json();
-				const {metadata:{content:products,totalPages,numberOfElements}} = data;
-				setProducts(products);
-				setTotalPages(totalPages);
-				setNumberOfElements(numberOfElements);
-				setIsLoading(false);
-			} catch (error) {
-				console.error('Error fetching products:', error);
-				setIsLoading(false);
-			}
-		};
-
 		fetchProducts();
 	}, [currentPage]);
+
+	const fetchProducts = async () => {
+		try {
+			setIsLoading(true);
+			const response = await fetch(`http://localhost:8008/api/v1/spu/filter?page=${currentPage}&size=${productsPerPage}`);
+			const data = await response.json();
+			const {metadata:{content:products,totalPages,numberOfElements}} = data;
+			setProducts(products);
+			setTotalPages(totalPages);
+			setNumberOfElements(numberOfElements);
+			setIsLoading(false);
+		} catch (error) {
+			console.error('Error fetching products:', error);
+			setIsLoading(false);
+		}
+	};
 
 	const indexOfLastProduct = currentPage * productsPerPage;
 	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
