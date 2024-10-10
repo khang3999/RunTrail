@@ -6,7 +6,10 @@ import styles from "./home_page.module.css";
 const HomePage = () => {
   return (
     <div className={styles.homepage}>
-      <div className={styles.sidebar} style={{ flex: 3, marginRight: "10px" }}>
+      <div
+        className={styles.sidebar}
+        style={{ flex: 3, marginRight: "10px", height: 1580 }}
+      >
         <SideBarProduct />
       </div>
       <div style={{ flex: 9 }}>
