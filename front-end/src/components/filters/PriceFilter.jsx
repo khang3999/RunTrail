@@ -7,7 +7,9 @@ import { useProductProvider } from '@/contexts/ProductProvider';
 const PriceFilter = ({ brandId }) => {
 	const [range, setRange] = useState([0, 20000000]);
 	const [message, setMessage] = useState('');
-	const { setProducts } = useProductProvider();
+	const { setProducts, setTotalPages, setNumberOfElements } =
+		useProductProvider();
+
 
 	const handleFilterProducts = async () => {
 		console.log(`Search for prices between ${range[0]} and ${range[1]} with brandId: ${brandId}`);
@@ -24,14 +26,15 @@ const PriceFilter = ({ brandId }) => {
 			},
 		});
 
+
 		const data = await response.json();
-		console.log(data);
-		if (data.length === 0) {
-			setProducts([]);
-			return;
-		} else {
-			setProducts(data);
-		}
+		setProducts([]);
+		const {
+			metadata: { content: products, totalPages, numberOfElements },
+		} = data;
+		setProducts(products);
+		setTotalPages(totalPages);
+		setNumberOfElements(numberOfElements);
 	};
 
 	const handleRangeChange = (value) => {
