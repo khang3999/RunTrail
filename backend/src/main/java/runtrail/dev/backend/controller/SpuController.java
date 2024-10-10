@@ -20,12 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-<<<<<<< HEAD
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/spus")
-=======
 @RequestMapping("/api/v1/spu")
->>>>>>> main
 public class SpuController {
 
     Logger logger = LoggerFactory.getLogger(SpuController.class);

@@ -14,9 +14,9 @@ export default function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8008/api/spus'); // Thay thế bằng URL API của bạn
+        const response = await axios.get('http://localhost:8008/api/v1/spu/all'); // Thay thế bằng URL API của bạn
         console.log('done');
-        setProducts(response.data);
+        setProducts(response.data.metadata.content);
       } catch (err) {
         setError(err.message);
         console.log('error');
@@ -26,6 +26,7 @@ export default function Home() {
     };
 
     fetchProducts();
+    
   }, []);
   return (
     <>
@@ -44,7 +45,6 @@ export default function Home() {
               <>
               <ProductItem key={product.id} product={product}></ProductItem>
               </>
-              
             )
           })
           }
