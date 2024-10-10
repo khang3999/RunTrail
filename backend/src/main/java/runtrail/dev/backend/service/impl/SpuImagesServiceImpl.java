@@ -25,6 +25,4 @@ public class SpuImagesServiceImpl implements SpuImagesService {
     public Optional<SpuImagesEntity> getSpuImageById(long id) {
         return spuImagesRepository.findById(id);
     }
-
-   
 }

@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { FaStarHalfStroke , FaStar  } from "react-icons/fa6";
+import '@/assets/css/addToCartBtn.css'
 
 function ProductItem(props) {
     const product = props.product
@@ -29,7 +30,7 @@ function ProductItem(props) {
                         <Link href="/detail" className="title font-semibold line-clamp-2 text-ellipsis">{product.spuName}</Link>
 
                         {/*Rating*/}
-                        <div className='rating flex flex-row'>
+                        <div className='rating flex flex-row mt-2'>
                             <FaStar className='text-yellow-300'/>
                             <FaStar className='text-yellow-300'/>
                             <FaStar className='text-yellow-300'/>

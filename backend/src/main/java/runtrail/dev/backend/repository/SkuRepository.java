@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface SkuRepository extends JpaRepository<SkuEntity, Long> {
     List<SkuEntity> findBySkuName(String skuName);
+    // Truy vấn để tìm các sản phẩm có giá nằm trong khoảng giá trị
+    List<SkuEntity> findBySkuPriceBetween(Long minPrice, Long maxPrice);
 }

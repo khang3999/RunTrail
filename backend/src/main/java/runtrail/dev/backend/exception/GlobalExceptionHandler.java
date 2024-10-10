@@ -9,8 +9,8 @@ import runtrail.dev.backend.dto.response.ErrorResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleGlobalException(ErrorExceptionHandler ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(),ex.getStatusCode());
-        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(ex.getStatusCode()));
+    public ResponseEntity<?> handleGlobalException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(),400);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(400));
     }
 }

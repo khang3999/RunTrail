@@ -33,4 +33,13 @@ public class SkuController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    // Lọc sản phẩm theo giá
+    @GetMapping("/filter")
+    public ResponseEntity<List<SkuEntity>> filterSkus(
+            @RequestParam(required = false, defaultValue = "0") Long minPrice,
+            @RequestParam(required = false, defaultValue = "20000000") Long maxPrice) {
+
+        List<SkuEntity> filteredSkus = skuService.getSkusByPriceRange(minPrice, maxPrice);
+        return new ResponseEntity<>(filteredSkus, HttpStatus.OK);
+    }
 }

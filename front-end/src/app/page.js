@@ -41,7 +41,10 @@ export default function Home() {
           {/* Product item */}
           {products.map((product) => {
             return (
+              <>
               <ProductItem key={product.id} product={product}></ProductItem>
+              </>
+              
             )
           })
           }
