@@ -1,20 +1,17 @@
-import {useProductProvider} from "@/contexts/ProductProvider";
+'use client'
+import { useProductProvider } from "@/contexts/ProductProvider";
 
-const QuickFilter = () => {
-    const {
-        products,
-        isLoading,
-        currentPage,
-        setCurrentPage,
-        productsPerPage,
-        totalPages,
-        currentProducts,
-    } = useProductProvider();
-
+export default function QuickFilter() {
+    const { totalElements } = useProductProvider();
     return (
         <div className="quiz">
-            <p>{((totalPages-1)*productsPerPage)+} san pham</p>
+            <p>{totalElements} san pham</p>
+            {/* Bộ lọc sắp xếp */}
+            <select >
+                <option value="asc">Giá tăng dần</option>
+                <option value="desc">Giá giảm dần</option>
+            </select>
         </div>
+
     )
 }
-export default QuickFilter;

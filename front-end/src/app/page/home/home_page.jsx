@@ -3,6 +3,7 @@ import ProductGrid from "@/components/GridProduct";
 import SideBarProduct from "@/components/SidebarProduct";
 import QuickFilter from "@/components/QuickFilter";
 import styles from "./home_page.module.css";
+import Test from "@/components/test";
 
 const HomePage = () => {
   return (
@@ -11,7 +12,7 @@ const HomePage = () => {
         <SideBarProduct />
       </div>
       <div style={{ flex: 9 }}>
-          <QuickFilter />
+          <QuickFilter/>
         <ProductGrid />
       </div>
     </div>
