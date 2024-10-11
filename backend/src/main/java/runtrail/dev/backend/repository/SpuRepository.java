@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +16,6 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
     List<SpuEntity> findBySpuName(String spuName);
 
     // find Spu filter and  contain price, thumb
-    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.brandId, br.brandName, min(sk.skuPrice), 'images', u.spuStatus)  FROM SpuEntity u INNER JOIN SkuEntity sk ON sk.spu.id = u.id INNER JOIN BrandEntity br ON u.brandId = br.id WHERE sk.skuPrice >= ?1 AND sk.skuPrice <= ?2 AND CASE WHEN ?3 IS NOT NULL THEN u.brandId IN (?3) ELSE 1=1 END AND CASE WHEN ?4 IS NOT NULL THEN u.categoryId = ?4 ELSE 1=1 END GROUP BY u.id")
-
-    Page<SpuDTO> findBySpuFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, Pageable pageable);
+    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.brandId, br.brandName, min(sk.skuPrice), 'images', u.spuStatus, sk.skuAttri) FROM SpuEntity u INNER JOIN SkuEntity sk ON sk.spu.id = u.id INNER JOIN BrandEntity br ON u.brandId = br.id WHERE sk.skuPrice >= :minPrice AND sk.skuPrice <= :maxPrice AND (CASE WHEN :brandIds IS NOT NULL THEN u.brandId IN (:brandIds) ELSE 1=1 END) AND (CASE WHEN :categoryId IS NOT NULL THEN u.categoryId = :categoryId ELSE 1=1 END) AND (CASE WHEN :key IS NOT NULL THEN JSON_EXTRACT(sk.skuAttri,CONCAT('$.',:key)) IN (:value) END) GROUP BY u.id, br.brandName, sk.skuAttri")
+    Page<SpuDTO> findBySpuFilter(@Param("minPrice") long minPrice,@Param("maxPrice") long maxPrice, @Param("brandIds") List<Long> brandIds,@Param("categoryId") Long categoryId, @Param("key") String key,@Param("value") List<String> value, Pageable pageable);
 }
