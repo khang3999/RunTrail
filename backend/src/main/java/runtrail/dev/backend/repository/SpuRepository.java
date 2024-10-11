@@ -18,6 +18,33 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
 
     // find Spu filter and  contain price, thumb
     @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.brandId, br.brandName, min(sk.skuPrice), 'images', u.spuStatus)  FROM SpuEntity u INNER JOIN SkuEntity sk ON sk.spu.id = u.id INNER JOIN BrandEntity br ON u.brandId = br.id WHERE sk.skuPrice >= ?1 AND sk.skuPrice <= ?2 AND CASE WHEN ?3 IS NOT NULL THEN u.brandId IN (?3) ELSE 1=1 END AND CASE WHEN ?4 IS NOT NULL THEN u.categoryId = ?4 ELSE 1=1 END GROUP BY u.id")
+    Page<SpuDTO> findBySpuFilter(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, Pageable pageable);
 
-    Page<SpuDTO> findBySpuFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, Pageable pageable);
+    //DESC
+    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.brandId, br.brandName, MIN(sk.skuPrice), 'images', u.spuStatus) " +
+            "FROM SpuEntity u " +
+            "INNER JOIN SkuEntity sk ON sk.spu.id = u.id " +
+            "INNER JOIN BrandEntity br ON u.brandId = br.id " +
+            "WHERE sk.skuPrice >= ?1 AND sk.skuPrice <= ?2 " +
+            "AND (?3 IS NULL OR u.brandId IN ?3) " +
+            "AND (?4 IS NULL OR u.categoryId IN ?4) " +
+            "GROUP BY u.id " +
+            "ORDER BY min(sk.skuPrice) DESC"
+    )
+    Page<SpuDTO> findBySpuFilterDESC(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, Pageable pageable);
+
+    //ASC
+    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.brandId, br.brandName, MIN(sk.skuPrice), 'images', u.spuStatus) " +
+            "FROM SpuEntity u " +
+            "INNER JOIN SkuEntity sk ON sk.spu.id = u.id " +
+            "INNER JOIN BrandEntity br ON u.brandId = br.id " +
+            "WHERE sk.skuPrice >= ?1 AND sk.skuPrice <= ?2 " +
+            "AND (?3 IS NULL OR u.brandId IN ?3) " +
+            "AND (?4 IS NULL OR u.categoryId IN ?4) " +
+            "GROUP BY u.id " +
+            "ORDER BY min(sk.skuPrice) ASC"
+    )
+    Page<SpuDTO> findBySpuFilterASC(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, Pageable pageable);
+
+
 }

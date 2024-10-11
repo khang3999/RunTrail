@@ -15,4 +15,5 @@ public interface SpuService {
     Page<SpuEntity> findAllSpu(Pageable pageable);
 
     Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, Pageable pageable);
+    Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String contentOrderBy, Pageable pageable);
 }
