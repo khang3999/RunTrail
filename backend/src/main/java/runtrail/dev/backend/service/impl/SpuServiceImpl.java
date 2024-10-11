@@ -34,7 +34,9 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public Page<SpuDTO> getSpuByFilter(Pageable pageable) {
-        return spuRepository.findBySpuFilter(pageable);
+    public Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, Pageable pageable) {
+        brandIds = brandIds.isEmpty() ? null : brandIds;
+        categoryId = categoryId == -1 ? null : categoryId;
+        return spuRepository.findBySpuFilter(minPrice,maxPrice, brandIds, categoryId, pageable);
     }
 }

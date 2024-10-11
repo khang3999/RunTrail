@@ -5,15 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f69244f-0a40-4fa9-8578-0e2dd7a2dc79" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/filters/BrandsFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867/storage_v2/_src_/schema/runtraildb.Gfgf7w.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/98e72f92-2a9d-4a37-aa38-9ff2a3049867/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SkuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SkuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/dto/response/SpuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/dto/response/SpuDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SkuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SkuEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SkuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SkuRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SkuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SkuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SpuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SpuService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SkuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SkuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SpuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SpuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/app/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/Pagination/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/Pagination/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/PaginationItem/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/PaginationItem/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/FilterItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/filters/FilterItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/PriceFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/filters/PriceFilter.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/components/productItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/productItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/side_bar_product/side_bar_product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/side_bar_product/side_bar_product.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,9 +46,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -48,7 +70,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "features/show-product-item",
+    "git-widget-placeholder": "Merging features/show-product-item",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/TDC/HK5/RunTrail",
@@ -57,6 +79,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -78,7 +103,8 @@
       <option name="presentableId" value="Default" />
       <updated>1728529905904</updated>
       <workItem from="1728529907022" duration="1413000" />
-      <workItem from="1728531403159" duration="10405000" />
+      <workItem from="1728531403159" duration="12853000" />
+      <workItem from="1728654395909" duration="917000" />
     </task>
     <servers />
   </component>

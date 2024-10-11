@@ -1,6 +1,5 @@
 package runtrail.dev.backend.controller;
-
-import org.hibernate.query.SortDirection;
+ 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,12 +58,18 @@ public class SpuController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "id") String sort,
-            @RequestParam(defaultValue = "desc") String direction
+            @RequestParam(defaultValue = "desc") String direction,
+            @RequestParam(defaultValue = "0") long minPrice,
+            @RequestParam(defaultValue = "200000") long maxPrice,
+            @RequestParam(defaultValue = "") List<Long> brandIds,
+            @RequestParam(defaultValue = "-1") Long categoryId
+            
     ) {
+        logger.info("category"+categoryId+"");
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
-        Page<SpuDTO> listSpu = spuService.getSpuByFilter(pageable);
+        Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice,maxPrice,brandIds,categoryId,pageable);
         return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
     }
 
