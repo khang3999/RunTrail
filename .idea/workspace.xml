@@ -5,10 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0bd7cc8-d27d-4612-b7af-98a8357d9427" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/assets/css/addToCartBtn.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/assets/css/productitemSkeleton.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/productItem.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/productItemSkeleton.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/QuickFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/filters/QuickFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/dto/response/SpuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/dto/response/SpuDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/app/detail/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/detail/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,32 +64,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;features/quick-filter-new&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/tranthu/RunTrail&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.BackendApplication.executor": "Run",
+    "git-widget-placeholder": "Merging features/quick-filter-new",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/tranthu/RunTrail",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing",
+    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/front-end/src/components/GoToTopButton" />
@@ -113,7 +128,7 @@
       <workItem from="1728546143420" duration="11253000" />
       <workItem from="1728654280477" duration="3602000" />
       <workItem from="1728657896026" duration="1347000" />
-      <workItem from="1728659265614" duration="6810000" />
+      <workItem from="1728659265614" duration="9060000" />
     </task>
     <servers />
   </component>
