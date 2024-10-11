@@ -2,39 +2,18 @@
 import React, { useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { useProductProvider } from '@/contexts/ProductProvider';
+import { useFilterProvider } from '@/contexts/FilterProductProvider';
 
-const PriceFilter = ({ brandId }) => {
+const PriceFilter = () => {
 	const [range, setRange] = useState([0, 20000000]);
 	const [message, setMessage] = useState('');
-	const { setProducts, setTotalPages, setNumberOfElements } =
-		useProductProvider();
 
+	const { setMinPrice, setMaxPrice, setSearch } = useFilterProvider();
 
 	const handleFilterProducts = async () => {
-		console.log(`Search for prices between ${range[0]} and ${range[1]} with brandId: ${brandId}`);
-		let url = `http://localhost:8008/api/skus/filter?minPrice=${range[0]}&maxPrice=${range[1]}`;
-
-		if (brandId) {
-			url += `&brandId=${brandId}`;
-		}
-
-		const response = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-
-
-		const data = await response.json();
-		setProducts([]);
-		const {
-			metadata: { content: products, totalPages, numberOfElements },
-		} = data;
-		setProducts(products);
-		setTotalPages(totalPages);
-		setNumberOfElements(numberOfElements);
+		setMinPrice(range[0]);
+		setMaxPrice(range[1]);
+		setSearch(true);
 	};
 
 	const handleRangeChange = (value) => {
@@ -56,7 +35,10 @@ const PriceFilter = ({ brandId }) => {
 					value={range}
 					onChange={handleRangeChange}
 					trackStyle={[{ backgroundColor: '#3b82f6' }]}
-					handleStyle={[{ borderColor: '#3b82f6' }, { borderColor: '#3b82f6' }]}
+					handleStyle={[
+						{ borderColor: '#3b82f6' },
+						{ borderColor: '#3b82f6' },
+					]}
 				/>
 			</div>
 			<div className="flex items-center justify-between w-full mb-4 text-gray-700">
@@ -88,7 +70,9 @@ const PriceFilter = ({ brandId }) => {
 			</div>
 			<button
 				className="uppercase mt-4 py-2 rounded-lg border-gray-300 w-full border text-black transition-all"
-				onClick={() => handleFilterProducts()}
+				onClick={() => {
+					handleFilterProducts();
+				}}
 			>
 				SEARCH
 			</button>
@@ -97,4 +81,3 @@ const PriceFilter = ({ brandId }) => {
 };
 
 export default PriceFilter;
-
