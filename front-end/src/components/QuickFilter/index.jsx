@@ -6,9 +6,10 @@ export default function QuickFilter() {
 
 	const [contentOrderBy, setContentOrderBy] = useState('desc');
     const { totalElements } = useProductProvider();
+    
     const handleQuickFilterProducts = async () => {
 		const response = await fetch(
-			`http://localhost:8008/api/skus/filter?contentOrderBy=${contentOrderBy}`,
+			`http://localhost:8008//api/v1/spu/filter?contentOrderBy=${contentOrderBy}`,
 			{
 				method: 'GET',
 				headers: {
@@ -26,22 +27,23 @@ export default function QuickFilter() {
 			setProducts(data);
 		}
 	};
+    
     const handleContentChange = (value) => {
 		setContentOrderBy(value);
-		handleQuickFilterProducts()
+		handleQuickFilterProducts();
 	};
     
     return (
         <div className="quiz" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <p>{totalElements} sản phẩm</p>
-            <select style={{ border: '1px solid black', borderRadius: '4px' }}>
+            <select
+                style={{ border: '1px solid black', borderRadius: '4px' }}
+                onChange={(e) => handleContentChange(e.target.value)}
+            >
                 <option value="" disabled selected hidden>Chọn sắp xếp</option>
-                <option value="asc" onClick={(e)=>handleContentChange(e.target.value)}>Giá tăng dần</option>
-                <option value="desc" onClick={(e)=>handleContentChange(e.target.value)}>Giá giảm dần</option>
+                <option value="asc">Giá tăng dần</option>
+                <option value="desc">Giá giảm dần</option>
             </select>
         </div>
-
-
-
-    )
+    );
 }

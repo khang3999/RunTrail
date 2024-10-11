@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0bd7cc8-d27d-4612-b7af-98a8357d9427" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" afterDir="false" />
-    </list>
+    <list default="true" id="e0bd7cc8-d27d-4612-b7af-98a8357d9427" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +99,7 @@
       <updated>1728539602128</updated>
       <workItem from="1728539603295" duration="5075000" />
       <workItem from="1728546143420" duration="11253000" />
-      <workItem from="1728654280477" duration="910000" />
+      <workItem from="1728654280477" duration="1515000" />
     </task>
     <servers />
   </component>
