@@ -1,6 +1,7 @@
 import React from 'react';
 import AppProvider from './AppProvider';
 import ProductProvider from './ProductProvider';
+import FilterProvider from './FilterProductProvider';
 
 const combineProviders = (...providers) =>
 	providers.reduce(
@@ -15,7 +16,8 @@ const combineProviders = (...providers) =>
 
 const Providers = combineProviders(
 	AppProvider, // Thêm AppProvider
-	ProductProvider // Thêm ProductProvider
+	ProductProvider, // Thêm ProductProvider
+	FilterProvider // Thêm FilterProvider
 );
 
 export default Providers;

@@ -18,11 +18,22 @@ public class SkuController {
     private SkuService skuService;
 
 
-    // Lấy tất cả các SKU
+    // This method handles both getting all SKUs and getting SKUs by category
     @GetMapping
-    public ResponseEntity<List<SkuEntity>> getAllSkus() {
-        List<SkuEntity> skus = skuService.getAllSkus();
-        return new ResponseEntity<>(skus, HttpStatus.OK);
+    public ResponseEntity<List<SkuEntity>> getAllSkus(
+            @RequestParam(value = "categoryId", required = false) Long categoryId) {
+
+        List<SkuEntity> skus;
+
+        if (categoryId != null) {
+            // Fetch SKUs by category
+            skus = skuService.getSkusByCategoryOrParent(categoryId);
+        } else {
+            // Fetch all SKUs
+            skus = skuService.getAllSkus();
+        }
+
+        return ResponseEntity.ok(skus);
     }
 
     // Lấy SKU theo ID
@@ -33,13 +44,18 @@ public class SkuController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
     // Lọc sản phẩm theo giá
     @GetMapping("/filter")
-    public ResponseEntity<List<SkuEntity>> filterSkus(
+    public List<SkuEntity> filterSkus(
+            @RequestParam(required = false) Long brandId,
             @RequestParam(required = false, defaultValue = "0") Long minPrice,
             @RequestParam(required = false, defaultValue = "20000000") Long maxPrice) {
 
-        List<SkuEntity> filteredSkus = skuService.getSkusByPriceRange(minPrice, maxPrice);
-        return new ResponseEntity<>(filteredSkus, HttpStatus.OK);
+        System.out.println("Brand IDs: " + brandId);
+        System.out.println("Min Price: " + minPrice);
+        System.out.println("Max Price: " + maxPrice);
+        return skuService.filterSkus(brandId, minPrice, maxPrice);
     }
+
 }
