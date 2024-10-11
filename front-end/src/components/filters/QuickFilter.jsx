@@ -1,15 +1,15 @@
 'use client'
 import { useProductProvider } from "@/contexts/ProductProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function QuickFilter() {
 
-	const [contentOrderBy, setContentOrderBy] = useState('desc');
-    const { totalElements } = useProductProvider();
+	const [contentOrderBy, setContentOrderBy] = useState('');
+    const { totalElements, setProducts } = useProductProvider();
     
     const handleQuickFilterProducts = async () => {
 		const response = await fetch(
-			`http://localhost:8008//api/v1/spu/filter1?contentOrderBy=${contentOrderBy}`,
+			`http://localhost:8008/api/v1/spu/filter1?contentOrderBy=${contentOrderBy}`,
 			{
 				method: 'GET',
 				headers: {
@@ -24,13 +24,19 @@ export default function QuickFilter() {
 			setProducts([]);
 			return;
 		} else {
-			setProducts(data);
+			setProducts(data.metadata.content);
+            console.log(data.metadata.content);
 		}
 	};
-    
+
+    useEffect(() => {
+        handleQuickFilterProducts()
+    }, [contentOrderBy]);
+
     const handleContentChange = (value) => {
 		setContentOrderBy(value);
-		handleQuickFilterProducts();
+		// handleQuickFilterProducts();
+        console.log(value);
 	};
     
     return (
@@ -41,7 +47,7 @@ export default function QuickFilter() {
                 onChange={(e) => handleContentChange(e.target.value)}
             >
                 <option value="" disabled selected hidden>Chọn sắp xếp</option>
-                <option value="asc">Giá tăng dần</option>
+                <option value='asc'>Giá tăng dần</option>
                 <option value="desc">Giá giảm dần</option>
             </select>
         </div>
