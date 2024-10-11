@@ -9,6 +9,7 @@ function ProductProvider({ children }) {
 	const [productsPerPage] = React.useState(3);
 	const [totalPages, setTotalPages] = React.useState(0);
 	const [numberOfElements, setNumberOfElements] = React.useState(0);
+	const [totalElements, setTotalElements] = React.useState(0);
 
 	React.useEffect(() => {
 		fetchProducts();
@@ -22,12 +23,13 @@ function ProductProvider({ children }) {
 			);
 			const data = await response.json();
 			const {
-				metadata: { content: products, totalPages, numberOfElements },
+				metadata: { content: products, totalPages, numberOfElements,totalElements },
 			} = data;
 			setProducts(products);
 			setTotalPages(totalPages);
 			setNumberOfElements(numberOfElements);
 			setIsLoading(false);
+			setTotalElements(totalElements);
 		} catch (error) {
 			console.error('Error fetching products:', error);
 			setIsLoading(false);
@@ -43,6 +45,7 @@ function ProductProvider({ children }) {
 
 	return (
 		<ProductContext.Provider
+
 			value={{
 				products,
 				setProducts,
@@ -58,6 +61,7 @@ function ProductProvider({ children }) {
 				numberOfElements,
 				setTotalPages,
 				setNumberOfElements,
+				totalElements
 			}}
 		>
 			{children}
