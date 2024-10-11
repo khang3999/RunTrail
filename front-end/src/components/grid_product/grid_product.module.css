@@ -28,6 +28,10 @@
     height: 20px;
     background-color: #f3f3f3;
     margin: 5px 0;
+    color: #000;
+  }
+  .product-price{
+    color: #000;
   }
   
   @media (max-width: 768px) {

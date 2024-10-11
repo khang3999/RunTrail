@@ -49,7 +49,7 @@ function ProductItem(props) {
                 <div className="group px-[15px] my-4">
                     {/* Body */}
                     <div className="item-body">
-                        <p className='brand font-extralight italic text-gray-400 mb-1'>{product.brandId}</p>
+                        <p className='brand font-extralight italic text-gray-400 mb-1'>{product.brandName}</p>
                         <Link href="/detail" className="title font-semibold line-clamp-2 text-ellipsis">{product.spuName}</Link>
 
                         {/*Rating*/}
