@@ -24,4 +24,6 @@ public class SpuDTO {
 
     private int spuStatus;
 
+    private int discount;
+
 }
