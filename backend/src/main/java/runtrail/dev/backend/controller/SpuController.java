@@ -63,7 +63,7 @@ public class SpuController {
             @RequestParam(defaultValue = "0") long minPrice,
             @RequestParam(defaultValue = "200000") long maxPrice,
             @RequestParam(defaultValue = "") List<Long> brandIds,
-            @RequestParam(defaultValue = "") String contentOrderBy
+            @RequestParam(defaultValue = "desc") String contentOrderBy
 
             ) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
