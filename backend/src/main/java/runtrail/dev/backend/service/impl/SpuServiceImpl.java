@@ -49,10 +49,10 @@ public class SpuServiceImpl implements SpuService {
         key = key.isEmpty() ? null : key;
         value = value.isEmpty() ? null : value;
           if (contentOrderBy.equals("asc")) {
-            return spuRepository.findBySpuFilterASC(minPrice, maxPrice, brandIds,categoryId, pageable);
+            return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
          }
          else {
-             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key,value, pageable);
+             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
 
          }
     }

@@ -4,38 +4,43 @@ import { useEffect, useState } from "react";
 
 export default function QuickFilter() {
 
-	const [contentOrderBy, setContentOrderBy] = useState('');
-    const { totalElements, setProducts } = useProductProvider();
+    const { totalElements, setContentOrderBy, products, setProducts, setFirstFilter, setCurrentPage, isFirstFilter, fetchProducts, currentPage, productsPerPage } = useProductProvider();
     
     const handleQuickFilterProducts = async () => {
-		const response = await fetch(
-			`http://localhost:8008/api/v1/spu/filter1?contentOrderBy=${contentOrderBy}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			}
-		);
+		// setFirstFilter(true)
+		// (isFirstFilter&&setCurrentPage(1))
+		// const response = await fetch(
+		// 	'http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&contentOrderBy=${contentOrderBy}',
+		// 	{
+		// 		method: 'GET',
+		// 		headers: {
+		// 			'Content-Type': 'application/json',
+		// 		},
+		// 	}
+		// );
 
-		const data = await response.json();
-		console.log(data);
-		if (data.length === 0) {
-			setProducts([]);
-			return;
-		} else {
-			setProducts(data.metadata.content);
-            console.log(data.metadata.content);
-		}
+		// const data = await response.json();
+		// console.log(data);
+		// if (data.length === 0) {
+		// 	setProducts([]);
+		// 	return;
+		// } else {
+		// 	setProducts(data.metadata.content);
+        //     console.log(data.metadata.content);
+		// }
+
+		// setProducts(products)
 	};
 
-    useEffect(() => {
-        handleQuickFilterProducts()
-    }, [contentOrderBy]);
+    // useEffect(() => {
+    //     // handleQuickFilterProducts()
+	// 	fetchProducts()
+    // }, [contentOrderBy]);
 
     const handleContentChange = (value) => {
 		setContentOrderBy(value);
 		// handleQuickFilterProducts();
+		setFirstFilter(true)
         console.log(value);
 	};
     

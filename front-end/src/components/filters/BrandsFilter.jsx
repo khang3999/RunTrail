@@ -5,8 +5,8 @@ import debounce from 'lodash.debounce';
 
 const BrandsFilter = () => {
 	const [brands, setBrands] = useState([]);
-	const [selectedBrands, setSelectedBrands] = useState([]);
-	const { setProducts } = useProductProvider();
+	// const [selectedBrands, setSelectedBrands] = useState([]);
+	const { setProducts, selectedBrands, setSelectedBrands } = useProductProvider();
 
 	useEffect(() => {
 		const fetchBrandsData = async () => {
@@ -48,20 +48,39 @@ const BrandsFilter = () => {
 	};
 
 	// Sử dụng debounce để giảm tải gọi API
-	const debouncedFilterProducts = useCallback(
-		debounce(filterProductsByBrand, 500),
-		[]
-	);
+	// const debouncedFilterProducts = useCallback(
+	// 	debounce(setSelectedBrands(updatedSelectedBrands), 500),
+	// 	[]
+	// );
+
+	const debounce = (fn, delay) => {
+		delay = delay || 1000; // default delay falsy
+		let timerId;
+		console.log('timer ID immediate load::', timerId);
+		return () => {
+			console.log('timer ID previous load::', timerId);
+			if (timerId) {
+				clearTimeout(timerId);
+				timerId = null;
+			}
+			timerId = setTimeout(() => {
+				fn();
+			}, delay);
+		}
+	}
 
 	const handleBrandChange = (brandId) => {
 		const updatedSelectedBrands = selectedBrands.includes(brandId)
 			? selectedBrands.filter((id) => id !== brandId)
 			: [...selectedBrands, brandId];
 
-		setSelectedBrands(updatedSelectedBrands);
+		// setSelectedBrands(updatedSelectedBrands);
 
 		// Gọi hàm lọc sản phẩm với debounce
-		debouncedFilterProducts(updatedSelectedBrands);
+		// debouncedFilterProducts(updatedSelectedBrands);
+		debounce(setSelectedBrands(updatedSelectedBrands),2000)
+
+		// setSelectedBrands(updatedSelectedBrands)
 	};
 
 	return (
