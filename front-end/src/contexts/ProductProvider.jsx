@@ -6,7 +6,7 @@ function ProductProvider({ children }) {
 	const [products, setProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [productsPerPage] = useState(20);
+	const [productsPerPage] = useState(5);
 	const [totalPages, setTotalPages] = useState(0);
 	const [numberOfElements, setNumberOfElements] = useState(0);
 	const [totalElements, setTotalElements] = useState(0);
@@ -15,22 +15,30 @@ function ProductProvider({ children }) {
 	const [selectedBrands, setSelectedBrands] = useState([]);
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(20000000);
-	const [categoryIds, setCategoryIds] = useState([]);
+	const [categoryId, setCategoryId] = useState(-1);
 
 
 
 	useEffect(() => {
 		fetchProducts();
-	}, [currentPage, contentOrderBy, selectedBrands, minPrice, maxPrice, categoryIds]);
+	}, [currentPage, contentOrderBy, selectedBrands, minPrice, maxPrice, categoryId]);
 
 	const fetchProducts = async () => {
 		try {
+			const brandIdsStr = selectedBrands.join(',');
+			
+			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}`;
+			 
+
 			setIsLoading(true);
 			(isFirstFilter&&setCurrentPage(1))
 			const response = await fetch(
-				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&contentOrderBy=${contentOrderBy}&brandIds=${selectedBrands.join(',')}`
+				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
+				
 			);
 			
+			console.log(`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`);
+
 			const data = await response.json();
 			const {
 				metadata: { content: products, totalPages, numberOfElements,totalElements },
@@ -84,8 +92,8 @@ function ProductProvider({ children }) {
 				setMinPrice,
 				maxPrice,
 				setMaxPrice,
-				categoryIds, 
-				setCategoryIds
+				categoryId, 
+				setCategoryId
 			}}
 		>
 			{children}

@@ -6,27 +6,10 @@ import { useProductProvider } from '@/contexts/ProductProvider';
 
 const { SubMenu } = Menu;
 const MenuComponent = ({ categories, openKeys, onOpenChange }) => {
-	const { setProducts } = useProductProvider();
-	const handleCategoryChange = async (categoryId) => {
-		const param = new URLSearchParams();
-		param.append('categoryId', categoryId);
+	const { setProducts, setCategoryId } = useProductProvider();
 
-		const queryString = param.toString();
-
-		const res = await fetch(
-			`http://localhost:8008/api/v1/spu/filter?${queryString}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			}
-		);
-
-		const data = await res.json();
-		console.log(data);
-
-		setProducts(data.metadata.content);
+	const handleCategoryChange = (categoryId) => {
+		setCategoryId(categoryId)
 	};
 
 	const renderMenuItems = (parentId) => {

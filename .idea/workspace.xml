@@ -9,6 +9,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SpuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SpuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/PaginationItem/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/PaginationItem/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/CategoryFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/filters/CategoryFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +106,7 @@
       <workItem from="1728651931674" duration="11901000" />
       <workItem from="1728690936495" duration="1652000" />
       <workItem from="1728692632524" duration="89000" />
-      <workItem from="1728692997758" duration="1779000" />
+      <workItem from="1728692997758" duration="5445000" />
     </task>
     <servers />
   </component>
