@@ -5,33 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61db02b2-2bfd-4a21-9a17-52094e4440ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/assets/css/addToCartBtn.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/assets/css/productitemSkeleton.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/components/filters/QuickFilter.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/components/productItem.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/components/productItemSkeleton.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SpuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/dto/response/SpuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/dto/response/SpuDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SpuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SpuService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SpuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SpuServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/app/detail/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/detail/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/app/page/home/home_page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/page/home/home_page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +97,9 @@
       <workItem from="1728542958214" duration="10487000" />
       <workItem from="1728651931674" duration="11901000" />
       <workItem from="1728690936495" duration="1652000" />
-      <workItem from="1728692632524" duration="89000" />
+      <workItem from="1728692632524" duration="813000" />
+      <workItem from="1728693845105" duration="360000" />
+      <workItem from="1728694235283" duration="387000" />
     </task>
     <servers />
   </component>
