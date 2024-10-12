@@ -42,4 +42,18 @@ public class SpuServiceImpl implements SpuService {
 
         return spuRepository.findBySpuFilter(minPrice,maxPrice, brandIds, categoryId, key, value, pageable);
     }
+    @Override
+    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+        brandIds = brandIds.isEmpty() ? null : brandIds;
+        categoryId = categoryId == -1 ? null : categoryId;
+        key = key.isEmpty() ? null : key;
+        value = value.isEmpty() ? null : value;
+          if (contentOrderBy.equals("asc")) {
+            return spuRepository.findBySpuFilterASC(minPrice, maxPrice, brandIds,categoryId, pageable);
+         }
+         else {
+             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key,value, pageable);
+
+         }
+    }
 }

@@ -1,12 +1,39 @@
-import GoToTopButton from "@/components/goToTopButton";
+"use client"
+import ProductItem from "@/components/productItem";
+import ProductItemSkeleton from "@/components/productItemSkeleton";
 import Image from "next/image";
-import HomeScreen from "./page/home/home_page";
+import { useEffect, useState } from "react";
+import axios from 'axios';
+import HomePage from "./page/home/home_page";
+import GoToTopButton from "@/components/goToTopButton";
+
 
 export default function Home() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8008/api/v1/spu/all'); // Thay thế bằng URL API của bạn
+        console.log('done');
+        setProducts(response.data.metadata.content);
+      } catch (err) {
+        setError(err.message);
+        console.log('error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+    
+  }, []);
   return (
     <>
-      <HomeScreen />
-      <GoToTopButton />
+      <HomePage/>
+      <GoToTopButton/>
     </>
   );
 }
