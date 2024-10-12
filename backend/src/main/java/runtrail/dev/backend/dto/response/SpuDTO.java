@@ -1,29 +1,31 @@
 package runtrail.dev.backend.dto.response;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+ 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
 public class SpuDTO {
-    private long id;
+    private Long id;
 
     private String spuName;
 
     private String spuDescription;
 
-    private long categoryId;
+    private Long categoryId;
 
-    private long brandId;
+    private Long brandId;
 
-    private long spuPrice;
+    private String brandName;
+
+    private Long spuPrice;
 
     private String spuThumbnail;
 
-    private int spuStatus;
+    private Integer spuStatus;
+
+    private Integer discount;
+
+    private String skuAttri;
 
 }

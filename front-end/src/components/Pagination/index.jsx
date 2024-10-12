@@ -5,11 +5,19 @@ import { faThumbsU, faChevronLeft,faChevronRight } from '@fortawesome/free-solid
 
 
 export default function Pagination() {
+<<<<<<< HEAD
     const { totalPages, currentPage, setCurrentPage, numberOfElements,setIsFirstPage } = useProductProvider();
 
     const handleClick = (page) => {
         setCurrentPage(page);
         setIsFirstPage(false);
+=======
+    const { totalPages, currentPage, setCurrentPage, numberOfElements, setFirstFilter } = useProductProvider();
+
+    const handleClick = (page) => {
+        setCurrentPage(page);
+        setFirstFilter(false)
+>>>>>>> 4d09c8c52aba8a181dec2c65229e5a3ef25e9c95
     };
 
     return (

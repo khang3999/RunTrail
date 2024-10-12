@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "sku")
+
 public class SkuEntity {
 
     @Id
@@ -32,7 +33,8 @@ public class SkuEntity {
     private long skuPrice;
 
     @Column(name = "sku_attri", columnDefinition = "json")
-    private String skuAttri; 
+    private String skuAttri;
+
 
     
 }

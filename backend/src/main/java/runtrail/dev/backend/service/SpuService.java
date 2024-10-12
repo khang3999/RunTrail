@@ -13,6 +13,6 @@ public interface SpuService {
     Optional<SpuEntity> getSpuById(long id);
 
     Page<SpuEntity> findAllSpu(Pageable pageable);
-
-    Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds,int sortPrice, Pageable pageable);
+    Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable);
+    Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable);
 }

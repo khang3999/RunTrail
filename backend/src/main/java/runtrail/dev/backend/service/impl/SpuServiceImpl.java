@@ -35,10 +35,28 @@ public class SpuServiceImpl implements SpuService {
         return spuRepository.findAll(pageable);
     }
 
-    @Override
-    public Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds,int sortPrice,Pageable pageable) {
+
+    public Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable) {
         brandIds = brandIds.isEmpty() ? null : brandIds;
-        sortPrice = sortPrice == 0 ? 0 : 1;
-        return spuRepository.findBySpuFilter(minPrice,maxPrice,sortPrice, brandIds,pageable);
+        categoryId = categoryId == -1 ? null : categoryId;
+        key = key.isEmpty() ? null : key;
+        value = value.isEmpty() ? null : value;
+
+        return spuRepository.findBySpuFilter(minPrice,maxPrice, brandIds, categoryId, key, value, pageable);
+    }
+    @Override
+    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+        brandIds = brandIds.isEmpty() ? null : brandIds;
+        categoryId = categoryId == -1 ? null : categoryId;
+        key = key.isEmpty() ? null : key;
+        value = value.isEmpty() ? null : value;
+          if (contentOrderBy.equals("asc")) {
+            return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+         }
+         else if(contentOrderBy.equals("desc")) {
+             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+         } else {
+              return spuRepository.findBySpuFilterSALE(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+          }
     }
 }
