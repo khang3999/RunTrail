@@ -2,14 +2,14 @@
 import React, { useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { useFilterProvider } from '@/contexts/FilterProductProvider';
 import { useProductProvider } from '@/contexts/ProductProvider';
 
 const PriceFilter = () => {
 	const [range, setRange] = useState([0, 20000000]);
-	const [message, setMessage] = useState('');
+	const {} = useProductProvider();
 
-	const { setMinPrice, setMaxPrice } = useProductProvider();
+	const { setMinPrice, setMaxPrice, errorMessage, setErrorMessage } =
+		useProductProvider();
 
 	const handleFilterProducts = async () => {
 		setMinPrice(range[0]);
@@ -17,11 +17,7 @@ const PriceFilter = () => {
 	};
 
 	const handleRangeChange = (value) => {
-		if (value[0] > value[1]) {
-			setMessage('Giá trị không hợp lệ');
-			return;
-		}
-		setMessage('');
+		setErrorMessage('');
 		setRange(value);
 	};
 
@@ -50,6 +46,8 @@ const PriceFilter = () => {
 					className="w-full sm:w-1/2 outline-none border border-gray-300 rounded-lg p-2"
 					type="number"
 					value={range[0]}
+					min={0}
+					max={20000000}
 					onChange={(e) =>
 						handleRangeChange([Number(e.target.value), range[1]])
 					}
@@ -59,6 +57,8 @@ const PriceFilter = () => {
 					className="w-full sm:w-1/2 outline-none border border-gray-300 rounded-lg p-2"
 					type="number"
 					value={range[1]}
+					min={0}
+					max={20000000}
 					onChange={(e) =>
 						handleRangeChange([range[0], Number(e.target.value)])
 					}
@@ -66,7 +66,7 @@ const PriceFilter = () => {
 			</div>
 			{/* Message */}
 			<div className="text-sm font-semibold mt-2 text-red-500 text-center">
-				{message && <p>{message}</p>}
+				{errorMessage && <p>{errorMessage}</p>}
 			</div>
 			<button
 				className="uppercase mt-4 py-2 rounded-lg border-gray-300 w-full border text-black transition-all"
