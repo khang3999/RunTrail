@@ -34,7 +34,7 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public Page<SpuDTO> getSpuByFilter(double minPrice,double maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable) {
+    public Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable) {
         brandIds = brandIds.isEmpty() ? null : brandIds;
         categoryId = categoryId == -1 ? null : categoryId;
         key = key.isEmpty() ? null : key;
@@ -43,7 +43,7 @@ public class SpuServiceImpl implements SpuService {
         return spuRepository.findBySpuFilter(minPrice,maxPrice, brandIds, categoryId, key, value, pageable);
     }
     @Override
-    public Page<SpuDTO> getSpuByQuickFilter(double minPrice,double maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
         brandIds = brandIds.isEmpty() ? null : brandIds;
         categoryId = categoryId == -1 ? null : categoryId;
         key = key.isEmpty() ? null : key;
