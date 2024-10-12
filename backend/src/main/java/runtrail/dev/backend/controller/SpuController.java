@@ -1,5 +1,5 @@
 package runtrail.dev.backend.controller;
- 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +66,8 @@ public class SpuController {
             @RequestParam(defaultValue = "-1") Long categoryId,
             @RequestParam(defaultValue = "") String key,
             @RequestParam(defaultValue = "") List<String> value
-            
+
     ) {
-        logger.info("category"+categoryId+"");
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);

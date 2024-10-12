@@ -6,25 +6,25 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class SpuDTO {
-    private long id;
+    private Long id;
 
     private String spuName;
 
     private String spuDescription;
 
-    private long categoryId;
+    private Long categoryId;
 
-    private long brandId;
+    private Long brandId;
 
     private String brandName;
 
-    private long spuPrice;
+    private Long spuPrice;
 
     private String spuThumbnail;
 
-    private int spuStatus;
+    private Integer spuStatus;
 
-    private int discount;
+    private Integer discount;
 
     private String skuAttri;
 

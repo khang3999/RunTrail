@@ -3,6 +3,7 @@ import React, { useState, useContext, createContext, useEffect } from 'react';
 
 const ProductContext = createContext();
 function ProductProvider({ children }) {
+
 	const [products, setProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -43,7 +44,9 @@ function ProductProvider({ children }) {
 
 			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}`;
 
-			isFirstFilter && setCurrentPage(1);
+			setIsLoading(true);
+
+			(isFirstFilter&&setCurrentPage(1))
 			const response = await fetch(
 				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
 			);

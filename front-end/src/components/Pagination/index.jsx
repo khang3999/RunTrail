@@ -5,6 +5,7 @@ import { faThumbsU, faChevronLeft,faChevronRight } from '@fortawesome/free-solid
 
 
 export default function Pagination() {
+
     const { totalPages, currentPage, setCurrentPage, numberOfElements, setFirstFilter } = useProductProvider();
 
     const handleClick = (page) => {

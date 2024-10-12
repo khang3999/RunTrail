@@ -57,5 +57,4 @@ public class SkuController {
         System.out.println("Max Price: " + maxPrice);
         return skuService.filterSkus(brandId, minPrice, maxPrice);
     }
-
 }
