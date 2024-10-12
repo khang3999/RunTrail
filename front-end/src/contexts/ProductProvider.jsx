@@ -9,6 +9,7 @@ function ProductProvider({ children }) {
 	const [productsPerPage] = React.useState(4);
 	const [totalPages, setTotalPages] = React.useState(0);
 	const [numberOfElements, setNumberOfElements] = React.useState(0);
+	const [isFirstPage, setIsFirstPage] = React.useState(true);
 
 	React.useEffect(() => {
 		fetchProducts();
@@ -17,6 +18,7 @@ function ProductProvider({ children }) {
 	const fetchProducts = async () => {
 		try {
 			setIsLoading(true);
+			isFirstPage && setCurrentPage(1);
 			const response = await fetch(`http://localhost:8008/api/v1/spu/filter?page=${currentPage}&size=${productsPerPage}`);
 			const data = await response.json();
 			const {metadata:{content:products,totalPages,numberOfElements}} = data;
@@ -51,7 +53,8 @@ function ProductProvider({ children }) {
 				indexOfLastProduct,
 				indexOfFirstProduct,
 				currentProducts,
-				numberOfElements
+				numberOfElements,
+				setIsFirstPage
 			}}
 		>
 			{children}

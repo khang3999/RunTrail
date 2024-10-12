@@ -5,19 +5,20 @@ import { faThumbsU, faChevronLeft,faChevronRight } from '@fortawesome/free-solid
 
 
 export default function Pagination() {
-    const { totalPages, currentPage, setCurrentPage, numberOfElements } = useProductProvider();
+    const { totalPages, currentPage, setCurrentPage, numberOfElements,setIsFirstPage } = useProductProvider();
 
     const handleClick = (page) => {
         setCurrentPage(page);
+        setIsFirstPage(false);
     };
 
     return (
         <div className="my-3 flex items-center gap-2">
             <span>{numberOfElements}</span>
-            <PaginationItem isDisable={(currentPage === 1)} onClick={() => setCurrentPage(1)}>
+            <PaginationItem isDisable={(currentPage === 1)} onClick={() => handleClick(1)}>
                 start
             </PaginationItem>
-            <PaginationItem isDisable={(currentPage === 1)} onClick={() => currentPage !== 1 && setCurrentPage(currentPage - 1)}>
+            <PaginationItem isDisable={(currentPage === 1)} onClick={() => currentPage !== 1 && handleClick(currentPage - 1)}>
                 <FontAwesomeIcon icon={faChevronLeft} className="fa-fw" />
             </PaginationItem>
             {
@@ -25,10 +26,10 @@ export default function Pagination() {
                     <PaginationItem onClick={() => handleClick(index + 1)} isActice={currentPage === (index + 1)} key={index}>{index + 1}</PaginationItem>
                 ))
             }
-            <PaginationItem isDisable={(currentPage === totalPages)} onClick={() => currentPage !== (totalPages) && setCurrentPage(currentPage + 1)}>
+            <PaginationItem isDisable={(currentPage === totalPages)} onClick={() => currentPage !== (totalPages) && handleClick(currentPage + 1)}>
                 <FontAwesomeIcon icon={faChevronRight} className="fa-fw" />
             </PaginationItem>
-            <PaginationItem isDisable={(currentPage === totalPages)} onClick={() => setCurrentPage(totalPages)}>
+            <PaginationItem isDisable={(currentPage === totalPages)} onClick={() => handleClick(totalPages)}>
             end
             </PaginationItem>
         </div>

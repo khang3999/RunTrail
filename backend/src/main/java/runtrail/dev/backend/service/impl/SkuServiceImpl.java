@@ -30,4 +30,9 @@ public class SkuServiceImpl implements SkuService {
      public List<SkuEntity> getSkusByPriceRange(Long minPrice, Long maxPrice) {
         return skuRepository.findBySkuPriceBetween(minPrice, maxPrice);
      }
+
+    @Override
+    public List<SkuEntity> findByAttributes(String key, String value) {
+        return skuRepository.findByAttributes(key,value);
+    }
 }

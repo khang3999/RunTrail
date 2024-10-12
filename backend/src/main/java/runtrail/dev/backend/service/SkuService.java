@@ -8,4 +8,6 @@ public interface SkuService {
     List<SkuEntity> getAllSkus();
     Optional<SkuEntity> getSkuById(long id);
     List<SkuEntity> getSkusByPriceRange(Long minPrice, Long maxPrice);
+
+    List<SkuEntity> findByAttributes(String key, String value);
 }

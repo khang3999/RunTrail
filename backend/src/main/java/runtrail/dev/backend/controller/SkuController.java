@@ -42,4 +42,13 @@ public class SkuController {
         List<SkuEntity> filteredSkus = skuService.getSkusByPriceRange(minPrice, maxPrice);
         return new ResponseEntity<>(filteredSkus, HttpStatus.OK);
     }
+
+    @GetMapping("/test")
+    public ResponseEntity<List<SkuEntity>> test(
+            @RequestParam(defaultValue = "") String key,
+            @RequestParam(defaultValue = "") String value
+    ) {
+        List<SkuEntity> skus = skuService.findByAttributes(key,value);
+        return new ResponseEntity<>(skus, HttpStatus.OK);
+    }
 }
