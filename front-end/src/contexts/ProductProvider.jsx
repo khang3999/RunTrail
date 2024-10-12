@@ -1,9 +1,8 @@
 'use client';
-import React,{useState, useContext, createContext, useEffect} from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
 
 const ProductContext = createContext();
 function ProductProvider({ children }) {
-
 	const [products, setProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -18,56 +17,43 @@ function ProductProvider({ children }) {
 	const [maxPrice, setMaxPrice] = useState(20000000);
 	const [categoryId, setCategoryId] = useState(-1);
 
+	// Fetch products based on filters
+	const fetchProducts = async () => {
+		try {
+			const brandIdsStr = selectedBrands.join(',');
+			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}`;
 
+			setIsLoading(true);
+			if (isFirstFilter) setCurrentPage(1);
+
+			const response = await fetch(
+				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
+			);
+			const data = await response.json();
+			const { metadata: { content: products, totalPages, numberOfElements, totalElements } } = data;
+
+			setProducts(products);
+			setTotalPages(totalPages);
+			setNumberOfElements(numberOfElements);
+			setTotalElements(totalElements);
+			setIsLoading(false);
+		} catch (error) {
+			console.error('Error fetching products:', error);
+			setIsLoading(false);
+		}
+	};
+
+	const filterProductsByBrand = (selectedBrands) => {
+		setSelectedBrands(selectedBrands);
+		fetchProducts();
+	};
 
 	useEffect(() => {
 		fetchProducts();
 	}, [currentPage, contentOrderBy, selectedBrands, minPrice, maxPrice, categoryId]);
 
-	const fetchProducts = async () => {
-		try {
-			const brandIdsStr = selectedBrands.join(',');
-			
-			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}`;
-			 
-
-			setIsLoading(true);
-
-			(isFirstFilter&&setCurrentPage(1))
-			const response = await fetch(
-				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
-				
-			);
-			
-			console.log(`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`);
-
-			const data = await response.json();
-			const {
-				metadata: { content: products, totalPages, numberOfElements,totalElements },
-			} = data;
-			setProducts(products);
-			setTotalPages(totalPages);
-			setNumberOfElements(numberOfElements);
-			setIsLoading(false);
-			setTotalElements(totalElements);
-		} catch (error) {
-			console.error('Error fetching products:', error);
-			console.log("test");
-			
-			setIsLoading(false);
-		}
-	};
-
-	const indexOfLastProduct = currentPage * productsPerPage;
-	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-	const currentProducts = products.slice(
-		indexOfFirstProduct,
-		indexOfLastProduct
-	);
-
 	return (
 		<ProductContext.Provider
-
 			value={{
 				products,
 				setProducts,
@@ -77,15 +63,8 @@ function ProductProvider({ children }) {
 				setCurrentPage,
 				productsPerPage,
 				totalPages,
-				indexOfLastProduct,
-				indexOfFirstProduct,
-				currentProducts,
 				numberOfElements,
-				setTotalPages,
-				setNumberOfElements,
 				totalElements,
-				setFirstFilter,
-				isFirstFilter,
 				contentOrderBy,
 				setContentOrderBy,
 				selectedBrands,
@@ -94,8 +73,10 @@ function ProductProvider({ children }) {
 				setMinPrice,
 				maxPrice,
 				setMaxPrice,
-				categoryId, 
-				setCategoryId
+				categoryId,
+				setCategoryId,
+				filterProductsByBrand, // Expose this function to use in other components
+				fetchProducts,
 			}}
 		>
 			{children}
