@@ -1,26 +1,44 @@
 'use client';
-import React from 'react';
+import React,{useState, useContext, createContext, useEffect} from 'react';
 
-const ProductContext = React.createContext();
+const ProductContext = createContext();
 function ProductProvider({ children }) {
-	const [products, setProducts] = React.useState([]);
-	const [isLoading, setIsLoading] = React.useState(true);
-	const [currentPage, setCurrentPage] = React.useState(1);
-	const [productsPerPage] = React.useState(3);
-	const [totalPages, setTotalPages] = React.useState(0);
-	const [numberOfElements, setNumberOfElements] = React.useState(0);
-	const [totalElements, setTotalElements] = React.useState(0);
+	const [products, setProducts] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [productsPerPage] = useState(5);
+	const [totalPages, setTotalPages] = useState(0);
+	const [numberOfElements, setNumberOfElements] = useState(0);
+	const [totalElements, setTotalElements] = useState(0);
+	const [isFirstFilter, setFirstFilter] = useState(true);
+	const [contentOrderBy, setContentOrderBy] = useState('desc');
+	const [selectedBrands, setSelectedBrands] = useState([]);
+	const [minPrice, setMinPrice] = useState(0);
+	const [maxPrice, setMaxPrice] = useState(20000000);
+	const [categoryId, setCategoryId] = useState(-1);
 
-	React.useEffect(() => {
+
+
+	useEffect(() => {
 		fetchProducts();
-	}, [currentPage]);
+	}, [currentPage, contentOrderBy, selectedBrands, minPrice, maxPrice, categoryId]);
 
 	const fetchProducts = async () => {
 		try {
+			const brandIdsStr = selectedBrands.join(',');
+			
+			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}`;
+			 
+
 			setIsLoading(true);
+			(isFirstFilter&&setCurrentPage(1))
 			const response = await fetch(
-				`http://localhost:8008/api/v1/spu/filter?page=${currentPage}&size=${productsPerPage}`
+				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
+				
 			);
+			
+			console.log(`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`);
+
 			const data = await response.json();
 			const {
 				metadata: { content: products, totalPages, numberOfElements,totalElements },
@@ -32,6 +50,8 @@ function ProductProvider({ children }) {
 			setTotalElements(totalElements);
 		} catch (error) {
 			console.error('Error fetching products:', error);
+			console.log("test");
+			
 			setIsLoading(false);
 		}
 	};
@@ -61,7 +81,19 @@ function ProductProvider({ children }) {
 				numberOfElements,
 				setTotalPages,
 				setNumberOfElements,
-				totalElements
+				totalElements,
+				setFirstFilter,
+				isFirstFilter,
+				contentOrderBy,
+				setContentOrderBy,
+				selectedBrands,
+				setSelectedBrands,
+				minPrice,
+				setMinPrice,
+				maxPrice,
+				setMaxPrice,
+				categoryId, 
+				setCategoryId
 			}}
 		>
 			{children}
@@ -69,6 +101,6 @@ function ProductProvider({ children }) {
 	);
 }
 
-export const useProductProvider = () => React.useContext(ProductContext);
+export const useProductProvider = () => useContext(ProductContext);
 
 export default ProductProvider;

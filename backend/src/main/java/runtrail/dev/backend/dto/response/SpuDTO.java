@@ -26,4 +26,6 @@ public class SpuDTO {
 
     private int discount;
 
+    private String skuAttri;
+
 }

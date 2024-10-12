@@ -34,21 +34,27 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, Pageable pageable) {
+    public Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable) {
         brandIds = brandIds.isEmpty() ? null : brandIds;
         categoryId = categoryId == -1 ? null : categoryId;
-        return spuRepository.findBySpuFilter(minPrice,maxPrice, brandIds, categoryId, pageable);
+        key = key.isEmpty() ? null : key;
+        value = value.isEmpty() ? null : value;
+
+        return spuRepository.findBySpuFilter(minPrice,maxPrice, brandIds, categoryId, key, value, pageable);
     }
     @Override
-    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String contentOrderBy, Pageable pageable) {
+    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
         brandIds = brandIds.isEmpty() ? null : brandIds;
         categoryId = categoryId == -1 ? null : categoryId;
+        key = key.isEmpty() ? null : key;
+        value = value.isEmpty() ? null : value;
           if (contentOrderBy.equals("asc")) {
-            return spuRepository.findBySpuFilterASC(minPrice, maxPrice, brandIds,categoryId, pageable);
+            return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
          }
-         else {
-             return spuRepository.findBySpuFilterDESC(minPrice, maxPrice, brandIds,categoryId, pageable);
-
-         }
+         else if(contentOrderBy.equals("desc")) {
+             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+         } else {
+              return spuRepository.findBySpuFilterSALE(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+          }
     }
 }

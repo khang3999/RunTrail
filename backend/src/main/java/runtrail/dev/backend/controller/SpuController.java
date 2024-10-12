@@ -63,14 +63,16 @@ public class SpuController {
             @RequestParam(defaultValue = "0") long minPrice,
             @RequestParam(defaultValue = "200000") long maxPrice,
             @RequestParam(defaultValue = "") List<Long> brandIds,
-            @RequestParam(defaultValue = "-1") Long categoryId
+            @RequestParam(defaultValue = "-1") Long categoryId,
+            @RequestParam(defaultValue = "") String key,
+            @RequestParam(defaultValue = "") List<String> value
             
     ) {
         logger.info("category"+categoryId+"");
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
-        Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice,maxPrice,brandIds,categoryId,pageable);
+        Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice,maxPrice,brandIds,categoryId, key, value, pageable);
         return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
     }
 
@@ -84,13 +86,15 @@ public class SpuController {
             @RequestParam(defaultValue = "200000") long maxPrice,
             @RequestParam(defaultValue = "") List<Long> brandIds,
             @RequestParam(defaultValue = "-1") Long categoryId,
-            @RequestParam(defaultValue = "desc") String contentOrderBy
+            @RequestParam(defaultValue = "desc") String contentOrderBy,
+            @RequestParam(defaultValue = "") String key,
+            @RequestParam(defaultValue = "") List<String> value
     ) {
         logger.info("category"+categoryId+"");
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
-        Page<SpuDTO> listSpu = spuService.getSpuByQuickFilter(minPrice,maxPrice,brandIds,categoryId,contentOrderBy,pageable);
+        Page<SpuDTO> listSpu = spuService.getSpuByQuickFilter(minPrice,maxPrice,brandIds,categoryId,key, value, contentOrderBy,pageable);
         return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
     }
     /*---------------END PAGINATION--------------*/
