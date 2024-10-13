@@ -6,6 +6,8 @@ import { useProductProvider } from '@/contexts/ProductProvider';
 
 const PriceFilter = () => {
 	const [range, setRange] = useState([0, 20000000]);
+	const [minRange, setMinRange] = useState(0);
+	const [maxRange, setMaxRange] = useState(20000000);
 	const {} = useProductProvider();
 
 	const { setMinPrice, setMaxPrice, errorMessage, setErrorMessage } =
@@ -46,22 +48,42 @@ const PriceFilter = () => {
 					className="w-full sm:w-1/2 outline-none border border-gray-300 rounded-lg p-2"
 					type="number"
 					value={range[0]}
-					min={0}
-					max={20000000}
-					onChange={(e) =>
-						handleRangeChange([Number(e.target.value), range[1]])
-					}
+					min={'0'}
+					max={'20000000'}
+					onChange={(e) => {
+						if (
+							Number(e.target.value) > maxRange ||
+							Number(e.target.value) < minRange
+						) {
+							// setErrorMessage('Giá không hợp lệ');
+						} else {
+							handleRangeChange([
+								Number(e.target.value),
+								range[1],
+							]);
+						}
+					}}
 				/>
 				<span className="text-gray-500"> - </span>
 				<input
 					className="w-full sm:w-1/2 outline-none border border-gray-300 rounded-lg p-2"
 					type="number"
 					value={range[1]}
-					min={0}
-					max={20000000}
-					onChange={(e) =>
-						handleRangeChange([range[0], Number(e.target.value)])
-					}
+					min={'0'}
+					max={'20000000'}
+					onChange={(e) => {
+						if (
+							Number(e.target.value) > maxRange ||
+							Number(e.target.value) < minRange
+						) {
+							// setErrorMessage('Giá không hợp lệ');
+						} else {
+							handleRangeChange([
+								range[0],
+								Number(e.target.value),
+							]);
+						}
+					}}
 				/>
 			</div>
 			{/* Message */}
