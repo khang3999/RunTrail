@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61db02b2-2bfd-4a21-9a17-52094e4440ce" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,8 +48,11 @@
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BackendApplication.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;features/filter-by-brands&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test/filter-By-Size&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/DevOps&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -70,7 +73,7 @@
 }</component>
   <component name="RunManager">
     <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH" value="graalvm-jdk-17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <module name="backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="runtrail.dev.backend.BackendApplication" />
@@ -97,9 +100,12 @@
       <workItem from="1728542958214" duration="10487000" />
       <workItem from="1728651931674" duration="11901000" />
       <workItem from="1728690936495" duration="1652000" />
-      <workItem from="1728692632524" duration="813000" />
-      <workItem from="1728693845105" duration="360000" />
-      <workItem from="1728694235283" duration="387000" />
+      <workItem from="1728692632524" duration="89000" />
+      <workItem from="1728692997758" duration="5445000" />
+      <workItem from="1728721651722" duration="1285000" />
+      <workItem from="1728732572022" duration="9000" />
+      <workItem from="1728745582892" duration="2548000" />
+      <workItem from="1728777736745" duration="408000" />
     </task>
     <servers />
   </component>

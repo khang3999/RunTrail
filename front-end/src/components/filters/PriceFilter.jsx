@@ -3,17 +3,17 @@ import React, { useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { useFilterProvider } from '@/contexts/FilterProductProvider';
+import { useProductProvider } from '@/contexts/ProductProvider';
 
 const PriceFilter = () => {
 	const [range, setRange] = useState([0, 20000000]);
 	const [message, setMessage] = useState('');
 
-	const { setMinPrice, setMaxPrice, setSearch } = useFilterProvider();
+	const { setMinPrice, setMaxPrice } = useProductProvider();
 
 	const handleFilterProducts = async () => {
 		setMinPrice(range[0]);
 		setMaxPrice(range[1]);
-		setSearch(true);
 	};
 
 	const handleRangeChange = (value) => {
