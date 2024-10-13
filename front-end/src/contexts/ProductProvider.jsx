@@ -32,7 +32,7 @@ function ProductProvider({ children }) {
 			 
 
 			setIsLoading(true);
-
+			
 			(isFirstFilter&&setCurrentPage(1))
 			const response = await fetch(
 				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
@@ -59,6 +59,7 @@ function ProductProvider({ children }) {
 	};
 
 	 const filterProductsByBrand = (selectedBrands) => {
+		setFirstFilter(true)
         setSelectedBrands(selectedBrands);
         fetchProducts();
     };
