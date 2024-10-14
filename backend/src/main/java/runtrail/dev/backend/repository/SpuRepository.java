@@ -1,4 +1,4 @@
- package runtrail.dev.backend.repository;
+package runtrail.dev.backend.repository;
 
 import java.util.List;
 

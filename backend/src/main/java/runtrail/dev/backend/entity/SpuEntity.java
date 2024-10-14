@@ -33,5 +33,4 @@ public class SpuEntity {
     @Column(name = "spu_status")
     private int spuStatus;
 
-
 }
