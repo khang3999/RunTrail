@@ -21,12 +21,7 @@ const SideBarProduct = () => {
 						<PriceFilter />
 					</div>
 				</FilterItem>
-                <FilterItem title={'Danh mục'}>
-					{/* Range price */}
-					<div>
-						<CategoryFilter />
-					</div>
-				</FilterItem>
+               
 			</div>
 		</div>
 	);
