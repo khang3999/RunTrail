@@ -23,7 +23,7 @@ const ProductGrid = () => {
 		return (
 			<div>
 				<div className={styles.grid}>
-					{Array(productsPerPage)
+					{Array(20)
 						.fill(0)
 						.map((_, index) => (
 							<ProductItemSkeleton />
