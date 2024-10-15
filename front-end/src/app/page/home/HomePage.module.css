@@ -27,9 +27,8 @@
   .sidebar {
     display: none;
   }
-
-  .homepage {
-    padding-left: 20px;
-    padding-right: 20px;
+  .mainContent{
+    padding: 0;
   }
+  
 }

@@ -1,57 +1,66 @@
-"use-client";
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-
+"use client";
+import React, { useState } from "react";
+import CategoryFilter from "../Filters/CategoryFilter";
+import "flowbite/dist/flowbite.min.css"; // Ensure flowbite is correctly imported
 
 export default function MyNavbar() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <>
-      <Navbar  expand="lg" className="bg-dark">
-        <Container fluid>
-          <Navbar.Brand href="#">
-          <img
-              src="https://supersports.com.vn/cdn/shop/files/LOGO_WEB_10.10_V.png?v=1728360291&width=400"
-              width={200}              
-              className="d-inline-block align-top"
-              alt="React Bootstrap logo"
+      <nav className="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-normal  p-4">
+          <a
+            href="#"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <img
+              src="https://supersports.com.vn/cdn/shop/files/LOGO_SSP_RGB-02_c46e0135-659a-49a2-9b37-6afebf1112e4.jpg?v=1723429659&width=2082"
+              className="h-8"
+              alt="Super sport Logo"
             />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
+          </a>
+          <button
+            data-collapse-toggle="navbar-dropdown"
+            type="button"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-dropdown"
+            aria-expanded={isDropdownOpen}
+            onClick={toggleDropdown}
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
             >
-              <NavDropdown title="Link" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 1h15M1 7h15M1 13h15"
               />
-              <Button variant="outline-success">Search</Button>
-            </Form>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+            </svg>
+          </button>
+          <div
+            className={`${
+              isDropdownOpen ? "block" : "hidden"
+            } w-full md:block md:w-auto self-start`}
+            id="navbar-dropdown"
+          >
+            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-900 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-gray-900 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 ml-4">
+              <CategoryFilter />
+            </ul>
+          </div>
+        </div>
+      </nav>
     </>
   );
 }
