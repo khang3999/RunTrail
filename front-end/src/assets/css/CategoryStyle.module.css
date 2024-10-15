@@ -1,0 +1,13 @@
+/* CategoryStyle.module.css */
+
+.customDropdown{
+    margin: 20px;
+}
+
+.customDropdownItem {
+  color: #000000; /* Default text color */
+}
+
+.customDropdownItem:hover {
+  color: #ff0000; /* Text color on hover */
+}

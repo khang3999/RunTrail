@@ -1,42 +1,101 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
+// Ensure flowbite is correctly installed
+import "flowbite/dist/flowbite.min.css";
+
+const SkeletonLoader = () => {
+  return (
+    <div className="flex items-center justify-between w-full py-2 px-3 text-white bg-gray-400 animate-pulse rounded">
+      <div className="w-20 h-5 bg-gray-300 rounded"></div>
+      <div className="w-4 h-4 bg-gray-300 rounded-full"></div>
+    </div>
+  );
+};
+
+const CategoryComponent = ({ categories, isLoading }) => {
 
 
 
 
-const CategoryComponent = ({ categories }) => {
   const { setCategoryId } = useProductProvider();
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [openDropdownId, setOpenDropdownId] = useState(null);
 
-  const handleCategoryChange = (categoryId) => {
+  const toggleDropdown = (categoryId, isOpen) => {
+    setOpenDropdownId(isOpen ? categoryId : null);
+  };
+
+  const handleMouseEnter = (categoryId) => {
+    toggleDropdown(categoryId, true);
+  };
+
+  const handleMouseLeave = (categoryId) => {
+    toggleDropdown(categoryId, false);
+  };
+
+  const handleCategoryClick = (categoryId) => {
     setCategoryId(categoryId);
   };
 
-  const renderMenuItems = (parentId) => {
+  const renderMenuItems = (parentId) => {   
     return categories
       .filter((category) => category.parentId === parentId)
       .map((category) =>
         category.parentId === null ? (
-          <NavDropdown
-            id={category.id}
-            title={category.name}
-            onClick={() => handleCategoryChange(category.id)}
-            onMouseEnter={() => setShowDropdown(category.id)}
-            onMouseLeave={() => setShowDropdown(false)}
-            show={showDropdown === category.id}
-           
-          >
-            {renderMenuItems(category.id)}
-          </NavDropdown>
+          <li key={category.id} className="relative">
+            <button
+              id={`dropdownNavbarLink_${category.id}`}
+              data-dropdown-toggle={`dropdownNavbar_${category.id}`}
+              className="flex items-center bg-gray-900 justify-between w-full py-2 px-3 text-white rounded hover:text-green-500  dark:text-white"
+              onMouseEnter={() => handleMouseEnter(category.id)}
+              onClick={() => handleCategoryClick(category.id)}
+            >
+              {category.name}
+              {categories.some((cat) => cat.parentId === category.id) && (
+                <svg
+                  className="w-2.5 h-2.5 ml-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              )}
+            </button>
+            {categories.some((cat) => cat.parentId === category.id) && (
+              <div
+                id={"dropdownNavbar_" + category.id}
+                className={`absolute left-0 top-full z-10 ${
+                  openDropdownId === category.id ? "block" : "hidden"
+                } font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
+                onMouseEnter={() => handleMouseEnter(category.id)}
+                onMouseLeave={() => handleMouseLeave(category.id)}
+              >
+                <ul
+                  className="py-2 text-sm text-gray-700 dark:text-gray-400"
+                  aria-labelledby={`dropdownNavbarLink_${category.id}`}
+                >
+                  {renderMenuItems(category.id)}
+                </ul>
+              </div>
+            )}
+          </li>
         ) : (
-          <NavDropdown.Item
-            key={category.id}
-            onClick={() => handleCategoryChange(category.id)}
-            className={`m-2`}
-          >
-            {category.name}
-          </NavDropdown.Item>
+          <li key={category.id}>
+            <button
+              className="block px-4 py-2 w-full text-start dark:hover:text-green-500"
+              onClick={() => handleCategoryClick(category.id)}
+            >
+              {category.name}
+            </button>
+          </li>
         )
       );
   };
@@ -62,11 +121,19 @@ export default function CategoryFilter() {
     };
 
     fetchCategories();
+
+   
+
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+
+    // Render skeletons matching the number of top-level categories
+    return Array(7)
+      .fill(null)
+      .map((_, index) => <SkeletonLoader />);
+      
   }
 
-  return <CategoryComponent categories={categories} />;
+  return <CategoryComponent categories={categories} isLoading={isLoading} />;
 }
