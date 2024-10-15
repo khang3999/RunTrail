@@ -8,7 +8,7 @@ function ProductItem(props) {
     const product = props.product
     const price = props.price
     const brand = props.brand
-    console.log(product);
+    // console.log(product);
 
 
     // Xử lí tiền theo định dạng
@@ -25,9 +25,9 @@ function ProductItem(props) {
         }
         return numeral(number).format('0,0').replace(/,/g, '.')
     }
-    console.log(product[0]);
+    // console.log(product[0]);
     
-    console.log(formatPrice(product.spuPrice * (100-25)/100));
+    // console.log(formatPrice(product.spuPrice * (100-25)/100));
     
     return (
         <>
