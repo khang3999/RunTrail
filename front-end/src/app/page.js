@@ -2,6 +2,7 @@
 import ProductItem from '@/components/ProductItem';
 import ProductItemSkeleton from '@/components/ProductItemSkeleton';
 import Image from 'next/image';
+import "flowbite/dist/flowbite.min.css";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import HomePage from './page/home/HomePage';

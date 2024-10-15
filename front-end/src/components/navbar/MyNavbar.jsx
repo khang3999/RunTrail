@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import CategoryFilter from "../Filters/CategoryFilter";
-import "flowbite/dist/flowbite.min.css"; // Ensure flowbite is correctly imported
 
 export default function MyNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
