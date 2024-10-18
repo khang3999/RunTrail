@@ -5,7 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0bd7cc8-d27d-4612-b7af-98a8357d9427" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/front-end/.idea/front-end.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/app/page/home/HomePage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/app/page/home/HomePage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/assets/css/CategoryStyle.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/assets/images/logo_shop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/Filters/BrandsFilter.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/Filters/CategoryFilter.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/SideBarProduct/index.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/navbar/MyDropdownButton.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/components/navbar/MyNavbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SpuEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SpuRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/app/page/home/home_page.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/app/page/home/home_page.module.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/BrandsFilter.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/CategoryFilter.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/FilterItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/Filters/FilterItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/PriceFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/Filters/PriceFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/filters/QuickFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/Filters/QuickFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/goToTopButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/GoToTopButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/GridProduct/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/grid_product/grid_product.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/GridProduct/GridProduct.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/productItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/ProductItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/productItemSkeleton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/ProductItemSkeleton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/side_bar_product/side_bar_product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/components/side_bar_product/side_bar_product.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/SideBarProduct/SideBarProduct.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/contexts/CategoryContext.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/contexts/FilterProductProvider.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/contexts/ProductProvider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/contexts/Providers.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/contexts/Providers.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +94,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.BackendApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/tranthu/RunTrail",
     "node.js.detected.package.eslint": "true",
@@ -110,7 +148,7 @@
       <workItem from="1728546143420" duration="11253000" />
       <workItem from="1728654280477" duration="3602000" />
       <workItem from="1728657896026" duration="1347000" />
-      <workItem from="1728659265614" duration="14300000" />
+      <workItem from="1728659265614" duration="18399000" />
     </task>
     <servers />
   </component>

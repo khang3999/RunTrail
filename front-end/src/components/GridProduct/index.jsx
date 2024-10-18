@@ -1,12 +1,11 @@
-'use client';
 import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import styles from './grid_product.module.css';
+import styles from './GridProduct.module.css';
 import { useProductProvider } from '@/contexts/ProductProvider';
 import Pagination from '../Pagination';
-import ProductItemSkeleton from '../productItemSkeleton';
-import ProductItem from '../productItem';
+import ProductItemSkeleton from '../ProductItemSkeleton';
+import ProductItem from '../ProductItem';
 
 const ProductGrid = () => {
 	const {
@@ -22,8 +21,9 @@ const ProductGrid = () => {
 	if (isLoading) {
 		return (
 			<div>
-				<div className={styles.grid} >
-					{Array(productsPerPage).fill(0)
+				<div className={styles.grid}>
+					{Array(20)
+						.fill(0)
 						.map((_, index) => (
 							<ProductItemSkeleton />
 						))}
@@ -47,7 +47,6 @@ const ProductGrid = () => {
 					<>
 						<ProductItem product={product} />
 					</>
-
 				))}
 			</div>
 
