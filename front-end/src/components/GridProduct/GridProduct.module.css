@@ -2,7 +2,7 @@
     display: grid;
     gap: 10px;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 420px);
+    grid-template-rows: repeat(1, 420px);
     padding: 10px;
   }
   
@@ -36,7 +36,8 @@
   
   @media (max-width: 768px) {
     .grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 420px);
     }
     .product-card {
       width: 200px;

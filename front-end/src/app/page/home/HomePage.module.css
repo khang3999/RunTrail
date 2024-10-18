@@ -9,13 +9,14 @@
 .mainContent {
   display: flex;
   flex: 1;
-  padding: 20px 0 100px 100px;  
+  padding: 20px 0 20px 20px;  
 }
 
 .sidebar {
   margin-right: 10px;
   height: 1580px;
   overflow-y: auto;
+  width: 300px;
 }
 
 .productSection {
