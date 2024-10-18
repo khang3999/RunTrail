@@ -62,7 +62,7 @@
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
     "database.data.extractors.current.export.id": "SQL-Insert-Multirow.sql.groovy",
-    "git-widget-placeholder": "#22 on filter-category",
+    "git-widget-placeholder": "filter-category",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "E:/DevOps",
@@ -128,6 +128,7 @@
       <workItem from="1728777736745" duration="408000" />
       <workItem from="1728920258297" duration="6322000" />
       <workItem from="1729003320312" duration="986000" />
+      <workItem from="1729255277898" duration="669000" />
     </task>
     <servers />
   </component>

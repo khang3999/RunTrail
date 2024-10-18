@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import CategoryFilter from "../Filters/CategoryFilter";
-import "flowbite/dist/flowbite.min.css"; // Ensure flowbite is correctly imported
+
 
 export default function MyNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,7 +12,7 @@ export default function MyNavbar() {
 
   return (
     <>
-      <nav className="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <nav style={{backgroundColor: '#101827'}} className="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-normal  p-4">
           <a
             href="#"
