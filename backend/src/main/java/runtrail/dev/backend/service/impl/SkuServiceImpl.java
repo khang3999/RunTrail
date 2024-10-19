@@ -35,6 +35,10 @@ public class SkuServiceImpl implements SkuService {
         return List.of();
     }
 
+    // Lấy danh sách SKU theo SPU ID
+    public List<SkuEntity> getSkusBySpuId(Long spuId) {
+        return skuRepository.findBySpuId(spuId);
+    }
 
     @Override
     public List<SkuEntity> filterSkus(Long brandId, Long minPrice, Long maxPrice) {

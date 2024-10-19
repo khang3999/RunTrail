@@ -21,6 +21,8 @@ public interface SkuRepository extends JpaRepository<SkuEntity, Long> {
     @Query("SELECT s FROM SkuEntity s WHERE s.spu.categoryId IN :categoryIds")
     List<SkuEntity> findSkusByCategoryIds(@Param("categoryIds") List<Long> categoryIds);
 
+    // Lấy danh sách SKU theo SPU ID
+    List<SkuEntity> findBySpuId(Long spuId);
 
 
     // Tìm các SKU theo danh sách spuId và trong khoảng giá

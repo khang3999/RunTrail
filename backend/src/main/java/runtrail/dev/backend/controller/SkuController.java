@@ -44,6 +44,16 @@ public class SkuController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    // Lấy SKU theo ID
+    @GetMapping("/bySpu/{spuId}")
+    public ResponseEntity<List<SkuEntity>> getSkusBySpuId(@PathVariable long spuId) {
+        List<SkuEntity> skus = skuService.getSkusBySpuId(spuId);
+        if (skus.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(skus, HttpStatus.OK);
+    }
+
 
     // Lọc sản phẩm theo giá
     @GetMapping("/filter")
