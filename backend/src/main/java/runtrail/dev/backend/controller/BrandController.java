@@ -32,4 +32,10 @@ public class BrandController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/by-category")
+    public ResponseEntity<List<BrandEntity>> getBrandsByCategory(@RequestParam Long categoryId) {
+        List<BrandEntity> brandEntities = brandService.getBrandsByCategoryId(categoryId);
+        return new ResponseEntity<>(brandEntities, HttpStatus.OK);
+    }
+
 }

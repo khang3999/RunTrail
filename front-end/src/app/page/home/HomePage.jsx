@@ -1,16 +1,23 @@
-import React from 'react';
+import React,{useState} from 'react';
 import ProductGrid from '@/components/GridProduct';
 import SideBarProduct from '@/components/SideBarProduct';
 import styles from './HomePage.module.css';
 import QuickFilter from '@/components/Filters/QuickFilter';
 import MyNavbar from "@/components/navbar/MyNavbar";
+
 const HomePage = () => {
+	const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+
+	const handleCategoryClick = (categoryId) => {
+		setSelectedCategoryId(categoryId);			
+	}
+
 	return (
 	  <div className={styles.homepage}>
-		<MyNavbar />
+		<MyNavbar onCategoryClick={handleCategoryClick}/>
 		<div className={styles.mainContent}>
 		  <div className={styles.sidebar}>
-			<SideBarProduct />
+			<SideBarProduct categoryId={selectedCategoryId}/>
 		  </div>
 		  <div className={styles.productSection}>
 			<QuickFilter />

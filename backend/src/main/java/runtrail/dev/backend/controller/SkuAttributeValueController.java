@@ -31,5 +31,11 @@ public class SkuAttributeValueController {
         return skuAttributeValue.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    //Get all attribute values by categoryId
+    @GetMapping("/by-category")
+    public ResponseEntity<List<SkuAttributeValueEntity>> getAllSkuAttributeValuesByCategory(@RequestParam Long categoryId) {
+        List<SkuAttributeValueEntity> skuAttributeValueEntityList = skuAttributeValueService.getAllSkuAttributeValuesByCategoryId(categoryId);
+               return new ResponseEntity<>(skuAttributeValueEntityList, HttpStatus.OK);
+    }
 
 }
