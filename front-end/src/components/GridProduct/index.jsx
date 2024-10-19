@@ -5,8 +5,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import styles from './GridProduct.module.css';
 import { useProductProvider } from '@/contexts/ProductProvider';
 import Pagination from '../Pagination';
-import ProductItemSkeleton from '../ProductItemSkeleton';
-import ProductItem from '../ProductItem';
+import ProductItemSkeleton from '../ProductsList/ProductItemSkeleton';
+import ProductItem from '../ProductsList/ProductItem';
 
 const ProductGrid = () => {
 	const {

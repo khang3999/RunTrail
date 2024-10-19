@@ -1,36 +1,45 @@
 "use client"
-import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
+import MainLayout from '@/layout/MainLayout';
+import ProductDetail from '@/components/ProductsList/ProductDetail';
 
-function DetailProduct() {
-    const searchParams = useSearchParams();
-    const productId = searchParams.get('productId');
+const page = () => {
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+    const [parentCategory, setParentCategory] = useState('');
+    const [childCategory, setChildCategory] = useState('');
 
-    const [products, setProducts] = useState(null);
+    const handleParentCategoryClick = (categoryId, categoryName) => {
+        setSelectedCategoryId(categoryId);
+        setParentCategory(categoryName);
+        setChildCategory(''); // Reset childCategory khi chọn parent
+    };
 
-    useEffect( () =>  {
-     const fetchProduct = async () => {
-        if (productId) {
-          const response = await fetch(
-            `http://localhost:8008/api/v1/sku/bySpu/${productId}`
-          );
-          const data = await response.json();
-          setProducts(data)
-        }
-      }
-        fetchProduct()
-    }, [productId]);
+    const handleChildCategoryClick = (categoryId, categoryName) => {
+        setSelectedCategoryId(categoryId);
+        setChildCategory(categoryName);
+    };
 
-    if (!products) {
-        return <p>Loading...</p>;
-    }
+    const handleHomeClick = () => {
+        // Cập nhật lại parent và child thành null
+        setParentCategory('');
+        setChildCategory('');
+        setSelectedCategoryId(null);
+    };
 
-    
     return (
-        <div>
-            <h1>{products[0].skuName}</h1>
-        </div>
+        <MainLayout
+            selectedCategoryId={selectedCategoryId}
+            parentCategory={parentCategory}
+            childCategory={childCategory}
+            onHomeClick={handleHomeClick}
+            onParentCategoryClick={handleParentCategoryClick}
+            onChildCategoryClick={handleChildCategoryClick}
+        >
+            {(props) => (
+                    <ProductDetail selectedCategoryId={props.selectedCategoryId} />
+            )}
+        </MainLayout>
     );
-}
+};
 
-export default DetailProduct;
+export default page;

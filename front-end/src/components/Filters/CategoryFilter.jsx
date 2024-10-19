@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
 
-
+// SkeletonLoader component
 const SkeletonLoader = () => {
   return (
     <div className="flex items-center justify-between w-full py-2 px-3 text-white bg-gray-400 animate-pulse rounded">
@@ -12,10 +12,11 @@ const SkeletonLoader = () => {
   );
 };
 
-const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
-
+// CategoryComponent to render the category menu
+const CategoryComponent = ({ categories, isLoading, onCategoryClick, onParentCategoryClick, onChildCategoryClick }) => {
   const { setCategoryId } = useProductProvider();
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
   const toggleDropdown = (categoryId, isOpen) => {
     setOpenDropdownId(isOpen ? categoryId : null);
@@ -30,11 +31,29 @@ const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
   };
 
   const handleCategoryClick = (categoryId) => {
-    setCategoryId(categoryId);
-    onCategoryClick(categoryId);    
+    const clickedCategory = categories.find(cat => cat.id === categoryId);
+    
+    if (clickedCategory) {
+        setCategoryId(categoryId);
+
+        const parentCategory = categories.find(cat => cat.id === clickedCategory.parentId);
+
+        if (parentCategory) {
+            setSelectedCategoryId(parentCategory.id);
+        } else {
+            setSelectedCategoryId(clickedCategory.id);
+        }
+
+        if (clickedCategory.parentId) {
+            onParentCategoryClick(parentCategory.id, parentCategory.name)
+            onChildCategoryClick(categoryId, clickedCategory.name);
+        } else {
+            onParentCategoryClick(categoryId, clickedCategory.name);
+        }
+    }
   };
 
-  const renderMenuItems = (parentId) => {   
+  const renderMenuItems = (parentId) => {
     return categories
       .filter((category) => category.parentId === parentId)
       .map((category) =>
@@ -43,7 +62,7 @@ const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
             <button
               id={`dropdownNavbarLink_${category.id}`}
               data-dropdown-toggle={`dropdownNavbar_${category.id}`}
-              className="flex items-center bg-gray-900 justify-between w-full py-2 px-3 text-white rounded hover:text-green-500  dark:text-white"
+              className={`flex items-center justify-between w-full py-2 px-3 rounded ${selectedCategoryId === category.id ? 'bg-gray-700' : 'bg-gray-900'} text-white hover:text-green-500`}
               onMouseEnter={() => handleMouseEnter(category.id)}
               onClick={() => handleCategoryClick(category.id)}
             >
@@ -69,9 +88,8 @@ const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
             {categories.some((cat) => cat.parentId === category.id) && (
               <div
                 id={"dropdownNavbar_" + category.id}
-                className={`absolute left-0 top-full z-10 ${
-                  openDropdownId === category.id ? "block" : "hidden"
-                } font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
+                className={`absolute left-0 top-full z-10 ${openDropdownId === category.id ? "block" : "hidden"
+                  } font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
                 onMouseEnter={() => handleMouseEnter(category.id)}
                 onMouseLeave={() => handleMouseLeave(category.id)}
               >
@@ -87,7 +105,7 @@ const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
         ) : (
           <li key={category.id}>
             <button
-              className="block px-4 py-2 w-full text-start dark:hover:text-green-500"
+              className={`block px-4 py-2 w-full text-start ${selectedCategoryId === category.id ? 'bg-gray-700' : ''} dark:hover:text-green-500`}
               onClick={() => handleCategoryClick(category.id)}
             >
               {category.name}
@@ -98,9 +116,10 @@ const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
   };
 
   return <>{renderMenuItems(null)}</>;
-};
+}
 
-export default function CategoryFilter({onCategoryClick}) {
+// CategoryFilter component
+export default function CategoryFilter({ onCategoryClick, onParentCategoryClick, onChildCategoryClick }) {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
@@ -118,19 +137,22 @@ export default function CategoryFilter({onCategoryClick}) {
     };
 
     fetchCategories();
-
-   
-
   }, []);
 
   if (isLoading) {
-
     // Render skeletons matching the number of top-level categories
     return Array(7)
       .fill(null)
-      .map((_, index) => <SkeletonLoader key={index}/>);
-      
+      .map((_, index) => <SkeletonLoader key={index} />);
   }
 
-  return <CategoryComponent categories={categories} isLoading={isLoading} onCategoryClick={onCategoryClick}/>;
+  return (
+    <CategoryComponent 
+      categories={categories} 
+      isLoading={isLoading} 
+      onCategoryClick={onCategoryClick} 
+      onParentCategoryClick={onParentCategoryClick} 
+      onChildCategoryClick={onChildCategoryClick} 
+    />
+  );
 }
