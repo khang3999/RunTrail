@@ -8,6 +8,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css';
 import ImageDesktopSkeleton from '@/components/ImageDesktopSkeleton'
+import smallImage from '../../assets/images/adidas-barricade-13.png';
+import ReactImageMagnify from 'react-image-magnify'
 
 export default function DetailProduct() {
   const [hoveredImage, setHoveredImage] = useState(false)
@@ -16,18 +18,13 @@ export default function DetailProduct() {
   const data = [
     "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg",
     "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-02.jpg",
-    // "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-03.jpg",
-    // "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-04.jpg",
-    // "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    // "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg",
+    "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-03.jpg",
+    "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-04.jpg",
+    "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg",
+    "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg",
     // "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg",
     // "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg",
   ]
-
-  const handleMouseMove = (event) => {
-    setMousePosition({ x: event.clientX, y: event.clientY });
-  };
-
   return (
     <>
       <div>DetailProduct</div>
@@ -37,16 +34,41 @@ export default function DetailProduct() {
         <div className='flex flex-col w-1/2 px-10 py-4'>
           {/*  */}
           <div className='w-full mb-8 flex justify-center items-center'>
-            <img
-              onMouseEnter={() => setHoveredImage(true)}
-              onMouseLeave={() => {
-                setHoveredImage(false);
-                setMousePosition({ x: 0, y: 0 })
-              }}
-              onMouseMove={handleMouseMove}
-              className='w-[60%]' src='https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg'>
-            </img>
+            <div className='w-[60%]'>
+              <ReactImageMagnify
+                {...{
+                  smallImage: {
+                    src: smallImage,
+                    alt: 'Ảnh nhỏ',
+                    width: 400,
+                    height: 400
+                  },
+                  largeImage: {
+                    src: 'https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg',
+                    // width: 750,
+                    // height: 1000,
+                    width: 1000,
+                    height: 1000,
+                  },
+                  // enlargedImageContainerDimensions: {
+                  //   width: '140%',
+                  //   height: '140%',
+                  // },
+                  // enlargedImageContainerStyle: {
+                  //   border: '1px solid black',
+                  //   backgroundColor: '#fff',
+                  //   zIndex: 10      // Đặt chiều cao 100% để phù hợp với khung
+                  // },
+                  enlargedImageStyle: {
+                    objectFit: 'fill',  // Điều chỉnh cách ảnh hiển thị
+                    width: '100%',          // Đặt chiều rộng 100% để phù hợp với khung
+                    height: '100%',   
+                  }
+                }}
+              />
+            </div>
           </div>
+
           {/* List images slide*/}
           <div className='w-full stroke-slate-400 border-2 p-4'>
             <Swiper
@@ -66,12 +88,12 @@ export default function DetailProduct() {
             </Swiper>
           </div>
         </div>
-        <ImageDesktopSkeleton></ImageDesktopSkeleton>
+        {/* <ImageDesktopSkeleton></ImageDesktopSkeleton> */}
         {/* Infor section */}
         <div className='flex-1 bg-orange-300'></div>
 
         {/* Image hover */}
-        {/* {hoveredImage && (
+        {hoveredImage && (
           <div className='absolute h-[560px] border-4 border-gray-600 left-1/2 overflow-hidden'>
             <img
               className='h-full scale-[1.7]'
@@ -84,13 +106,7 @@ export default function DetailProduct() {
               }}>
             </img>
           </div>
-        )} */}
-{/* 
-        <div
-          className='mini-overlay h-[100px] w-[80px] opacity-50 border-4 border-gray-600 bg-slate-300'
-        >
-        </div> */}
-
+        )}
       </div>
     </>
   )

@@ -1,5 +1,6 @@
 import React from 'react'
 import '@/assets/css/productItemSkeleton.css'
+import ReactImageMagnify from 'react-image-magnify'
 
 const ImageDesktopSkeleton = () => {
     const perPage = 5
@@ -21,6 +22,24 @@ const ImageDesktopSkeleton = () => {
                     })}
                 </div>
             </div>
+            {/* <ReactImageMagnify
+                {...{
+                    smallImage: {
+                        alt: 'Ảnh nhỏ',
+                        isFluidWidth: true,
+                        src: 'https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-03.jpg',
+                    },
+                    largeImage: {
+                        src: 'https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-03.jpg',
+                        width: 1200,
+                        height: 1800,
+                    },
+                    enlargedImageContainerDimensions: {
+                        width: '150%',
+                        height: '150%',
+                    },
+                }}
+            /> */}
         </div>
     )
 }
