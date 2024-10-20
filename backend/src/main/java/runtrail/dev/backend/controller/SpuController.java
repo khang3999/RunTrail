@@ -101,8 +101,13 @@ public class SpuController {
 
     // Cac san pham random
     @GetMapping("/random")
-    public List<SpuEntity> getRandomProducts(@RequestParam String category) {
+    public List<SpuDTO> getRandomProducts(@RequestParam long category) {
         return spuService.getRandomProductsByCategory(category);
+    }
+    //Test 20sp
+    @GetMapping("/top20sp")
+    public List<SpuDTO> get20spTop(@RequestParam long category) {
+        return spuService.get20spTop(category);
     }
 
 

@@ -2,19 +2,15 @@ package runtrail.dev.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.entity.SpuEntity;
-import runtrail.dev.backend.exception.ErrorExceptionHandler;
 import runtrail.dev.backend.repository.SpuRepository;
 import runtrail.dev.backend.service.SpuService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class SpuServiceImpl implements SpuService {
@@ -62,34 +58,40 @@ public class SpuServiceImpl implements SpuService {
           }
     }
 
-    public List<SpuEntity> getRandomProductsByCategory(String category) {
-        //Lay 20 sp giam gia nhat random
-        List<SpuEntity> topDiscountedProducts = spuRepository.findTop20DiscountedProductsByCategory(category);
-        List<SpuEntity> selectedProducts = new ArrayList<>();
+    public List<SpuDTO> getRandomProductsByCategory(long category ) {
+        // Lấy 20 sp có mã giảm giá cao nhất
+        Pageable pageable = PageRequest.of(0, 20);
+        List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category,pageable);
+        List<SpuDTO> selectedProducts = new ArrayList<>();
 
-        // Lấy 6 sp ngau nhien tu 20 sp giam gia
-        if (topDiscountedProducts.size() > 6) {
-            Random rand = new Random();
-            while (selectedProducts.size() < 6) {
-                //tao 1 so random tu 0 -> size -1
-                int randomIndex = rand.nextInt(topDiscountedProducts.size());
-                SpuEntity randomProduct = topDiscountedProducts.get(randomIndex);
-                if (!selectedProducts.contains(randomProduct)) {
-                    selectedProducts.add(randomProduct);
-                }
-            }
-            //Neu duoi 6
-        } else {
-            selectedProducts.addAll(topDiscountedProducts);
+        // lấy 6 random từ 20sp
+        if (!topDiscountedProducts.isEmpty()) {
+            //Trộn all sp từ 20 sp
+            Collections.shuffle(topDiscountedProducts);
+
+            selectedProducts.addAll(topDiscountedProducts.subList(0, Math.min(6, topDiscountedProducts.size())));
         }
 
-        // neu kh du 6sp, lay all sp con thieu
-        if (selectedProducts.size() < 6) {
-            //So sp thieu
-            int remainingCount = 6 - selectedProducts.size();
-            List<SpuEntity> randomProducts = spuRepository.findRandomProducts(remainingCount);
+        // lấy random all sp
+        int remainingCount = 6 - selectedProducts.size();
+        if (remainingCount > 0) {
+            List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
             selectedProducts.addAll(randomProducts);
         }
+
         return selectedProducts;
     }
+
+    //Test20sp
+    public List<SpuDTO> get20spTop(long category ) {
+        // Lấy 20 sp có mã giảm giá cao nhất
+        Pageable pageable = PageRequest.of(0, 20);
+        List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category, pageable);
+        List<SpuDTO> selectedProducts = new ArrayList<>();
+
+        selectedProducts.addAll(topDiscountedProducts);
+
+        return selectedProducts;
+    }
+
 }
