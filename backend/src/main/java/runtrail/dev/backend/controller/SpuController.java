@@ -99,4 +99,12 @@ public class SpuController {
     /*---------------END PAGINATION--------------*/
 
 
+    // Cac san pham random
+    @GetMapping("/random")
+    public List<SpuEntity> getRandomProducts(@RequestParam String category) {
+        return spuService.getRandomProductsByCategory(category);
+    }
+
+
+
 }
