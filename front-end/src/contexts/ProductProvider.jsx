@@ -17,6 +17,7 @@ function ProductProvider({ children }) {
 	const [maxPrice, setMaxPrice] = useState(20000000);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [categoryId, setCategoryId] = useState(-1);
+	const [selectedSizes, setSelectedSizes] = useState([]);
 
 	useEffect(() => {
 		fetchProducts();
@@ -24,6 +25,7 @@ function ProductProvider({ children }) {
 		currentPage,
 		contentOrderBy,
 		selectedBrands,
+		selectedSizes,
 		minPrice,
 		maxPrice,
 		categoryId,
@@ -40,8 +42,9 @@ function ProductProvider({ children }) {
 			}
 
 			const brandIdsStr = selectedBrands.join(',');
-
-			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}`;
+			const sizesNameStr = selectedSizes.join(',');
+			
+			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
 
 			setIsLoading(true);
 
@@ -49,7 +52,7 @@ function ProductProvider({ children }) {
 			const response = await fetch(
 				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
 			);
-
+			console.log(stringParams);
 			const data = await response.json();
 			const {
 				metadata: {
@@ -76,6 +79,13 @@ function ProductProvider({ children }) {
 		setSelectedBrands(selectedBrands);
 		fetchProducts();
 	};
+
+	const filterProductsBySize = (selectedSizes) => {
+		setFirstFilter(true);
+		setSelectedSizes(selectedSizes);
+		fetchProducts();
+	};
+
 
 	const indexOfLastProduct = currentPage * productsPerPage;
 	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -117,6 +127,9 @@ function ProductProvider({ children }) {
 				categoryId,
 				setCategoryId,
 				filterProductsByBrand,
+				filterProductsBySize,
+				setSelectedSizes,
+				selectedSizes,
 			}}
 		>
 			{children}

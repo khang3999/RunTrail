@@ -12,7 +12,7 @@ import java.util.List;
 public interface SkuAttributeValueRepository extends JpaRepository<SkuAttributeValueEntity, Long> {
     List<SkuAttributeValueEntity> findByAttriId(long attriId);
 
-    @Query("SELECT sav From SkuAttributeValueEntity sav WHERE sav.categoryId = :categoryId")
+    @Query("SELECT DISTINCT sav FROM SkuAttributeValueEntity sav INNER JOIN SkuAttributeEntity sa ON sa.id = sav.attriId INNER JOIN CategoryEntity c ON c.id = sa.categoryId WHERE (c.id = :categoryId OR c.parentId = :categoryId)")
     List<SkuAttributeValueEntity> findSkuAttributeValueEntitiesByCategoryId(@Param("categoryId") Long categoryId);
 
 }

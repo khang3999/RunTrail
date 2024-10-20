@@ -8,8 +8,7 @@ const BrandsFilter = ({ categoryId }) => {
   const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
   const { setSelectedBrands, filterProductsByBrand } = useProductProvider();
 	
-  useEffect(() => {
-    console.log("categoryId", categoryId);
+  useEffect(() => {    
 
     const fetchBrandsData = async () => {
       try {
