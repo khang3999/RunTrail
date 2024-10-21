@@ -18,7 +18,8 @@ const MainLayout = ({ children, selectedCategoryId, parentCategory, childCategor
             />
             
             {/* Truyền selectedCategoryId và các props khác vào children */}
-            {children({ selectedCategoryId })}
+            {/* {children({ selectedCategoryId })} */}
+            <main>{children}</main>
         </>
     );
 };

@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61db02b2-2bfd-4a21-9a17-52094e4440ce" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/httpClient.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpClient.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/BrandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/BrandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SkuAttributeValueController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/controller/SkuAttributeValueController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SkuAttributeValueEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/entity/SkuAttributeValueEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/BrandRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/BrandRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SkuAttributeValueRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/repository/SkuAttributeValueRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/BrandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/BrandService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SkuAttributeValueService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/SkuAttributeValueService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/BrandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/BrandServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SkuAttributeValueServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/runtrail/dev/backend/service/impl/SkuAttributeValueServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/app/page/home/HomePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/app/page/home/HomePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/Filters/BrandsFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/Filters/BrandsFilter.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/Filters/CategoryFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/Filters/CategoryFilter.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/SideBarProduct/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/SideBarProduct/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/navbar/MyDropdownButton.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/components/navbar/MyNavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/components/navbar/MyNavbar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +58,8 @@
     "HTTP Request.RunTrail-endpoints_11 | #1.executor": "Run",
     "HTTP Request.RunTrail-endpoints_12 | #1.executor": "Run",
     "HTTP Request.RunTrail-endpoints_13 | #1.executor": "Run",
+    "HTTP Request.RunTrail-endpoints_14 | #1.executor": "Run",
+    "HTTP Request.RunTrail-endpoints_15 | #1.executor": "Run",
     "HTTP Request.RunTrail-endpoints_9 | #1.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
@@ -85,7 +71,7 @@
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
     "database.data.extractors.current.export.id": "SQL-Insert-Multirow.sql.groovy",
-    "git-widget-placeholder": "features/filter-by-sizes",
+    "git-widget-placeholder": "features/breadcumb",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "E:/DevOps",
@@ -107,9 +93,6 @@
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.BackendApplication">
-    <configuration name="RunTrail-endpoints_10 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/RunTrail-endpoints_10.http" requestIdentifier="#1" runType="Run single request">
-      <method v="2" />
-    </configuration>
     <configuration name="RunTrail-endpoints_11 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/RunTrail-endpoints_11.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -119,7 +102,10 @@
     <configuration name="RunTrail-endpoints_13 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/RunTrail-endpoints_13.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="RunTrail-endpoints_9 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/RunTrail-endpoints_9.http" requestIdentifier="#1" runType="Run single request">
+    <configuration name="RunTrail-endpoints_14 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/RunTrail-endpoints_14.http" requestIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="RunTrail-endpoints_15 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/RunTrail-endpoints_15.http" requestIdentifier="#1" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -133,11 +119,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.RunTrail-endpoints_15 | #1" />
+        <item itemvalue="HTTP Request.RunTrail-endpoints_14 | #1" />
         <item itemvalue="HTTP Request.RunTrail-endpoints_13 | #1" />
         <item itemvalue="HTTP Request.RunTrail-endpoints_12 | #1" />
         <item itemvalue="HTTP Request.RunTrail-endpoints_11 | #1" />
-        <item itemvalue="HTTP Request.RunTrail-endpoints_10 | #1" />
-        <item itemvalue="HTTP Request.RunTrail-endpoints_9 | #1" />
       </list>
     </recent_temporary>
   </component>
@@ -175,7 +161,7 @@
       <workItem from="1728777736745" duration="408000" />
       <workItem from="1728920258297" duration="6322000" />
       <workItem from="1729003320312" duration="986000" />
-      <workItem from="1729255277898" duration="17818000" />
+      <workItem from="1729255277898" duration="36882000" />
     </task>
     <servers />
   </component>
