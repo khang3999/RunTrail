@@ -1,6 +1,5 @@
-package runtrail.dev.backend.entity;
+package runtrail.dev.backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 

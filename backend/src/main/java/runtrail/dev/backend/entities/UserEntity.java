@@ -1,4 +1,4 @@
-package runtrail.dev.backend.entity;
+package runtrail.dev.backend.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

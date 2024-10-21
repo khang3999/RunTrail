@@ -1,6 +1,6 @@
 package runtrail.dev.backend.service;
 
-import runtrail.dev.backend.entity.SkuAttributeEntity;
+import runtrail.dev.backend.entities.SkuAttributeEntity;
 
 import java.util.List;
 import java.util.Optional;

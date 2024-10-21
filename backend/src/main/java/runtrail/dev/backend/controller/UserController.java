@@ -3,8 +3,8 @@ package runtrail.dev.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
-import runtrail.dev.backend.entity.UserEntity;
-import runtrail.dev.backend.repository.UserRepo;
+import runtrail.dev.backend.entities.UserEntity;
+import runtrail.dev.backend.repositories.UserRepo;
 
 import java.util.List;
 

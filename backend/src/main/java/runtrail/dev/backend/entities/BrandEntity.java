@@ -1,4 +1,4 @@
-package runtrail.dev.backend.entity;
+package runtrail.dev.backend.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,18 +11,21 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "sku_attribute_value")
-public class SkuAttributeValueEntity {
+@Table(name = "brand")
+public class BrandEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", nullable = false, length = 30)
-    private String name;
+    @Column(name = "brand_name", nullable = false, length = 50)
+    private String brandName;
 
-    @Column(name = "attri_id")
-    private long attriId;
+    @Column(name = "brand_desc")
+    private String brandDesc;
 
-    
+    @Column(name = "brand_logo", nullable = false)
+    private String brandLogo;
+
+   
 }

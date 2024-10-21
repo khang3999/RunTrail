@@ -1,8 +1,4 @@
-package runtrail.dev.backend.entity;
-
-import lombok.Data;
-
-import java.sql.Date;
+package runtrail.dev.backend.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,11 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
+
 
 @Data
 @Entity
-@Table(name = "sku_attribute")
-public class SkuAttributeEntity {
+@Table(name = "sku_attribute_value")
+public class SkuAttributeValueEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +21,8 @@ public class SkuAttributeEntity {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "category_id")
-    private long categoryId;
+    @Column(name = "attri_id")
+    private long attriId;
 
-    @Column(name = "create_time")
-    private Date createTime;
-
-    @Column(name = "update_date")
-    private Date updateDate;
-
+    
 }

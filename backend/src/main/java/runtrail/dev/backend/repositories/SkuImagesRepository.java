@@ -1,8 +1,8 @@
-package runtrail.dev.backend.repository;
+package runtrail.dev.backend.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import runtrail.dev.backend.entity.SkuImagesEntity;
+import runtrail.dev.backend.entities.SkuImagesEntity;
 
 import java.util.List;
 

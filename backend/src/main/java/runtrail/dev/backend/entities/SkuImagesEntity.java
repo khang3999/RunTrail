@@ -1,15 +1,10 @@
-package runtrail.dev.backend.entity;
+package runtrail.dev.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Data
 @Entity
@@ -20,8 +15,10 @@ public class SkuImagesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "sku_id")
-    private long skuId;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sku_id", nullable = false)
+    private SkuEntity sku;
 
     @Column(name = "image_url", nullable = false)
     private String imageUrl;

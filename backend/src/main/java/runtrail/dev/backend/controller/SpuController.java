@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import runtrail.dev.backend.dto.response.Response;
 import runtrail.dev.backend.dto.response.SpuDTO;
-import runtrail.dev.backend.entity.SpuEntity;
+import runtrail.dev.backend.entities.SpuEntity;
 import runtrail.dev.backend.service.SpuService;
 
 import java.util.List;
@@ -28,14 +28,6 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
-
-    // Lấy SPU theo ID
-    @GetMapping("/{id}")
-    public ResponseEntity<SpuEntity> getSpuById(@PathVariable long id) {
-        Optional<SpuEntity> spu = spuService.getSpuById(id);
-        return spu.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
 
 
     /*---------------PAGINATION------------------*/
@@ -65,14 +57,36 @@ public class SpuController {
             @RequestParam(defaultValue = "") List<Long> brandIds,
             @RequestParam(defaultValue = "-1") Long categoryId,
             @RequestParam(defaultValue = "") String key,
-            @RequestParam(defaultValue = "") List<String> value
-
+            @RequestParam(defaultValue = "") List<String> value,
+            @RequestParam(defaultValue = "") List<List<String>> listValue,
+            @RequestParam(defaultValue = "") List<String> listKey
     ) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
         Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice,maxPrice,brandIds,categoryId, key, value, pageable);
         return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
+    }
+
+    @GetMapping("/filterV2")
+    public Response<?> getSpuByFilterV2(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "desc") String direction,
+            @RequestParam(defaultValue = "0") long minPrice,
+            @RequestParam(defaultValue = "200000") long maxPrice,
+            @RequestParam(defaultValue = "") List<Long> brandIds,
+            @RequestParam(defaultValue = "-1") Long categoryId,
+            @RequestParam(defaultValue = "") List<String> keys,
+            @RequestParam(defaultValue = "") List<List<String>> values
+    ) {
+
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+        Pageable pageable = PageRequest.of(page-1,size,sortBy);
+        final Page<SpuEntity> products = spuService.filterProductV2(minPrice, maxPrice, brandIds, categoryId, keys, values,pageable);
+        return new Response<>(products,HttpStatus.OK.value(), "list ok");
     }
 
     @GetMapping("/filter1")
@@ -89,7 +103,6 @@ public class SpuController {
             @RequestParam(defaultValue = "") String key,
             @RequestParam(defaultValue = "") List<String> value
     ) {
-        logger.info("category"+categoryId+"");
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
@@ -98,5 +111,13 @@ public class SpuController {
     }
     /*---------------END PAGINATION--------------*/
 
+
+    // detail spu
+    @GetMapping()
+    public Response<?> findSpuById(
+            @RequestParam(defaultValue = "") long id
+    ) {
+        return new Response<>(spuService.findSpuById(id),HttpStatus.OK.value(),"Fetch detail product ok");
+    }
 
 }

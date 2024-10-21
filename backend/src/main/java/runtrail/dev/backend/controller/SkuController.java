@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import runtrail.dev.backend.entity.SkuEntity;
+import runtrail.dev.backend.entities.SkuEntity;
 import runtrail.dev.backend.service.SkuService;
 
 import java.util.List;
@@ -44,17 +44,4 @@ public class SkuController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
-    // Lọc sản phẩm theo giá
-    @GetMapping("/filter")
-    public List<SkuEntity> filterSkus(
-            @RequestParam(required = false) Long brandId,
-            @RequestParam(required = false, defaultValue = "0") Long minPrice,
-            @RequestParam(required = false, defaultValue = "20000000") Long maxPrice) {
-
-        System.out.println("Brand IDs: " + brandId);
-        System.out.println("Min Price: " + minPrice);
-        System.out.println("Max Price: " + maxPrice);
-        return skuService.filterSkus(brandId, minPrice, maxPrice);
-    }
 }

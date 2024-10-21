@@ -1,6 +1,6 @@
 package runtrail.dev.backend.service;
 
-import runtrail.dev.backend.entity.SkuImagesEntity;
+import runtrail.dev.backend.entities.SkuImagesEntity;
 
 import java.util.List;
 import java.util.Optional;

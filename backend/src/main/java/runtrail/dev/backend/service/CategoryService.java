@@ -1,7 +1,6 @@
 package runtrail.dev.backend.service;
 
-import org.springframework.stereotype.Service;
-import runtrail.dev.backend.entity.CategoryEntity;
+import runtrail.dev.backend.entities.CategoryEntity;
 
 import java.util.List;
 

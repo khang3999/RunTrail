@@ -1,7 +1,11 @@
-package runtrail.dev.backend.entity;
+package runtrail.dev.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -13,7 +17,8 @@ public class SkuEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "spu_id", nullable = false)
     private SpuEntity spu;
 
@@ -34,6 +39,10 @@ public class SkuEntity {
 
     @Column(name = "sku_attri", columnDefinition = "json")
     private String skuAttri;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "sku",fetch = FetchType.EAGER)
+    private List<SkuImagesEntity> images;
 
 
     

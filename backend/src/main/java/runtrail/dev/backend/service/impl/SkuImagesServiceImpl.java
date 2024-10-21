@@ -2,8 +2,8 @@ package runtrail.dev.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import runtrail.dev.backend.entity.SkuImagesEntity;
-import runtrail.dev.backend.repository.SkuImagesRepository;
+import runtrail.dev.backend.entities.SkuImagesEntity;
+import runtrail.dev.backend.repositories.SkuImagesRepository;
 import runtrail.dev.backend.service.SkuImagesService;
 
 import java.util.List;

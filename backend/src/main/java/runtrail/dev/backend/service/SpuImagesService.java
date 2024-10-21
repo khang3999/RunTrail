@@ -1,6 +1,6 @@
 package runtrail.dev.backend.service;
 
-import runtrail.dev.backend.entity.SpuImagesEntity;
+import runtrail.dev.backend.entities.SpuImagesEntity;
 
 import java.util.List;
 import java.util.Optional;

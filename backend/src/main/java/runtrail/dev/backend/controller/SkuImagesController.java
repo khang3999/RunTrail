@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import runtrail.dev.backend.entity.SkuImagesEntity;
+import runtrail.dev.backend.entities.SkuImagesEntity;
 import runtrail.dev.backend.service.SkuImagesService;
 
 import java.util.List;

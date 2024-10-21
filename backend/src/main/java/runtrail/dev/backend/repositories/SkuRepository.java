@@ -1,10 +1,10 @@
-package runtrail.dev.backend.repository;
+package runtrail.dev.backend.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import runtrail.dev.backend.entity.SkuEntity;
+import runtrail.dev.backend.entities.SkuEntity;
 
 import java.util.List;
 
@@ -28,7 +28,6 @@ public interface SkuRepository extends JpaRepository<SkuEntity, Long> {
             "WHERE (:brandId IS NULL OR sp.brandId = :brandId) " +
             "AND s.skuPrice BETWEEN :minPrice AND :maxPrice")
     List<SkuEntity> findByBrandAndPrice(Long brandId, Long minPrice, Long maxPrice);
-
 
 
 }

@@ -1,13 +1,20 @@
-package runtrail.dev.backend.entity;
+package runtrail.dev.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 
-@Data
 @Entity
 @Table(name = "spu")
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SpuEntity {
 
     @Id
@@ -19,7 +26,6 @@ public class SpuEntity {
 
     @Column(name = "spu_description")
     private String spuDescription;
-
 
     @Column(name = "category_id")
     private long categoryId;
@@ -33,5 +39,14 @@ public class SpuEntity {
     @Column(name = "spu_status")
     private int spuStatus;
 
+
+    //
+    @JsonManagedReference
+    @OneToMany(mappedBy = "spu",fetch = FetchType.EAGER)
+    private List<SkuEntity> skuList;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "spu",fetch = FetchType.EAGER)
+    private List<SpuImagesEntity> images;
 
 }
