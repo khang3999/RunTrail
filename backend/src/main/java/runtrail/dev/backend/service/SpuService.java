@@ -15,4 +15,9 @@ public interface SpuService {
     Page<SpuEntity> findAllSpu(Pageable pageable);
     Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable);
     Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable);
+
+    List<SpuDTO> getRandomProductsByCategory(long category);
+
+    //demo top 20 sp
+    List<SpuDTO> get20spTop(long category);
 }
