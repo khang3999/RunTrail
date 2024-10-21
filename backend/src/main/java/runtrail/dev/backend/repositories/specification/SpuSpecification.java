@@ -1,13 +1,9 @@
 package runtrail.dev.backend.repositories.specification;
 
-import jakarta.persistence.Query;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Path;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
-import runtrail.dev.backend.controller.SpuController;
 import runtrail.dev.backend.entities.BrandEntity;
 import runtrail.dev.backend.entities.SkuEntity;
 import runtrail.dev.backend.entities.SpuEntity;
