@@ -11,7 +11,10 @@ export default function DetailProduct() {
  
   return (
     <>
-      <RelatedProduct products={products} isLoading={isLoading} />
+
+
+
+      <RelatedProduct categories={8} isLoading={isLoading} />
     </>
   )
 }

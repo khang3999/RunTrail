@@ -8,9 +8,18 @@ import styles from "./RelatedProduct.module.css";
 import "./RelatedProduct.css";
 import ProductItemSkeleton from "../ProductItemSkeleton";
 
-const RelatedProduct = ({products, isLoading}) => {
+const RelatedProduct = ({categories, isLoading}) => {
   const [isMobile, setIsMobile] = useState(false);
   const [hasMounted, setHasMounted] = useState(false); 
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if (categories) {
+      fetch(`http://localhost:8008/api/v1/spu/random?category=${categories}`)
+        .then((response) => response.json())
+        .then((data) => setProducts(data));
+    }
+  }, [categories]);
 
   const settings = {
     dots: true,
