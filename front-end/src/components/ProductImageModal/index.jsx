@@ -28,6 +28,20 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 	}, []);
 
 	useEffect(() => {
+		const resize = () => {
+			if (window.innerWidth <= 768 && isMobile === false) {
+				setIsMobile(true);
+			} else {
+				setIsMobile(false);
+			}
+		};
+
+		window.addEventListener('resize', resize);
+
+		return () => window.removeEventListener('resize', resize);
+	}, []);
+
+	useEffect(() => {
 		const timer = setTimeout(() => {
 			setLoading(false);
 		}, [2000]);
@@ -36,6 +50,7 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 	}, []);
 
 	useEffect(() => {
+		console.log('RE-RENDER');
 		if (visible) {
 			if (!isMobile) {
 				setWidth('667px');
@@ -51,7 +66,7 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 			const timeout = setTimeout(() => setShow(false), 300);
 			return () => clearTimeout(timeout);
 		}
-	}, [visible]);
+	}, [visible, isMobile]);
 
 	const handleShowNextSlide = () => {
 		if (currentIndex < data.length - 1) {
@@ -100,10 +115,12 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 	if (loading) {
 		return (
 			<div
-				className={` w-[${width}] h-[${height}] rounded-sm p-3 select-none transition-all duration-300 overflow-hidden flex items-center justify-center ease-in-out fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white z-[10000] ${
+				className={`rounded-sm p-3 select-none transition-all duration-300 overflow-hidden flex items-center justify-center ease-in-out fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white z-[10000] ${
 					visible ? ' opacity-100' : ' opacity-0'
 				} `}
 				style={{
+					width: width,
+					height: height,
 					visibility: show ? 'visible' : 'hidden',
 				}}
 			>
@@ -143,10 +160,12 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 
 	return (
 		<div
-			className={` w-[${width}] h-[${height}] rounded-sm p-3 select-none transition-all duration-300 overflow-hidden flex items-center justify-center ease-in-out fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white z-[10000] ${
+			className={` rounded-sm p-3 select-none transition-all duration-300 overflow-hidden flex items-center justify-center ease-in-out fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-white z-[10000] ${
 				visible ? ' opacity-100' : ' opacity-0'
 			} `}
 			style={{
+				width: width,
+				height: height,
 				visibility: show ? 'visible' : 'hidden',
 			}}
 		>
