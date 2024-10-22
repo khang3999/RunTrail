@@ -33,10 +33,15 @@ public class SpuEntity implements Serializable {
     @Column(name = "category_id")
     private Long categoryId;
 
-//    @Column(name = "brand_id")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
+
+    @Column(name = "slug")
+    private String slug;
+
+    @Column(name="spu_attributes",columnDefinition = "json")
+    private String spuAttributes;
 
     @Column(name = "discount")
     private int discount;
