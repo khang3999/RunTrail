@@ -1,4 +1,4 @@
-package runtrail.dev.backend.service.impl;
+package runtrail.dev.backend.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,8 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.dto.response.SpuDTO;
-import runtrail.dev.backend.repository.SpuRepository;
 import runtrail.dev.backend.entities.SpuEntity;
+import runtrail.dev.backend.repositories.SpuRepository;
 import runtrail.dev.backend.repositories.specification.SpuSpecification;
 import runtrail.dev.backend.services.SkuService;
 import runtrail.dev.backend.services.SpuService;
@@ -24,6 +24,16 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private SkuService skuService;
+
+    @Override
+    public List<SpuEntity> getAllSpus() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<SpuEntity> getSpuById(long id) {
+        return Optional.empty();
+    }
 
     @Override
     public Page<SpuEntity> findAllSpu(Pageable pageable) {

@@ -1,4 +1,4 @@
-package runtrail.dev.backend.controller;
+package runtrail.dev.backend.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
