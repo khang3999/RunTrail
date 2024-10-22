@@ -112,6 +112,7 @@ public class SpuServiceImpl implements SpuService {
 
         selectedProducts.addAll(topDiscountedProducts);
 
+
         return selectedProducts;
     }
 
