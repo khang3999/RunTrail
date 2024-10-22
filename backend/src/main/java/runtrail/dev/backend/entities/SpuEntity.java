@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -15,23 +17,26 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpuEntity {
+public class SpuEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "spu_name", nullable = false, length = 100)
     private String spuName;
 
+    @Lob
     @Column(name = "spu_description")
     private String spuDescription;
 
     @Column(name = "category_id")
-    private long categoryId;
+    private Long categoryId;
 
-    @Column(name = "brand_id")
-    private long brandId;
+//    @Column(name = "brand_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id")
+    private BrandEntity brand;
 
     @Column(name = "discount")
     private int discount;
@@ -39,14 +44,12 @@ public class SpuEntity {
     @Column(name = "spu_status")
     private int spuStatus;
 
-
-    //
     @JsonManagedReference
     @OneToMany(mappedBy = "spu",fetch = FetchType.EAGER)
-    private List<SkuEntity> skuList;
+    private Set<SkuEntity> skuList;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "spu",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "spu",fetch = FetchType.LAZY)
     private List<SpuImagesEntity> images;
 
 }

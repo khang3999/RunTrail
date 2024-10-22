@@ -34,5 +34,10 @@ public class SkuServiceImpl implements SkuService {
         return List.of();
     }
 
+    @Override
+    public List<SkuEntity> findAllSkuActiveBySpuId(Long spuId) {
+        return skuRepository.findAllBySpuId(spuId);
+    }
+
 
 }

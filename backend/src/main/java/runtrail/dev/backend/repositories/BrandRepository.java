@@ -6,4 +6,5 @@ import runtrail.dev.backend.entities.BrandEntity;
 
 @Repository
 public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
+
 }

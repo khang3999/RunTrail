@@ -113,9 +113,9 @@ public class SpuController {
     // detail spu
     @GetMapping()
     public Response<?> findSpuById(
-            @RequestParam(defaultValue = "") long id
+            @RequestParam(defaultValue = "") Long id
     ) {
-        return new Response<>(spuService.findSpuById(id),HttpStatus.OK.value(),"Fetch detail product ok");
+        return new Response<>(spuService.findProductById(id),HttpStatus.OK.value(),"Fetch detail product ok");
     }
 
 }

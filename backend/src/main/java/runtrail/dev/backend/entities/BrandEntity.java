@@ -1,11 +1,6 @@
 package runtrail.dev.backend.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 
@@ -16,7 +11,7 @@ public class BrandEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "brand_name", nullable = false, length = 50)
     private String brandName;
@@ -27,5 +22,5 @@ public class BrandEntity {
     @Column(name = "brand_logo", nullable = false)
     private String brandLogo;
 
-   
+
 }

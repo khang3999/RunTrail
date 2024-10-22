@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.entities.SpuEntity;
-import runtrail.dev.backend.exception.ErrorExceptionHandler;
 import runtrail.dev.backend.repositories.SpuRepository;
 import runtrail.dev.backend.repositories.specification.SpuSpecification;
+import runtrail.dev.backend.services.SkuService;
 import runtrail.dev.backend.services.SpuService;
 
 import java.util.List;
@@ -20,6 +19,10 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private SpuRepository spuRepository;
+
+    @Autowired
+    private SkuService skuService;
+
     @Override
     public Page<SpuEntity> findAllSpu(Pageable pageable) {
         return spuRepository.findAll(pageable);
@@ -42,12 +45,9 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public SpuEntity findSpuById(long id) {
-        final SpuEntity spu = spuRepository.findById(id);
-        if (spu == null) {
-            throw new ErrorExceptionHandler("Not found spu", HttpStatus.NOT_FOUND.value());
-        }
-        return spu;
+    public SpuEntity findProductById(Long id) {
+        //
+       return spuRepository.findById(id).orElse(null);
     }
 
 

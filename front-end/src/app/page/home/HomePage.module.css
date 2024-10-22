@@ -1,0 +1,35 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;  
+}
+
+.mainContent {
+  display: flex;
+  flex: 1;
+  padding: 20px 0 20px 20px;  
+}
+
+.sidebar {
+  margin-right: 10px;
+  height: 1580px;
+  overflow-y: auto;
+  width: 300px;
+}
+
+.productSection {
+  flex: 9;
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .mainContent{
+    padding: 0;
+  }
+  
+}
