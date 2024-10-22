@@ -7,7 +7,6 @@ import MyNavbar from "@/components/navbar/MyNavbar";
 const HomePage = () => {
 	return (
 	  <div className={styles.homepage}>
-		<MyNavbar />
 		<div className={styles.mainContent}>
 		  <div className={styles.sidebar}>
 			<SideBarProduct />
