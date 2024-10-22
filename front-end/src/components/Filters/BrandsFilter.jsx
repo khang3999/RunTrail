@@ -9,22 +9,23 @@ const BrandsFilter = () => {
 	const { setSelectedBrands, filterProductsByBrand } = useProductProvider();
 
 	useEffect(() => {
-		const fetchBrandsData = async () => {
-			try {
-				const res = await fetch('http://localhost:8008/api/brands', {
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				});
-				const data = await res.json();
-				setBrands(data);
-			} catch (error) {
-				console.error("Error fetching brands:", error);
-			}
-		};
+		
 		fetchBrandsData();
 	}, []);
+	const fetchBrandsData = async () => {
+		try {
+			const res = await fetch('http://localhost:8008/api/brands', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			const data = await res.json();
+			setBrands(data);
+		} catch (error) {
+			console.error("Error fetching brands:", error);
+		}
+	};
 
 	const debouncedUpdateBrands = useCallback(
 		debounce((updatedBrands) => {

@@ -6,6 +6,7 @@ import Providers from '@/contexts/Providers';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import MyNavbar from '@/components/navbar/MyNavbar';
+import Breadcrumb from '@/components/Breadcrumb';
 config.autoAddCss = false;
 
 // export const metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
 			<body className={`antialiased`}>
 				<Providers>
 					<MyNavbar />
+					<Breadcrumb />
 					{children}
 				</Providers>
 			</body>
