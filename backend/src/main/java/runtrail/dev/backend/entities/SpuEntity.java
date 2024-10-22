@@ -40,6 +40,9 @@ public class SpuEntity implements Serializable {
     @Column(name = "slug")
     private String slug;
 
+    @Column(name = "spu_no")
+    private String spuNo;
+
     @Column(name="spu_attributes",columnDefinition = "json")
     private String spuAttributes;
 

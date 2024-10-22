@@ -1,6 +1,6 @@
 'use client';
 import ProductItem from '@/components/ProductItem';
-import ProductItemSkeleton from '@/components/ProductItemSkeleton';
+import ProductItemSkeleton from '@/components/ProducItemSkeleton';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
