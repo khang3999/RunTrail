@@ -1,20 +1,14 @@
 'use client';
-import React from 'react'
-import RelatedProduct from '@/components/RelatedProduct'
+import React from 'react';
+import RelatedProduct from '@/components/RelatedProduct';
 import { useProductProvider } from '@/contexts/ProductProvider';
 
 export default function DetailProduct() {
-  const {
-    products,
-    isLoading,
-  } = useProductProvider();
- 
-  return (
-    <>
+	const { products, isLoading } = useProductProvider();
 
-
-
-      <RelatedProduct categories={8} isLoading={isLoading} />
-    </>
-  )
+	return (
+		<>
+			<RelatedProduct categories={8} isLoading={isLoading} />
+		</>
+	);
 }
