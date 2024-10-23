@@ -23,7 +23,7 @@ public class SpuEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "spu_name", nullable = false, length = 100)
+    @Column(name = "spu_name", nullable = false, length = 200)
     private String spuName;
 
     @Lob
