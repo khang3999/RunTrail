@@ -23,7 +23,7 @@ public class SpuEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "spu_name", nullable = false, length = 100)
+    @Column(name = "spu_name", nullable = false, length = 200)
     private String spuName;
 
     @Lob
@@ -33,10 +33,18 @@ public class SpuEntity implements Serializable {
     @Column(name = "category_id")
     private Long categoryId;
 
-//    @Column(name = "brand_id")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
+
+    @Column(name = "slug")
+    private String slug;
+
+    @Column(name = "spu_no")
+    private String spuNo;
+
+    @Column(name="spu_attributes",columnDefinition = "json")
+    private String spuAttributes;
 
     @Column(name = "discount")
     private int discount;

@@ -104,7 +104,7 @@ public class SpuController {
             @RequestParam(defaultValue = "id") String sort,
             @RequestParam(defaultValue = "desc") String direction,
             @RequestParam(defaultValue = "0") long minPrice,
-            @RequestParam(defaultValue = "200000") long maxPrice,
+            @RequestParam(defaultValue = "2000000") long maxPrice,
             @RequestParam(defaultValue = "") List<Long> brandIds,
             @RequestParam(defaultValue = "-1") Long categoryId,
             @RequestParam(defaultValue = "desc") String contentOrderBy,
