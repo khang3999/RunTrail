@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import runtrail.dev.backend.dto.response.Response;
 import runtrail.dev.backend.dto.response.SpuDTO;
@@ -15,6 +16,7 @@ import runtrail.dev.backend.entities.SpuEntity;
 import runtrail.dev.backend.services.SpuService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3001")
@@ -26,6 +28,14 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
+
+    // Lấy SPU theo ID
+    @GetMapping("/{id}")
+    public ResponseEntity<SpuEntity> getSpuById(@PathVariable long id) {
+        Optional<SpuEntity> spu = spuService.getSpuById(id);
+        return spu.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
 
     /*---------------PAGINATION------------------*/
@@ -101,6 +111,7 @@ public class SpuController {
             @RequestParam(defaultValue = "") String key,
             @RequestParam(defaultValue = "") List<String> value
     ) {
+        logger.info("category"+categoryId+"");
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page -1,size,sortBy);
@@ -108,6 +119,19 @@ public class SpuController {
         return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
     }
     /*---------------END PAGINATION--------------*/
+
+
+    // Cac san pham random
+    @GetMapping("/random")
+    public List<SpuDTO> getRandomProducts(@RequestParam long category) {
+        return spuService.getRandomProductsByCategory(category);
+    }
+    //Test 20sp
+    @GetMapping("/top20sp")
+    public List<SpuDTO> get20spTop(@RequestParam long category) {
+        return spuService.get20spTop(category);
+    }
+
 
 
     // detail spu

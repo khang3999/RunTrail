@@ -1,5 +1,6 @@
 package runtrail.dev.backend.services;
 
+
 import runtrail.dev.backend.entities.SkuEntity;
 import java.util.List;
 import java.util.Optional;
@@ -10,4 +11,9 @@ public interface SkuService {
     List<SkuEntity> getSkusByCategoryOrParent(Long categoryId);
 
     List<SkuEntity> findAllSkuActiveBySpuId(Long spuId);
+
+    default List<SkuEntity> filterSkus(Long brandId, Long minPrice, Long maxPrice) {
+        return null;
+    }
+
 }
