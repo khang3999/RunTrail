@@ -7,6 +7,7 @@ export default function DetailProduct() {
 	const [showModal, setShowModal] = useState(false);
 	const [product, setProduct] = useState({
 		spuName: '',
+		images: [],
 		brand: {
 			brandName: '',
 		},
