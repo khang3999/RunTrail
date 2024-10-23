@@ -1,8 +1,9 @@
 'use client'
 import TabInformation from '@/components/TabInformation'
 import TabInformationSkeleton from '@/components/TabInformationSkeleton';
-import { useProductProvider } from '@/contexts/ProductProvider';
 import React from 'react'
+import RelatedProduct from '@/components/RelatedProduct'
+import { useProductProvider } from '@/contexts/ProductProvider';
 
 export default function DetailProduct() {
   const {
@@ -30,6 +31,7 @@ export default function DetailProduct() {
 
       <TabInformation ></TabInformation>
 
+      <RelatedProduct categories={8} isLoading={isLoading} />
 
     </div>
   )
