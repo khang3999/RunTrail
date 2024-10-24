@@ -27,7 +27,6 @@ export default function RootLayout({ children }) {
 			<body className={`antialiased`}>
 				<Providers>
 					<MyNavbar onCategoryClick={handleCategoryClick} />
-					<Breadcrumb />
 					{children}
 				</Providers>
 			</body>

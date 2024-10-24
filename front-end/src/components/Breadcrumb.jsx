@@ -2,9 +2,8 @@ import { useProductProvider } from '@/contexts/ProductProvider';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-function Breadcrumb() {
-    const { categoryId, setCategoryId } = useProductProvider(); 
-    const cateId = categoryId || 1;
+function Breadcrumb({categoryId}) {
+    const {setCategoryId} = useProductProvider()
     const [breadcrumbItems, setBreadcrumbItems] = useState([]);  
     const router = useRouter();
 
@@ -38,7 +37,7 @@ function Breadcrumb() {
     useEffect(() => {
         // Nếu categoryId khác -1 (có danh mục được chọn) thì fetchCategory
         if (categoryId !== -1) {
-            fetchCategory(cateId).then((category) => {
+            fetchCategory(categoryId).then((category) => {
                 if (category) {
                     buildBreadcrumb(category);  
                 }
