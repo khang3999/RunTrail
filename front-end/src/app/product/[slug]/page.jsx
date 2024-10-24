@@ -1,15 +1,17 @@
 'use client';
 import React, { useEffect, useState } from 'react'
 import ProductDetailItem from '@/components/ProductDetailItem';
+import { useParams } from 'next/navigation';
 
 export default function DetailProduct() {
-
+  const { slug } = useParams();
   const [product, setProduct] = useState({
     spuName: '',
     brand: {
       brandName: ''
     },
-    spuAttributes: {}
+    spuAttributes: {},
+    spuPrice: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,22 +23,25 @@ export default function DetailProduct() {
 
   const fetchProductDetail = async () => {
     setIsLoading(true)
-    const response = await fetch('http://localhost:8008/api/v1/spu?id=42')
+    const response = await fetch(`http://localhost:8008/api/v1/spu?slug=${slug}`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
     const data = await response.json()
     if (data.statusCode === 200) {
-      const { spuName, brand, spuAttributes } = data.metadata;
+      const { spuName, brand, spuAttributes,id} = data.metadata;
       setProduct({
         spuName,
         brand,
-        spuAttributes: JSON.parse(spuAttributes)
+        spuAttributes: JSON.parse(spuAttributes),
+        spuPrice: 100001,
       });
       setIsLoading(false)
     }
   }
 
-  const handleAttributeChange = () => {
-    console.log('change attribute')
-  }
 
   return (
     <div>
@@ -48,7 +53,7 @@ export default function DetailProduct() {
         <div className='bg-slate-200'>
         </div>
         <div>
-          <ProductDetailItem product={product} isLoading={isLoading} />
+          <ProductDetailItem product={product} setProduct={setProduct} isLoading={isLoading} />
         </div>
       </div>
     </div>

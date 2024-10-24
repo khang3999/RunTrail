@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export function ProductAttributeItem({ title, values }) {
+export function ProductAttributeItem({ title, values,setAttributes,hiddenAttribute }) {
+    const [selected, setSelected] = useState(null);
+
+    const handleSelect = (index) => {
+      index === selected ? setSelected(null) : setSelected(index);
+    };
+
     return (
       <ProductAttribute title={title} >
         <div className='grid grid-cols-3 gap-2'>
         {
           values.map((item, index) => {
-            return <ProductAttributeItemValue  key={index} value={item} />
+            return <ProductAttributeItemValue  title={title} setAttributes={setAttributes} handleSelect={()=>handleSelect(index)} selected={selected} index={index}  key={index} value={item} />
           })
         }
         </div>
@@ -14,10 +20,21 @@ export function ProductAttributeItem({ title, values }) {
     )
   }
   
- export function ProductAttributeItemValue({ value,disabled=false }) {
-    const [selected, setSelected] = useState(false);
+ export function ProductAttributeItemValue({ value,handleSelect,index,selected,setAttributes,title }) {
+    const [disabled, setDisabled] = useState(false);
     return (
-      <button disabled={disabled} onClick={()=>setSelected(!selected)} className={`text-[14px] text-center px-2 py-1 border  ${selected && "text-orange-500 border-orange-500"} ${disabled ? "bg-slate-200 text-white" : "hover:text-orange-500 hover:border-orange-500"}`}>{value}</button>
+      <button disabled={disabled} onClick={()=>{
+        handleSelect(index);
+        setAttributes((prev)=>{
+          return {
+            ...prev,
+            attributes:{
+              ...prev.attributes,
+              [title]: prev.attributes[title] === value ? null  : value
+            }
+          }
+        })
+      }} className={`text-[14px] text-center px-2 py-1 border  ${index === selected  && "text-orange-500 border-orange-500 shadow " } ${disabled ? "bg-slate-200 text-white" : "hover:text-orange-500 hover:border-orange-500"}`}>{value}</button>
     )
   }
   

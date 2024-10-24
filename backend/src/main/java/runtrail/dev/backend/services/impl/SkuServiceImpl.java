@@ -1,13 +1,24 @@
 package runtrail.dev.backend.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import runtrail.dev.backend.controllers.SpuController;
+import runtrail.dev.backend.dto.response.SkuPriceStockDTO;
 import runtrail.dev.backend.entities.SkuEntity;
 import runtrail.dev.backend.repositories.CategoryRepository;
+import runtrail.dev.backend.repositories.SkuRepoCustom;
 import runtrail.dev.backend.repositories.SkuRepository;
+import runtrail.dev.backend.repositories.specification.SkuSpecification;
 import runtrail.dev.backend.services.SkuService;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -15,6 +26,9 @@ public class SkuServiceImpl implements SkuService {
 
     @Autowired
     private SkuRepository skuRepository;
+
+    @Autowired
+    private SkuRepoCustom skuRepoCustom;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -39,5 +53,11 @@ public class SkuServiceImpl implements SkuService {
         return skuRepository.findAllBySpuId(spuId);
     }
 
+    @Override
+    public SkuPriceStockDTO findPriceAndStockProduct(Long id,Object attributes) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String,String> mapAttributes = objectMapper.convertValue(attributes,Map.class);
+        return skuRepoCustom.findStockAndPriceProductBySpuId(id,mapAttributes);
+    }
 
 }

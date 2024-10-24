@@ -4,7 +4,58 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import CustomButton from '@/components/CustomButton';
 import {ProductPriceDetail,InputQuantity,ProductAttributeItem} from '@/components/ProductAttribute';
-export default function ProductDetailItem({product, isLoading}) {
+import { useEffect, useState } from 'react';
+export default function ProductDetailItem({product,setProduct,isLoading}) {
+    const [price, setPrice] = useState(100000);
+    const [quantity, setQuantity] = useState(1);
+    const [spuAttributes, setSpuAttributes] = useState({
+      'spuId': 42,
+      'attributes':{},
+    });
+
+    const [hiddenAttribute, setHiddenAttribute] = useState([]);
+
+    
+
+    useEffect(()=>{
+      fetchStockAndPriceProduct();
+    },[spuAttributes]);
+
+    const fetchStockAndPriceProduct = async () => {
+      // remove params in attributes if value is null
+      Object.keys(spuAttributes.attributes).forEach((key) => {
+        if (spuAttributes.attributes[key] === null) {
+          delete spuAttributes.attributes[key];
+        }
+      });
+
+      const response = await fetch('http://localhost:8008/api/v1/spu/stock-price',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(spuAttributes)
+      })
+      const data = await response.json()
+      if (data.statusCode === 200) {
+        const {totalStock,skuPrice,list} = data.metadata;
+        setProduct((prev)=>{
+          return {
+            ...prev,
+            spuPrice: skuPrice,
+          }
+        });
+
+        const listAttributes = JSON.parse(list);
+        // select is size => get only color
+        listAttributes.forEach((item) => {
+          if (item.stock === 0 && Object.keys(spuAttributes.attributes).length !== 0) {
+           console.log('item',item);
+          }
+        });
+      }
+    }
+
     return (
         <div>
         <h4 className='text-[20px] mb-4'>{product.spuName || <Skeleton height={30}/>}</h4>
@@ -18,13 +69,13 @@ export default function ProductDetailItem({product, isLoading}) {
         </div>
         <div className='mb-4'>
           {
-            isLoading ? <Skeleton height={60} /> : <ProductPriceDetail price={100000} isSale={true} />
+            isLoading ? <Skeleton height={60} /> : <ProductPriceDetail price={product.spuPrice} isSale={true} />
           }
         </div>
         <div>
           {
             isLoading ? <Skeleton count={2} className='mb-3' width={300} height={50} /> : Object.keys(product.spuAttributes).map((key, index) => {
-              return <ProductAttributeItem key={index} title={key} values={product.spuAttributes[key]}/>
+              return <ProductAttributeItem attributes={spuAttributes} setAttributes={setSpuAttributes} key={index} title={key} values={product.spuAttributes[key]}/>
             })
           }
         </div>
