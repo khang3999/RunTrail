@@ -4,10 +4,9 @@ import SideBarProduct from '@/components/SideBarProduct';
 import styles from './HomePage.module.css';
 import QuickFilter from '@/components/Filters/QuickFilter';
 import MyNavbar from "@/components/navbar/MyNavbar";
-const HomePage = () => {
+const HomePage = ({}) => {
 	return (
 	  <div className={styles.homepage}>
-		<MyNavbar />
 		<div className={styles.mainContent}>
 		  <div className={styles.sidebar}>
 			<SideBarProduct />

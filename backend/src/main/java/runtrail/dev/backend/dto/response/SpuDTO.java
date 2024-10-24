@@ -1,8 +1,16 @@
 package runtrail.dev.backend.dto.response;
  
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import runtrail.dev.backend.entities.SkuEntity;
+import runtrail.dev.backend.entities.SpuImagesEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @AllArgsConstructor
 public class SpuDTO {
@@ -26,6 +34,36 @@ public class SpuDTO {
 
     private Integer discount;
 
-    private String skuAttri;
+    private List<SpuImagesEntity> images;
 
+    private List<SkuEntity> listSku;
+
+    private String spuAttributes;
+
+    public SpuDTO(Long id, String spuName, List<SpuImagesEntity> images,List<SkuEntity> listSku) {
+        this.id = id;
+        this.spuName = spuName;
+        this.images = images;
+        this.listSku = listSku;
+    }
+
+    public SpuDTO(Long id, String spuName, List<SpuImagesEntity> images) {
+        this.id = id;
+        this.spuName = spuName;
+        this.images = images;
+    }
+
+    public SpuDTO(Long id, String spuName, String spuDescription, Long categoryId, Long brandId, String brandName, Long spuPrice, String spuThumbnail, Integer spuStatus, Integer discount, String spuAttributes) {
+        this.id = id;
+        this.spuName = spuName;
+        this.spuDescription = spuDescription;
+        this.categoryId = categoryId;
+        this.brandId = brandId;
+        this.brandName = brandName;
+        this.spuPrice = spuPrice;
+        this.spuThumbnail = spuThumbnail;
+        this.spuStatus = spuStatus;
+        this.discount = discount;
+        this.spuAttributes = spuAttributes;
+    }
 }
