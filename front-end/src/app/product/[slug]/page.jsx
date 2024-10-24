@@ -21,7 +21,7 @@ export default function DetailProduct() {
 
   const fetchProductDetail = async () => {
     setIsLoading(true)
-    const response = await fetch('http://localhost:8008/api/v1/spu?id=42')
+    const response = await fetch('http://localhost:8008/api/v1/spu?id=2')
     const data = await response.json()
     if (data.statusCode === 200) {
       const { spuName, brand, spuAttributes } = data.metadata;
@@ -40,9 +40,6 @@ export default function DetailProduct() {
 
   return (
     <div>
-      <div className='md:container md:px-[200px] mt-3 py-3 bg-slate-300 h-[100px]'>
-        <p><span>Trang chủ </span> <span>Đồ Nam</span>  <span>Áo Chạy Bộ Nam</span></p>
-      </div>
       <div className='px-[200px] mt-3 h-[300px] grid grid-cols-2 gap-4'>
         {/* product images */}
         <div className='bg-slate-200'>
