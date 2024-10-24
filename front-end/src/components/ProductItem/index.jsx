@@ -40,7 +40,7 @@ function ProductItem(props) {
                             <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-02.jpg" alt="Front of men&#039;s Basic Tee in black." className="absolute thumnail-2 object-cover object-center w-full h-[250px]"></img>
 
                             {product.discount
-                                ? (<span className="text-center items-center rounded-md bg-red-700 px-2 py-1 text-sm font-medium text-white ring-1 ring-inset ring-red-600/10 z-10 absolute top-2 left-2">-{product.discount}%</span>)
+                                ? (<span className="text-center items-center rounded-md bg-red-700 px-2 py-1 text-sm font-medium text-white ring-1 ring-inset ring-red-600/10 z-1 absolute top-2 left-2">-{product.discount}%</span>)
                                 : ''}
                         </div>
                     </Link>

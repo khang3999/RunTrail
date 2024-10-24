@@ -1,13 +1,11 @@
 package runtrail.dev.backend.dto.response;
  
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import runtrail.dev.backend.entities.SkuEntity;
 import runtrail.dev.backend.entities.SpuImagesEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
