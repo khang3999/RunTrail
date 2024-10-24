@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./RelatedProduct.module.css";
 import "./RelatedProduct.css";
-import ProductItemSkeleton from "../ProductItemSkeleton";
+import ProductItemSkeleton from "../ProducItemSkeleton";
 
 const RelatedProduct = ({categories, isLoading}) => {
   const [isMobile, setIsMobile] = useState(false);
