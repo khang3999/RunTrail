@@ -4,20 +4,22 @@ import ProductDetailItem from '@/components/ProductDetailItem';
 import Overplay from '@/components/Overlay';
 import ProductImageModal from '@/components/ProductImageModal';
 import RelatedProduct from '@/components/RelatedProduct';
+import TabInformation from '@/components/TabInformation';
+
 export default function DetailProduct() {
 	const [showModal, setShowModal] = useState(false);
+	const [attributes, setAttributes] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 	const [product, setProduct] = useState({
 		spuName: '',
 		images: [],
 		categoryId: '',
+		spuDescription: '',
 		brand: {
 			brandName: '',
 		},
 		spuAttributes: {},
 	});
-	const [isLoading, setIsLoading] = useState(true);
-
-	const [attributes, setAttributes] = useState([]);
 
 	useEffect(() => {
 		fetchProductDetail();
@@ -29,13 +31,20 @@ export default function DetailProduct() {
 		const data = await response.json();
 		if (data.statusCode === 200) {
 			console.log(data.metadata);
-			const { spuName, brand, spuAttributes, images, categoryId } =
-				data.metadata;
+			const {
+				spuName,
+				brand,
+				spuAttributes,
+				images,
+				categoryId,
+				spuDescription,
+			} = data.metadata;
 
 			setProduct({
 				spuName,
 				brand,
 				images,
+				spuDescription,
 				categoryId,
 				spuAttributes: JSON.parse(spuAttributes),
 			});
@@ -110,6 +119,10 @@ export default function DetailProduct() {
 				</div>
 			</div>
 			<div className="mt-[300px]">
+				<TabInformation
+					product={product}
+					isLoading={isLoading}
+				></TabInformation>
 				<RelatedProduct
 					categories={product.categoryId}
 					isLoading={isLoading}

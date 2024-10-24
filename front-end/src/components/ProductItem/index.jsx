@@ -33,7 +33,7 @@ function ProductItem(props) {
 			<div className="group product-item rounded border-2">
 				{/* Image */}
 				<div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200">
-					<Link href="/product/42" className="title">
+					<Link href="/product/test" className="title">
 						<div className="image-wrap relative w-full h-[220px] bg-white">
 							<img
 								src="https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg"
@@ -47,7 +47,7 @@ function ProductItem(props) {
 							></img>
 
 							{product.discount ? (
-								<span className="text-center items-center rounded-md bg-red-700 px-2 py-1 text-sm font-medium text-white ring-1 ring-inset ring-red-600/10 z-10 absolute top-2 left-2">
+								<span className="text-center items-center rounded-md bg-red-700 px-2 py-1 text-sm font-medium text-white ring-1 ring-inset ring-red-600/10 z-1 absolute top-2 left-2">
 									-{product.discount}%
 								</span>
 							) : (

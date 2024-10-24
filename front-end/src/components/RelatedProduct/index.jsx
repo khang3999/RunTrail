@@ -1,12 +1,12 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import ProductItem from '../ProductItem';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import styles from './RelatedProduct.module.css';
-import './RelatedProduct.css';
-import ProductItemSkeleton from '../ProducItemSkeleton';
+"use client"
+import React, { useState, useEffect } from "react";
+import ProductItem from "../ProductItem";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import styles from "./RelatedProduct.module.css";
+import "./RelatedProduct.css";
+import ProductItemSkeleton from "../ProducItemSkeleton";
 
 const RelatedProduct = ({ categories, isLoading }) => {
 	const [isMobile, setIsMobile] = useState(false);
