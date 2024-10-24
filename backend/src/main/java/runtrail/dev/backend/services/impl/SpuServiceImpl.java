@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.entities.SpuEntity;
+import runtrail.dev.backend.exception.ErrorExceptionHandler;
 import runtrail.dev.backend.repositories.SpuRepository;
 import runtrail.dev.backend.repositories.specification.SpuSpecification;
 import runtrail.dev.backend.services.SkuService;
@@ -59,7 +61,13 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public SpuEntity findProductById(Long id) {
         //
-       return spuRepository.findById(id).orElse(null);
+        if (id < 1) throw new ErrorExceptionHandler("product id not invali",HttpStatus.BAD_REQUEST.value());
+       final SpuEntity spu = spuRepository.findById(id).orElse(null);
+       if (spu == null) {
+           throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
+       }
+
+       return spu;
     }
 
 

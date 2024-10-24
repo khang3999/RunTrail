@@ -15,7 +15,7 @@ export default function MyNavbar() {
       <nav style={{backgroundColor: '#101827'}} className="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-normal  p-4">
           <a
-            href="#"
+            href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
