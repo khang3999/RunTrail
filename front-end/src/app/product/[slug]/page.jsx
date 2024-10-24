@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import ProductDetailItem from '@/components/ProductDetailItem';
 import TabInformation from '@/components/TabInformation';
 import RelatedProduct from '@/components/RelatedProduct';
+import Breadcrumb from '@/components/Breadcrumb';
 
 export default function DetailProduct() {
 
@@ -25,7 +26,7 @@ export default function DetailProduct() {
 
   const fetchProductDetail = async () => {
     setIsLoading(true)
-    const response = await fetch('http://localhost:8008/api/v1/spu?id=42')
+    const response = await fetch('http://localhost:8008/api/v1/spu?id=2')
     const data = await response.json()
     if (data.statusCode === 200) {
       const { spuName, brand, spuAttributes, spuDescription,categoryId } = data.metadata;
@@ -46,6 +47,7 @@ export default function DetailProduct() {
 
   return (
     <div className='pb-[200px]'>
+      <Breadcrumb categoryId={product.categoryId}/>
       <div className='px-[200px] mt-3 h-[300px] grid grid-cols-2 gap-4 mb-[200px]'>
         {/* product images */}
         <div className='bg-slate-200'>
