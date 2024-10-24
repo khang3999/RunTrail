@@ -24,5 +24,7 @@ public class SkuAttributeValueEntity {
     @Column(name = "attri_id")
     private long attriId;
 
+
+
     
 }
