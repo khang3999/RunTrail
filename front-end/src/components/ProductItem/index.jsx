@@ -65,7 +65,7 @@ function ProductItem(props) {
 						</p>
 						<Link
 							href="/detail"
-							className="title font-semibold line-clamp-2 text-ellipsis"
+							className="title font-semibold line-clamp-1 text-ellipsis"
 						>
 							{product.spuName}
 						</Link>
