@@ -25,4 +25,10 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.findById(id);
     }
 
+    @Override
+    public List<BrandEntity> getBrandsByCategoryId(long categoryId) {
+        return brandRepository.findBrandEntitiesByCategoryId(categoryId);
+    }
+
+
 }

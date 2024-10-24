@@ -26,5 +26,10 @@ public class SkuAttributeValueServiceImpl implements SkuAttributeValueService {
         return skuAttributeValueRepository.findById(id);
     }
 
+    @Override
+    public List<SkuAttributeValueEntity> getAllSkuAttributeValuesByCategoryId(long categoryId) {
+        return skuAttributeValueRepository.findSkuAttributeValueEntitiesByCategoryId(categoryId);
+    }
+
   
 }

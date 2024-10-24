@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface BrandService {
     List<BrandEntity> getAllBrands();
     Optional<BrandEntity> getBrandById(long id);
+    List<BrandEntity> getBrandsByCategoryId(long categoryId);
 }
