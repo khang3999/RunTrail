@@ -25,7 +25,7 @@ export default function DetailProduct() {
 
 	const fetchProductDetail = async () => {
 		setIsLoading(true);
-		const response = await fetch('http://localhost:8008/api/v1/spu?id=42');
+		const response = await fetch('http://localhost:8008/api/v1/spu?id=2');
 		const data = await response.json();
 		if (data.statusCode === 200) {
 			console.log(data.metadata);
