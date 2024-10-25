@@ -46,6 +46,7 @@ export default function DetailProduct() {
     }
   }
 
+
   const handleAttributeChange = () => {
     console.log('change attribute');
   };
