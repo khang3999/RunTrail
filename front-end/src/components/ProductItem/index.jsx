@@ -50,7 +50,7 @@ function ProductItem(props) {
                     {/* Body */}
                     <div className="item-body">
                         <p className='brand font-extralight italic text-gray-400 mb-1'>{product.brandName}</p>
-                        <Link href="/detail" className="title font-semibold line-clamp-2 text-ellipsis">{product.spuName}</Link>
+                        <Link href="/product/test" className="title font-semibold line-clamp-1 text-ellipsis">{product.spuName}</Link>
 
                         {/*Rating*/}
                         <div className='rating flex flex-row mt-2'>

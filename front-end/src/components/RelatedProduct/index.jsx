@@ -17,7 +17,7 @@ const RelatedProduct = ({categories, isLoading}) => {
     if (categories) {
       fetch(`http://localhost:8008/api/v1/spu/random?category=${categories}`)
         .then((response) => response.json())
-        .then((data) => setProducts(data));
+        .then((data) => setProducts(data.metadata));
     }
   }, [categories]);
 
