@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
-
+import '@/assets/css/markdownImage.css';
 
 const TabInformation = ({ product, isLoading }) => {
     const [tab, setTab] = useState(1);
@@ -27,7 +27,7 @@ const TabInformation = ({ product, isLoading }) => {
             </div>
             <div className="px-[130px] py-[24px] border border-slate-300">
                 {isLoading ? <Skeleton className='h-[200px]' /> :
-                    <div className={`${tab === 1 ? 'block' : 'hidden'}`}><ReactMarkdown>{product.spuDescription}</ReactMarkdown></div>
+                    <div className={`${tab === 1 ? 'block' : 'hidden'} mark-down-wrap`}><ReactMarkdown>{product.spuDescription}</ReactMarkdown></div>
                 }
                 <div className={`${tab === 2 ? 'block' : 'hidden'} text-stone-400`}>Tính năng đang phát triển</div>
                 <div className={`${tab === 3 ? 'block' : 'hidden'} text-stone-400`}>Tính năng đang phát triển</div>
