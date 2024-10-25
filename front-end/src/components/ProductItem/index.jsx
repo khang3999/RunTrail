@@ -28,6 +28,7 @@ function ProductItem(props) {
 
 	// console.log(formatPrice(product.spuPrice * (100-25)/100));
 
+
 	return (
 		<>
 			<div className="group product-item rounded border-2">

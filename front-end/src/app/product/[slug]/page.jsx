@@ -26,6 +26,7 @@ export default function DetailProduct() {
 		fetchProductDetail();
 	}, []);
 
+ 
 	const fetchProductDetail = async () => {
 		setIsLoading(true);
 		const response = await fetch('http://localhost:8008/api/v1/spu?id=2');

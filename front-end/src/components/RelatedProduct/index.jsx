@@ -13,15 +13,14 @@ const RelatedProduct = ({ categories, isLoading }) => {
 	const [hasMounted, setHasMounted] = useState(false);
 	const [products, setProducts] = useState([]);
 
-	useEffect(() => {
-		if (categories) {
-			fetch(
-				`http://localhost:8008/api/v1/spu/random?category=${categories}`
-			)
-				.then((response) => response.json())
-				.then((data) => setProducts(data));
-		}
-	}, [categories]);
+  useEffect(() => {
+    if (categories) {
+      fetch(`http://localhost:8008/api/v1/spu/random?category=${categories}`)
+        .then((response) => response.json())
+        .then((data) => setProducts(data.metadata));
+    }
+  }, [categories]);
+
 
 	const settings = {
 		dots: true,
