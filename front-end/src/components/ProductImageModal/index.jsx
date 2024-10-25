@@ -50,7 +50,6 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 	}, []);
 
 	useEffect(() => {
-		console.log('RE-RENDER');
 		if (visible) {
 			if (!isMobile) {
 				setWidth('667px');
@@ -199,7 +198,7 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 			<div className="flex justify-center overflow-hidden items-center relative">
 				{/* Images */}
 				<img
-					src={data[currentIndex]}
+					src={data[currentIndex].imgUrl}
 					alt="product"
 					className="w-[100%] select-none"
 				/>
@@ -224,7 +223,7 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 								}}
 							>
 								<img
-									src={item}
+									src={item.imgUrl}
 									className="w-full h-full object-cover"
 								/>
 							</button>
