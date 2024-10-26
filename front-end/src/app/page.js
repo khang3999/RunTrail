@@ -33,9 +33,9 @@ export default function Home() {
 	}, []);
 	return (
 		<>
-			{/* <HomePage />
-			<GoToTopButton /> */}
-			<ImageDesktop></ImageDesktop>
+			<HomePage />
+			{/* <GoToTopButton />  */}
+			{/* <ImageDesktop></ImageDesktop> */}
 		</>
 	);
 }
