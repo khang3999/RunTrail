@@ -11,8 +11,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import Skeleton from '../Loadings/Skeleton';
 
-function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
-	const [currentIndex, setCurrentIndex] = useState(0);
+function ProductImageModal({
+	visible = false,
+	onClose = () => {},
+	data = [],
+	init = 0,
+}) {
+	const [currentIndex, setCurrentIndex] = useState(init ? init : 0);
 	const [show, setShow] = useState(visible);
 	const slideContainerRef = useRef(null);
 	const [width, setWidth] = useState('467px');
@@ -20,6 +25,12 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 	const [isZoom, setIsZoom] = useState(false);
 	const [isMobile, setIsMobile] = useState(false);
 	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (init) {
+			setCurrentIndex(init);
+		}
+	}, [init]);
 
 	useEffect(() => {
 		if (window.innerWidth <= 768) {
@@ -172,25 +183,25 @@ function ProductImageModal({ visible = false, onClose = () => {}, data = [] }) {
 			<div className="flex items-center justify-end gap-2 z-10 absolute top-3 right-3">
 				<button
 					onClick={handleZoom}
-					className="text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
+					className="bg-white text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
 				>
 					<FontAwesomeIcon icon={isZoom ? faCompress : faExpand} />
 				</button>
 				<button
 					onClick={handleShowPrevSlide}
-					className="text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
+					className="bg-white text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
 				>
 					<FontAwesomeIcon icon={faAngleLeft} />
 				</button>
 				<button
 					onClick={handleShowNextSlide}
-					className="text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
+					className="bg-white text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
 				>
 					<FontAwesomeIcon icon={faAngleRight} />
 				</button>
 				<button
 					onClick={onClose}
-					className="text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
+					className="bg-white text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
 				>
 					<FontAwesomeIcon icon={faClose} />
 				</button>
