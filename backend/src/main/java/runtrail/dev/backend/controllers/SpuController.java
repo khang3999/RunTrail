@@ -10,12 +10,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import runtrail.dev.backend.dto.request.SkuPriceStockReqDTO;
 import runtrail.dev.backend.dto.response.Response;
 import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.entities.SpuEntity;
+import runtrail.dev.backend.services.SkuService;
 import runtrail.dev.backend.services.SpuService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +31,9 @@ public class SpuController {
 
     @Autowired
     private SpuService spuService;
+
+    @Autowired
+    private SkuService skuService;
 
 
     // Lấy SPU theo ID
@@ -136,10 +143,18 @@ public class SpuController {
 
     // detail spu
     @GetMapping()
-    public Response<?> findSpuById(
-            @RequestParam(defaultValue = "") Long id
+    public Response<?> findSpuBySlug(
+            @RequestParam(defaultValue = "") String slug
     ) {
-        return new Response<>(spuService.findProductById(id),HttpStatus.OK.value(),"Fetch detail product ok");
+        return new Response<>(spuService.findProductBySlug(slug),HttpStatus.OK.value(),"Fetch detail product ok");
+    }
+
+    // test
+    @PostMapping("/stock-price")
+    public Response<?> findStockAndPrice(
+            @RequestBody SkuPriceStockReqDTO body
+    ) {
+        return new Response<>(skuService.findPriceAndStockProduct(body.getSpuId(),body.getAttributes()),HttpStatus.OK.value(),"Fetch detail product ok");
     }
 
 }
