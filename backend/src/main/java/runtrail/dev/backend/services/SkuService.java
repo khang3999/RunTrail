@@ -1,8 +1,10 @@
 package runtrail.dev.backend.services;
 
 
+import runtrail.dev.backend.dto.response.SkuPriceStockDTO;
 import runtrail.dev.backend.entities.SkuEntity;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public interface SkuService {
@@ -16,4 +18,5 @@ public interface SkuService {
         return null;
     }
 
+    SkuPriceStockDTO findPriceAndStockProduct(Long id,Object attributes);
 }
