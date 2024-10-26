@@ -7,7 +7,8 @@ import RelatedProduct from '@/components/RelatedProduct';
 import TabInformation from '@/components/TabInformation';
 import Breadcrumb from '@/components/Breadcrumb';
 import ImageDesktop from '@/components/detail/ImageDesktop';
-
+import Head from 'next/head';
+import PageTitle from '@/components/PageTitle';
 export default function DetailProduct() {
 	const [attributes, setAttributes] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -57,38 +58,40 @@ export default function DetailProduct() {
 	};
 
 	return (
-		<div>
-			<div className="">
-				<Breadcrumb categoryId={product.categoryId} />
-			</div>
-			<div className="lg:px-[200px] px-4 mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
-				{/* product images */}
+		<PageTitle title={'Product Detail'}>
+			<div>
 				<div className="">
-					<ImageDesktop
+					<Breadcrumb categoryId={product.categoryId} />
+				</div>
+				<div className="lg:px-[200px] px-4 mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+					{/* product images */}
+					<div className="">
+						<ImageDesktop
+							product={product}
+							isLoading={isLoading}
+						></ImageDesktop>
+					</div>
+					<div>
+						<ProductDetailItem
+							handleProductImageClick={() => {
+								setShowModal(!showModal);
+							}}
+							product={product}
+							isLoading={isLoading}
+						/>
+					</div>
+				</div>
+				<div className="mt-[20px]">
+					<TabInformation
 						product={product}
 						isLoading={isLoading}
-					></ImageDesktop>
-				</div>
-				<div>
-					<ProductDetailItem
-						handleProductImageClick={() => {
-							setShowModal(!showModal);
-						}}
-						product={product}
+					></TabInformation>
+					<RelatedProduct
+						categories={product.categoryId}
 						isLoading={isLoading}
 					/>
 				</div>
 			</div>
-			<div className="mt-[20px]">
-				<TabInformation
-					product={product}
-					isLoading={isLoading}
-				></TabInformation>
-				<RelatedProduct
-					categories={product.categoryId}
-					isLoading={isLoading}
-				/>
-			</div>
-		</div>
+		</PageTitle>
 	);
 }

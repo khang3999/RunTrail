@@ -17,17 +17,19 @@ export default function ImageDesktop({ product, isLoading }) {
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
-		if (product.images) {
+		if (product && product.images) {
 			setSelectedImage(0); // Ảnh đầu tiên trong mảng
+			setDataImages(product.images);
 		}
-		// console.log(product.images);
-
-		setDataImages(product.images);
 	}, [product]);
 
 	const handleThumnailClick = (image) => {
 		setSelectedImage(image);
 	};
+
+	if (!product) {
+		return <div>Product not found</div>;
+	}
 
 	return (
 		<>
