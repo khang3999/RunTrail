@@ -37,6 +37,7 @@ public class SpuDTO {
     private List<SkuEntity> listSku;
 
     private String spuAttributes;
+    private String slug;
 
     public SpuDTO(Long id, String spuName, List<SpuImagesEntity> images,List<SkuEntity> listSku) {
         this.id = id;
@@ -51,7 +52,7 @@ public class SpuDTO {
         this.images = images;
     }
 
-    public SpuDTO(Long id, String spuName, String spuDescription, Long categoryId, Long brandId, String brandName, Long spuPrice, String spuThumbnail, Integer spuStatus, Integer discount, String spuAttributes) {
+    public SpuDTO(Long id, String spuName, String spuDescription, Long categoryId, Long brandId, String brandName, Long spuPrice, String spuThumbnail, Integer spuStatus, Integer discount, String spuAttributes, String slug) {
         this.id = id;
         this.spuName = spuName;
         this.spuDescription = spuDescription;
@@ -63,5 +64,6 @@ public class SpuDTO {
         this.spuStatus = spuStatus;
         this.discount = discount;
         this.spuAttributes = spuAttributes;
+        this.slug = slug;
     }
 }
