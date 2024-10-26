@@ -30,10 +30,9 @@ export default function DetailProduct() {
 	});
 	const [isLoading, setIsLoading] = useState(true);
 
-	useEffect(() => {
-		fetchProductDetail();
-	}, []);
-
+  useEffect(() => {
+    fetchProductDetail();
+  }, []);
 	const fetchProductDetail = async () => {
 		setIsLoading(true)
 		const response = await fetch(`http://localhost:8008/api/v1/spu?slug=${slug}`, {

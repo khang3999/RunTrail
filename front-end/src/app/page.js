@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import HomePage from './page/home/HomePage';
 import GoToTopButton from '@/components/GoToTopButton';
+import ImageDesktop from '@/components/detail/ImageDesktop';
 
 export default function Home() {
 	const [products, setProducts] = useState([]);
@@ -32,8 +33,9 @@ export default function Home() {
 	}, []);
 	return (
 		<>
-			<HomePage />
-			<GoToTopButton />
+			{/* <HomePage />
+			<GoToTopButton /> */}
+			<ImageDesktop></ImageDesktop>
 		</>
 	);
 }
