@@ -1,13 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import ProductDetailItem from '@/components/ProductDetailItem';
-import Overplay from '@/components/Overlay';
-import ProductImageModal from '@/components/ProductImageModal';
 import RelatedProduct from '@/components/RelatedProduct';
 import TabInformation from '@/components/TabInformation';
 import Breadcrumb from '@/components/Breadcrumb';
 import ImageDesktop from '@/components/detail/ImageDesktop';
 import PageTitle from '@/components/PageTitle';
+import { useParams } from 'next/navigation';
+import { metadatasite } from '@/app/layout';
 export default function DetailProduct() {
 	const { slug } = useParams();
 	const [showModal, setShowModal] = useState(false);

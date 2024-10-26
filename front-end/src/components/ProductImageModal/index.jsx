@@ -27,9 +27,7 @@ function ProductImageModal({
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		if (init) {
-			setCurrentIndex(init);
-		}
+		setCurrentIndex(init);
 	}, [init]);
 
 	useEffect(() => {
@@ -200,7 +198,10 @@ function ProductImageModal({
 					<FontAwesomeIcon icon={faAngleRight} />
 				</button>
 				<button
-					onClick={onClose}
+					onClick={() => {
+						onClose();
+						setIsZoom(false);
+					}}
 					className="bg-white text-gray-400 transition-colors duration-300 ease-linear hover:text-black w-8 h-8 p-2 border border-gray-300 flex items-center justify-center"
 				>
 					<FontAwesomeIcon icon={faClose} />
