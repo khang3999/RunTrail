@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import ProductDetailItem from '@/components/ProductDetailItem';
 import { useParams } from 'next/navigation';
-
+import { metadatasite } from '@/app/layout';
 export default function DetailProduct() {
   const { slug } = useParams();
   const [product, setProduct] = useState({
@@ -12,6 +12,7 @@ export default function DetailProduct() {
     },
     spuAttributes: {},
     spuPrice: 0,
+    discount: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,13 +32,15 @@ export default function DetailProduct() {
     })
     const data = await response.json()
     if (data.statusCode === 200) {
-      const { spuName, brand, spuAttributes,id} = data.metadata;
+      const { spuName, brand, spuAttributes,id,discount} = data.metadata;
       setProduct({
         spuName,
         brand,
         spuAttributes: JSON.parse(spuAttributes),
         spuPrice: 100001,
+        discount,
       });
+      metadatasite.title = spuName;
       setIsLoading(false)
     }
   }
