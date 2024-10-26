@@ -34,7 +34,7 @@ export default function Home() {
 	return (
 		<>
 			<HomePage />
-			{/* <GoToTopButton /> */}
+			{/* <GoToTopButton />  */}
 			{/* <ImageDesktop></ImageDesktop> */}
 		</>
 	);
