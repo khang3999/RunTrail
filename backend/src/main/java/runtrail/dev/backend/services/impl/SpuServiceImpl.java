@@ -100,19 +100,35 @@ public class SpuServiceImpl implements SpuService {
 
         // Lấy 6 sản phẩm ngẫu nhiên từ danh sách 20 sản phẩm
         if (!topDiscountedProducts.isEmpty()) {
-            // Trộn danh sách
             Collections.shuffle(topDiscountedProducts);
-            selectedProducts.addAll(topDiscountedProducts.subList(0, Math.min(6, topDiscountedProducts.size())));
+            for (SpuDTO product : topDiscountedProducts) {
+                if (selectedProducts.size() >= 6) break;
+                selectedProducts.add(product);
+            }
         }
 
-        // Nếu cần, bổ sung thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
-        int remainingCount = 6 - selectedProducts.size();
-        if (remainingCount > 0) {
+        //  thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
+        while (selectedProducts.size() < 6) {
+            int remainingCount = 6 - selectedProducts.size();
             List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
-            selectedProducts.addAll(randomProducts);
+
+            // Neu hong con sp can them
+            if (randomProducts.isEmpty()) {
+                break;
+            }
+
+            // Lọc sản phẩm
+            for (SpuDTO product : randomProducts) {
+                if (selectedProducts.size() >= 6) break;
+
+                // Kiểm tra xem sản phẩm đã có trong selectedProducts hay chưa
+                if (selectedProducts.stream().noneMatch(p -> p.getId() == product.getId())) {
+                    selectedProducts.add(product);
+                }
+            }
         }
 
-        // Thêm danh sách URL ảnh cho mỗi sản phẩm
+        // Thêm danh sách  ảnh cho mỗi sp
         selectedProducts.forEach(product -> {
             List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
             product.setImages(images);
@@ -120,6 +136,8 @@ public class SpuServiceImpl implements SpuService {
 
         return selectedProducts;
     }
+
+
 
 
 
