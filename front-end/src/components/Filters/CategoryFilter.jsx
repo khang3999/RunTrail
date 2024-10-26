@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
-// Ensure flowbite is correctly installed
-import "flowbite/dist/flowbite.min.css";
+import Link from "next/link";
+
 
 const SkeletonLoader = () => {
   return (
@@ -13,10 +13,7 @@ const SkeletonLoader = () => {
   );
 };
 
-const CategoryComponent = ({ categories, isLoading }) => {
-
-
-
+const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
 
   const { setCategoryId } = useProductProvider();
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -35,6 +32,7 @@ const CategoryComponent = ({ categories, isLoading }) => {
 
   const handleCategoryClick = (categoryId) => {
     setCategoryId(categoryId);
+    onCategoryClick(categoryId);    
   };
 
   const renderMenuItems = (parentId) => {   
@@ -43,7 +41,8 @@ const CategoryComponent = ({ categories, isLoading }) => {
       .map((category) =>
         category.parentId === null ? (
           <li key={category.id} className="relative">
-            <button
+            <Link
+            href='/'
               id={`dropdownNavbarLink_${category.id}`}
               data-dropdown-toggle={`dropdownNavbar_${category.id}`}
               className="flex items-center bg-gray-900 justify-between w-full py-2 px-3 text-white rounded hover:text-green-500  dark:text-white"
@@ -68,7 +67,7 @@ const CategoryComponent = ({ categories, isLoading }) => {
                   />
                 </svg>
               )}
-            </button>
+            </Link>
             {categories.some((cat) => cat.parentId === category.id) && (
               <div
                 id={"dropdownNavbar_" + category.id}
@@ -89,12 +88,13 @@ const CategoryComponent = ({ categories, isLoading }) => {
           </li>
         ) : (
           <li key={category.id}>
-            <button
+            <Link
+            href='/'
               className="block px-4 py-2 w-full text-start dark:hover:text-green-500"
               onClick={() => handleCategoryClick(category.id)}
             >
               {category.name}
-            </button>
+            </Link>
           </li>
         )
       );
@@ -103,7 +103,7 @@ const CategoryComponent = ({ categories, isLoading }) => {
   return <>{renderMenuItems(null)}</>;
 };
 
-export default function CategoryFilter() {
+export default function CategoryFilter({onCategoryClick}) {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
@@ -131,9 +131,9 @@ export default function CategoryFilter() {
     // Render skeletons matching the number of top-level categories
     return Array(7)
       .fill(null)
-      .map((_, index) => <SkeletonLoader />);
+      .map((_, index) => <SkeletonLoader key={index}/>);
       
   }
 
-  return <CategoryComponent categories={categories} isLoading={isLoading} />;
+  return <CategoryComponent categories={categories} isLoading={isLoading} onCategoryClick={onCategoryClick}/>;
 }

@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface SkuAttributeValueService {
     List<SkuAttributeValueEntity> getAllSkuAttributeValues();
     Optional<SkuAttributeValueEntity> getSkuAttributeValueById(long id);
+
+    List<SkuAttributeValueEntity> getAllSkuAttributeValuesByCategoryId(long categoryId);
 }

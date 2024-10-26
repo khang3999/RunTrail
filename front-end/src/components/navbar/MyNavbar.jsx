@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import CategoryFilter from "../Filters/CategoryFilter";
 
 
-export default function MyNavbar() {
+export default function MyNavbar({onCategoryClick}) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -15,7 +15,7 @@ export default function MyNavbar() {
       <nav style={{backgroundColor: '#101827'}} className="border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-normal  p-4">
           <a
-            href="#"
+            href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
@@ -56,7 +56,7 @@ export default function MyNavbar() {
             id="navbar-dropdown"
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-900 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-gray-900 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 ml-4">
-              <CategoryFilter />
+              <CategoryFilter onCategoryClick={onCategoryClick}/>
             </ul>
           </div>
         </div>

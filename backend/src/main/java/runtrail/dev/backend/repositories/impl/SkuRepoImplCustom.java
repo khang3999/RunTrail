@@ -27,29 +27,21 @@ public class SkuRepoImplCustom implements SkuRepoCustom {
         List<Predicate> predicates = new ArrayList<>();
 
         Predicate spuIdEqual = builder.equal(root.get("spu").get("id"), spuId);
-        predicates.add(spuIdEqual);
-
+        predicates.add((spuIdEqual));
 
         for (var entry : mapAttributes.entrySet()) {
             Predicate predicate = builder.equal(builder.function("JSON_EXTRACT",String.class,root.get("skuAttri"),builder.literal("$."+entry.getKey())),entry.getValue());
             predicates.add(predicate);
         }
 
-
         query.where(predicates.toArray(new Predicate[predicates.size()]));
 
         //builder.function("JSON_ARRAYAGG", String.class, builder.function("JSON_MERGE_PATCH", String.class,root.get("skuAttri"),builder.function("JSON_OBJECT",String.class,builder.literal("stock"),root.get("skuStock")))).alias("hidden");
-        System.out.println("test 1");
         //Predicate for price
         Predicate priceSkuPricePredicate = builder.equal(builder.max(root.get("skuPrice")), builder.min(root.get("skuPrice")));
-        System.out.println("test 2");
         query.multiselect(builder.sum(root.get("skuStock")).alias("totalStock"),builder.selectCase().when(priceSkuPricePredicate,builder.max(root.get("skuPrice"))).otherwise(builder.function("CONCAT",String.class,builder.min(root.get("skuPrice")),builder.literal("-"),builder.max(root.get("skuPrice")))).as(String.class).alias("skuPrice"),builder.function("JSON_ARRAYAGG", String.class, builder.function("JSON_MERGE_PATCH", String.class,root.get("skuAttri"),builder.function("JSON_OBJECT",String.class,builder.literal("stock"),root.get("skuStock")))).alias(""));
 
-        System.out.println("test 3");
-
         TypedQuery<SkuPriceStockDTO> typedQuery = em.createQuery(query);
-
-        System.out.println("test 4");
 
         return typedQuery.getSingleResult();
     }
