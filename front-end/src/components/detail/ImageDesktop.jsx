@@ -12,15 +12,15 @@ export default function ImageDesktop({ product, isLoading }) {
     const perPage = 5;
     const [selectedImage, setSelectedImage] = useState(null)
     const [dataImages, setDataImages] = useState([])
-    useEffect(() => {
-        if (product.images) {
-            setSelectedImage(product.images[0].imgUrl)
-        }
-        console.log(product.images);
+    // useEffect(() => {
+    //     if (product.images) {
+    //         setSelectedImage(product.images[0].imgUrl)
+    //     }
+    //     console.log(product.images);
 
-        setDataImages(product.images)
+    //     setDataImages(product.images)
 
-    }, [product]);
+    // }, [product]);
     const handleThumnailClick = (image) => {
         setSelectedImage(image);
     }
