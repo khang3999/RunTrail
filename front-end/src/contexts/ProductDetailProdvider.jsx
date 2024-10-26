@@ -2,23 +2,26 @@
 'use client';
 import React, { useState, useContext, createContext, useEffect, use } from 'react';
 
-const ProductAttributesContext = createContext();
-export function ProductAttributesProvider({ children }) {
+const ProductDetailContext = createContext();
+export function ProductDetailProvider({ children }) {
     const [attributes, setAttributes] = useState({});
-    const spuAttributes = JSON.parse("{\"Size\": [\"S\", \"M\", \"L\", \"XL\"], \"Color\": [\"White\", \"Black\"]}");
+	const [spuAttributes, setSpuAttributes] = useState([]);
 	const [listAttrOutOfStockTemp, setListAttrOutOfStockTemp] = useState([]);
 	const [listAttrOutOfStock, setListAttrOutOfStock] = useState([]);
+	const [totalStock, setTotalStock] = useState(null);
+	const [skuPrice,setSkuPrice] = useState("");
+	const [hiddenQuantity, setHiddenQuantity] = useState(false);
 
 	const [data, setData] = useState({
-		spuId: 42,
+		spuId: '',
 		attributes: {},
 	});
 
-
-
 	useEffect(() => {
 		fetchAttributes();
+		handleHiddenQuantity();
 	},[data]);
+
 
 	useEffect(() => {
 		// TH1
@@ -70,7 +73,6 @@ export function ProductAttributesProvider({ children }) {
 	}, [listAttrOutOfStockTemp]);
 
 	 const fetchAttributes = async () => {
-		console.log("data");
         const response = await fetch('http://localhost:8008/api/v1/spu/stock-price', {
             method: 'POST',
             headers: {
@@ -81,12 +83,31 @@ export function ProductAttributesProvider({ children }) {
         const result = await response.json()
         if (result.statusCode === 200) {
             const {list,skuPrice,totalStock } = result.metadata;
+			console.log("price", skuPrice);
 			const listTemp = JSON.parse(list);
 			setListAttrOutOfStockTemp(listTemp);
+			setTotalStock(totalStock);
+			setSkuPrice(skuPrice);
         };
-    }
+    
+	
+	}
+
+	const handleHiddenQuantity = () => {
+		// get all key of attributes
+		const totalKeyAttributes = Object.keys(data.attributes).length;
+		const totalKeySpuAttributes = Object.keys(spuAttributes).length;
+		console.log("totalKeyAttributes", Object.keys(data.attributes));
+		console.log("totalKeySpuAttributes", Object.keys(spuAttributes));
+		if (totalKeyAttributes === totalKeySpuAttributes) {
+			setHiddenQuantity(true);
+		} else {
+			setHiddenQuantity(false);
+		}
+	}
+
 	return (
-		<ProductAttributesContext.Provider
+		<ProductDetailContext.Provider
 			value={{
                 attributes,
                 setAttributes,
@@ -94,12 +115,16 @@ export function ProductAttributesProvider({ children }) {
 				setData,
 				data,
 				listAttrOutOfStock,
-				setListAttrOutOfStock
+				setListAttrOutOfStock,
+				setSpuAttributes,
+				totalStock,
+				skuPrice,
+				hiddenQuantity
             }}
 		>
 			{children}
-		</ProductAttributesContext.Provider>
+		</ProductDetailContext.Provider>
 	);
 }
-export const useProductAttributesProvider = () => useContext(ProductAttributesContext);
+export const useProductDetailProvider = () => useContext(ProductDetailContext);
 

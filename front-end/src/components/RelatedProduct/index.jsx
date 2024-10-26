@@ -19,7 +19,7 @@ const RelatedProduct = ({ categories, isLoading }) => {
         .then((response) => response.json())
         .then((data) => 
 		{
-			setProducts([])
+			setProducts(data.metadata)
 		}
 			
 	);

@@ -45,7 +45,7 @@ function ProductProvider({ children }) {
 			const brandIdsStr = selectedBrands.join(',');
 			const sizesNameStr = selectedSizes.join(',');
 			
-			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
+			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=M`;
 
 			setIsLoading(true);
 
@@ -53,7 +53,6 @@ function ProductProvider({ children }) {
 			const response = await fetch(
 				`http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`
 			);
-			console.log(stringParams);
 			const data = await response.json();
 			const {
 				metadata: {

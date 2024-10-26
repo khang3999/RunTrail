@@ -45,20 +45,21 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
     Page<SpuEntity> findAll(Specification<SpuEntity> specification, Pageable pageable);
 
 
-    @Query("SELECT DISTINCT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.id, br.brandName, sk.skuPrice, img.imgUrl, u.spuStatus, u.discount, sk.skuAttri,u.slug) " +
+    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.id, br.brandName, min(sk.skuPrice), 'image', u.spuStatus, u.discount, u.spuAttributes,u.slug) " +
             "FROM SpuEntity u " +
             "INNER JOIN SkuEntity sk ON sk.spu.id = u.id " +
             "INNER JOIN BrandEntity br ON u.brand.id = br.id " +
             "INNER JOIN SpuImagesEntity img ON img.spu.id = u.id " +
             "WHERE u.categoryId = :category " +
-            "ORDER BY u.discount DESC")
+            "GROUP BY u.id ORDER BY u.discount DESC")
     List<SpuDTO> findTopDiscountedSpuByCategory(@Param("category") long category, Pageable pageable);
 
-    @Query("SELECT DISTINCT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.id, br.brandName, sk.skuPrice, img.imgUrl, u.spuStatus, u.discount, sk.skuAttri,u.slug) " +
+    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.id, br.brandName, min(sk.skuPrice),'image', u.spuStatus, u.discount, u.spuAttributes,u.slug) " +
             "FROM SpuEntity u " +
             "INNER JOIN SkuEntity sk ON sk.spu.id = u.id " +
             "INNER JOIN BrandEntity br ON u.brand.id = br.id " +
             "INNER JOIN SpuImagesEntity img ON img.spu.id = u.id " +
+            "GROUP BY u.id " +
             "ORDER BY RAND()")
     List<SpuDTO> findRandomProducts(Pageable pageable);
 

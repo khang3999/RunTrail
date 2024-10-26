@@ -8,11 +8,14 @@ import TabInformation from '@/components/TabInformation';
 import Breadcrumb from '@/components/Breadcrumb';
 import { useParams } from 'next/navigation';
 import { metadatasite } from '@/app/layout';
+import { ProductDetailProvider } from '@/contexts/ProductDetailProdvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function DetailProduct() {
 	const { slug } = useParams();
 	const [showModal, setShowModal] = useState(false);
-	const [attributes, setAttributes] = useState([]);
 	const [product, setProduct] = useState({
+		id:'',
 		spuName: '',
 		brand: {
 			brandName: ''
@@ -23,6 +26,7 @@ export default function DetailProduct() {
 		spuAttributes: {},
 		spuPrice: 0,
 		discount: 0,
+		spuNo:''
 	});
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +46,7 @@ export default function DetailProduct() {
 		if (data.statusCode === 200) {
 			const { spuName, brand, spuAttributes,discount, images,
 				categoryId,
-				spuDescription } = data.metadata;
+				spuDescription,id,skuList,spuNo } = data.metadata;
 			setProduct({
 				spuName,
 				brand,
@@ -52,18 +56,31 @@ export default function DetailProduct() {
 				spuDescription,
 				categoryId,
 				discount,
+				id,
+				spuPrice: getSpuPrice(skuList),
+				spuNo
 			});
 			metadatasite.title = spuName;
 			setIsLoading(false)
 		}
 	}
 
-	const handleAttributeChange = () => {
-		console.log('change attribute');
-	};
+	// get spu_price
+	const getSpuPrice = (skuList) => {
+		let minPrice = 0;
+		skuList.forEach((sku) => {
+			if (minPrice === 0) {
+				minPrice = sku.skuPrice;
+			}
+			if (sku.skuPrice < minPrice) {
+				minPrice = sku.skuPrice;
+			}
+		});
+		return minPrice;
+	}
 
 	return (
-		<div>
+		<ProductDetailProvider>
 			{/* Product Image Model */}
 			{product.images && product.images.length > 0 && (
 				<>
@@ -132,6 +149,7 @@ export default function DetailProduct() {
 					isLoading={isLoading}
 				/>
 			</div>
-		</div>
+			<ToastContainer />
+		</ProductDetailProvider>
 	);
 }

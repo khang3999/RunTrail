@@ -59,7 +59,7 @@ function ProductItem(props) {
 							{product.brandName}
 						</p>
 						<Link
-							href="/detail"
+							href={`/product/${product.slug}`}
 							className="title font-semibold line-clamp-1 text-ellipsis"
 						>
 							{product.spuName}

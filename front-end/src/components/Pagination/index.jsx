@@ -15,7 +15,6 @@ export default function Pagination() {
 
     return (
         <div className="my-3 flex items-center gap-2">
-            <span>{numberOfElements}</span>
             <PaginationItem isDisable={(currentPage === 1)} onClick={() => handleClick(1)}>
                 start
             </PaginationItem>
