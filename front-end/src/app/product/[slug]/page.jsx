@@ -61,7 +61,7 @@ export default function DetailProduct() {
 			<div className="">
 				<Breadcrumb categoryId={product.categoryId} />
 			</div>
-			<div className="px-[200px] mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+			<div className="lg:px-[200px] px-4 mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
 				{/* product images */}
 				<div className="">
 					<ImageDesktop
