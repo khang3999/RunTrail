@@ -59,10 +59,9 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public SpuEntity findProductById(Long id) {
+    public SpuEntity findProductBySlug(String slug) {
         //
-        if (id < 1) throw new ErrorExceptionHandler("product id not invali",HttpStatus.BAD_REQUEST.value());
-       final SpuEntity spu = spuRepository.findById(id).orElse(null);
+       final SpuEntity spu = spuRepository.findBySlug(slug);
        if (spu == null) {
            throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
        }

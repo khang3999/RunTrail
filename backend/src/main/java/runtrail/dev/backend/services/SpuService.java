@@ -22,5 +22,6 @@ public interface SpuService {
     List<SpuDTO> get20spTop(long category);
 
     Page<SpuEntity> filterProductV2(Long minPrice, Long maxPrice, List<Long> brandIds,Long categoryId,List<String> keys,List<List<String>> values,Pageable pageable);
-    SpuEntity findProductById(Long id);
+
+    SpuEntity findProductBySlug(String slug);
 }
