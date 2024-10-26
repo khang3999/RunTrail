@@ -13,24 +13,24 @@ export default function Home() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				const response = await axios.get(
-					'http://localhost:8008/api/v1/spu/all'
-				); // Thay thế bằng URL API của bạn
-				console.log('done');
-				setProducts(response.data.metadata.content);
-			} catch (err) {
-				setError(err.message);
-				console.log('error');
-			} finally {
-				setLoading(false);
-			}
-		};
+	// useEffect(() => {
+	// 	const fetchProducts = async () => {
+	// 		try {
+	// 			const response = await axios.get(
+	// 				'http://localhost:8008/api/v1/spu/filter'
+	// 			); // Thay thế bằng URL API của bạn
+	// 			console.log('done');
+	// 			setProducts(response.data.metadata.content);
+	// 		} catch (err) {
+	// 			setError(err.message);
+	// 			console.log('error');
+	// 		} finally {
+	// 			setLoading(false);
+	// 		}
+	// 	};
 
-		fetchProducts();
-	}, []);
+	// 	fetchProducts();
+	// }, []);
 	return (
 		<>
 			<HomePage />

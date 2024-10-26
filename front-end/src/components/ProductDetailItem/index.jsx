@@ -147,3 +147,4 @@ export default function ProductDetailItem({ product, isLoading }) {
 		</div>
 	);
 }
+
