@@ -1,15 +1,14 @@
-
 'use client';
-import React, { useState, useContext, createContext, useEffect, use } from 'react';
+import React, { useState, useContext, createContext, useEffect } from 'react';
 
 const ProductDetailContext = createContext();
 export function ProductDetailProvider({ children }) {
-    const [attributes, setAttributes] = useState({});
+	const [attributes, setAttributes] = useState({});
 	const [spuAttributes, setSpuAttributes] = useState([]);
 	const [listAttrOutOfStockTemp, setListAttrOutOfStockTemp] = useState([]);
 	const [listAttrOutOfStock, setListAttrOutOfStock] = useState([]);
 	const [totalStock, setTotalStock] = useState(null);
-	const [skuPrice,setSkuPrice] = useState("");
+	const [skuPrice, setSkuPrice] = useState('');
 	const [hiddenQuantity, setHiddenQuantity] = useState(false);
 
 	const [data, setData] = useState({
@@ -20,19 +19,20 @@ export function ProductDetailProvider({ children }) {
 	useEffect(() => {
 		fetchAttributes();
 		handleHiddenQuantity();
-	},[data]);
-
+	}, [data]);
 
 	useEffect(() => {
 		// TH1
 		// data attributes : {Size: "S"}
 		// listAttrOutOfStock : [{attribute: "Size", values: ["S"]}, {attribute: "Color", values: ["White"]}]
 		// ouput => [{attribute: "Color", values: ["White"]}]
-		if (Object.keys(data.attributes).length === 1){
+		if (Object.keys(data.attributes).length === 1) {
 			const firstListAttrOutOfStock = listAttrOutOfStockTemp[0];
 			const attributes = Object.keys(data.attributes); // ["Color"]
 			const itemKeys = Object.keys(firstListAttrOutOfStock);
-			const diff = itemKeys.filter((key) => !attributes.includes(key) && key!=="stock")[0];
+			const diff = itemKeys.filter(
+				(key) => !attributes.includes(key) && key !== 'stock'
+			)[0];
 			const listTemp = listAttrOutOfStockTemp.filter((item) => {
 				return item.stock === 0;
 			});
@@ -40,78 +40,81 @@ export function ProductDetailProvider({ children }) {
 			// get attribute value of listTemp have key is diff
 			const values = listTemp.map((item) => {
 				return item[diff];
-			})
+			});
 
 			const result = {
 				attribute: diff,
-				values: values
-			}
+				values: values,
+			};
 
 			setListAttrOutOfStock([result]);
-		}else if (Object.keys(data.attributes).length === 2){
+		} else if (Object.keys(data.attributes).length === 2) {
 			const listTemp = listAttrOutOfStockTemp.filter((item) => {
 				return item.stock === 0;
 			});
-			console.log("listTemp", listTemp);
+			console.log('listTemp', listTemp);
 			if (listTemp.length === 0) return;
 			const firstListAttrOutOfStock = listTemp[0];
 			const attributes = Object.keys(data.attributes);
 			const itemKeys = Object.keys(firstListAttrOutOfStock);
-			const diff = itemKeys.filter((key) => !attributes.includes(key) && key!=="stock")[1];
+			const diff = itemKeys.filter(
+				(key) => !attributes.includes(key) && key !== 'stock'
+			)[1];
 			// get attribute value of listTemp have key is diff
 			const values = listTemp.map((item) => {
 				return item[diff];
-			})
+			});
 
 			const result = {
 				attribute: diff,
-				values: values
-			}
+				values: values,
+			};
 
 			setListAttrOutOfStock([result]);
 		}
 	}, [listAttrOutOfStockTemp]);
 
-	 const fetchAttributes = async () => {
-        const response = await fetch('http://localhost:8008/api/v1/spu/stock-price', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        const result = await response.json()
-        if (result.statusCode === 200) {
-            const {list,skuPrice,totalStock } = result.metadata;
-			console.log("price", skuPrice);
+	const fetchAttributes = async () => {
+		const response = await fetch(
+			'http://localhost:8008/api/v1/spu/stock-price',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			}
+		);
+		const result = await response.json();
+		if (result.statusCode === 200) {
+			const { list, skuPrice, totalStock } = result.metadata;
+			console.log('price', skuPrice);
 			const listTemp = JSON.parse(list);
 			setListAttrOutOfStockTemp(listTemp);
 			setTotalStock(totalStock);
 			setSkuPrice(skuPrice);
-        };
-    
-	
-	}
+		}
+	};
 
 	const handleHiddenQuantity = () => {
 		// get all key of attributes
 		const totalKeyAttributes = Object.keys(data.attributes).length;
 		const totalKeySpuAttributes = Object.keys(spuAttributes).length;
-		console.log("totalKeyAttributes", Object.keys(data.attributes));
-		console.log("totalKeySpuAttributes", Object.keys(spuAttributes));
+		console.log('totalKeyAttributes', Object.keys(data.attributes));
+		console.log('totalKeySpuAttributes', Object.keys(spuAttributes));
 		if (totalKeyAttributes === totalKeySpuAttributes) {
 			setHiddenQuantity(true);
 		} else {
 			setHiddenQuantity(false);
 		}
-	}
+	};
 
 	return (
 		<ProductDetailContext.Provider
 			value={{
-                attributes,
-                setAttributes,
-                spuAttributes,
+				attributes,
+				setAttributes,
+				spuAttributes,
 				setData,
 				data,
 				listAttrOutOfStock,
@@ -119,12 +122,11 @@ export function ProductDetailProvider({ children }) {
 				setSpuAttributes,
 				totalStock,
 				skuPrice,
-				hiddenQuantity
-            }}
+				hiddenQuantity,
+			}}
 		>
 			{children}
 		</ProductDetailContext.Provider>
 	);
 }
 export const useProductDetailProvider = () => useContext(ProductDetailContext);
-
