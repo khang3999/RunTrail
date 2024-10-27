@@ -22,6 +22,7 @@ public class SkuEntity {
     @JoinColumn(name = "spu_id", nullable = false)
     private SpuEntity spu;
 
+
     @Column(name = "sku_name", nullable = false, length = 100)
     private String skuName;
 
