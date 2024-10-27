@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.entities.SpuEntity;
+import runtrail.dev.backend.entities.SpuImagesEntity;
 import runtrail.dev.backend.exception.ErrorExceptionHandler;
+import runtrail.dev.backend.repositories.SpuImagesRepository;
 import runtrail.dev.backend.repositories.SpuRepository;
 import runtrail.dev.backend.repositories.specification.SpuSpecification;
 import runtrail.dev.backend.services.SkuService;
@@ -27,6 +29,9 @@ public class SpuServiceImpl implements SpuService {
     @Autowired
     private SkuService skuService;
 
+    @Autowired
+    private SpuImagesRepository spuImagesRepository;
+
     @Override
     public List<SpuEntity> getAllSpus() {
         return List.of();
@@ -41,6 +46,7 @@ public class SpuServiceImpl implements SpuService {
     public Page<SpuEntity> findAllSpu(Pageable pageable) {
         return spuRepository.findAll(pageable);
     }
+
 
 
     public Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable) {
@@ -86,41 +92,68 @@ public class SpuServiceImpl implements SpuService {
           }
     }
 
-    public List<SpuDTO> getRandomProductsByCategory(long category ) {
-        // Lấy 20 sp có mã giảm giá cao nhất
-        Pageable pageable = PageRequest.of(0, 20);
-        List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category,pageable);
-        List<SpuDTO> selectedProducts = new ArrayList<>();
-
-        // lấy 6 random từ 20sp
-        if (!topDiscountedProducts.isEmpty()) {
-            //Trộn all sp từ 20 sp
-            Collections.shuffle(topDiscountedProducts);
-
-            selectedProducts.addAll(topDiscountedProducts.subList(0, Math.min(6, topDiscountedProducts.size())));
-        }
-
-        // lấy random all sp
-        int remainingCount = 6 - selectedProducts.size();
-        if (remainingCount > 0) {
-            List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
-            selectedProducts.addAll(randomProducts);
-        }
-
-        return selectedProducts;
-    }
-
-    //Test20sp
-    public List<SpuDTO> get20spTop(long category ) {
-        // Lấy 20 sp có mã giảm giá cao nhất
+    public List<SpuDTO> getRandomProductsByCategory(long category) {
+        // Lấy 20 sản phẩm có mã giảm giá cao nhất
         Pageable pageable = PageRequest.of(0, 20);
         List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category, pageable);
         List<SpuDTO> selectedProducts = new ArrayList<>();
 
-        selectedProducts.addAll(topDiscountedProducts);
+        // Lấy 6 sản phẩm ngẫu nhiên từ danh sách 20 sản phẩm
+        if (!topDiscountedProducts.isEmpty()) {
+            Collections.shuffle(topDiscountedProducts);
+            for (SpuDTO product : topDiscountedProducts) {
+                if (selectedProducts.size() >= 6) break;
+                selectedProducts.add(product);
+            }
+        }
 
+        //  thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
+        while (selectedProducts.size() < 6) {
+            int remainingCount = 6 - selectedProducts.size();
+            List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
+
+            // Neu hong con sp can them
+            if (randomProducts.isEmpty()) {
+                break;
+            }
+
+            // Lọc sản phẩm
+            for (SpuDTO product : randomProducts) {
+                if (selectedProducts.size() >= 6) break;
+
+                // Kiểm tra xem sản phẩm đã có trong selectedProducts hay chưa
+                if (selectedProducts.stream().noneMatch(p -> p.getId() == product.getId())) {
+                    selectedProducts.add(product);
+                }
+            }
+        }
+
+        // Thêm danh sách  ảnh cho mỗi sp
+        selectedProducts.forEach(product -> {
+            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
+            product.setImages(images);
+        });
 
         return selectedProducts;
     }
+
+
+
+
+
+    public List<SpuDTO> get20spTop(long category) {
+        // Lấy 20 sản phẩm có mã giảm giá cao nhất
+        Pageable pageable = PageRequest.of(0, 20);
+        List<SpuDTO> selectedProducts = spuRepository.findTopDiscountedSpuByCategory(category, pageable);
+
+        // Gan danh sach anh
+        selectedProducts.forEach(product -> {
+            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
+            product.setImages(images);
+        });
+
+        return selectedProducts;
+    }
+
 
 }

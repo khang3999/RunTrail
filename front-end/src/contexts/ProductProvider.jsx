@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useState, useContext, createContext, useEffect } from 'react';
 
@@ -44,9 +43,8 @@ function ProductProvider({ children }) {
 
 			const brandIdsStr = selectedBrands.join(',');
 			const sizesNameStr = selectedSizes.join(',');
-			
-			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=M`;
 
+			const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`
 			setIsLoading(true);
 
 			isFirstFilter && setCurrentPage(1);
@@ -85,7 +83,6 @@ function ProductProvider({ children }) {
 		setSelectedSizes(selectedSizes);
 		fetchProducts();
 	};
-
 
 	const indexOfLastProduct = currentPage * productsPerPage;
 	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
