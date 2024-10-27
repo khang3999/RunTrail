@@ -4,13 +4,10 @@ import { useProductProvider } from "@/contexts/ProductProvider";
 import debounce from "lodash.debounce";
 
 export default function SizesFilter({ categoryId }) {
-  const [sizes, setSizes] = useState([]);  
+  const [sizes, setSizes] = useState([]);
   const [tempSelectedSizes, setTempSelectedSizes] = useState([]);
   const { setSelectedSizes, filterProductsBySize } = useProductProvider();
-  
-if (!categoryId) {
-    console.log("Category ID is not provided");
-  }
+
   useEffect(() => {
     const fetchSizesData = async () => {
       try {
@@ -21,7 +18,7 @@ if (!categoryId) {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         const data = await res.json();
         if (data.statusCode === 200 && data.metadata) {
@@ -46,7 +43,7 @@ if (!categoryId) {
       setSelectedSizes(updatedSizes);
       filterProductsBySize(updatedSizes);
     }, 2000),
-    [filterProductsBySize]
+    [filterProductsBySize],
   );
 
   const handleSizesChange = (sizeName) => {
@@ -54,11 +51,10 @@ if (!categoryId) {
       ? tempSelectedSizes.filter((name) => name !== sizeName)
       : [...tempSelectedSizes, sizeName];
 
-      setTempSelectedSizes(updatedSelectedSizes);
-      debouncedUpdateSizes(updatedSelectedSizes);
-      console.log(updatedSelectedSizes);
-  }
-
+    setTempSelectedSizes(updatedSelectedSizes);
+    debouncedUpdateSizes(updatedSelectedSizes);
+    console.log(updatedSelectedSizes);
+  };
 
   return (
     <div className="w-full max-w-lg mx-auto text-black">

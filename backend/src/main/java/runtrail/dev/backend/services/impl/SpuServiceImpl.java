@@ -92,7 +92,7 @@ public class SpuServiceImpl implements SpuService {
           }
     }
 
-    public List<SpuDTO> getRandomProductsByCategory(long category) {
+    public List<SpuDTO> getRelatedProduct(long category,int number) {
         // Lấy 20 sản phẩm có mã giảm giá cao nhất
         Pageable pageable = PageRequest.of(0, 20);
         List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category, pageable);
@@ -102,14 +102,14 @@ public class SpuServiceImpl implements SpuService {
         if (!topDiscountedProducts.isEmpty()) {
             Collections.shuffle(topDiscountedProducts);
             for (SpuDTO product : topDiscountedProducts) {
-                if (selectedProducts.size() >= 6) break;
+                if (selectedProducts.size() >= number) break;
                 selectedProducts.add(product);
             }
         }
 
         //  thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
-        while (selectedProducts.size() < 6) {
-            int remainingCount = 6 - selectedProducts.size();
+        while (selectedProducts.size() < number) {
+            int remainingCount = number - selectedProducts.size();
             List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
 
             // Neu hong con sp can them
@@ -119,7 +119,7 @@ public class SpuServiceImpl implements SpuService {
 
             // Lọc sản phẩm
             for (SpuDTO product : randomProducts) {
-                if (selectedProducts.size() >= 6) break;
+                if (selectedProducts.size() >= number) break;
 
                 // Kiểm tra xem sản phẩm đã có trong selectedProducts hay chưa
                 if (selectedProducts.stream().noneMatch(p -> p.getId() == product.getId())) {
