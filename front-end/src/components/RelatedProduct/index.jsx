@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ProductItem from "../ProductItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -14,6 +14,16 @@ const RelatedProduct = ({ categories }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    // handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     setIsLoading(true);
     if (categories) {
       fetch(
@@ -22,11 +32,8 @@ const RelatedProduct = ({ categories }) => {
         .then((response) => response.json())
         .then((data) => {
           setProducts(data.metadata);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
         });
+      setIsLoading(false);
     }
   }, [categories]);
 
@@ -40,28 +47,18 @@ const RelatedProduct = ({ categories }) => {
     autoplaySpeed: 2500,
   };
 
-  useLayoutEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  console.log("mobile" + isMobile);
+ 
 
-  if (isLoading ) {
+  if (!isLoading) {
     return (
       <div>
         {isMobile ? (
           <div>
             <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
             <div className={styles.grid}>
-              {Array(6)
-                .fill(0)
-                .map((_, index) => (
-                  <ProductItemSkeleton key={index} />
-                ))}
+              {Array.from({ length: 6 }, (_, index) => (
+                <ProductItemSkeleton key={index} />
+              ))}
             </div>
           </div>
         ) : (
@@ -69,11 +66,9 @@ const RelatedProduct = ({ categories }) => {
             <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
             <div className={styles.container}>
               <div className={styles.grid}>
-                {Array(4)
-                  .fill(0)
-                  .map((_, index) => (
-                    <ProductItemSkeleton key={index} />
-                  ))}
+                {Array.from({ length: 4 }, (_, index) => (
+                  <ProductItemSkeleton key={index} />
+                ))}
               </div>
             </div>
           </div>
