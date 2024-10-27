@@ -8,6 +8,8 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import MyNavbar from '@/components/navbar/MyNavbar';
 // import { Metadata } from 'next';
 import { useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 config.autoAddCss = false;
 
 export const metadatasite = {
@@ -28,6 +30,8 @@ export default function RootLayout({ children }) {
 				<Providers>
 					<MyNavbar onCategoryClick={handleCategoryClick} />
 					{children}
+					<ToastContainer />
+
 				</Providers>
 			</body>
 		</html>
