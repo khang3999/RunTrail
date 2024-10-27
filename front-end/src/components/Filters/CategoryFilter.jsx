@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
 import Link from "next/link";
 
-
 const SkeletonLoader = () => {
   return (
     <div className="flex items-center justify-between w-full py-2 px-3 text-white bg-gray-400 animate-pulse rounded">
@@ -13,8 +12,7 @@ const SkeletonLoader = () => {
   );
 };
 
-const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
-
+const CategoryComponent = ({ categories, isLoading, onCategoryClick }) => {
   const { setCategoryId } = useProductProvider();
   const [openDropdownId, setOpenDropdownId] = useState(null);
 
@@ -32,17 +30,17 @@ const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
 
   const handleCategoryClick = (categoryId) => {
     setCategoryId(categoryId);
-    onCategoryClick(categoryId);    
+    onCategoryClick(categoryId);
   };
 
-  const renderMenuItems = (parentId) => {   
+  const renderMenuItems = (parentId) => {
     return categories
       .filter((category) => category.parentId === parentId)
       .map((category) =>
         category.parentId === null ? (
           <li key={category.id} className="relative">
             <Link
-            href='/'
+              href="/"
               id={`dropdownNavbarLink_${category.id}`}
               data-dropdown-toggle={`dropdownNavbar_${category.id}`}
               className="flex items-center bg-gray-900 justify-between w-full py-2 px-3 text-white rounded hover:text-green-500  dark:text-white"
@@ -89,21 +87,21 @@ const CategoryComponent = ({ categories, isLoading,onCategoryClick }) => {
         ) : (
           <li key={category.id}>
             <Link
-            href='/'
+              href="/"
               className="block px-4 py-2 w-full text-start dark:hover:text-green-500"
               onClick={() => handleCategoryClick(category.id)}
             >
               {category.name}
             </Link>
           </li>
-        )
+        ),
       );
   };
 
   return <>{renderMenuItems(null)}</>;
 };
 
-export default function CategoryFilter({onCategoryClick}) {
+export default function CategoryFilter({ onCategoryClick }) {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
@@ -121,19 +119,20 @@ export default function CategoryFilter({onCategoryClick}) {
     };
 
     fetchCategories();
-
-   
-
   }, []);
 
   if (isLoading) {
-
     // Render skeletons matching the number of top-level categories
     return Array(7)
       .fill(null)
-      .map((_, index) => <SkeletonLoader key={index}/>);
-      
+      .map((_, index) => <SkeletonLoader key={index} />);
   }
 
-  return <CategoryComponent categories={categories} isLoading={isLoading} onCategoryClick={onCategoryClick}/>;
+  return (
+    <CategoryComponent
+      categories={categories}
+      isLoading={isLoading}
+      onCategoryClick={onCategoryClick}
+    />
+  );
 }
