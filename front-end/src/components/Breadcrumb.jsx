@@ -67,7 +67,7 @@ function Breadcrumb({categoryId}) {
     };
 
     return (
-        <div className="px-20 py-10 flex items-center space-x-2 text-base">
+        <div className="md:px-20 px-5 py-10 flex items-center space-x-2 md:text-base text-sm">
             <span onClick={() => { handleNavigate(-1); }} className="hover:underline cursor-pointer">Trang chủ</span>
             {breadcrumbItems.map((item) => (
                 <span key={item.id} className="flex items-center">

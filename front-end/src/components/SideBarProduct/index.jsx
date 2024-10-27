@@ -8,7 +8,6 @@ import SizesFilter from '../Filters/SizesFilter';
 const SideBarProduct = ({categoryId}) => {
 	return (
 		<div style={{ background: 'white', width: '100%', height: '100%' }}>
-			<h1>SideBarProduct</h1>
 			{/* Filter by price */}
 			<div className="mt-4">
 				<FilterItem title={'Thương Hiệu'}>
