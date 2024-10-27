@@ -116,12 +116,7 @@ export default function DetailProduct() {
             product={product}
             isLoading={isLoading}
           ></TabInformation>
-          <RelatedProduct
-            categories={product.categoryId}
-            product={product}
-            setProduct={setProduct}
-            isLoading={isLoading}
-          />
+          <RelatedProduct categories={product.categoryId} />
         </div>
       </div>
     </PageTitle>

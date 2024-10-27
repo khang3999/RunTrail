@@ -6,7 +6,7 @@ import "@/assets/css/productItemSkeleton.css";
 export default function ProductItemSkeleton() {
   return (
     <>
-      <div className="group product-item rounded border-2">
+      <div className="group product-item rounded border-2 ">
         {/* Image */}
         <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200">
           <Link href={`/product`} className="title">

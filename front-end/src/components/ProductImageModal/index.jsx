@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import Skeleton from "../Loadings/Skeleton";
+import { useAppProvider } from "@/contexts/AppProvider";
 
 function ProductImageModal({
   visible = false,
@@ -23,40 +24,18 @@ function ProductImageModal({
   const [width, setWidth] = useState("467px");
   const [height, setHeight] = useState("467px");
   const [isZoom, setIsZoom] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { isMobile } = useAppProvider();
 
   useEffect(() => {
     setCurrentIndex(init);
   }, [init]);
 
   useEffect(() => {
-    if (window.innerWidth <= 768) {
-      setIsMobile(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    const resize = () => {
-      if (window.innerWidth <= 768 && isMobile === false) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-    };
-
-    window.addEventListener("resize", resize);
-
-    return () => window.removeEventListener("resize", resize);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
+    if (data.length > 0) {
       setLoading(false);
-    }, [2000]);
-
-    return () => clearTimeout(timer);
-  }, []);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (visible) {
@@ -120,6 +99,7 @@ function ProductImageModal({
     setIsZoom(!isZoom);
   };
 
+  // Skeleton
   if (loading) {
     return (
       <div

@@ -2,24 +2,29 @@
 import React, { useState, useEffect } from "react";
 import ProductItem from "../ProductItem";
 import Slider from "react-slick";
+import ProductItemSkeleton from "../ProducItemSkeleton";
+import { useAppProvider } from "@/contexts/AppProvider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./RelatedProduct.module.css";
 import "./RelatedProduct.css";
-import ProductItemSkeleton from "../ProducItemSkeleton";
 
-const RelatedProduct = ({ categories, isLoading }) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
+const RelatedProduct = ({ categories }) => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { isMobile } = useAppProvider();
 
   useEffect(() => {
+    setIsLoading(true);
     if (categories) {
-      fetch(`http://localhost:8008/api/v1/spu/random?category=${categories}`)
+      fetch(
+        `http://localhost:8008/api/v1/spu/random?category=${categories}&number=6`,
+      )
         .then((response) => response.json())
         .then((data) => {
           setProducts(data.metadata);
         });
+      setIsLoading(false);
     }
   }, [categories]);
 
@@ -33,47 +38,20 @@ const RelatedProduct = ({ categories, isLoading }) => {
     autoplaySpeed: 2500,
   };
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    setHasMounted(true);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  if (!hasMounted) return null;
-
   if (isLoading) {
     return (
-      <div>
-        {isMobile ? (
-          <div>
-            <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
+      <>
+        <div>
+          <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
+          <div className={styles.container}>
             <div className={styles.grid}>
-              {Array(6)
-                .fill(0)
-                .map((_, index) => (
-                  <ProductItemSkeleton key={index} />
-                ))}
+              {Array.from({ length: isMobile ? 6 : 4 }, (_, index) => (
+                <ProductItemSkeleton key={index} />
+              ))}
             </div>
           </div>
-        ) : (
-          <div className="ml-2">
-            <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
-            <div className={styles.container}>
-              <div className={styles.grid}>
-                {Array(4)
-                  .fill(0)
-                  .map((_, index) => (
-                    <ProductItemSkeleton key={index} />
-                  ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
+      </>
     );
   }
 
