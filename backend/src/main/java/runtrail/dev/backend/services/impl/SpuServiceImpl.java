@@ -155,5 +155,8 @@ public class SpuServiceImpl implements SpuService {
         return selectedProducts;
     }
 
+    public List<String> getDistinctSizesByCategoryId(Long categoryId) {
+        return spuRepository.findDistinctSizesByCategoryId(categoryId);
+    }
 
 }
