@@ -6,6 +6,7 @@ import QuickFilter from '@/components/Filters/QuickFilter';
 import { useProductProvider } from '@/contexts/ProductProvider';
 import Breadcrumb from '@/components/Breadcrumb';
 import PageTitle from '@/components/PageTitle';
+import GoToTopButton from '@/components/GoToTopButton';
 const HomePage = ({}) => {
 	const { categoryId } = useProductProvider();
 	return (
@@ -21,6 +22,7 @@ const HomePage = ({}) => {
 						<ProductGrid />
 					</div>
 				</div>
+				{/* <GoToTopButton/> */}
 			</div>
 		</PageTitle>
 	);
