@@ -120,7 +120,6 @@ export default function DetailProduct() {
 						categories={product.categoryId}
 						product={product}
 						setProduct={setProduct}
-						isLoading={isLoading}
 					/>
 				</div>
 			</div>
