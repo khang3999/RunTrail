@@ -14,7 +14,7 @@ const TabInformation = ({ product, isLoading }) => {
                 <div className='grid grid-cols-3'>
 
                     <div className={`p-3 text-center border border-slate-300 border-r-transparent border-b-transparent text-[18.3px] font-semibold ${(tab === 1 && !isLoading) ? 'bg-violet-500 text-white' : ''}`}
-                        onClick={() => setTab(1)} >{isLoading ? <Skeleton className='h-5' /> : <p>Bình luận</p>}
+                        onClick={() => setTab(1)} >{isLoading ? <Skeleton className='h-5' /> : <p>Mô tả chi tiết</p>}
                     </div>
 
                     <div className={`p-3 text-center border border-slate-300 border-r-transparent border-b-transparent text-[18.3px] font-semibold ${tab === 2 ? 'bg-violet-500 text-white' : ''}`}
