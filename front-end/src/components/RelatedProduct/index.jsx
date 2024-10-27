@@ -2,32 +2,23 @@
 import React, { useState, useEffect } from "react";
 import ProductItem from "../ProductItem";
 import Slider from "react-slick";
+import ProductItemSkeleton from "../ProducItemSkeleton";
+import { useAppProvider } from "@/contexts/AppProvider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./RelatedProduct.module.css";
 import "./RelatedProduct.css";
-import ProductItemSkeleton from "../ProducItemSkeleton";
 
 const RelatedProduct = ({ categories }) => {
-  const [isMobile, setIsMobile] = useState(false);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    // handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const { isMobile } = useAppProvider();
 
   useEffect(() => {
     setIsLoading(true);
     if (categories) {
       fetch(
-        `http://localhost:8008/api/v1/spu/random?category=${categories}&number=6`
+        `http://localhost:8008/api/v1/spu/random?category=${categories}&number=6`,
       )
         .then((response) => response.json())
         .then((data) => {
@@ -47,33 +38,20 @@ const RelatedProduct = ({ categories }) => {
     autoplaySpeed: 2500,
   };
 
- 
-
-  if (!isLoading) {
+  if (isLoading) {
     return (
-      <div>
-        {isMobile ? (
-          <div>
-            <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
+      <>
+        <div>
+          <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
+          <div className={styles.container}>
             <div className={styles.grid}>
-              {Array.from({ length: 6 }, (_, index) => (
+              {Array.from({ length: isMobile ? 6 : 4 }, (_, index) => (
                 <ProductItemSkeleton key={index} />
               ))}
             </div>
           </div>
-        ) : (
-          <div className="ml-2">
-            <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
-            <div className={styles.container}>
-              <div className={styles.grid}>
-                {Array.from({ length: 4 }, (_, index) => (
-                  <ProductItemSkeleton key={index} />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+        </div>
+      </>
     );
   }
 
