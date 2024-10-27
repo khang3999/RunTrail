@@ -1,17 +1,17 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
 function PageTitle({ children, title }) {
-	return (
-		<>
-			{/* <html>
+  return (
+    <>
+      {/* <html>
 				<head>
 					<title>{title}</title>
 				</head>
 			</html> */}
-			{children}
-		</>
-	);
+      {children}
+    </>
+  );
 }
 
 export default PageTitle;
