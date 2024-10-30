@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import "@/assets/css/productItemSkeleton.css";
+import Skeleton from "react-loading-skeleton";
 
 export default function ProductItemSkeleton() {
   return (
@@ -9,23 +10,23 @@ export default function ProductItemSkeleton() {
       <div className="group product-item rounded border-2 ">
         {/* Image */}
         <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200">
-          <Link href={`/product`} className="title">
+          {/* <Link href={`/#`} className="title"> */}
             <div className="image-wrap relative w-full h-[220px] bg-gray-300 skeleton-avatar">
               {/* <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." className="absolute thumnail-1 object-cover object-center w-full h-[250px]" ></img>
                             <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-02.jpg" alt="Front of men&#039;s Basic Tee in black." className="absolute thumnail-2 object-cover object-center w-full h-[250px]"></img>
                             <span className="text-center items-center rounded-md bg-gray-700 px-2 py-1 text-sm font-medium text-white ring-1 ring-inset ring-red-600/10 z-10 absolute top-2 left-2"></span> */}
             </div>
-          </Link>
+          {/* </Link> */}
         </div>
         {/* Information */}
         <div className="group px-[15px] my-4">
           {/* Body */}
           <div className="item-body h-[120px]">
-            <div className="bg-gray-200 w-10 h-5 mb-1 skeleton-text"></div>
-            <div className="bg-gray-200 w-full h-[35px] mt-3 skeleton-text"></div>
-            <div className="bg-gray-200 w-[60%] h-[20px] mt-3 skeleton-text"></div>
-            <div className="bg-gray-200 w-[70%] h-[20px] mt-3 skeleton-text"></div>
-            <div className="bg-gray-200 w-[90%] h-[25px] mt-2 skeleton-text"></div>
+            <Skeleton width={40} height={20} className="mb-1" />
+            <Skeleton width="100%" height={35} className="mt-3" />
+            <Skeleton width="60%" height={20} className="mt-3" />
+            <Skeleton width="70%" height={20} className="mt-3" />
+            <Skeleton width="90%" height={25} className="mt-2" />
             {/* <p className='brand font-extralight italic text-gray-400 mb-1'>Adidas</p>
                         <Link href="/detail" className="title font-semibold line-clamp-2 text-ellipsis">Giày leo núi đẹp bán chạy nhất năm 2024</Link>
                         <div className="price flex flex-row items-center pt-3">

@@ -76,13 +76,40 @@ public class SpuServiceImpl implements SpuService {
     }
 
 
-    @Override
-    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+//    @Override
+//    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+//        brandIds = brandIds.isEmpty() ? null : brandIds;
+//        categoryId = categoryId == -1 ? null : categoryId;
+//        key = key.isEmpty() ? null : key;
+//        value = value.isEmpty() ? null : value;
+//          if (contentOrderBy.equals("asc")) {
+//            return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+//         }
+//         else if(contentOrderBy.equals("desc")) {
+//             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+//         } else {
+//              return spuRepository.findBySpuFilterSALE(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+//          }
+//    }
+    public Page<SpuDTO> getSpuByQuickFilter(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+
         brandIds = brandIds.isEmpty() ? null : brandIds;
         categoryId = categoryId == -1 ? null : categoryId;
         key = key.isEmpty() ? null : key;
         value = value.isEmpty() ? null : value;
-          if (contentOrderBy.equals("asc")) {
+        Page<SpuDTO> productsPage = fetchProductsByOrder(minPrice, maxPrice, brandIds, categoryId, key, value, contentOrderBy, pageable);
+
+        List<SpuDTO> products = productsPage.getContent();
+        products.forEach(product -> {
+            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
+            product.setImages(images);
+        });
+
+        return productsPage;
+    }
+
+    private Page<SpuDTO> fetchProductsByOrder(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+        if (contentOrderBy.equals("asc")) {
             return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
          }
          else if(contentOrderBy.equals("desc")) {
@@ -91,6 +118,7 @@ public class SpuServiceImpl implements SpuService {
               return spuRepository.findBySpuFilterSALE(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
           }
     }
+
 
     public List<SpuDTO> getRelatedProduct(long category, int number) {
         // Lấy 20 sản phẩm có mã giảm giá cao nhất
