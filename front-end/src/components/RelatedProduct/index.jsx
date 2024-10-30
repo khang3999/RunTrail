@@ -44,7 +44,7 @@ const RelatedProduct = ({ categories }) => {
         <div>
           <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
           <div className={styles.container}>
-            <div className={styles.grid}>
+            <div className={styles.grid} style={{marginBottom: 50}}>
               {Array.from({ length: isMobile ? 6 : 4 }, (_, index) => (
                 <ProductItemSkeleton key={index} />
               ))}
@@ -70,7 +70,7 @@ const RelatedProduct = ({ categories }) => {
         <div>
           <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
           <div className={styles.container}>
-            <div className="w-4/5 h-96">
+            <div className="w-4/5 h-100">
               <Slider {...settings}>
                 {products.map((product) => (
                   <div className={styles["slick-slide"]} key={product.id}>
