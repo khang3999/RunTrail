@@ -53,7 +53,7 @@ export default function SizesFilter({ categoryId }) {
 
     setTempSelectedSizes(updatedSelectedSizes);
     debouncedUpdateSizes(updatedSelectedSizes);
-    console.log(updatedSelectedSizes);
+    
   };
 
   return (

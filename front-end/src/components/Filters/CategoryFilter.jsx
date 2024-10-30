@@ -1,110 +1,35 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
-import Link from "next/link";
+import debounce from "lodash.debounce";
 
-const SkeletonLoader = () => {
-  return (
-    <div className="flex items-center justify-between w-full py-2 px-3 text-white bg-gray-400 animate-pulse rounded">
-      <div className="w-20 h-5 bg-gray-300 rounded"></div>
-      <div className="w-4 h-4 bg-gray-300 rounded-full"></div>
-    </div>
-  );
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+
+const buildCategoryTree = (categories) => {
+  const map = {};
+  const roots = [];
+
+  categories.forEach((category) => {
+    map[category.id] = { ...category, children: [] };
+  });
+
+  categories.forEach((category) => {
+    if (category.parentId === null) {
+      roots.push(map[category.id]);
+    } else if (map[category.parentId]) {
+      map[category.parentId].children.push(map[category.id]);
+    }
+  });
+
+  return roots;
 };
 
-const CategoryComponent = ({ categories, isLoading, onCategoryClick }) => {
-  const { setCategoryId } = useProductProvider();
-  const [openDropdownId, setOpenDropdownId] = useState(null);
-
-  const toggleDropdown = (categoryId, isOpen) => {
-    setOpenDropdownId(isOpen ? categoryId : null);
-  };
-
-  const handleMouseEnter = (categoryId) => {
-    toggleDropdown(categoryId, true);
-  };
-
-  const handleMouseLeave = (categoryId) => {
-    toggleDropdown(categoryId, false);
-  };
-
-  const handleCategoryClick = (categoryId) => {
-    setCategoryId(categoryId);
-    onCategoryClick(categoryId);
-  };
-
-  const renderMenuItems = (parentId) => {
-    return categories
-      .filter((category) => category.parentId === parentId)
-      .map((category) =>
-        category.parentId === null ? (
-          <li key={category.id} className="relative">
-            <Link
-              href="/"
-              id={`dropdownNavbarLink_${category.id}`}
-              data-dropdown-toggle={`dropdownNavbar_${category.id}`}
-              className="flex items-center bg-gray-900 justify-between w-full py-2 px-3 text-white rounded hover:text-green-500  dark:text-white"
-              onMouseEnter={() => handleMouseEnter(category.id)}
-              onClick={() => handleCategoryClick(category.id)}
-            >
-              {category.name}
-              {categories.some((cat) => cat.parentId === category.id) && (
-                <svg
-                  className="w-2.5 h-2.5 ml-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
-              )}
-            </Link>
-            {categories.some((cat) => cat.parentId === category.id) && (
-              <div
-                id={"dropdownNavbar_" + category.id}
-                className={`absolute left-0 top-full z-10 ${
-                  openDropdownId === category.id ? "block" : "hidden"
-                } font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
-                onMouseEnter={() => handleMouseEnter(category.id)}
-                onMouseLeave={() => handleMouseLeave(category.id)}
-              >
-                <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-400"
-                  aria-labelledby={`dropdownNavbarLink_${category.id}`}
-                >
-                  {renderMenuItems(category.id)}
-                </ul>
-              </div>
-            )}
-          </li>
-        ) : (
-          <li key={category.id}>
-            <Link
-              href="/"
-              className="block px-4 py-2 w-full text-start dark:hover:text-green-500"
-              onClick={() => handleCategoryClick(category.id)}
-            >
-              {category.name}
-            </Link>
-          </li>
-        ),
-      );
-  };
-
-  return <>{renderMenuItems(null)}</>;
-};
-
-export default function CategoryFilter({ onCategoryClick }) {
-  const [isLoading, setIsLoading] = useState(true);
+const CategoryFilter = () => {
+  
   const [categories, setCategories] = useState([]);
-
+  const [openParentCategory, setOpenParentCategory] = useState({});
+  const {categoryId, setCategoryId } = useProductProvider();
+  const [activeSubcategory, setActiveSubcategory] = useState({});
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -114,25 +39,130 @@ export default function CategoryFilter({ onCategoryClick }) {
       } catch (error) {
         console.error("Error fetching categories:", error);
       } finally {
-        setIsLoading(false);
+        // setIsLoading(false);
       }
     };
 
     fetchCategories();
   }, []);
 
-  if (isLoading) {
-    // Render skeletons matching the number of top-level categories
-    return Array(7)
-      .fill(null)
-      .map((_, index) => <SkeletonLoader key={index} />);
-  }
+  //handle when breadcrumb is clicked and the categoryId is changed
+  useEffect(() => {
+    if (!categoryId || categoryId === -1) return;
+
+    // find the parent category and subcategory for the current categoryId
+    const findCategoryPath = (categories, targetId) => {
+      for (const category of categories) {
+        if (category.id === targetId) return [category.id];
+        if (category.children.length > 0) {
+          const path = findCategoryPath(category.children, targetId);
+          if (path) return [category.id, ...path];
+        }
+      }
+      return null;
+    };
+
+    const categoryPath = findCategoryPath(buildCategoryTree(categories), categoryId);
+
+    if (categoryPath) {
+      const [parent, subcategory] = categoryPath.length === 2 ? categoryPath : [categoryPath[0], null];
+      
+      setOpenParentCategory({ [parent]: true });
+      setActiveSubcategory(subcategory ? { [parent]: subcategory } : {});
+    }
+  }, [categoryId, categories]);
+
+  const toggleCategory = (categoryId, parentId = null) => {
+    if (parentId === null) {
+      //parent category is an already open, close it and clear its text color
+      if (openParentCategory[categoryId]) {
+        setCategoryId(-1);
+        setOpenParentCategory((prev) => {
+          const newOpenCategories = { ...prev };
+          delete newOpenCategories[categoryId];
+          return newOpenCategories;
+        });
+        setActiveSubcategory((prevSelected) => {
+          const updatedSelected = { ...prevSelected };
+          delete updatedSelected[categoryId];
+          return updatedSelected;
+        });
+      
+        return;
+      }
+
+   
+      setCategoryId(categoryId);
+
+      // close all other parents and open the selected one
+      setOpenParentCategory((prev) => {
+        const newOpenCategories = { [categoryId]: true };
+        return newOpenCategories;
+      });
+
+      // clear the active subcategory for other parents
+      setActiveSubcategory((prevSelected) => {
+        const updatedSelected = {};
+        updatedSelected[categoryId] = prevSelected[categoryId];
+        return updatedSelected;
+      });
+    } else {
+      // If it's a subcategory
+      setCategoryId(categoryId);
+      setOpenParentCategory((prev) => ({
+        ...prev,
+        [parentId]: true, // the parent category remains open
+      }));
+      setActiveSubcategory((prevSelected) => ({
+        ...prevSelected,
+        [parentId]: categoryId, // update the active subcategory for this parent
+      }));
+    }
+  };
+
+  const categoryTree = buildCategoryTree(categories);
+
+  const renderCategories = (categories, parentId = null) => {
+    return categories.map((category) => {
+      const isSelectedSubcategory =
+        activeSubcategory[parentId] === category.id && parentId !== null;
+
+      return (
+        <div key={category.id} className="mb-2">
+          <div
+            className={`flex justify-between items-center cursor-pointer py-2 hover:text-purple-400 ${
+              openParentCategory[category.id] ? 'text-purple-600' : ''
+            } ${isSelectedSubcategory ? 'text-purple-600' : ''}`}
+            onClick={() => toggleCategory(category.id, parentId)}
+          >
+            {category.name}
+            {category.children.length > 0 ? (
+              openParentCategory[category.id] ? (
+                <FaChevronDown className="text-sm" />
+              ) : (
+                <FaChevronRight className="text-sm" />
+              )
+            ) : null}
+          </div>
+          {openParentCategory[category.id] && category.children.length > 0 && (
+            <div className="ml-4 mt-1">
+              {renderCategories(category.children, category.id)}
+            </div>
+          )}
+        </div>
+      );
+    });
+  };
 
   return (
-    <CategoryComponent
-      categories={categories}
-      isLoading={isLoading}
-      onCategoryClick={onCategoryClick}
-    />
+    <div className="w-full max-w-lg mx-auto text-black">
+      <div className="p-4 bg-white rounded-lg shadow-md">
+        <div className="max-h-50 overflow-y-auto">
+          {renderCategories(categoryTree)}
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default CategoryFilter;
