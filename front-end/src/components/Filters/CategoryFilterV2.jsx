@@ -24,10 +24,11 @@ const buildCategoryTree = (categories) => {
   return roots;
 };
 
-const CategoryFilterV2 = ({ categoryId }) => {
+const CategoryFilterV2 = () => {
+  
   const [categories, setCategories] = useState([]);
   const [openParentCategory, setOpenParentCategory] = useState({});
-  const { setCategoryId } = useProductProvider();
+  const {categoryId, setCategoryId } = useProductProvider();
   const [activeSubcategory, setActiveSubcategory] = useState({});
   useEffect(() => {
     const fetchCategories = async () => {
@@ -44,10 +45,36 @@ const CategoryFilterV2 = ({ categoryId }) => {
 
     fetchCategories();
   }, []);
-  
+
+  //handle when breadcrumb is clicked and the categoryId is changed
+  useEffect(() => {
+    if (!categoryId || categoryId === -1) return;
+
+    // find the parent category and subcategory for the current categoryId
+    const findCategoryPath = (categories, targetId) => {
+      for (const category of categories) {
+        if (category.id === targetId) return [category.id];
+        if (category.children.length > 0) {
+          const path = findCategoryPath(category.children, targetId);
+          if (path) return [category.id, ...path];
+        }
+      }
+      return null;
+    };
+
+    const categoryPath = findCategoryPath(buildCategoryTree(categories), categoryId);
+
+    if (categoryPath) {
+      const [parent, subcategory] = categoryPath.length === 2 ? categoryPath : [categoryPath[0], null];
+      
+      setOpenParentCategory({ [parent]: true });
+      setActiveSubcategory(subcategory ? { [parent]: subcategory } : {});
+    }
+  }, [categoryId, categories]);
+
   const toggleCategory = (categoryId, parentId = null) => {
     if (parentId === null) {
-      //parent category is an already open, close it 
+      //parent category is an already open, close it and clear its text color
       if (openParentCategory[categoryId]) {
         setCategoryId(-1);
         setOpenParentCategory((prev) => {
@@ -55,11 +82,12 @@ const CategoryFilterV2 = ({ categoryId }) => {
           delete newOpenCategories[categoryId];
           return newOpenCategories;
         });
-        setOpenParentCategory((prevSelected) => {
+        setActiveSubcategory((prevSelected) => {
           const updatedSelected = { ...prevSelected };
           delete updatedSelected[categoryId];
           return updatedSelected;
         });
+      
         return;
       }
 
@@ -91,6 +119,7 @@ const CategoryFilterV2 = ({ categoryId }) => {
       }));
     }
   };
+
   const categoryTree = buildCategoryTree(categories);
 
   const renderCategories = (categories, parentId = null) => {

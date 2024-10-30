@@ -12,7 +12,7 @@ const SideBarProduct = ({ categoryId }) => {
       {/* Filter by price */}
       <div className="mt-4">
       <FilterItem title={"Danh Mục"}>
-         <CategoryFilterV2 categoryId={categoryId} />
+         <CategoryFilterV2  />
         </FilterItem>
         <FilterItem title={"Thương Hiệu"}>
           <BrandsFilter categoryId={categoryId} />
