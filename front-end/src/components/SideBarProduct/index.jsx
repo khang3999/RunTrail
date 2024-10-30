@@ -4,7 +4,7 @@ import FilterItem from "../Filters/FilterItem";
 import PriceFilter from "../Filters/PriceFilter";
 import CategoryFilter from "../Filters/CategoryFilter";
 import SizesFilter from "../Filters/SizesFilter";
-import CategoryFilterV2 from "../Filters/CategoryFilterV2";
+import CategoryFilterV2 from "../Filters/CategoryFilter";
 
 const SideBarProduct = ({ categoryId }) => {
   return (
@@ -12,7 +12,7 @@ const SideBarProduct = ({ categoryId }) => {
       {/* Filter by price */}
       <div className="mt-4">
       <FilterItem title={"Danh Mục"}>
-         <CategoryFilterV2  />
+         <CategoryFilter  />
         </FilterItem>
         <FilterItem title={"Thương Hiệu"}>
           <BrandsFilter categoryId={categoryId} />
