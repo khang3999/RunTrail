@@ -8,10 +8,6 @@ function ProductItem(props) {
   const product = props.product;
   const price = props.price;
   const brand = props.brand;
-  console.log(":aaa");
-  console.log(product);
-  
-  console.log(product.images[0].img_url);
   
   // Xử lí tiền theo định dạng
   const numeral = require("numeral");
