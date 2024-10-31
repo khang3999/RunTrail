@@ -6,13 +6,16 @@ import debounce from "lodash.debounce";
 export default function SizesFilter({ categoryId }) {
   const [sizes, setSizes] = useState([]);
   const [tempSelectedSizes, setTempSelectedSizes] = useState([]);
-  const { setSelectedSizes, filterProductsBySize } = useProductProvider();
-
+  const { setSelectedSizes, filterProductsBySize,selectedBrands } = useProductProvider();
+  
+  
   useEffect(() => {
+    
+
     const fetchSizesData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8008/api/v1/spu/sizes-by-category-id?categoryId=${categoryId}`,
+          `http://localhost:8008/api/v1/spu/sizes-by-categoryId-brandIds?categoryId=${categoryId}&brandIds=${selectedBrands}`,
           {
             method: "GET",
             headers: {
@@ -36,7 +39,7 @@ export default function SizesFilter({ categoryId }) {
     if (categoryId) {
       fetchSizesData();
     }
-  }, [categoryId]);
+  }, [categoryId,selectedBrands]);
 
   const debouncedUpdateSizes = useCallback(
     debounce((updatedSizes) => {

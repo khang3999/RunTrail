@@ -157,8 +157,8 @@ public class SpuController {
         return new Response<>(skuService.findPriceAndStockProduct(body.getSpuId(),body.getAttributes()),HttpStatus.OK.value(),"Fetch detail product ok");
     }
 
-    @GetMapping("/sizes-by-category-id")
-    public Response<List<String>> findDistinctSizesByCategoryId(@RequestParam Long categoryId) {
-        return new Response<>(spuService.getDistinctSizesByCategoryId(categoryId),HttpStatus.OK.value(),"Distinct sizes");
+    @GetMapping("/sizes-by-categoryId-brandIds")
+    public Response<List<String>> findDistinctSizesByCategoryId(@RequestParam Long categoryId, @RequestParam(defaultValue = "") String brandIds) {
+        return new Response<>(spuService.getDistinctSizesByCategoryId(categoryId,brandIds),HttpStatus.OK.value(),"Distinct sizes");
     }
 }
