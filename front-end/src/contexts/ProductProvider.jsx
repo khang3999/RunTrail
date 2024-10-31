@@ -16,7 +16,7 @@ function ProductProvider({ children }) {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(20000000);
   const [errorMessage, setErrorMessage] = useState("");
-  const [categoryId, setCategoryId] = useState(-1);
+  const [categoryId, setCategoryId] = useState(1);
   const [selectedSizes, setSelectedSizes] = useState([]);
 
   useEffect(() => {

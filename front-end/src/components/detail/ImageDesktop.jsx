@@ -18,7 +18,7 @@ export default function ImageDesktop({ product, isLoading }) {
 
   useEffect(() => {
     if (product && product.images) {
-      setSelectedImage(0); // Ảnh đầu tiên trong mảng
+      setSelectedImage(0); 
       setDataImages(product.images);
     }
   }, [product]);

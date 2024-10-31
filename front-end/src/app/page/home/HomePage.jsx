@@ -22,7 +22,7 @@ const HomePage = ({}) => {
             <ProductGrid />
           </div>
         </div>
-        {/* <GoToTopButton/> */}
+        <GoToTopButton/>
       </div>
     </PageTitle>
   );

@@ -76,13 +76,40 @@ public class SpuServiceImpl implements SpuService {
     }
 
 
-    @Override
-    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+//    @Override
+//    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+//        brandIds = brandIds.isEmpty() ? null : brandIds;
+//        categoryId = categoryId == -1 ? null : categoryId;
+//        key = key.isEmpty() ? null : key;
+//        value = value.isEmpty() ? null : value;
+//          if (contentOrderBy.equals("asc")) {
+//            return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+//         }
+//         else if(contentOrderBy.equals("desc")) {
+//             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+//         } else {
+//              return spuRepository.findBySpuFilterSALE(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
+//          }
+//    }
+    public Page<SpuDTO> getSpuByQuickFilter(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+
         brandIds = brandIds.isEmpty() ? null : brandIds;
         categoryId = categoryId == -1 ? null : categoryId;
         key = key.isEmpty() ? null : key;
         value = value.isEmpty() ? null : value;
-          if (contentOrderBy.equals("asc")) {
+        Page<SpuDTO> productsPage = fetchProductsByOrder(minPrice, maxPrice, brandIds, categoryId, key, value, contentOrderBy, pageable);
+
+        List<SpuDTO> products = productsPage.getContent();
+        products.forEach(product -> {
+            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
+            product.setImages(images);
+        });
+
+        return productsPage;
+    }
+
+    private Page<SpuDTO> fetchProductsByOrder(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
+        if (contentOrderBy.equals("asc")) {
             return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
          }
          else if(contentOrderBy.equals("desc")) {
@@ -92,7 +119,8 @@ public class SpuServiceImpl implements SpuService {
           }
     }
 
-    public List<SpuDTO> getRelatedProduct(long category,int number) {
+
+    public List<SpuDTO> getRelatedProduct(long category, int number) {
         // Lấy 20 sản phẩm có mã giảm giá cao nhất
         Pageable pageable = PageRequest.of(0, 20);
         List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category, pageable);
@@ -107,28 +135,34 @@ public class SpuServiceImpl implements SpuService {
             }
         }
 
-        //  thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
-        while (selectedProducts.size() < number) {
+        // Thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
+        // Giới hạn số lần lặp
+
+        int attempts = 0;
+
+        while (selectedProducts.size() < number && attempts < number) {
             int remainingCount = number - selectedProducts.size();
             List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
 
-            // Neu hong con sp can them
+            // Nếu không còn sản phẩm
             if (randomProducts.isEmpty()) {
                 break;
             }
 
-            // Lọc sản phẩm
+            // Lọc và thêm sản phẩm
             for (SpuDTO product : randomProducts) {
                 if (selectedProducts.size() >= number) break;
 
-                // Kiểm tra xem sản phẩm đã có trong selectedProducts hay chưa
+                // Kiểm tra xem sản phẩm
                 if (selectedProducts.stream().noneMatch(p -> p.getId() == product.getId())) {
                     selectedProducts.add(product);
                 }
             }
+
+            attempts++;
         }
 
-        // Thêm danh sách  ảnh cho mỗi sp
+        // Thêm danh sách ảnh cho mỗi sản phẩm
         selectedProducts.forEach(product -> {
             List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
             product.setImages(images);
@@ -155,5 +189,8 @@ public class SpuServiceImpl implements SpuService {
         return selectedProducts;
     }
 
+    public List<String> getDistinctSizesByCategoryId(Long categoryId) {
+        return spuRepository.findDistinctSizesByCategoryId(categoryId);
+    }
 
 }

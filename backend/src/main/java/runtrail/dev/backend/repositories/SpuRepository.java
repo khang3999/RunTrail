@@ -50,11 +50,13 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
             "INNER JOIN SpuImagesEntity img ON img.spu.id = u.id " +
             "GROUP BY u.id, u.spuName, u.spuDescription, u.categoryId, u.brand.id, br.brandName, u.spuStatus, u.discount, u.spuAttributes, u.slug " +
             "ORDER BY RAND()")
-
     List<SpuDTO> findRandomProducts(Pageable pageable);
 
-
-
-
     SpuEntity findBySlug(String slug);
+    @Query(value = "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(spu_attributes, '$.Size')) AS sizes" +
+            "            FROM spu" +
+            "            INNER JOIN categories ON spu.category_id = categories.id" +
+            "            WHERE (categories.id = :categoryId OR categories.parent_id = :categoryId)", nativeQuery = true)
+    List<String> findDistinctSizesByCategoryId(@Param("categoryId") Long categoryId);
+
 }

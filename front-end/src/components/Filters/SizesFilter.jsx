@@ -12,7 +12,7 @@ export default function SizesFilter({ categoryId }) {
     const fetchSizesData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8008/api/sku-attribute-values/by-category?categoryId=${categoryId}`,
+          `http://localhost:8008/api/v1/spu/sizes-by-category-id?categoryId=${categoryId}`,
           {
             method: "GET",
             headers: {
@@ -21,11 +21,14 @@ export default function SizesFilter({ categoryId }) {
           },
         );
         const data = await res.json();
-        // Remove duplicate sizes
-        const uniqueSizes = Array.from(
-          new Set(data.map((size) => size.name)),
-        ).map((name) => data.find((size) => size.name === name));
-        setSizes(uniqueSizes);
+        if (data.statusCode === 200 && data.metadata) {
+          // Parse sizes and update state
+          const parsedSizes = data.metadata.map((size) => JSON.parse(size)[0]);
+          setSizes(parsedSizes);
+          console.log("Sizes:", parsedSizes);
+        } else {
+          console.error("Failed to fetch sizes:", data.message);
+        }  
       } catch (error) {
         console.error("Error fetching sizes:", error);
       }
@@ -43,31 +46,31 @@ export default function SizesFilter({ categoryId }) {
     [filterProductsBySize],
   );
 
-  const handleSizeChange = (sizeName) => {
+  const handleSizesChange = (sizeName) => {
     const updatedSelectedSizes = tempSelectedSizes.includes(sizeName)
       ? tempSelectedSizes.filter((name) => name !== sizeName)
       : [...tempSelectedSizes, sizeName];
 
     setTempSelectedSizes(updatedSelectedSizes);
     debouncedUpdateSizes(updatedSelectedSizes);
-    console.log(updatedSelectedSizes);
+    
   };
 
   return (
     <div className="w-full max-w-lg mx-auto text-black">
       <div className="p-4 bg-white rounded-lg shadow-md">
         <div className="max-h-48 overflow-y-auto">
-          {sizes.map((size) => (
-            <div key={size.id} className="flex items-center mb-2">
+          {sizes.map((size,index) => (
+            <div key={index} className="flex items-center mb-2">
               <input
                 type="checkbox"
                 id={`size-${size.id}`}
-                checked={tempSelectedSizes.includes(size.name)}
-                onChange={() => handleSizeChange(size.name)}
+                checked={tempSelectedSizes.includes(size)}
+                onChange={() => handleSizesChange(size)}
                 className="mr-2"
               />
-              <label htmlFor={`size-${size.id}`} className="flex-grow text-sm">
-                {size.name}
+              <label htmlFor={`size-${index}`} className="flex-grow text-sm">
+                {size}
               </label>
             </div>
           ))}
