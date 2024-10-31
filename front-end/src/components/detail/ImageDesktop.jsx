@@ -5,11 +5,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import '@/assets/css/imageDesktop.css';
 import ReactImageMagnify from 'react-image-magnify';
 import Skeleton from 'react-loading-skeleton';
 import ProductImageModal from '../ProductImageModal';
 import Overplay from '../Overlay';
+import '@/assets/css/imageDesktop.css';
+
 export default function ImageDesktop({ product, isLoading }) {
 	const perPage = 5;
 	const [selectedImage, setSelectedImage] = useState(0);
@@ -56,46 +57,44 @@ export default function ImageDesktop({ product, isLoading }) {
 				</>
 			)}
 			{/* Image section */}
-			<div className="w-full flex flex-col border-1 justify-center items-center">
+			<div className="w-full h-full flex flex-col  border-1 justify-center items-center">
 				{/* Hover image */}
-				<div className="w-full flex justify-center items-center z-[3] mb-2">
-					{isLoading ? (
-						<Skeleton width={400} height={500} />
-					) : (
-						<>
-							{/*  */}
-							<button
-								onClick={() => {
-									if (
-										product.images &&
-										product.images.length > 0
-									) {
-										setShowModal(!showModal);
-									} else {
-										alert('No image available');
-									}
-								}}
-							>
+				<div className="w-full flex flex-1 justify-center items-center z-[3] mb-2">
+					<>
+						<button
+							className='btn-image-desktop w-full h-full'
+							onClick={() => {
+								if (
+									product.images &&
+									product.images.length > 0
+								) {
+									setShowModal(!showModal);
+								} else {
+									alert('No image available');
+								}
+							}}
+						>
+							{isLoading ? (
+								(<Skeleton className='w-full md:h-full h-[300px]'></Skeleton>)
+							) : (
 								<ReactImageMagnify
 									{...{
 										smallImage: {
 											alt: 'Wristwatch by Ted Baker London',
 											isFluidWidth: true,
-											width: 400,
-											height: 500,
 											src:
 												product.images.length > 0
 													? product.images[
-															selectedImage
-														].imgUrl
+														selectedImage
+													].imgUrl
 													: '',
 										},
 										largeImage: {
 											src:
 												product.images.length > 0
 													? product.images[
-															selectedImage
-														].imgUrl
+														selectedImage
+													].imgUrl
 													: '',
 											width: 1200,
 											height: 1800,
@@ -105,19 +104,19 @@ export default function ImageDesktop({ product, isLoading }) {
 											height: '110%',
 										},
 										enlargedImageContainerStyle: {
+											objectFit: "cover",
 											marginLeft: 25,
 										},
 									}}
-								/>
-							</button>
-						</>
-					)}
+								/>)}
+						</button>
+					</>
 				</div>
 
 				{/* List images slide*/}
 				<div className="w-full stroke-slate-400 border-2 p-4">
 					{isLoading ? (
-						<div className="flex flex-row justify-between">
+						<div className="flex flex-row justify-between items-center">
 							<Skeleton width={65} height={65} />
 							<Skeleton width={65} height={65} />
 							<Skeleton width={65} height={65} />
@@ -142,7 +141,7 @@ export default function ImageDesktop({ product, isLoading }) {
 										return (
 											<SwiperSlide
 												key={index}
-												className="border-1"
+												className="border-1 flex justify-center"
 											>
 												<button
 													onClick={() =>

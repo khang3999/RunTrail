@@ -8,6 +8,9 @@ function ProductItem(props) {
 	const product = props.product;
 	const price = props.price;
 	const brand = props.brand;
+	console.log("aaa");
+	console.log(product);
+	
 	// Xử lí tiền theo định dạng
 	const numeral = require('numeral');
 	//Làm tròn lên
