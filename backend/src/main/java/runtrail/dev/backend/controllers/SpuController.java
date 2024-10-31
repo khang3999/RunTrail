@@ -130,8 +130,8 @@ public class SpuController {
 
     // Cac san pham random
     @GetMapping("/random")
-    public Response<List<SpuDTO>> getRandomProducts(@RequestParam long category) {
-        return new Response<>(spuService.getRandomProductsByCategory(category),HttpStatus.OK.value(), "radom ok");
+    public Response<List<SpuDTO>> getRandomProducts(@RequestParam long category,@RequestParam int number) {
+        return new Response<>(spuService.getRelatedProduct(category,number),HttpStatus.OK.value(), "radom ok");
     }
     //Test 20sp
     @GetMapping("/top20sp")
@@ -157,4 +157,8 @@ public class SpuController {
         return new Response<>(skuService.findPriceAndStockProduct(body.getSpuId(),body.getAttributes()),HttpStatus.OK.value(),"Fetch detail product ok");
     }
 
+    @GetMapping("/sizes-by-category-id")
+    public Response<List<String>> findDistinctSizesByCategoryId(@RequestParam Long categoryId) {
+        return new Response<>(spuService.getDistinctSizesByCategoryId(categoryId),HttpStatus.OK.value(),"Distinct sizes");
+    }
 }

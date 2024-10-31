@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import ReactImageMagnify from 'react-image-magnify';
-import Skeleton from 'react-loading-skeleton';
-import ProductImageModal from '../ProductImageModal';
-import Overplay from '../Overlay';
-import '@/assets/css/imageDesktop.css';
-
+import React, { useEffect, useState } from "react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "@/assets/css/imageDesktop.css";
+import ReactImageMagnify from "react-image-magnify";
+import Skeleton from "react-loading-skeleton";
+import ProductImageModal from "../ProductImageModal";
+import Overplay from "../Overlay";
 export default function ImageDesktop({ product, isLoading }) {
-	const perPage = 5;
-	const [selectedImage, setSelectedImage] = useState(0);
-	const [dataImages, setDataImages] = useState([]);
-	const [showModal, setShowModal] = useState(false);
+  const perPage = 5;
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [dataImages, setDataImages] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-	useEffect(() => {
-		if (product && product.images) {
-			setSelectedImage(0); // Ảnh đầu tiên trong mảng
-			setDataImages(product.images);
-		}
-	}, [product]);
+  useEffect(() => {
+    if (product && product.images) {
+      setSelectedImage(0); 
+      setDataImages(product.images);
+    }
+  }, [product]);
 
-	const handleThumnailClick = (image) => {
-		setSelectedImage(image);
-	};
+  const handleThumnailClick = (image) => {
+    setSelectedImage(image);
+  };
 
-	if (!product) {
-		return <div>Product not found</div>;
-	}
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
 	return (
 		<>
