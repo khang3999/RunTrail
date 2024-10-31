@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 export default function SizesFilter({ categoryId }) {
   const [sizes, setSizes] = useState([]);
   const [tempSelectedSizes, setTempSelectedSizes] = useState([]);
-  const { setSelectedSizes, filterProductsBySize,selectedBrands } = useProductProvider();
+  const { setSelectedSizes, filterProductsBySize,selectedBrands,selectedSizes } = useProductProvider();
   
   
   useEffect(() => {
@@ -41,13 +41,11 @@ export default function SizesFilter({ categoryId }) {
     }
   }, [categoryId,selectedBrands]);
 
-  const debouncedUpdateSizes = useCallback(
-    debounce((updatedSizes) => {
-      setSelectedSizes(updatedSizes);
-      filterProductsBySize(updatedSizes);
-    }, 2000),
-    [filterProductsBySize],
-  );
+  useEffect(() => {   
+    debounce((updatedSelectedSizes) => {      
+      filterProductsBySize(updatedSelectedSizes);
+    }, 2000)
+  }, [selectedSizes])
 
   const handleSizesChange = (sizeName) => {
     const updatedSelectedSizes = tempSelectedSizes.includes(sizeName)
@@ -55,7 +53,7 @@ export default function SizesFilter({ categoryId }) {
       : [...tempSelectedSizes, sizeName];
 
     setTempSelectedSizes(updatedSelectedSizes);
-    debouncedUpdateSizes(updatedSelectedSizes);
+    setSelectedSizes(updatedSelectedSizes);
     
   };
 

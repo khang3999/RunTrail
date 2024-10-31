@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 const BrandsFilter = ({ categoryId }) => {
   const [brands, setBrands] = useState([]);
   const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
-  const { setSelectedBrands, filterProductsByBrand } = useProductProvider();
+  const { setSelectedBrands, filterProductsByBrand,selectedBrands} = useProductProvider();
 
   useEffect(() => {
     const fetchBrandsData = async () => {
@@ -31,13 +31,13 @@ const BrandsFilter = ({ categoryId }) => {
     }
   }, [categoryId]);
 
-  const debouncedUpdateBrands = useCallback(
-    debounce((updatedBrands) => {
-      setSelectedBrands(updatedBrands);
+  // whenever the selectedBrands changes we will call the filterProductsByBrand function
+  useEffect(() => {   
+    debounce((updatedBrands) => {      
       filterProductsByBrand(updatedBrands);
-    }, 2000),
-    [filterProductsByBrand],
-  );
+    }, 2000)
+  }, [selectedBrands])
+  
 
   const handleBrandChange = (brandId) => {
     const updatedSelectedBrands = tempSelectedBrands.includes(brandId)
@@ -45,8 +45,7 @@ const BrandsFilter = ({ categoryId }) => {
       : [...tempSelectedBrands, brandId];
 
     setTempSelectedBrands(updatedSelectedBrands);
-
-    debouncedUpdateBrands(updatedSelectedBrands);
+    setSelectedBrands(updatedSelectedBrands);        
   };
 
   return (

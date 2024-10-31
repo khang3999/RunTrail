@@ -66,21 +66,18 @@ function ProductProvider({ children }) {
       setIsLoading(false);
       setTotalElements(totalElements);
     } catch (error) {
-      console.error("Error fetching products:", error);
-      // console.log('test');
+      console.error("Error fetching products:", error);      
       setIsLoading(false);
     }
   };
 
   const filterProductsByBrand = (selectedBrands) => {
-    setFirstFilter(true);
-    setSelectedBrands(selectedBrands);
+    setFirstFilter(true);    
     fetchProducts();
   };
 
   const filterProductsBySize = (selectedSizes) => {
     setFirstFilter(true);
-    setSelectedSizes(selectedSizes);
     fetchProducts();
   };
 
