@@ -25,6 +25,6 @@ public interface SpuService {
 
     SpuEntity findProductBySlug(String slug);
 
-     List<String> getDistinctSizesByCategoryId(Long categoryId,String brandIds);
+     List<String> getDistinctSizesByCategoryId(Long categoryId,String brandIds,Long minPrice,Long maxPrice);
 
 }

@@ -189,10 +189,10 @@ public class SpuServiceImpl implements SpuService {
         return selectedProducts;
     }
 
-    public List<String> getDistinctSizesByCategoryId(Long categoryId,String brandIds) {
+    public List<String> getDistinctSizesByCategoryId(Long categoryId,String brandIds,Long minPrice,Long maxPrice) {
         categoryId = categoryId == -1 ? null : categoryId;
         brandIds = brandIds.isEmpty() ? null : brandIds;
-        return spuRepository.findDistinctSizesByCategoryId(categoryId,brandIds);
+        return spuRepository.findDistinctSizesByCategoryId(categoryId,brandIds,minPrice,maxPrice);
     }
 
 }
