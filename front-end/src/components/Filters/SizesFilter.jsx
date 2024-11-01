@@ -6,13 +6,16 @@ import debounce from "lodash.debounce";
 export default function SizesFilter({ categoryId }) {
   const [sizes, setSizes] = useState([]);
   const [tempSelectedSizes, setTempSelectedSizes] = useState([]);
-  const { setSelectedSizes, filterProductsBySize } = useProductProvider();
-
+  const { setSelectedSizes, filterProductsBySize,selectedBrands,selectedSizes, minPrice,maxPrice } = useProductProvider();
+  
+  
   useEffect(() => {
+    
+
     const fetchSizesData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8008/api/v1/spu/sizes-by-category-id?categoryId=${categoryId}`,
+          `http://localhost:8008/api/v1/spu/sizes-by-categoryId-price-brandIds?categoryId=${categoryId}&brandIds=${selectedBrands}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
           {
             method: "GET",
             headers: {
@@ -36,15 +39,13 @@ export default function SizesFilter({ categoryId }) {
     if (categoryId) {
       fetchSizesData();
     }
-  }, [categoryId]);
+  }, [categoryId,selectedBrands,minPrice,maxPrice]);
 
-  const debouncedUpdateSizes = useCallback(
-    debounce((updatedSizes) => {
-      setSelectedSizes(updatedSizes);
-      filterProductsBySize(updatedSizes);
-    }, 2000),
-    [filterProductsBySize],
-  );
+  useEffect(() => {   
+    debounce((updatedSelectedSizes) => {      
+      filterProductsBySize(updatedSelectedSizes);
+    }, 2000)
+  }, [selectedSizes])
 
   const handleSizesChange = (sizeName) => {
     const updatedSelectedSizes = tempSelectedSizes.includes(sizeName)
@@ -52,7 +53,7 @@ export default function SizesFilter({ categoryId }) {
       : [...tempSelectedSizes, sizeName];
 
     setTempSelectedSizes(updatedSelectedSizes);
-    debouncedUpdateSizes(updatedSelectedSizes);
+    setSelectedSizes(updatedSelectedSizes);
     
   };
 
