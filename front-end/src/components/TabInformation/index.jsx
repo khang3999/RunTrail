@@ -9,8 +9,8 @@ const TabInformation = ({ product, isLoading }) => {
     console.log("tab", product.spuDescription);
   }, [tab]);
   return (
-    <div className="md:mx-[135px] mx-[10px]">
-      <div className="grid md:grid-cols-2">
+    <div className=" lg:mx-[135px] mx-[10px]">
+      <div className="grid lg:grid-cols-2">
         <div className="grid grid-cols-3">
           <div
             className={`p-3 text-center border border-slate-300 border-r-transparent border-b-transparent text-[18.3px] flex justify-center items-center font-semibold  cursor-pointer ${tab === 1 && !isLoading ? "bg-violet-500 text-white" : ""}`}
@@ -34,7 +34,7 @@ const TabInformation = ({ product, isLoading }) => {
           </div>
         </div>
       </div>
-      <div className="md:px-[130px] px-[10px] md:py-[24px] py-[10px] border border-slate-300">
+      <div className="md:px-[130px] lg:px-[10px] px-[10px] md:py-[24px] py-[10px] border border-slate-300">
         {isLoading ? (
           <Skeleton className="h-[200px]" />
         ) : (
