@@ -41,11 +41,18 @@ export default function SizesFilter({ categoryId }) {
     }
   }, [categoryId,selectedBrands,minPrice,maxPrice]);
 
-  useEffect(() => {   
-    debounce((updatedSelectedSizes) => {      
-      filterProductsBySize(updatedSelectedSizes);
-    }, 2000)
+  const debouncedUpdateSizes = useCallback(
+    debounce((updatedSizes) => {
+      setSelectedSizes(updatedSizes);
+    }, 2000),
+    [filterProductsBySize]
+  );
+  
+  useEffect(() => {
+    filterProductsBySize(selectedSizes);
   }, [selectedSizes])
+  
+
 
   const handleSizesChange = (sizeName) => {
     const updatedSelectedSizes = tempSelectedSizes.includes(sizeName)
@@ -53,7 +60,7 @@ export default function SizesFilter({ categoryId }) {
       : [...tempSelectedSizes, sizeName];
 
     setTempSelectedSizes(updatedSelectedSizes);
-    setSelectedSizes(updatedSelectedSizes);
+    debouncedUpdateSizes(updatedSelectedSizes);
     
   };
 
