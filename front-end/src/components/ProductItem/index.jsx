@@ -8,6 +8,7 @@ function ProductItem(props) {
   const product = props.product;
   const price = props.price;
   const brand = props.brand;
+  
   // Xử lí tiền theo định dạng
   const numeral = require("numeral");
   //Làm tròn lên
@@ -29,18 +30,18 @@ function ProductItem(props) {
         {/* Image */}
         <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200">
           <Link href={`/product/${product.slug}`} className="title">
-            <div className="image-wrap relative w-full h-[220px] bg-white">
+            <div className="image-wrap relative w-full h-[220px] bg-white flex justify-center items-center">
               {product && product.images && product.images.length > 0 ? (
                 <>
                   <img
                     src={product.images[0].imgUrl}
                     alt="Front of men&#039;s Basic Tee in black."
-                    className="absolute thumnail-1 object-cover object-center w-full h-[250px]"
+                    className="absolute thumnail-1 object-cover object-center w-full"
                   ></img>
                   <img
                     src={product.images[1].imgUrl}
                     alt="Front of men&#039;s Basic Tee in black."
-                    className="absolute thumnail-2 object-cover object-center w-full h-[250px]"
+                    className="absolute thumnail-2 object-cover object-center w-full"
                   ></img>
                 </>
               ) : (
