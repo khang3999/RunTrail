@@ -16,7 +16,7 @@ public interface SpuService {
     Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable);
     Page<SpuDTO> getSpuByFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, Pageable pageable);
 
-    List<SpuDTO> getRandomProductsByCategory(long category);
+    List<SpuDTO> getRelatedProduct(long category,int number);
 
     //demo top 20 sp
     List<SpuDTO> get20spTop(long category);
@@ -24,4 +24,7 @@ public interface SpuService {
     Page<SpuEntity> filterProductV2(Long minPrice, Long maxPrice, List<Long> brandIds,Long categoryId,List<String> keys,List<List<String>> values,Pageable pageable);
 
     SpuEntity findProductBySlug(String slug);
+
+     List<String> getDistinctSizesByCategoryId(Long categoryId,String brandIds,Long minPrice,Long maxPrice);
+
 }
