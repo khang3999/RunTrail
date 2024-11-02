@@ -34,7 +34,7 @@ const TabInformation = ({ product, isLoading }) => {
             <div className="md:px-[130px] px-[10px] md:py-[24px] py-[10px] border border-slate-300">
                 {isLoading ? <Skeleton className='h-[200px]' /> :
                     <div className={`${tab === 1 ? 'block' : 'hidden'} mark-down-wrap`}>
-                        <MarkdownPreview source={product.spuDescription} style={{background:'white', color:'black'}}></MarkdownPreview>
+                        <MarkdownPreview source={product.spuDescription} style={{background:'white', color:'black'}}/>
                         </div>
                 }
                 <div className={`${tab === 2 ? 'block' : 'hidden'} text-stone-400`}>Tính năng đang phát triển</div>
