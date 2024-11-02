@@ -54,9 +54,14 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
 
     SpuEntity findBySlug(String slug);
     @Query(value = "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(spu_attributes, '$.Size')) AS sizes" +
-            "            FROM spu" +
-            "            INNER JOIN categories ON spu.category_id = categories.id" +
-            "            WHERE (categories.id = :categoryId OR categories.parent_id = :categoryId)", nativeQuery = true)
-    List<String> findDistinctSizesByCategoryId(@Param("categoryId") Long categoryId);
+            " FROM spu " +
+            " INNER JOIN categories ON spu.category_id = categories.id" +
+            " INNER JOIN sku ON spu.id = sku.spu_id " +
+            " WHERE (categories.id = :categoryId OR categories.parent_id = :categoryId OR :categoryId IS NULL)" +
+            " AND (FIND_IN_SET(spu.brand_id, :brandIds) > 0 OR :brandIds IS NULL)" +
+            " AND (sku.sku_price * (1 - spu.discount / 100) >= :minPrice)" +
+            " AND (sku.sku_price * (1 - spu.discount / 100) <= :maxPrice)", nativeQuery = true)
+    List<String> findDistinctSizesByCategoryId(@Param("categoryId") Long categoryId, @Param("brandIds") String brandIds,@Param("minPrice") long minPrice, @Param("maxPrice") long maxPrice);
+
 
 }

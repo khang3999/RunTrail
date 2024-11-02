@@ -71,7 +71,7 @@ export default function QuickFilter() {
         </option>
         <option value="asc">Giá tăng dần</option>
         <option value="desc">Giá giảm dần</option>
-        <option value="sale">Mã giảm</option>
+        <option value="sale">Giảm giá nhiều nhất</option>
       </select>
     </div>
   );

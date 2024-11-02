@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 const BrandsFilter = ({ categoryId }) => {
   const [brands, setBrands] = useState([]);
   const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
-  const { setSelectedBrands, filterProductsByBrand } = useProductProvider();
+  const { selectedBrands, setSelectedBrands, filterProductsByBrand } = useProductProvider();
 
   useEffect(() => {
     const fetchBrandsData = async () => {
@@ -18,7 +18,7 @@ const BrandsFilter = ({ categoryId }) => {
             headers: {
               "Content-Type": "application/json",
             },
-          },
+          }
         );
         const data = await res.json();
         setBrands(data);
@@ -31,13 +31,16 @@ const BrandsFilter = ({ categoryId }) => {
     }
   }, [categoryId]);
 
-  const debouncedUpdateBrands = useCallback(
+  const debouncedUpdateSelectedBrands = useCallback(
     debounce((updatedBrands) => {
       setSelectedBrands(updatedBrands);
-      filterProductsByBrand(updatedBrands);
     }, 2000),
-    [filterProductsByBrand],
+    []
   );
+  
+  useEffect(() => {
+    filterProductsByBrand(selectedBrands);
+  }, [setSelectedBrands])
 
   const handleBrandChange = (brandId) => {
     const updatedSelectedBrands = tempSelectedBrands.includes(brandId)
@@ -45,8 +48,7 @@ const BrandsFilter = ({ categoryId }) => {
       : [...tempSelectedBrands, brandId];
 
     setTempSelectedBrands(updatedSelectedBrands);
-
-    debouncedUpdateBrands(updatedSelectedBrands);
+    debouncedUpdateSelectedBrands(updatedSelectedBrands);
   };
 
   return (

@@ -56,9 +56,9 @@ public class SpuController {
     ) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
-        Pageable pageable = PageRequest.of(page,size,sortBy);
+        Pageable pageable = PageRequest.of(page, size, sortBy);
         Page<SpuEntity> listSpu = spuService.findAllSpu(pageable);
-        return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
+        return new Response<>(listSpu, HttpStatus.OK.value(), "list ok");
     }
 
     @GetMapping("/filter")
@@ -78,9 +78,9 @@ public class SpuController {
     ) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
-        Pageable pageable = PageRequest.of(page -1,size,sortBy);
-        Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice,maxPrice,brandIds,categoryId, key, value, pageable);
-        return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
+        Pageable pageable = PageRequest.of(page - 1, size, sortBy);
+        Page<SpuDTO> listSpu = spuService.getSpuByFilter(minPrice, maxPrice, brandIds, categoryId, key, value, pageable);
+        return new Response<>(listSpu, HttpStatus.OK.value(), "list ok");
     }
 
     @GetMapping("/filterV2")
@@ -99,9 +99,9 @@ public class SpuController {
 
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
-        Pageable pageable = PageRequest.of(page-1,size,sortBy);
-        final Page<SpuEntity> products = spuService.filterProductV2(minPrice, maxPrice, brandIds, categoryId, keys, values,pageable);
-        return new Response<>(products,HttpStatus.OK.value(), "list ok");
+        Pageable pageable = PageRequest.of(page - 1, size, sortBy);
+        final Page<SpuEntity> products = spuService.filterProductV2(minPrice, maxPrice, brandIds, categoryId, keys, values, pageable);
+        return new Response<>(products, HttpStatus.OK.value(), "list ok");
     }
 
     @GetMapping("/filter1")
@@ -118,27 +118,27 @@ public class SpuController {
             @RequestParam(defaultValue = "") String key,
             @RequestParam(defaultValue = "") List<String> value
     ) {
-        logger.info("category"+categoryId+"");
+        logger.info("category" + categoryId + "");
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
-        Pageable pageable = PageRequest.of(page -1,size,sortBy);
-        Page<SpuDTO> listSpu = spuService.getSpuByQuickFilter(minPrice,maxPrice,brandIds,categoryId,key, value, contentOrderBy,pageable);
-        return new Response<>(listSpu,HttpStatus.OK.value(), "list ok");
+        Pageable pageable = PageRequest.of(page - 1, size, sortBy);
+        Page<SpuDTO> listSpu = spuService.getSpuByQuickFilter(minPrice, maxPrice, brandIds, categoryId, key, value, contentOrderBy, pageable);
+        return new Response<>(listSpu, HttpStatus.OK.value(), "list ok");
     }
     /*---------------END PAGINATION--------------*/
 
 
     // Cac san pham random
     @GetMapping("/random")
-    public Response<List<SpuDTO>> getRandomProducts(@RequestParam long category,@RequestParam int number) {
-        return new Response<>(spuService.getRelatedProduct(category,number),HttpStatus.OK.value(), "radom ok");
+    public Response<List<SpuDTO>> getRandomProducts(@RequestParam long category, @RequestParam int number) {
+        return new Response<>(spuService.getRelatedProduct(category, number), HttpStatus.OK.value(), "radom ok");
     }
+
     //Test 20sp
     @GetMapping("/top20sp")
     public Response<List<SpuDTO>> get20spTop(@RequestParam long category) {
-        return new Response<>(spuService.get20spTop(category),HttpStatus.OK.value(), " ok");
+        return new Response<>(spuService.get20spTop(category), HttpStatus.OK.value(), " ok");
     }
-
 
 
     // detail spu
@@ -146,7 +146,7 @@ public class SpuController {
     public Response<?> findSpuBySlug(
             @RequestParam(defaultValue = "") String slug
     ) {
-        return new Response<>(spuService.findProductBySlug(slug),HttpStatus.OK.value(),"Fetch detail product ok");
+        return new Response<>(spuService.findProductBySlug(slug), HttpStatus.OK.value(), "Fetch detail product ok");
     }
 
     // test
@@ -154,11 +154,12 @@ public class SpuController {
     public Response<?> findStockAndPrice(
             @RequestBody SkuPriceStockReqDTO body
     ) {
-        return new Response<>(skuService.findPriceAndStockProduct(body.getSpuId(),body.getAttributes()),HttpStatus.OK.value(),"Fetch detail product ok");
+        return new Response<>(skuService.findPriceAndStockProduct(body.getSpuId(), body.getAttributes()), HttpStatus.OK.value(), "Fetch detail product ok");
     }
 
-    @GetMapping("/sizes-by-category-id")
-    public Response<List<String>> findDistinctSizesByCategoryId(@RequestParam Long categoryId) {
-        return new Response<>(spuService.getDistinctSizesByCategoryId(categoryId),HttpStatus.OK.value(),"Distinct sizes");
+    @GetMapping("/sizes-by-categoryId-price-brandIds")
+    public Response<List<String>> findDistinctSizesByCategoryId(@RequestParam Long categoryId, @RequestParam(defaultValue = "") String brandIds, @RequestParam(defaultValue = "0") long minPrice,
+                                                                @RequestParam(defaultValue = "2000000") long maxPrice) {
+        return new Response<>(spuService.getDistinctSizesByCategoryId(categoryId, brandIds,minPrice,maxPrice), HttpStatus.OK.value(), "Distinct sizes");
     }
 }
