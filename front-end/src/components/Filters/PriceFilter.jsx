@@ -32,6 +32,12 @@ const PriceFilter = () => {
       if (minRef.current && maxRef.current) {
          minRef.current.style.border = "1px solid rgb(209 213 219)";
          maxRef.current.style.border = "1px solid rgb(209 213 219)";
+
+         if (value[0] >= value[1]) {
+            minRef.current.style.border = "1px solid red";
+            maxRef.current.style.border = "1px solid red";
+            setErrorMessage("Giá tối thiểu phải nhỏ hơn giá tối đa");
+         }
       }
    };
 
@@ -60,14 +66,6 @@ const PriceFilter = () => {
                min={"0"}
                ref={minRef}
                max={"20000000"}
-               onBlur={(e) => {
-                  if (
-                     Number(e.target.value) > maxRange ||
-                     Number(e.target.value) < minRange
-                  ) {
-                     setErrorMessage("Giá không hợp lệ");
-                  }
-               }}
                onChange={(e) => {
                   setMinValue((prev) => {
                      return Number(e.target.value);
@@ -90,14 +88,6 @@ const PriceFilter = () => {
                value={maxValue}
                min={"0"}
                max={"20000000"}
-               onBlur={(e) => {
-                  if (
-                     Number(e.target.value) > maxRange ||
-                     Number(e.target.value) < minRange
-                  ) {
-                     setErrorMessage("Giá không hợp lệ");
-                  }
-               }}
                onChange={(e) => {
                   setMaxValue((prev) => {
                      return Number(e.target.value);
