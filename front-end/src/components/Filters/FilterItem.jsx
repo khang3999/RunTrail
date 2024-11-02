@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 function FilterItem({ title, children }) {
-  const [expand, setExpand] = React.useState(false);
+  const [expand, setExpand] = React.useState(true);
   return (
     <div className="flex items-center justify-center p-2 rounded-lg flex-col border">
       {/* Title */}

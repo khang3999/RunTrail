@@ -2,6 +2,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
 import debounce from "lodash.debounce";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'; 
 
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
@@ -25,11 +27,13 @@ const buildCategoryTree = (categories) => {
 };
 
 const CategoryFilter = () => {
-  
   const [categories, setCategories] = useState([]);
   const [openParentCategory, setOpenParentCategory] = useState({});
-  const {categoryId, setCategoryId } = useProductProvider();
+  const { categoryId, setCategoryId } = useProductProvider();
   const [activeSubcategory, setActiveSubcategory] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [parentCategoryLength, setParentCategoryLength] = useState(0);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -39,18 +43,16 @@ const CategoryFilter = () => {
       } catch (error) {
         console.error("Error fetching categories:", error);
       } finally {
-        // setIsLoading(false);
+        setIsLoading(false); // Set loading to false after fetching
       }
     };
 
     fetchCategories();
   }, []);
 
-  //handle when breadcrumb is clicked and the categoryId is changed
   useEffect(() => {
     if (!categoryId || categoryId === -1) return;
 
-    // find the parent category and subcategory for the current categoryId
     const findCategoryPath = (categories, targetId) => {
       for (const category of categories) {
         if (category.id === targetId) return [category.id];
@@ -66,7 +68,7 @@ const CategoryFilter = () => {
 
     if (categoryPath) {
       const [parent, subcategory] = categoryPath.length === 2 ? categoryPath : [categoryPath[0], null];
-      
+
       setOpenParentCategory({ [parent]: true });
       setActiveSubcategory(subcategory ? { [parent]: subcategory } : {});
     }
@@ -74,7 +76,6 @@ const CategoryFilter = () => {
 
   const toggleCategory = (categoryId, parentId = null) => {
     if (parentId === null) {
-      //parent category is an already open, close it and clear its text color
       if (openParentCategory[categoryId]) {
         setCategoryId(-1);
         setOpenParentCategory((prev) => {
@@ -87,41 +88,35 @@ const CategoryFilter = () => {
           delete updatedSelected[categoryId];
           return updatedSelected;
         });
-      
+
         return;
       }
 
-   
       setCategoryId(categoryId);
-
-      // close all other parents and open the selected one
-      setOpenParentCategory((prev) => {
-        const newOpenCategories = { [categoryId]: true };
-        return newOpenCategories;
+      setOpenParentCategory(() => {
+        return { [categoryId]: true };
       });
-
-      // clear the active subcategory for other parents
       setActiveSubcategory((prevSelected) => {
         const updatedSelected = {};
         updatedSelected[categoryId] = prevSelected[categoryId];
         return updatedSelected;
       });
     } else {
-      // If it's a subcategory
       setCategoryId(categoryId);
       setOpenParentCategory((prev) => ({
         ...prev,
-        [parentId]: true, // the parent category remains open
+        [parentId]: true,
       }));
       setActiveSubcategory((prevSelected) => ({
         ...prevSelected,
-        [parentId]: categoryId, // update the active subcategory for this parent
+        [parentId]: categoryId,
       }));
     }
   };
 
   const categoryTree = buildCategoryTree(categories);
-
+  
+  
   const renderCategories = (categories, parentId = null) => {
     return categories.map((category) => {
       const isSelectedSubcategory =
@@ -158,7 +153,14 @@ const CategoryFilter = () => {
     <div className="w-full max-w-lg mx-auto text-black">
       <div className="p-4 bg-white rounded-lg shadow-md">
         <div className="max-h-50 overflow-y-auto">
-          {renderCategories(categoryTree)}
+          {isLoading ? (            
+            // Show skeletons while loading
+            Array.from({ length: categoryTree.length || 7 }).map((_, index) => (
+              <Skeleton key={index} height={30} className="mb-2 my-4" />
+            ))
+          ) : (
+            renderCategories(categoryTree)
+          )}
         </div>
       </div>
     </div>
