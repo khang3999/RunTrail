@@ -96,11 +96,11 @@ export default function ImageDesktop({ product, isLoading }) {
 													].imgUrl
 													: '',
 											width: 1200,
-											height: 1800,
+											height: 1200,
 										},
 										enlargedImageContainerDimensions: {
 											width: '120%',
-											height: '110%',
+											height: '120%',
 										},
 										enlargedImageContainerStyle: {
 											objectFit: "cover",
