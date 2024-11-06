@@ -1,0 +1,280 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2em 2em;
+  background-color: #01192c;
+}
+
+.boxLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.boxRight {
+  display: flex;
+  align-items: center;
+  min-width: 550px;
+  gap: 20px;
+}
+
+.iconFlag {
+  margin-right: 5px;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.cartBadge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  margin-left: -8px;
+  margin-top: -10px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 190px;
+  animation: slideIn 0.3s forwards;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdownItem img {
+  margin-right: 8px;
+  width: 24px;
+  height: 16px;
+}
+
+.menuIcon,
+.searchIcon {
+  display: none;
+  color: white;
+  cursor: pointer;
+}
+.searchIcon:hover {
+  color: #5d5df3;
+}
+.menuIcon:hover {
+  color: #5d5df3;
+}
+.menuIcon {
+  margin-right: 10px;
+}
+.inputActive {
+  display: block;
+}
+.search {
+  display: block;
+  padding: 9px 40px;
+  border-radius: 4px;
+  margin-right: 20px;
+  max-width: 350px;
+  font-size: 16px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.searchOpen {
+  position: absolute;
+  top: 44px;
+  right: -50%;
+  background-color: white;
+  border-radius: 4px;
+  z-index: 10;
+  min-width: 400px;
+  animation: slideIn 0.3s forwards;
+}
+
+.searchResult {
+  position: absolute;
+  top: 24px;
+  right: 88px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-width: 420px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  animation: slideIn 0.3s forwards;
+  
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.searchResult::-webkit-scrollbar {
+  width: 8px; 
+}
+
+.searchResult::-webkit-scrollbar-thumb {
+  background-color: #888; 
+  border-radius: 8px; 
+}
+
+.searchResult::-webkit-scrollbar-thumb:hover {
+  background-color: #555; 
+}
+
+.searchResult::-webkit-scrollbar-track {
+  background-color: #f1f1f1; 
+  border-radius: 8px; 
+}
+
+
+.searchItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.searchItem:hover {
+  background-color: #f7f7f7;
+}
+
+.productImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.productDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.productPrice {
+  font-size: 12px;
+  color: #555;
+}
+
+.searchItem:last-child {
+  border-bottom: none;
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.searchIconDecktop {
+  display: block;
+  margin-right: 10px;
+}
+.searchOpen {
+  display: none;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.logo {
+  width: 200px;
+  height: 40px;
+}
+.productLink {
+  text-decoration: none;
+  display: flex; 
+  align-items: center; 
+  padding: 10px; 
+  border-radius: 8px; 
+  transition: background-color 0.3s ease; 
+}
+
+.productLink:hover {
+  background-color: #f7f7f7; 
+}
+
+.productLink:active {
+  background-color: #e0e0e0; 
+}
+/* Mobile */
+@media (max-width: 768px) {
+  .menuIcon {
+    display: block;
+  }
+  .searchIcon {
+    display: block;
+    margin-left: 10px;
+  }
+  .search {
+    display: none;
+  }
+  .boxRight {
+    min-width: 190px;
+  }
+  .searchIconDecktop {
+    display: none;
+  }
+  .searchOpen {
+    display: block;
+    margin: 6px;
+  }
+  .profile{
+    display: none;
+  }
+  .logo {
+    width: 150px;
+    margin-right: -50px;
+  }
+  .searchResult {
+    right: -36px;
+    top: 80px;
+  }
+  
+}
+@media (max-width: 400px) {
+  .searchOpen {
+    display: block;
+    margin: 6px;
+    min-width: 340px;
+    right: -30%;
+  }
+  .searchResult {
+    right: -36px;
+    top: 80px;
+  }
+}

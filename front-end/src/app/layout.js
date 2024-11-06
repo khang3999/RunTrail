@@ -5,7 +5,7 @@ import Providers from "@/contexts/Providers";
 // link fontawesome
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import MyNavbar from "@/components/navbar/MyNavbar";
+import Header from "@/components/Header";
 // import { Metadata } from 'next';
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`antialiased`}>
         <Providers>
-          <MyNavbar onCategoryClick={handleCategoryClick} />
+          <Header />
           {children}
           <ToastContainer />
         </Providers>
