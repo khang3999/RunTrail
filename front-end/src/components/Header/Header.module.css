@@ -261,7 +261,7 @@
     margin-right: -50px;
   }
   .searchResult {
-    right: -36px;
+    right: -26px;
     top: 80px;
   }
   
@@ -274,7 +274,16 @@
     right: -30%;
   }
   .searchResult {
-    right: -36px;
+    right: -42%;
     top: 80px;
+    min-width: 360px;
   }
+}
+@media (max-width: 376px) {
+  .searchResult {
+    right: -55%;
+    top: 80px;
+    min-width: 360px;
+  }
+  
 }

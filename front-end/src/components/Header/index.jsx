@@ -116,6 +116,7 @@ export default function Header({ onCategoryClick }) {
             onClick={() => {
               setIsDropdownOpen(!isDropdownOpen);
               setIsSearchOpen(false);
+              setProductsSearch([]);
             }}
             style={{ cursor: "pointer" }}
           />
@@ -126,6 +127,7 @@ export default function Header({ onCategoryClick }) {
             onClick={() => {
               setIsDropdownOpen(!isDropdownOpen);
               setIsSearchOpen(false);
+              setProductsSearch([]);
             }}
             style={{ cursor: "pointer" }}
           />
