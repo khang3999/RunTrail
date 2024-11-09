@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import CartItem from "@/components/CartItem";
 import { toast } from "react-toastify";
+import { Button } from "antd";
+import { BsFillCartCheckFill } from "react-icons/bs";
 
 export default function CartPage() {
   const [carts, setCarts] = useState([
@@ -31,7 +33,7 @@ export default function CartPage() {
       <span className="uppercase text-xl sm:text-2xl md:text-3xl font-bold py-3 sm:py-4 md:py-5 text-gray-700">
         Giỏ hàng
       </span>
-      
+
       {/* Desktop Table Layout */}
       <div className="hidden md:block overflow-x-auto">
         <table className="min-w-full text-left border-collapse border border-gray-300 shadow-sm rounded-lg">
@@ -70,6 +72,39 @@ export default function CartPage() {
             layout="mobile"
           />
         ))}
+      </div>
+
+      {/* Button  */}
+      <div className="flex justify-end space-x-4 my-6">
+       {/* From Uiverse.io by AKAspidey01  */}
+        <button
+          className="bg-white text-center rounded relative group"
+          type="button"
+        >
+          <div
+            className="bg-green-400 rounded w-1/6 flex items-center justify-center absolute left-1 group-hover:w-full z-10 duration-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1024 1024"
+              height="25px"
+              width="25px"
+            >
+              <path
+                d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
+                fill="#000000"
+              ></path>
+              <path
+                d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+                fill="#000000"
+              ></path>
+            </svg>
+          </div>
+          <p className="px-10">Tiếp tục mua hàng</p>
+        </button>
+
+        {/* <Button>Tiếp tục mua hàng</Button> */}
+        <Button icon={<BsFillCartCheckFill size={22} />} >Đặt hàng</Button>
       </div>
     </div>
   );
