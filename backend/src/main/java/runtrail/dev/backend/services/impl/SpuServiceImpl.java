@@ -195,4 +195,14 @@ public class SpuServiceImpl implements SpuService {
         return spuRepository.findDistinctSizesByCategoryId(categoryId,brandIds,minPrice,maxPrice);
     }
 
+    //Search
+    public List<SpuDTO> getProductsByKey(String key) {
+        List<SpuDTO> selectedProducts = spuRepository.findSpuByKeyword(key);
+        selectedProducts.forEach(product -> {
+            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
+            product.setImages(images);
+        });
+        return selectedProducts;
+    }
+
 }
