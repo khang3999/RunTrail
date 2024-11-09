@@ -24,6 +24,7 @@ public interface SpuService {
     Page<SpuEntity> filterProductV2(Long minPrice, Long maxPrice, List<Long> brandIds,Long categoryId,List<String> keys,List<List<String>> values,Pageable pageable);
 
     SpuEntity findProductBySlug(String slug);
+    SpuDTO findProductBySlugV2(String slug);
 
      List<String> getDistinctSizesByCategoryId(Long categoryId,String brandIds,Long minPrice,Long maxPrice);
 

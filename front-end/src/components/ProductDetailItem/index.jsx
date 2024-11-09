@@ -31,6 +31,17 @@ export default function ProductDetailItem({ product, isLoading }) {
     }
   };
 
+  const handleAddToCart = () => {
+    // !hiddenQuantity &&
+    //   new toast("Vui lòng chọn loại", {
+    //     autoClose: 2000,
+    //     type: "error",
+    //   });
+
+    // if ()
+    console.log("Add to cart");
+  }
+
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">
@@ -53,7 +64,7 @@ export default function ProductDetailItem({ product, isLoading }) {
           <Skeleton width={200} height={20} />
         ) : (
           <ProductAttribute title={"Thương hiệu"}>
-            <span>{product.brand.brandName}</span>
+            <span>{product.brandName}</span>
           </ProductAttribute>
         )}
       </div>
@@ -110,13 +121,7 @@ export default function ProductDetailItem({ product, isLoading }) {
         ) : (
           <>
             <CustomButton
-              onClick={() => {
-                !hiddenQuantity &&
-                  new toast("Vui lòng chọn loại", {
-                    autoClose: 2000,
-                    type: "error",
-                  });
-              }}
+              onClick={handleAddToCart}
               title="Thêm vào giỏ hàng"
               background="bg-orange-100"
               color="text-orange-500"

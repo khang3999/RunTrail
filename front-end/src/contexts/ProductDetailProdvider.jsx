@@ -88,7 +88,6 @@ export function ProductDetailProvider({ children }) {
     const result = await response.json();
     if (result.statusCode === 200) {
       const { list, skuPrice, totalStock } = result.metadata;
-      console.log("price", skuPrice);
       const listTemp = JSON.parse(list);
       setListAttrOutOfStockTemp(listTemp);
       setTotalStock(totalStock);

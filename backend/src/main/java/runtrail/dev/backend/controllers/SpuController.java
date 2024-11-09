@@ -146,7 +146,7 @@ public class SpuController {
     public Response<?> findSpuBySlug(
             @RequestParam(defaultValue = "") String slug
     ) {
-        return new Response<>(spuService.findProductBySlug(slug), HttpStatus.OK.value(), "Fetch detail product ok");
+        return new Response<>(spuService.findProductBySlugV2(slug), HttpStatus.OK.value(), "Fetch detail product ok");
     }
 
     // test
