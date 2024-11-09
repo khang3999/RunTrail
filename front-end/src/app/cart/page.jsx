@@ -31,6 +31,9 @@ export default function CartPage() {
       <span className="uppercase text-xl sm:text-2xl md:text-3xl font-bold py-3 sm:py-4 md:py-5 text-gray-700">
         Giỏ hàng
       </span>
+      <span className="uppercase text-sm font-light flex md:hidden sm:hidden py-2 text-gray-700">
+        Giỏ hàng của bạn
+      </span>
       
       {/* Desktop Table Layout */}
       <div className="hidden md:block overflow-x-auto">

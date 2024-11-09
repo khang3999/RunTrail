@@ -1,5 +1,5 @@
-import { InputNumber } from 'antd';
 import React from 'react';
+import { InputNumber } from 'antd';
 import { toast } from 'react-toastify';
 
 function CartItem({ cart, onQuantityChange, pos, layout }) {
@@ -22,7 +22,7 @@ function CartItem({ cart, onQuantityChange, pos, layout }) {
           />
         </td>
         <td className="py-2 px-2 sm:py-4 sm:px-5 text-center text-black font-semibold text-xs sm:text-base md:text-lg">
-          ₫{(cart.quantity * cart.price).toLocaleString()}
+        &#8363;{(cart.quantity * cart.price)}
         </td>
         <td
           className="py-2 px-2 sm:py-4 sm:px-5 text-red-500 cursor-pointer text-center text-xs sm:text-sm md:text-base"
@@ -38,14 +38,15 @@ function CartItem({ cart, onQuantityChange, pos, layout }) {
         <img src={cart.image} alt={cart.name} className="w-16 h-16 object-cover rounded" />
         <div className="flex-1 px-4">
           <div className="text-gray-700 font-semibold">{cart.name}</div>
-          <div className="text-gray-500">Giá: {cart.price.toLocaleString()}₫</div>
+          <div className="text-gray-500 text-sm">Giá: {cart.price}&#8363;</div>
         </div>
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col items-center">
           <InputNumber
-            min={1}
+            min={0}
             value={cart.quantity}
             onChange={(value) => onQuantityChange(value, pos)}
             className="w-16"
+            controls={true}
           />
           <button
             onClick={() => {
