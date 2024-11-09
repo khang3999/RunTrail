@@ -98,10 +98,10 @@ export default function Header({ onCategoryClick }) {
           className={styles.searchIcon}
         />
         <FaUserCircle className={styles.profile} color="white" size={24} />
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <a href="#" style={{ display: "flex", alignItems: "center" }}>
           <CiShoppingCart color="white" size={24} />
           <span className={styles.cartBadge}>0</span>
-        </div>
+        </a>
         <div
           style={{
             position: "relative",
