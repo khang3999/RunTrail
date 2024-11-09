@@ -16,10 +16,11 @@ import { useState } from "react";
 import { useProductDetailProvider } from "@/contexts/ProductDetailProdvider";
 import { toast } from "react-toastify";
 export default function ProductDetailItem({ product, isLoading }) {
-  const { totalStock, skuPrice, hiddenQuantity } = useProductDetailProvider();
+  const { totalStock, skuPrice, hiddenQuantity,data,spuAttributes } = useProductDetailProvider();
   const [hidden, setHidden] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [isErrorInput, setIsErrorInput] = useState(false);
 
   const handleLike = () => {
     if (isLiked) {
@@ -32,14 +33,39 @@ export default function ProductDetailItem({ product, isLoading }) {
   };
 
   const handleAddToCart = () => {
-    // !hiddenQuantity &&
-    //   new toast("Vui lòng chọn loại", {
-    //     autoClose: 2000,
-    //     type: "error",
-    //   });
+    // get key of data.attributes
+    const keys = Object.keys(data.attributes);
+    // get key of spuAttributes
+    const keysSpu = Object.keys(spuAttributes);
+    // check if key of data.attributes is not in spuAttributes
+    const result = keysSpu.filter((item) => {
+      return !keys.includes(item);
+    });
+    
+    if (result.length > 0) {
+      // toast error
+      new toast(`Vui lòng chọn ${result.join(", ")}`, {
+        autoClose: 2000,
+        type: "error",
+      });
+      return;
+    }
 
-    // if ()
-    console.log("Add to cart");
+    if (quantity > totalStock){
+      new toast(`Số lượng sản phẩm không đủ`, {
+        autoClose: 2000,
+        type: "error",
+      });
+      setIsErrorInput(true);
+      return;
+    }
+
+    setIsErrorInput(false);
+    // add to cart
+    new toast(`Đã thêm vào giỏ hàng`, {
+      autoClose: 2000,
+      type: "success",
+    });
   }
 
   return (
@@ -106,6 +132,7 @@ export default function ProductDetailItem({ product, isLoading }) {
             hidden={hidden}
             setQuantity={setQuantity}
             quantity={quantity}
+            error={isErrorInput}
           />
         )}
       </div>
