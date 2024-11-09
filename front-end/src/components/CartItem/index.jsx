@@ -1,13 +1,23 @@
+"use client";
+
 import { Button, InputNumber, Tooltip } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoTrashOutline } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 
 
 function CartItem({ cart, onQuantityChange, pos, layout }) {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  //Hàm định dạng giá
   const formatCurrencyVND = (amount) => {
     return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
   }
+
   return (
     layout === 'desktop' ? (
       <tr className="border-b last:border-b-0 hover:bg-gray-100 transition duration-150">
@@ -35,9 +45,11 @@ function CartItem({ cart, onQuantityChange, pos, layout }) {
             toast.success('Sản phẩm đã được xóa khỏi giỏ hàng');
           }}
         >
-          <Tooltip title="Xóa" color='red'>
-            <Button danger type='primary' icon={<IoTrashOutline size={22} />}></Button>
-          </Tooltip>
+          {isClient && (
+            <Tooltip title="Xóa" color="red">
+              <Button danger type="primary" icon={<IoTrashOutline size={22} />}></Button>
+            </Tooltip>
+          )}
         </td>
       </tr>
     ) : (
@@ -60,9 +72,11 @@ function CartItem({ cart, onQuantityChange, pos, layout }) {
             }}
             className="text-red-500 mt-2"
           >
-            <Tooltip title="Xóa" color='red'>
-              <Button danger type='primary' icon={<IoTrashOutline size={22} />}></Button>
-            </Tooltip>
+            {isClient && (
+              <Tooltip title="Xóa" color="red">
+                <Button danger type="primary" icon={<IoTrashOutline size={22} />}></Button>
+              </Tooltip>
+            )}
           </button>
         </div>
       </div>
