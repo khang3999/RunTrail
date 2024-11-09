@@ -21,6 +21,7 @@
     "antd": "^5.21.2",
     "axios": "^1.7.7",
     "flowbite": "^2.5.2",
+    "framework7-react": "^8.3.4",
     "front-end": "file:",
     "lodash.debounce": "^4.0.8",
     "next": "14.2.13",
