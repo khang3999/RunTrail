@@ -77,12 +77,11 @@ export default function CartPage() {
       {/* Button  */}
       <div className="flex justify-end space-x-4 my-6">
        {/* From Uiverse.io by AKAspidey01  */}
-        <button
-          className="bg-white text-center rounded relative group"
-          type="button"
+        <Button
+          className="bg-white text-center w-[218px] rounded relative group"
         >
           <div
-            className="bg-green-400 rounded w-1/6 flex items-center justify-center absolute left-1 group-hover:w-full z-10 duration-500"
+            className="bg-green-400 rounded w-1/6 flex items-center justify-center absolute left-1 group-hover:w-[209px] z-10 duration-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +99,8 @@ export default function CartPage() {
               ></path>
             </svg>
           </div>
-          <p className="px-10">Tiếp tục mua hàng</p>
-        </button>
+          <p className="px-10 translate-x-2">Tiếp tục mua hàng</p>
+        </Button>
 
         {/* <Button>Tiếp tục mua hàng</Button> */}
         <Button icon={<BsFillCartCheckFill size={22} />} >Đặt hàng</Button>

@@ -21,7 +21,7 @@ function CartItem({ cart, onQuantityChange, pos, layout }) {
   return (
     layout === 'desktop' ? (
       <tr className="border-b last:border-b-0 hover:bg-gray-100 transition duration-150">
-        <td className="py-2 sm:py-4 bg-green-400">
+        <td className="py-2 sm:py-4">
           <img src={cart.image} alt={cart.name} className="sm:w-30 sm:h-20 object-cover mx-auto rounded" />
         </td>
         <td className="py-2 px-2 sm:py-4 sm:px-5 text-xs sm:text-sm md:text-base">{cart.name}</td>
