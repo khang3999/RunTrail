@@ -30,4 +30,6 @@ public interface SpuService {
 
      List<SpuDTO> getProductsByKey (String key);
 
+
+     List<String> getAllSlug();
 }

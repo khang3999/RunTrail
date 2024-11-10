@@ -218,4 +218,9 @@ public class SpuServiceImpl implements SpuService {
         return selectedProducts;
     }
 
+    @Override
+    public List<String> getAllSlug() {
+        return spuRepoCustom.findAllSlug();
+    }
+
 }

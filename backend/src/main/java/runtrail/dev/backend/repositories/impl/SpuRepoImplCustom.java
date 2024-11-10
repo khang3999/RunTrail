@@ -93,4 +93,14 @@ public class SpuRepoImplCustom implements SpuRepoCustom {
                 spuAttributesStr
         );
     }
+
+    @Override
+    public List<String> findAllSlug() {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<String> query = builder.createQuery(String.class);
+        Root<SpuEntity> root = query.from(SpuEntity.class);
+        query.select(root.get("slug"));
+        TypedQuery<String> typedQuery = em.createQuery(query);
+        return typedQuery.getResultList();
+    }
 }

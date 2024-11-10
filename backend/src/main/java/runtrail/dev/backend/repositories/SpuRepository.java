@@ -64,7 +64,7 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
     List<String> findDistinctSizesByCategoryId(@Param("categoryId") Long categoryId, @Param("brandIds") String brandIds,@Param("minPrice") long minPrice, @Param("maxPrice") long maxPrice);
 
     //Search
-    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.id, br.brandName, min(sk.skuPrice), 'image', u.spuStatus, u.discount, u.spuAttributes, u.slug) " +
+    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.brand.id, br.brandName, min(sk.skuPrice), 'image', u.spuStatus, u.discount, u.slug) " +
             "FROM SpuEntity u " +
             "INNER JOIN SkuEntity sk ON sk.spu.id = u.id " +
             "INNER JOIN BrandEntity br ON u.brand.id = br.id " +
@@ -72,6 +72,9 @@ public interface SpuRepository extends JpaRepository<SpuEntity, Long> {
             "WHERE u.spuName LIKE %:keyword% " +
             "GROUP BY u.id")
     List<SpuDTO> findSpuByKeyword(@Param("keyword") String keyword);
+
+
+
 
 
 

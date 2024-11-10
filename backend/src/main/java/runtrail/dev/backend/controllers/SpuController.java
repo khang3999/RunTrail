@@ -167,4 +167,10 @@ public class SpuController {
     public Response<List<SpuDTO>> search(@RequestParam String key) {
         return new Response<>(spuService.getProductsByKey(key), HttpStatus.OK.value(), " ok");
     }
+
+    // get all slug
+    @GetMapping("/all-slug")
+    public Response<List<String>> getAllSlug() {
+        return new Response<>(spuService.getAllSlug(), HttpStatus.OK.value(), " ok");
+    }
 }
