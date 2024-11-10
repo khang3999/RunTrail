@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import AppProvider from "@/contexts/AppProvider";
 config.autoAddCss = false;
 
 export const metadatasite = {
@@ -28,9 +29,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`antialiased`}>
         <Providers>
-          <Header />
-          {children}
-          <ToastContainer />
+          <AppProvider>
+            <Header />
+            {children}
+            <ToastContainer />
+          </AppProvider>
         </Providers>
       </body>
     </html>

@@ -15,8 +15,10 @@ import {
 import { useState } from "react";
 import { useProductDetailProvider } from "@/contexts/ProductDetailProdvider";
 import { toast } from "react-toastify";
+import { useAppProvider } from '@/contexts/AppProvider';
 export default function ProductDetailItem({ product, isLoading }) {
   const { totalStock, skuPrice, hiddenQuantity, data, spuAttributes,setData,skuId } = useProductDetailProvider();
+  const {setTotalCart,totalCart} = useAppProvider();
   const [hidden, setHidden] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -87,6 +89,11 @@ export default function ProductDetailItem({ product, isLoading }) {
 
     // reset quantity and spuAttributes
     setQuantity(1);
+    setTotalCart((prev)=>(
+      prev + quantity
+    ));
+    // setTotalCart to cookie
+    Cookies.set("totalCart",totalCart);
 };
 
   return (
