@@ -28,4 +28,6 @@ public interface SpuService {
 
      List<String> getDistinctSizesByCategoryId(Long categoryId,String brandIds,Long minPrice,Long maxPrice);
 
+     List<SpuDTO> getProductsByKey (String key);
+
 }

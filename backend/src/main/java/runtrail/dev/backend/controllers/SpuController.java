@@ -162,4 +162,9 @@ public class SpuController {
                                                                 @RequestParam(defaultValue = "2000000") long maxPrice) {
         return new Response<>(spuService.getDistinctSizesByCategoryId(categoryId, brandIds,minPrice,maxPrice), HttpStatus.OK.value(), "Distinct sizes");
     }
+    //Search
+    @GetMapping("/search")
+    public Response<List<SpuDTO>> search(@RequestParam String key) {
+        return new Response<>(spuService.getProductsByKey(key), HttpStatus.OK.value(), " ok");
+    }
 }
