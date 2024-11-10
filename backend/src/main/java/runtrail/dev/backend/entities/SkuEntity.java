@@ -17,11 +17,15 @@ public class SkuEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    // sku_no
+    // sku_no = spu_no + sku_id
+    @Column(name = "sku_no", nullable = false, length = 50)
+    private String skuNo;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "spu_id", nullable = false)
     private SpuEntity spu;
-
 
     @Column(name = "sku_name", nullable = false, length = 100)
     private String skuName;

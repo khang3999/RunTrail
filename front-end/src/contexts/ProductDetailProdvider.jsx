@@ -11,6 +11,7 @@ export function ProductDetailProvider({ children }) {
   const [totalStock, setTotalStock] = useState(null);
   const [skuPrice, setSkuPrice] = useState("");
   const [hiddenQuantity, setHiddenQuantity] = useState(false);
+  const [skuId, setSkuId] = useState("");
 
   const [data, setData] = useState({
     spuId: "",
@@ -81,11 +82,12 @@ export function ProductDetailProvider({ children }) {
       AxiosInstance.post(`spu/stock-price`, { ...data }).then((response) => {
         const data = response.data;
         if (data.statusCode === 200) {
-          const { list, skuPrice, totalStock } = data.metadata;
+          const { list, skuPrice, totalStock,skuId } = data.metadata;
           const listTemp = JSON.parse(list);
           setListAttrOutOfStockTemp(listTemp);
           setTotalStock(totalStock);
           setSkuPrice(skuPrice);
+          setSkuId(skuId);
         }
       }).catch((error) => {
         console.error("Error fetching attributes", error);
@@ -120,6 +122,7 @@ export function ProductDetailProvider({ children }) {
         totalStock,
         skuPrice,
         hiddenQuantity,
+        skuId,
       }}
     >
       {children}

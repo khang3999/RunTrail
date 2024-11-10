@@ -1,5 +1,5 @@
 "use client";
-
+import Cookies from 'js-cookie';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +16,7 @@ import { useState } from "react";
 import { useProductDetailProvider } from "@/contexts/ProductDetailProdvider";
 import { toast } from "react-toastify";
 export default function ProductDetailItem({ product, isLoading }) {
-  const { totalStock, skuPrice, hiddenQuantity,data,spuAttributes } = useProductDetailProvider();
+  const { totalStock, skuPrice, hiddenQuantity, data, spuAttributes,setData,skuId } = useProductDetailProvider();
   const [hidden, setHidden] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -32,7 +32,7 @@ export default function ProductDetailItem({ product, isLoading }) {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     // get key of data.attributes
     const keys = Object.keys(data.attributes);
     // get key of spuAttributes
@@ -41,7 +41,7 @@ export default function ProductDetailItem({ product, isLoading }) {
     const result = keysSpu.filter((item) => {
       return !keys.includes(item);
     });
-    
+
     if (result.length > 0) {
       // toast error
       new toast(`Vui lòng chọn ${result.join(", ")}`, {
@@ -51,7 +51,7 @@ export default function ProductDetailItem({ product, isLoading }) {
       return;
     }
 
-    if (quantity > totalStock){
+    if (quantity > totalStock) {
       new toast(`Số lượng sản phẩm không đủ`, {
         autoClose: 2000,
         type: "error",
@@ -61,12 +61,33 @@ export default function ProductDetailItem({ product, isLoading }) {
     }
 
     setIsErrorInput(false);
-    // add to cart
-    new toast(`Đã thêm vào giỏ hàng`, {
-      autoClose: 2000,
-      type: "success",
-    });
+
+    //save product to cookie
+    if (!skuId || skuId.includes(",")) {
+      console.log(skuId);
+      new toast("Có lỗi xảy ra, vui lòng thử lại!!!", { autoClose: 2000, type: "error" });
+    }
+    saveProductToCookie({ skuId, quantity });
   }
+
+  const saveProductToCookie = async ({skuId,quantity}) => {
+    const cart = Cookies.get("cart");
+    let cartData = [];
+    if (cart) {
+      cartData = JSON.parse(cart);
+    }
+    const index = cartData.findIndex((item) => item.skuId === skuId);
+    if (index === -1) {
+      cartData.push({ skuId, quantity });
+    } else {
+      cartData[index].quantity += quantity;
+    }
+    Cookies.set("cart", JSON.stringify(cartData));
+    new toast("Đã thêm vào giỏ hàng", { autoClose: 2000, type: "success" });
+
+    // reset quantity and spuAttributes
+    setQuantity(1);
+};
 
   return (
     <div>

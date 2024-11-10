@@ -64,19 +64,7 @@ export default function ProductDetail({slug}) {
     });
   };
 
-  // get spu_price
-  const getSpuPrice = (skuList) => {
-    let minPrice = 0;
-    skuList.forEach((sku) => {
-      if (minPrice === 0) {
-        minPrice = sku.skuPrice;
-      }
-      if (sku.skuPrice < minPrice) {
-        minPrice = sku.skuPrice;
-      }
-    });
-    return minPrice;
-  };
+    
 
   return (
   <div>

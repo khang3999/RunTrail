@@ -10,6 +10,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class SkuPriceStockDTO implements Serializable {
+    private String skuId;
     private Long totalStock;
     private String skuPrice;
     private String list;
