@@ -5,8 +5,8 @@ import { Input } from "antd";
 import { CiShoppingCart, CiSearch } from "react-icons/ci";
 import { FaChevronDown, FaUserCircle } from "react-icons/fa";
 import { MdOutlineMenu } from "react-icons/md";
-import Search from "antd/es/transfer/search";
 import Link from "next/link";
+import Search from "antd/es/transfer/search";
 
 export default function Header({ onCategoryClick }) {
   const languages = [
@@ -157,10 +157,10 @@ export default function Header({ onCategoryClick }) {
           {(isSearchOpen || searchValue !== "") && (
             <div className={styles.searchOpen}>
               <Search
-                className={styles.searchInput}
                 placeholder="Tìm sản phẩm ..."
                 value={searchValue}
                 onChange={handleSearchChange}
+
               />
             </div>
           )}
