@@ -1,5 +1,5 @@
 "use client";
-
+import Cookies from 'js-cookie';
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,11 +15,14 @@ import {
 import { useState } from "react";
 import { useProductDetailProvider } from "@/contexts/ProductDetailProdvider";
 import { toast } from "react-toastify";
+import { useAppProvider } from '@/contexts/AppProvider';
 export default function ProductDetailItem({ product, isLoading }) {
-  const { totalStock, skuPrice, hiddenQuantity } = useProductDetailProvider();
+  const { totalStock, skuPrice, hiddenQuantity, data, spuAttributes,setData,skuId } = useProductDetailProvider();
+  const {setTotalCart,totalCart} = useAppProvider();
   const [hidden, setHidden] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [isErrorInput, setIsErrorInput] = useState(false);
 
   const handleLike = () => {
     if (isLiked) {
@@ -30,6 +33,68 @@ export default function ProductDetailItem({ product, isLoading }) {
       toast("Đã thích", { autoClose: 1000, type: "success" });
     }
   };
+
+  const handleAddToCart = async () => {
+    // get key of data.attributes
+    const keys = Object.keys(data.attributes);
+    // get key of spuAttributes
+    const keysSpu = Object.keys(spuAttributes);
+    // check if key of data.attributes is not in spuAttributes
+    const result = keysSpu.filter((item) => {
+      return !keys.includes(item);
+    });
+
+    if (result.length > 0) {
+      // toast error
+      new toast(`Vui lòng chọn ${result.join(", ")}`, {
+        autoClose: 2000,
+        type: "error",
+      });
+      return;
+    }
+
+    if (quantity > totalStock) {
+      new toast(`Số lượng sản phẩm không đủ`, {
+        autoClose: 2000,
+        type: "error",
+      });
+      setIsErrorInput(true);
+      return;
+    }
+
+    setIsErrorInput(false);
+
+    //save product to cookie
+    if (!skuId || skuId.includes(",")) {
+      console.log(skuId);
+      new toast("Có lỗi xảy ra, vui lòng thử lại!!!", { autoClose: 2000, type: "error" });
+    }
+    saveProductToCookie({ skuId, quantity });
+  }
+
+  const saveProductToCookie = async ({skuId,quantity}) => {
+    const cart = Cookies.get("cart");
+    let cartData = [];
+    if (cart) {
+      cartData = JSON.parse(cart);
+    }
+    const index = cartData.findIndex((item) => item.skuId === skuId);
+    if (index === -1) {
+      cartData.push({ skuId, quantity });
+    } else {
+      cartData[index].quantity += quantity;
+    }
+    Cookies.set("cart", JSON.stringify(cartData));
+    new toast("Đã thêm vào giỏ hàng", { autoClose: 2000, type: "success" });
+
+    // reset quantity and spuAttributes
+    setQuantity(1);
+    setTotalCart((prev)=>(
+      prev + quantity
+    ));
+    // setTotalCart to cookie
+    Cookies.set("totalCart",totalCart);
+};
 
   return (
     <div>
@@ -53,7 +118,7 @@ export default function ProductDetailItem({ product, isLoading }) {
           <Skeleton width={200} height={20} />
         ) : (
           <ProductAttribute title={"Thương hiệu"}>
-            <span>{product.brand.brandName}</span>
+            <span>{product.brandName}</span>
           </ProductAttribute>
         )}
       </div>
@@ -95,6 +160,7 @@ export default function ProductDetailItem({ product, isLoading }) {
             hidden={hidden}
             setQuantity={setQuantity}
             quantity={quantity}
+            error={isErrorInput}
           />
         )}
       </div>
@@ -110,13 +176,7 @@ export default function ProductDetailItem({ product, isLoading }) {
         ) : (
           <>
             <CustomButton
-              onClick={() => {
-                !hiddenQuantity &&
-                  new toast("Vui lòng chọn loại", {
-                    autoClose: 2000,
-                    type: "error",
-                  });
-              }}
+              onClick={handleAddToCart}
               title="Thêm vào giỏ hàng"
               background="bg-orange-100"
               color="text-orange-500"
