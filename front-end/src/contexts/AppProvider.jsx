@@ -30,19 +30,17 @@ function AppProvider({ children }) {
     return () => {
       window.removeEventListener("resize", resize);
     };
-
   }, []);
 
-  
   const getTotalCart = () => {
     const cart = Cookies.get("cart");
     if (cart) {
       const cartObj = JSON.parse(cart);
-      const temp =  cartObj.reduce((total, item) => total + item.quantity, 0);
+      const temp = cartObj.reduce((total, item) => total + item.quantity, 0);
       setTotalCart(temp);
     }
     return 0;
-  }
+  };
 
   return (
     <AppContext.Provider

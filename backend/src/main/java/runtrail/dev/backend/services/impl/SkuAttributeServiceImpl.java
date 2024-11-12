@@ -15,8 +15,6 @@ public class SkuAttributeServiceImpl implements SkuAttributeService {
     @Autowired
     private SkuAttributeRepository skuAttributeRepository;
 
-   
-
     @Override
     public List<SkuAttributeEntity> getAllSkuAttributes() {
         return skuAttributeRepository.findAll();

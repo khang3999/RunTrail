@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useContext, createContext, useEffect } from "react";
-import AxiosInstance from '@/utils/axiosInstance';
+import AxiosInstance from "@/utils/axiosInstance";
 
 const ProductDetailContext = createContext();
 export function ProductDetailProvider({ children }) {
@@ -80,19 +80,21 @@ export function ProductDetailProvider({ children }) {
   const fetchAttributes = async () => {
     const { spuId } = data;
     if (spuId) {
-      AxiosInstance.post(`spu/stock-price`, { ...data }).then((response) => {
-        const data = response.data;
-        if (data.statusCode === 200) {
-          const { list, skuPrice, totalStock,skuId } = data.metadata;
-          const listTemp = JSON.parse(list);
-          setListAttrOutOfStockTemp(listTemp);
-          setTotalStock(totalStock);
-          setSkuPrice(skuPrice);
-          setSkuId(skuId);
-        }
-      }).catch((error) => {
-        console.error("Error fetching attributes", error);
-      });
+      AxiosInstance.post(`spu/stock-price`, { ...data })
+        .then((response) => {
+          const data = response.data;
+          if (data.statusCode === 200) {
+            const { list, skuPrice, totalStock, skuId } = data.metadata;
+            const listTemp = JSON.parse(list);
+            setListAttrOutOfStockTemp(listTemp);
+            setTotalStock(totalStock);
+            setSkuPrice(skuPrice);
+            setSkuId(skuId);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching attributes", error);
+        });
     }
   };
 

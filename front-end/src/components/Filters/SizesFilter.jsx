@@ -6,12 +6,16 @@ import debounce from "lodash.debounce";
 export default function SizesFilter({ categoryId }) {
   const [sizes, setSizes] = useState([]);
   const [tempSelectedSizes, setTempSelectedSizes] = useState([]);
-  const { setSelectedSizes, filterProductsBySize,selectedBrands,selectedSizes, minPrice,maxPrice } = useProductProvider();
-  
-  
-  useEffect(() => {
-    
+  const {
+    setSelectedSizes,
+    filterProductsBySize,
+    selectedBrands,
+    selectedSizes,
+    minPrice,
+    maxPrice,
+  } = useProductProvider();
 
+  useEffect(() => {
     const fetchSizesData = async () => {
       try {
         const res = await fetch(
@@ -31,7 +35,7 @@ export default function SizesFilter({ categoryId }) {
           console.log("Sizes:", parsedSizes);
         } else {
           console.error("Failed to fetch sizes:", data.message);
-        }  
+        }
       } catch (error) {
         console.error("Error fetching sizes:", error);
       }
@@ -39,20 +43,18 @@ export default function SizesFilter({ categoryId }) {
     if (categoryId) {
       fetchSizesData();
     }
-  }, [categoryId,selectedBrands,minPrice,maxPrice]);
+  }, [categoryId, selectedBrands, minPrice, maxPrice]);
 
   const debouncedUpdateSizes = useCallback(
     debounce((updatedSizes) => {
       setSelectedSizes(updatedSizes);
     }, 2000),
-    [filterProductsBySize]
+    [filterProductsBySize],
   );
-  
+
   useEffect(() => {
     filterProductsBySize(selectedSizes);
-  }, [selectedSizes])
-  
-
+  }, [selectedSizes]);
 
   const handleSizesChange = (sizeName) => {
     const updatedSelectedSizes = tempSelectedSizes.includes(sizeName)
@@ -61,14 +63,13 @@ export default function SizesFilter({ categoryId }) {
 
     setTempSelectedSizes(updatedSelectedSizes);
     debouncedUpdateSizes(updatedSelectedSizes);
-    
   };
 
   return (
     <div className="w-full max-w-lg mx-auto text-black">
       <div className="p-4 bg-white rounded-lg shadow-md">
         <div className="max-h-48 overflow-y-auto">
-          {sizes.map((size,index) => (
+          {sizes.map((size, index) => (
             <div key={index} className="flex items-center mb-2">
               <input
                 type="checkbox"
