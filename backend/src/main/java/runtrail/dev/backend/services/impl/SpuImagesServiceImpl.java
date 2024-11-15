@@ -15,7 +15,6 @@ public class SpuImagesServiceImpl implements SpuImagesService {
     @Autowired
     private SpuImagesRepository spuImagesRepository;
 
-
     @Override
     public List<SpuImagesEntity> getAllSpuImages() {
         return spuImagesRepository.findAll();

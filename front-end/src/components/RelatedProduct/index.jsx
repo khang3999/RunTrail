@@ -44,7 +44,7 @@ const RelatedProduct = ({ categories }) => {
         <div>
           <h1 className={styles.title}>SẢN PHẨM LIÊN QUAN</h1>
           <div className={styles.container}>
-            <div className={styles.grid} style={{marginBottom: 40}}>
+            <div className={styles.grid} style={{ marginBottom: 40 }}>
               {Array.from({ length: isMobile ? 6 : 4 }, (_, index) => (
                 <ProductItemSkeleton key={index} />
               ))}
