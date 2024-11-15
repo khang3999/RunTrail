@@ -406,7 +406,7 @@ function OrderPage() {
    return (
       <div className="flex flex-col-reverse lg:flex-row">
          {/* Info */}
-         <div className="lg:w-1/2 w-full pt-[40px] px-[80px] lg:pl-[200px] lg:pr-[40px] mb-[60px]">
+         <div className="lg:w-1/2 w-full pt-[40px] px-[40px] lg:pl-[200px] lg:pr-[40px] mb-[60px]">
             <div>
                <h3 className="text-xl font-bold mb-2">Thông tin liên lạc</h3>
                <p className="text-gray-500 text-sm mb-4">
@@ -552,7 +552,7 @@ function OrderPage() {
          {/* Product */}
          <div
             div
-            className="flex-1 lg:min-h-[100vh] border-l border-gray lg:w-1/2 w-full px-[80px] lg:pr-[200px] lg:pl-[40px]"
+            className="flex-1 lg:min-h-[100vh] border-l border-gray lg:w-1/2 w-full px-[40px] lg:pr-[200px] lg:pl-[40px]"
          >
             <div className="lg:mt-[40px] mt-[60px] mb-4">
                <h3 className="text-xl font-bold mb-2">Tóm tắt đơn hàng</h3>
@@ -562,7 +562,7 @@ function OrderPage() {
                         key={item.skuId}
                         className="flex items-center justify-between gap-4 mt-4"
                      >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 flex-col">
                            <Image
                               alt="product"
                               src={
