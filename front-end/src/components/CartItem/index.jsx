@@ -12,10 +12,10 @@ function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
       setIsClient(true);
    }, []);
 
-   // Hàm định dạng giá
+   //Hàm định dạng giá
    const formatCurrencyVND = (amount) => {
       return amount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-   };
+   }
 
    return (
       layout === 'desktop' ? (
@@ -33,7 +33,7 @@ function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
             </td>
             <td className="py-2 px-2 sm:py-4 sm:px-5 text-center">
                <InputNumber
-                  min={0}
+                  min={1}
                   value={cart.quantity}
                   onChange={(value) => onQuantityChange(value, pos)}
                   className="w-12 sm:w-16 md:w-20"
@@ -66,7 +66,7 @@ function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
             </div>
             <div className="flex flex-col items-center">
                <InputNumber
-                  min={0}
+                  min={1}
                   value={cart.quantity}
                   onChange={(value) => onQuantityChange(value, pos)}
                   className="w-16"

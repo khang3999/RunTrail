@@ -57,6 +57,7 @@ function AppProvider({ children }) {
             setAlertMessage,
             alertType,
             setAlertType,
+            getTotalCart
          }}
       >
          {children}

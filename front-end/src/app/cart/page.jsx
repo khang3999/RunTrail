@@ -18,6 +18,13 @@ export default function CartPage() {
    const [totalPayment, setTotalPayment] = useState('');
    const router = useRouter();
    const { alertMessage, setAlertMessage, alertType, setAlertType, } = useAppProvider();
+   const { getTotalCart } = useAppProvider();
+
+   //Hàm định dạng giá
+   const formatCurrencyVND = (amount) => {
+      return amount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+   }
+
 
    useEffect(() => {
       if (alertMessage) {
@@ -31,8 +38,6 @@ export default function CartPage() {
          setAlertType("none");
       }
    }, [alertMessage])
-
-
 
    useEffect(() => {
       const cartCookie = Cookies.get("cart");
@@ -61,10 +66,6 @@ export default function CartPage() {
          setIsLoading(false);
       }
    }, []);
-   //Hàm định dạng giá
-   const formatCurrencyVND = (amount) => {
-      return amount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-   }
 
    useEffect(() => {
       let totalPayment = 0
@@ -86,7 +87,60 @@ export default function CartPage() {
       Cookies.set("cart", JSON.stringify(cookieData));
 
       setCarts(updatedCarts);
+      getTotalCart()
    };
+
+   const handleModalCancel = () => {
+      setIsModalVisible(false);
+   };
+
+   const handleDeleteItem = (skuId) => {
+      const updatedCarts = carts.filter(cart => cart.id !== skuId);
+
+      const cookieData = updatedCarts.map(({ id, quantity }) => ({ skuId: id, quantity }));
+      Cookies.set("cart", JSON.stringify(cookieData));
+
+      setCarts(updatedCarts);
+      getTotalCart()
+      toast.success("Sản phẩm đã được xóa khỏi giỏ hàng");
+   };
+
+   useEffect(() => {
+      const cartCookie = Cookies.get("cart");
+      if (cartCookie) {
+         const parsedCart = JSON.parse(cartCookie);
+         const fetchCartData = async () => {
+            try {
+               const responses = await Promise.all(
+                  parsedCart.map((item) =>
+                     fetch(`http://localhost:8008/api/v1/sku/${item.skuId}`).then((res) => res.json())
+                  )
+               );
+               const enrichedCarts = responses.map((data, index) => ({
+                  ...data,
+                  quantity: parsedCart[index].quantity,
+               }));
+               setCarts(enrichedCarts);
+            } catch (error) {
+               toast.error("Không thể tải dữ liệu giỏ hàng");
+            } finally {
+               setIsLoading(false);
+            }
+         };
+         fetchCartData();
+      } else {
+         setIsLoading(false);
+      }
+   }, []);
+
+   useEffect(() => {
+      let totalPayment = 0
+      carts.map(cart => {
+         totalPayment += cart.quantity * cart.skuPrice
+      })
+      console.log(totalPayment, 'price');
+      setTotalPayment(totalPayment)
+   }, [carts])
 
    const handleOrderClick = () => {
       const firstname = localStorage.getItem("firstName");
@@ -100,8 +154,6 @@ export default function CartPage() {
          router.push("/order");
       }
    };
-
-
 
    const handleModalOk = () => {
       const firstname = document.getElementById("firstName").value;
@@ -128,24 +180,8 @@ export default function CartPage() {
       }
    };
 
-   const handleModalCancel = () => {
-      setIsModalVisible(false);
-   };
-
-   const handleDeleteItem = (skuId) => {
-      const updatedCarts = carts.filter(cart => cart.id !== skuId);
-
-      const cookieData = updatedCarts.map(({ id, quantity }) => ({ skuId: id, quantity }));
-      Cookies.set("cart", JSON.stringify(cookieData));
-
-      setCarts(updatedCarts);
-      toast.success("Sản phẩm đã được xóa khỏi giỏ hàng");
-   };
-
    return (
       <div className="py-5 px-4 sm:px-6 md:px-10 lg:px-20 w-full flex flex-col bg-gray-50">
-
-
          {/* Tổng tiền đơn hàng */}
          <div className="flex flex-row justify-between items-center">
             <span className="uppercase text-xl sm:text-2xl md:text-3xl font-bold py-3 sm:py-4 md:py-5 text-gray-700">
