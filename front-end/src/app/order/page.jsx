@@ -61,7 +61,7 @@ function OrderPage() {
    const [shippingFee, setShippingFee] = useState(0);
 
    // Provider
-   const { setAlertMessage, setAlertType } = useAppProvider();
+   const { setAlertMessage, setAlertType, setTotalCart } = useAppProvider();
 
    // Lấy thông tin của người dùng từ localStorage nếu có
    useEffect(() => {
@@ -120,6 +120,7 @@ function OrderPage() {
    // Reset cart
    const reset = () => {
       Cookies.remove("cart");
+      setTotalCart(0);
       setFirstName("");
       setLastName("");
       setPhone("");
