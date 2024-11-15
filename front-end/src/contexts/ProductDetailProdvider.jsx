@@ -100,8 +100,8 @@ export function ProductDetailProvider({ children }) {
     // get all key of attributes
     const totalKeyAttributes = Object.keys(data.attributes).length;
     const totalKeySpuAttributes = Object.keys(spuAttributes).length;
-    console.log("totalKeyAttributes", Object.keys(data.attributes));
-    console.log("totalKeySpuAttributes", Object.keys(spuAttributes));
+    // console.log("totalKeyAttributes", Object.keys(data.attributes));
+    // console.log("totalKeySpuAttributes", Object.keys(spuAttributes));
     if (totalKeyAttributes === totalKeySpuAttributes) {
       setHiddenQuantity(true);
     } else {

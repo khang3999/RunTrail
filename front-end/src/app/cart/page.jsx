@@ -1,33 +1,60 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CartItem from "@/components/CartItem";
 import { toast } from "react-toastify";
 import { Button, Modal } from "antd";
 import { BsFillCartCheckFill } from "react-icons/bs";
+import Cookies from "js-cookie";
 
 export default function CartPage() {
-  const [carts, setCarts] = useState([
-    {
-      image: "https://assets.editorial.aetnd.com/uploads/2016/11/donald-trump-gettyimages-687193180.jpg",
-      name: "Giày 1",
-      price: 300000,
-      quantity: 1,
-    },
-    {
-      image: "https://assets.editorial.aetnd.com/uploads/2016/11/donald-trump-gettyimages-687193180.jpg",
-      name: "Giày 2",
-      price: 300000,
-      quantity: 1,
-    },
-  ]);
-
+  const [carts, setCarts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // Fetch data based on skuId
+  useEffect(() => {
+    const cartCookie = Cookies.get("cart");
+    if (cartCookie) {
+      const parsedCart = JSON.parse(cartCookie);
+      const fetchCartData = async () => {
+        try {
+          const responses = await Promise.all(
+            parsedCart.map((item) =>
+              fetch(`http://localhost:8008/api/v1/sku/${item.skuId}`).then((res) => res.json())
+            )
+          );
+          const enrichedCarts = responses.map((data, index) => ({
+            ...data,
+            quantity: parsedCart[index].quantity,
+          }));
+          setCarts(enrichedCarts);
+        } catch (error) {
+          toast.error("Không thể tải dữ liệu giỏ hàng");
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchCartData();
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
 
   const handleQuantityChange = (value, index) => {
     const updatedCarts = carts.map((cart, i) =>
       i === index ? { ...cart, quantity: value } : cart
     );
     setCarts(updatedCarts);
+    // Update cookie with new quantity
+    Cookies.set(
+      "cart",
+      JSON.stringify(
+        updatedCarts.map((cart) => ({
+          skuId: cart.skuId,
+          quantity: cart.quantity,
+        }))
+      )
+    );
   };
 
   const handleOrderClick = () => {
@@ -35,19 +62,17 @@ export default function CartPage() {
     const phone = localStorage.getItem("phone");
     if (!name || !phone) {
       setIsModalVisible(true);
-      toast.error('Nhập thông tin khách hàng')
+      toast.error("Nhập thông tin khách hàng");
     } else {
-      toast.success('Đơn hàng đang được xử lý')
-
+      toast.success("Đơn hàng đang được xử lý");
     }
   };
 
   const handleModalOk = () => {
     const name = document.getElementById("userName").value;
     const phone = document.getElementById("userPhone").value;
-  
     const phoneRegex = /^[0-9]{10}$/;
-  
+
     if (name && phone && phoneRegex.test(phone)) {
       localStorage.setItem("name", name);
       localStorage.setItem("phone", phone);
@@ -63,13 +88,16 @@ export default function CartPage() {
       }
     }
   };
-  
 
   const handleModalCancel = () => {
     setIsModalVisible(false);
   };
 
   const isCartEmpty = carts.length === 0;
+
+  if (isLoading) {
+    return <div>Đang tải dữ liệu...</div>;
+  }
 
   return (
     <div className="py-5 px-4 sm:px-6 md:px-10 lg:px-20 w-full flex flex-col bg-gray-50">
@@ -119,34 +147,6 @@ export default function CartPage() {
 
       {/* Button */}
       <div className="flex justify-end space-x-4 my-6">
-        <button
-          className="bg-white text-center rounded relative group"
-          type="button"
-          disabled={isCartEmpty}
-          onClick={handleOrderClick}
-        >
-          <div
-            className="bg-green-400 rounded w-1/6 flex items-center justify-center absolute left-1 group-hover:w-full z-10 duration-500"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1024 1024"
-              height="25px"
-              width="25px"
-            >
-              <path
-                d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
-                fill="#000000"
-              ></path>
-              <path
-                d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
-                fill="#000000"
-              ></path>
-            </svg>
-          </div>
-          <p className="px-10 sm:text-sm text-xs">Tiếp tục mua hàng</p>
-        </button>
-
         <Button
           icon={<BsFillCartCheckFill size={22} />}
           onClick={handleOrderClick}
@@ -156,7 +156,7 @@ export default function CartPage() {
         </Button>
       </div>
 
-      {/* Modal for entering user details */}
+      {/* Modal */}
       <Modal
         title="Nhập thông tin người dùng"
         visible={isModalVisible}

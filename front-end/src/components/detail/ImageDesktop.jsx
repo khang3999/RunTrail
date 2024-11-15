@@ -135,8 +135,6 @@ export default function ImageDesktop({ product, isLoading }) {
 							>
 								{dataImages &&
 									dataImages.map((image, index) => {
-										console.log(1);
-										console.log(image.imgUrl);
 										return (
 											<SwiperSlide
 												key={index}
