@@ -5,7 +5,7 @@ import { IoTrashOutline } from 'react-icons/io5'
 import { toast } from 'react-toastify'
 
 
-function CartItem({ cart, onQuantityChange, pos, layout }) {
+function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
   const [isClient, setIsClient] = useState(false);
   
   useEffect(() => {
@@ -44,9 +44,7 @@ function CartItem({ cart, onQuantityChange, pos, layout }) {
         </td>
         <td
           className="py-2 px-2 sm:py-4 sm:px-5 text-red-500 cursor-pointer text-center text-xs sm:text-sm md:text-base"
-          onClick={() => {
-            toast.success('Sản phẩm đã được xóa khỏi giỏ hàng');
-          }}
+          onClick={() => onDeleteItem(cart.id)}
         >
           {isClient && (
             <Tooltip title="Xóa" color="red">
@@ -75,9 +73,7 @@ function CartItem({ cart, onQuantityChange, pos, layout }) {
             controls={true}
           />
           <button
-            onClick={() => {
-              toast.success("Sản phẩm đã được xóa khỏi giỏ hàng");
-            }}
+            onClick={() => onDeleteItem(cart.id)}
             className="text-red-500 mt-2"
           >
             {isClient && (
