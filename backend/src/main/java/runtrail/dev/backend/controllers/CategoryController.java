@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import runtrail.dev.backend.dto.response.CategoryDTO;
 import runtrail.dev.backend.entities.CategoryEntity;
 import runtrail.dev.backend.services.CategoryService;
@@ -35,5 +34,4 @@ public class CategoryController {
       CategoryDTO categories = categoryService.getCategoryByIdWithParent(cateId);
       return new ResponseEntity<>(categories, HttpStatus.OK);
    }
-
 }
