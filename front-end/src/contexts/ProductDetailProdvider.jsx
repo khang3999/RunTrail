@@ -21,7 +21,7 @@ export function ProductDetailProvider({ children }) {
   useEffect(() => {
     fetchAttributes();
     handleHiddenQuantity();
-    console.log("data", data);
+    // console.log("data", data);
   }, [data]);
 
   useEffect(() => {
