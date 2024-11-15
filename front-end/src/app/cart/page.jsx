@@ -19,6 +19,9 @@ export default function CartPage() {
    const router = useRouter();
    const { alertMessage, setAlertMessage, alertType, setAlertType, } = useAppProvider();
    const { getTotalCart } = useAppProvider();
+   const [nameError, setNameError] = useState(false);
+   const [lastNameError, setLastNameError] = useState(false);
+   const [phoneError, setPhoneError] = useState(false);
 
    //Hàm định dạng giá
    const formatCurrencyVND = (amount) => {
@@ -161,7 +164,31 @@ export default function CartPage() {
       const phone = document.getElementById("userPhone").value;
       const phoneRegex = /^[0-9]{10}$/;
 
-      if (firstname && lastname && phone && phoneRegex.test(phone)) {
+      // Validation
+      let isValid = true;
+      if (!firstname) {
+         setNameError(true);
+         isValid = false;
+      } else {
+         setNameError(false);
+      }
+
+      if (!lastname) {
+         setLastNameError(true);
+         isValid = false;
+
+      } else {
+         setLastNameError(false);
+      }
+
+      if (!phone || !phoneRegex.test(phone)) {
+         setPhoneError(true);
+         isValid = false;
+      } else {
+         setPhoneError(false);
+      }
+
+      if (isValid) {
          localStorage.setItem("firstName", firstname);
          localStorage.setItem("lastName", lastname);
          localStorage.setItem("phone", phone);
@@ -296,22 +323,25 @@ export default function CartPage() {
          >
             <div className="flex flex-col space-y-4">
                <input
-                  id="firstName"
-                  type="text"
-                  placeholder="Nhập tên"
-                  className="p-2 border border-gray-300 rounded"
-               />
-               <input
                   id="lastName"
                   type="text"
                   placeholder="Nhập họ"
-                  className="p-2 border border-gray-300 rounded"
+                  className={`p-2 border rounded ${lastNameError ? 'border-red-500' : 'border-gray-300'}`}
                />
+
+               <input
+                  id="firstName"
+                  type="text"
+                  placeholder="Nhập tên"
+                  className={`p-2 border rounded ${nameError ? 'border-red-500' : 'border-gray-300'}`}
+               />
+
+
                <input
                   id="userPhone"
                   type="text"
                   placeholder="Nhập số điện thoại"
-                  className="p-2 border border-gray-300 rounded"
+                  className={`p-2 border rounded ${phoneError ? 'border-red-500' : 'border-gray-300'}`}
                   pattern="[0-9]{10}"
                />
             </div>
