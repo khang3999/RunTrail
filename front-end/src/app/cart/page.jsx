@@ -15,7 +15,10 @@ export default function CartPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [totalPayment, setTotalPayment] = useState('');
+  const [nameError, setNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
   const {getTotalCart} = useAppProvider();
+
   useEffect(() => {
     const cartCookie = Cookies.get("cart");
     if (cartCookie) {
@@ -87,19 +90,33 @@ export default function CartPage() {
     const phone = document.getElementById("userPhone").value;
     const phoneRegex = /^[0-9]{10}$/;
 
-    if (name && phone && phoneRegex.test(phone)) {
+    // Validation
+    let isValid = true;
+    if (!name) {
+      setNameError(true);
+      isValid = false;
+    } else {
+      setNameError(false);
+    }
+
+    if (!phone || !phoneRegex.test(phone)) {
+      setPhoneError(true);
+      isValid = false;
+    } else {
+      setPhoneError(false);
+    }
+
+    if (isValid) {
       localStorage.setItem("name", name);
       localStorage.setItem("phone", phone);
       setIsModalVisible(false);
       toast.success("Tài khoản đã được lưu, đơn hàng đang được xử lý");
       document.getElementById("userName").value = "";
       document.getElementById("userPhone").value = "";
+      setPhoneError(false)
+      setNameError(false)
     } else {
-      if (!phoneRegex.test(phone)) {
-        toast.error("Số điện thoại không hợp lệ");
-      } else {
-        toast.error("Vui lòng nhập đầy đủ thông tin");
-      }
+      toast.error("Vui lòng nhập đầy đủ thông tin hợp lệ");
     }
   };
 
@@ -239,13 +256,13 @@ export default function CartPage() {
             id="userName"
             type="text"
             placeholder="Nhập tên"
-            className="p-2 border border-gray-300 rounded"
+            className={`p-2 border rounded ${nameError ? 'border-red-500' : 'border-gray-300'}`}
           />
           <input
             id="userPhone"
             type="text"
             placeholder="Nhập số điện thoại"
-            className="p-2 border border-gray-300 rounded"
+            className={`p-2 border rounded ${phoneError ? 'border-red-500' : 'border-gray-300'}`}
             pattern="[0-9]{10}"
           />
         </div>
