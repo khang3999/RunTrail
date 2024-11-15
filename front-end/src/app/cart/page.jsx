@@ -59,21 +59,17 @@ export default function CartPage() {
   }, []);
 
   const handleQuantityChange = (value, index) => {
+    // Cập nhật số lượng trong carts
     const updatedCarts = carts.map((cart, i) =>
       i === index ? { ...cart, quantity: value } : cart
     );
+  
+    // Chỉ lấy id và quantity để lưu vào cookie
+    const cookieData = updatedCarts.map(({ id, quantity }) => ({ id, quantity }));
+    Cookies.set("cart", JSON.stringify(cookieData));
+  
     setCarts(updatedCarts);
-    // Update cookie with new quantity
-    Cookies.set(
-      "cart",
-      JSON.stringify(
-        updatedCarts.map((cart) => ({
-          skuId: cart.skuId,
-          quantity: cart.quantity,
-        }))
-      )
-    );
-  };
+  };  
 
   const handleOrderClick = () => {
     const name = localStorage.getItem("name");
