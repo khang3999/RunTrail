@@ -323,18 +323,20 @@ export default function CartPage() {
          >
             <div className="flex flex-col space-y-4">
                <input
+                  id="lastName"
+                  type="text"
+                  placeholder="Nhập họ"
+                  className={`p-2 border rounded ${lastNameError ? 'border-red-500' : 'border-gray-300'}`}
+               />
+
+               <input
                   id="firstName"
                   type="text"
                   placeholder="Nhập tên"
                   className={`p-2 border rounded ${nameError ? 'border-red-500' : 'border-gray-300'}`}
                />
 
-               <input
-                  id="lastName"
-                  type="text"
-                  placeholder="Nhập họ"
-                  className={`p-2 border rounded ${lastNameError ? 'border-red-500' : 'border-gray-300'}`}
-               />
+
                <input
                   id="userPhone"
                   type="text"
