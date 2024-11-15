@@ -1,8 +1,9 @@
+import Link from "next/link";
 import { CiShoppingCart } from "react-icons/ci";
 
 export default function CartIcon({ cartTotal = 0 }) {
   return (
-    <a href="#" className={"flex items-center"}>
+    <Link href="/cart" className={"flex items-center"}>
       <CiShoppingCart color="white" size={30} />
       <span
         className={
@@ -11,6 +12,6 @@ export default function CartIcon({ cartTotal = 0 }) {
       >
         {cartTotal > 99 ? "99+" : cartTotal}
       </span>
-    </a>
+    </Link>
   );
 }
