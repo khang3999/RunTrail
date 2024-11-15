@@ -151,7 +151,7 @@ export function ProductPrice({ price, lineThrough = false }) {
   );
 }
 
-export function InputQuantity({ quantity, setQuantity, hidden }) {
+export function InputQuantity({ quantity, setQuantity, hidden,error }) {
   const { hiddenQuantity } = useProductDetailProvider();
 
   const handleQuantity = (type) => {
@@ -170,7 +170,7 @@ export function InputQuantity({ quantity, setQuantity, hidden }) {
           {" "}
           Quantity{" "}
         </label>
-        <div class="flex items-center rounded border border-gray-200">
+        <div className={`flex items-center rounded overflow-hidden border ${error ? "border-red-500":"border-gray-200"}`}>
           <button
             disabled={!hiddenQuantity}
             onClick={() => handleQuantity("minus")}

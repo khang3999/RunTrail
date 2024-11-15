@@ -12,6 +12,7 @@ import runtrail.dev.backend.entities.SpuEntity;
 import runtrail.dev.backend.entities.SpuImagesEntity;
 import runtrail.dev.backend.exception.ErrorExceptionHandler;
 import runtrail.dev.backend.repositories.SpuImagesRepository;
+import runtrail.dev.backend.repositories.SpuRepoCustom;
 import runtrail.dev.backend.repositories.SpuRepository;
 import runtrail.dev.backend.repositories.specification.SpuSpecification;
 import runtrail.dev.backend.services.SkuService;
@@ -25,6 +26,9 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private SpuRepository spuRepository;
+
+    @Autowired
+    private SpuRepoCustom spuRepoCustom;
 
     @Autowired
     private SkuService skuService;
@@ -71,8 +75,17 @@ public class SpuServiceImpl implements SpuService {
        if (spu == null) {
            throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
        }
-
        return spu;
+    }
+
+    @Override
+    public SpuDTO findProductBySlugV2(String slug) {
+        SpuDTO product = spuRepoCustom.findProductBySlug(slug);
+
+        if (product == null) {
+            throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
+        }
+        return product;
     }
 
 
@@ -203,6 +216,11 @@ public class SpuServiceImpl implements SpuService {
             product.setImages(images);
         });
         return selectedProducts;
+    }
+
+    @Override
+    public List<String> getAllSlug() {
+        return spuRepoCustom.findAllSlug();
     }
 
 }
