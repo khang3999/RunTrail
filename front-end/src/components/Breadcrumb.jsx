@@ -76,8 +76,8 @@ function Breadcrumb({ categoryId }) {
       >
         Trang chủ
       </span>
-      {breadcrumbItems.map((item) => (
-        <span key={item.id} className="flex items-center">
+      {breadcrumbItems.map((item, index) => (
+        <span key={index} className="flex items-center">
           <span className="mx-2">{">"}</span>
           <span
             onClick={() => {
