@@ -15,7 +15,6 @@ public class SkuImagesServiceImpl implements SkuImagesService {
     @Autowired
     private SkuImagesRepository skuImagesRepository;
 
-   
     @Override
     public List<SkuImagesEntity> getAllSkuImages() {
         return skuImagesRepository.findAll();

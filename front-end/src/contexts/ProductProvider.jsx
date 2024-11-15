@@ -66,13 +66,13 @@ function ProductProvider({ children }) {
       setIsLoading(false);
       setTotalElements(totalElements);
     } catch (error) {
-      console.error("Error fetching products:", error);      
+      console.error("Error fetching products:", error);
       setIsLoading(false);
     }
   };
 
   const filterProductsByBrand = (selectedBrands) => {
-    setFirstFilter(true);    
+    setFirstFilter(true);
     fetchProducts();
   };
 

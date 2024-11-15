@@ -11,8 +11,8 @@ const SideBarProduct = ({ categoryId }) => {
     <div className="w-full h-auto">
       {/* Filter by price */}
       <div className="mt-4">
-      <FilterItem title={"Danh Mục"}>
-         <CategoryFilter  />
+        <FilterItem title={"Danh Mục"}>
+          <CategoryFilter />
         </FilterItem>
         <FilterItem title={"Thương Hiệu"}>
           <BrandsFilter categoryId={categoryId} />
@@ -26,7 +26,7 @@ const SideBarProduct = ({ categoryId }) => {
         </FilterItem>
         <FilterItem title={"Kích Thước"}>
           <SizesFilter categoryId={categoryId} />
-        </FilterItem>       
+        </FilterItem>
       </div>
     </div>
   );

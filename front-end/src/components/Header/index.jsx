@@ -11,7 +11,7 @@ import CartIcon from "../CartIcon";
 import { useAppProvider } from "@/contexts/AppProvider";
 
 export default function Header({ onCategoryClick }) {
-  const {totalCart} = useAppProvider();
+  const { totalCart } = useAppProvider();
   const languages = [
     {
       name: "Vietnam",
@@ -38,8 +38,6 @@ export default function Header({ onCategoryClick }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
-
-
 
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
@@ -165,7 +163,6 @@ export default function Header({ onCategoryClick }) {
                 placeholder="Tìm sản phẩm ..."
                 value={searchValue}
                 onChange={handleSearchChange}
-
               />
             </div>
           )}
