@@ -15,43 +15,57 @@ export default function CartPage() {
   useEffect(() => {
     const cartCookie = Cookies.get("cart");
     if (cartCookie) {
-      const parsedCart = JSON.parse(cartCookie);
-      const fetchCartData = async () => {
-        try {
-          const responses = await Promise.all(
-            parsedCart.map((item) =>
-              fetch(`http://localhost:8008/api/v1/sku/${item.skuId}`).then((res) => res.json())
-            )
-          );
-          const enrichedCarts = responses.map((data, index) => ({
-            ...data,
-            quantity: parsedCart[index].quantity,
-          }));
-          setCarts(enrichedCarts);
-        } catch (error) {
-          toast.error("Không thể tải dữ liệu giỏ hàng");
-        } finally {
-          setIsLoading(false);
+      try {
+        const parsedCart = JSON.parse(cartCookie);
+
+        // Kiểm tra tính hợp lệ của dữ liệu trong cookie
+        if (!Array.isArray(parsedCart)) {
+          throw new Error("Cookie không hợp lệ");
         }
-      };
-      fetchCartData();
+
+        const fetchCartData = async () => {
+          try {
+            const responses = await Promise.all(
+              parsedCart.map((item) =>
+                fetch(`http://localhost:8008/api/v1/sku/${item.skuId}`).then((res) => res.json())
+              )
+            );
+            const enrichedCarts = responses.map((data, index) => ({
+              ...data,
+              quantity: parsedCart[index]?.quantity || 0,
+            }));
+            setCarts(enrichedCarts);
+          } catch (error) {
+            console.error("Lỗi khi tải dữ liệu từ API:", error);
+            toast.error("Không thể tải dữ liệu giỏ hàng");
+          } finally {
+            setIsLoading(false);
+          }
+        };
+
+        fetchCartData();
+      } catch (error) {
+        console.error("Cookie không hợp lệ:", error);
+        setIsLoading(false);
+      }
     } else {
       setIsLoading(false);
     }
   }, []);
+
 
   const handleQuantityChange = (value, index) => {
     // Cập nhật số lượng trong carts
     const updatedCarts = carts.map((cart, i) =>
       i === index ? { ...cart, quantity: value } : cart
     );
-  
+
     // Chỉ lấy id và quantity để lưu vào cookie
     const cookieData = updatedCarts.map(({ id, quantity }) => ({ id, quantity }));
     Cookies.set("cart", JSON.stringify(cookieData));
-  
+
     setCarts(updatedCarts);
-  };  
+  };
 
   const handleOrderClick = () => {
     const name = localStorage.getItem("name");
@@ -103,34 +117,38 @@ export default function CartPage() {
 
       {/* Desktop Table Layout */}
       <div className="hidden md:block overflow-x-auto">
-        <table className="min-w-full text-left border-collapse border border-gray-300 shadow-sm rounded-lg">
-          <thead className="bg-gray-200 text-gray-700 sm:uppercase text-xs sm:text-sm md:text-base">
-            <tr>
-              <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Hình ảnh</th>
-              <th className="py-2 sm:py-3 px-2 sm:px-5 text-center sm:text-start">Tên sản phẩm</th>
-              <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Đơn giá</th>
-              <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Số lượng</th>
-              <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Thành tiền</th>
-              <th className="py-2 sm:py-3 px-2 sm:px-5"></th>
-            </tr>
-          </thead>
-          <tbody className="bg-white text-sm sm:text-base">
-            {carts.map((cart, index) => (
-              <CartItem
-                key={index}
-                cart={cart}
-                onQuantityChange={handleQuantityChange}
-                pos={index}
-                layout="desktop"
-              />
-            ))}
-          </tbody>
-        </table>
+        {isCartEmpty ? (
+          <div className="text-center text-gray-500">Giỏ hàng của bạn đang trống.</div>
+        ) : (
+          <table className="min-w-full text-left border-collapse border border-gray-300 shadow-sm rounded-lg">
+            <thead className="bg-gray-200 text-gray-700 sm:uppercase text-xs sm:text-sm md:text-base">
+              <tr>
+                <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Hình ảnh</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-5 text-center sm:text-start">Tên sản phẩm</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Đơn giá</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Số lượng</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-5 text-center">Thành tiền</th>
+                <th className="py-2 sm:py-3 px-2 sm:px-5"></th>
+              </tr>
+            </thead>
+            <tbody className="bg-white text-sm sm:text-base">
+              {carts && carts.length > 0 && carts.map((cart, index) => (
+                <CartItem
+                  key={index}
+                  cart={cart}
+                  onQuantityChange={handleQuantityChange}
+                  pos={index}
+                  layout="desktop"
+                />
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {/* Mobile List Layout */}
       <div className="block md:hidden space-y-4">
-        {carts.map((cart, index) => (
+        {carts && carts.map((cart, index) => (
           <CartItem
             key={index}
             cart={cart}
