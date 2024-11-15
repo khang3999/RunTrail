@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartItem from "@/components/CartItem";
 import { toast } from "react-toastify";
 import { Button, Modal } from "antd";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { useAppProvider } from "@/contexts/AppProvider";
 
 export default function CartPage() {
    const [carts, setCarts] = useState([
@@ -25,6 +26,9 @@ export default function CartPage() {
       },
    ]);
 
+   // Provider
+   const { alertMessage, setAlertMessage, alertType, setAlertType } = useAppProvider();
+
    const [isModalVisible, setIsModalVisible] = useState(false);
 
    const handleQuantityChange = (value, index) => {
@@ -35,34 +39,35 @@ export default function CartPage() {
    };
 
    const handleOrderClick = () => {
-      //  const name = localStorage.getItem("name");
-      //  const phone = localStorage.getItem("phone");
-      //  if (!name || !phone) {
-      //    setIsModalVisible(true);
-      //    toast.error("Nhập thông tin khách hàng");
-      //  } else {
-      //    toast.success("Đơn hàng đang được xử lý");
-      //  }
-
-
-
-
-      window.location.href = "/order";
+      const firstname = localStorage.getItem("firstName");
+      const lastname = localStorage.getItem("lastName");
+      const phone = localStorage.getItem("phone");
+      if (!firstname || !phone || !lastname) {
+         setIsModalVisible(true);
+         toast.error("Nhập thông tin khách hàng");
+      } else {
+         toast.success("Đơn hàng đang được xử lý");
+         window.location.href = "/order";
+      }
    };
 
    const handleModalOk = () => {
-      const name = document.getElementById("userName").value;
+      const firstname = document.getElementById("userFirstName").value;
+      const lastname = document.getElementById("userLastName").value;
       const phone = document.getElementById("userPhone").value;
 
       const phoneRegex = /^[0-9]{10}$/;
 
-      if (name && phone && phoneRegex.test(phone)) {
-         localStorage.setItem("name", name);
+      if (firstname && lastname && phone && phoneRegex.test(phone)) {
+         localStorage.setItem("firstName", firstname);
+         localStorage.setItem("lastName", lastname);
          localStorage.setItem("phone", phone);
          setIsModalVisible(false);
          toast.success("Tài khoản đã được lưu, đơn hàng đang được xử lý");
-         document.getElementById("userName").value = "";
+         document.getElementById("userFirstName").value = "";
+         document.getElementById("userLastName").value = "";
          document.getElementById("userPhone").value = "";
+         window.location.href = "/order";
       } else {
          if (!phoneRegex.test(phone)) {
             toast.error("Số điện thoại không hợp lệ");
@@ -75,6 +80,21 @@ export default function CartPage() {
    const handleModalCancel = () => {
       setIsModalVisible(false);
    };
+
+   useEffect(() => {
+      console.log("alertMessage", alertMessage);
+      if (alertMessage !== "") {
+         if (alertType === "success") {
+            toast.success(alertMessage);
+         }
+         if (alertType === "error") {
+            toast.error(alertMessage);
+         }
+
+         setAlertMessage("");
+         setAlertType("none");
+      }
+   }, [alertMessage]);
 
    const isCartEmpty = carts.length === 0;
 
@@ -166,7 +186,13 @@ export default function CartPage() {
          >
             <div className="flex flex-col space-y-4">
                <input
-                  id="userName"
+                  id="userFirstName"
+                  type="text"
+                  placeholder="Nhập Họ"
+                  className="p-2 border border-gray-300 rounded"
+               />
+               <input
+                  id="userLastName"
                   type="text"
                   placeholder="Nhập tên"
                   className="p-2 border border-gray-300 rounded"

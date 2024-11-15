@@ -11,8 +11,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation, faX } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-
+import { useAppProvider } from "@/contexts/AppProvider";
+import { useRouter } from 'next/navigation';
 function OrderPage() {
+   const router = useRouter();
    // Submit order
    const [canSubmit, setCanSubmit] = useState(false);
 
@@ -57,6 +59,9 @@ function OrderPage() {
    // Total
    const [total, setTotal] = useState(0);
    const [shippingFee, setShippingFee] = useState(0);
+
+   // Provider
+   const { setAlertMessage, setAlertType } = useAppProvider();
 
    // Lấy thông tin của người dùng từ localStorage nếu có
    useEffect(() => {
@@ -257,15 +262,14 @@ function OrderPage() {
          reset();
 
          // Back to cart page
-         toast.success(
-            "Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn",
-         );
+         setAlertType("success");
+         setAlertMessage("Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn");
 
-         window.location.href = "/cart";
+         // Chuyển trang sau khi đặt hàng thành công về cart không load lại trang
+         router.push('/cart');
       } else {
-         toast.error(
-            "Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ",
-         );
+         setAlertType("error");
+         setAlertMessage("Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ");
       }
    };
 
