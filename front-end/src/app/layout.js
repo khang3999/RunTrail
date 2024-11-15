@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import AppProvider from "@/contexts/AppProvider";
 import Footer from "@/components/Footer";
 
 config.autoAddCss = false;
@@ -30,10 +31,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`antialiased`}>
         <Providers>
-          <Header />
-          {children}
-          <ToastContainer />
-          <Footer/>
+          <AppProvider>
+            <Header />
+            {children}
+            <ToastContainer />
+             <Footer/>
+          </AppProvider>
         </Providers>
       </body>
     </html>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useContext, createContext, useEffect } from "react";
+import AxiosInstance from '@/utils/axiosInstance';
 
 const ProductDetailContext = createContext();
 export function ProductDetailProvider({ children }) {
@@ -10,6 +11,7 @@ export function ProductDetailProvider({ children }) {
   const [totalStock, setTotalStock] = useState(null);
   const [skuPrice, setSkuPrice] = useState("");
   const [hiddenQuantity, setHiddenQuantity] = useState(false);
+  const [skuId, setSkuId] = useState("");
 
   const [data, setData] = useState({
     spuId: "",
@@ -19,6 +21,7 @@ export function ProductDetailProvider({ children }) {
   useEffect(() => {
     fetchAttributes();
     handleHiddenQuantity();
+    console.log("data", data);
   }, [data]);
 
   useEffect(() => {
@@ -75,24 +78,21 @@ export function ProductDetailProvider({ children }) {
   }, [listAttrOutOfStockTemp]);
 
   const fetchAttributes = async () => {
-    const response = await fetch(
-      "http://localhost:8008/api/v1/spu/stock-price",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      },
-    );
-    const result = await response.json();
-    if (result.statusCode === 200) {
-      const { list, skuPrice, totalStock } = result.metadata;
-      console.log("price", skuPrice);
-      const listTemp = JSON.parse(list);
-      setListAttrOutOfStockTemp(listTemp);
-      setTotalStock(totalStock);
-      setSkuPrice(skuPrice);
+    const { spuId } = data;
+    if (spuId) {
+      AxiosInstance.post(`spu/stock-price`, { ...data }).then((response) => {
+        const data = response.data;
+        if (data.statusCode === 200) {
+          const { list, skuPrice, totalStock,skuId } = data.metadata;
+          const listTemp = JSON.parse(list);
+          setListAttrOutOfStockTemp(listTemp);
+          setTotalStock(totalStock);
+          setSkuPrice(skuPrice);
+          setSkuId(skuId);
+        }
+      }).catch((error) => {
+        console.error("Error fetching attributes", error);
+      });
     }
   };
 
@@ -123,6 +123,7 @@ export function ProductDetailProvider({ children }) {
         totalStock,
         skuPrice,
         hiddenQuantity,
+        skuId,
       }}
     >
       {children}

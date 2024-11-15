@@ -1,4 +1,5 @@
 "use client";
+import Head from "next/head";
 import React from "react";
 
 function PageTitle({ children, title }) {
@@ -8,6 +9,7 @@ function PageTitle({ children, title }) {
 				<head>
 					<title>{title}</title>
 				</head>
+
 			</html> */}
       {children}
     </>

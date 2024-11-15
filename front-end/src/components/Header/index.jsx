@@ -7,8 +7,11 @@ import { FaChevronDown, FaUserCircle } from "react-icons/fa";
 import { MdOutlineMenu } from "react-icons/md";
 import Link from "next/link";
 import Search from "antd/es/transfer/search";
+import CartIcon from "../CartIcon";
+import { useAppProvider } from "@/contexts/AppProvider";
 
 export default function Header({ onCategoryClick }) {
+  const {totalCart} = useAppProvider();
   const languages = [
     {
       name: "Vietnam",
@@ -35,6 +38,8 @@ export default function Header({ onCategoryClick }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
+
+
 
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
@@ -98,10 +103,10 @@ export default function Header({ onCategoryClick }) {
           className={styles.searchIcon}
         />
         <FaUserCircle className={styles.profile} color="white" size={24} />
-        <Link href="/cart/" style={{ display: "flex", alignItems: "center" }}>
-          <CiShoppingCart color="white" size={24} />
-          <span className={styles.cartBadge}>0</span>
-        </Link>
+
+        {/* cart icon in header */}
+        <CartIcon cartTotal={totalCart} />
+        {/* end cart icon in header */}
         <div
           style={{
             position: "relative",

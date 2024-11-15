@@ -146,7 +146,7 @@ public class SpuController {
     public Response<?> findSpuBySlug(
             @RequestParam(defaultValue = "") String slug
     ) {
-        return new Response<>(spuService.findProductBySlug(slug), HttpStatus.OK.value(), "Fetch detail product ok");
+        return new Response<>(spuService.findProductBySlugV2(slug), HttpStatus.OK.value(), "Fetch detail product ok");
     }
 
     // test
@@ -166,5 +166,11 @@ public class SpuController {
     @GetMapping("/search")
     public Response<List<SpuDTO>> search(@RequestParam String key) {
         return new Response<>(spuService.getProductsByKey(key), HttpStatus.OK.value(), " ok");
+    }
+
+    // get all slug
+    @GetMapping("/all-slug")
+    public Response<List<String>> getAllSlug() {
+        return new Response<>(spuService.getAllSlug(), HttpStatus.OK.value(), " ok");
     }
 }
