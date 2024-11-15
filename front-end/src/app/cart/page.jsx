@@ -8,13 +8,14 @@ import Cookies from "js-cookie";
 import CartItemSkeleton from "@/components/CartItemSkeleton";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useAppProvider } from "@/contexts/AppProvider";
 
 export default function CartPage() {
   const [carts, setCarts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [totalPayment, setTotalPayment] = useState('');
-
+  const {getTotalCart} = useAppProvider();
   useEffect(() => {
     const cartCookie = Cookies.get("cart");
     if (cartCookie) {
@@ -67,6 +68,7 @@ export default function CartPage() {
     Cookies.set("cart", JSON.stringify(cookieData));
 
     setCarts(updatedCarts);
+    getTotalCart()
   };
 
   const handleOrderClick = () => {
@@ -112,6 +114,7 @@ export default function CartPage() {
     Cookies.set("cart", JSON.stringify(cookieData));
 
     setCarts(updatedCarts);
+    getTotalCart()
     toast.success("Sản phẩm đã được xóa khỏi giỏ hàng");
   };
 
