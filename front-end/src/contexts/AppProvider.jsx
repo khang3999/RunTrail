@@ -53,6 +53,7 @@ function AppProvider({ children }) {
         setIsMobile,
         totalCart,
         setTotalCart,
+        getTotalCart
       }}
     >
       {children}
