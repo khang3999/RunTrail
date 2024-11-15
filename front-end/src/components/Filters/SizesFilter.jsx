@@ -1,12 +1,12 @@
 "use-client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, use } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
 import debounce from "lodash.debounce";
 
 export default function SizesFilter({ categoryId }) {
   const [sizes, setSizes] = useState([]);
   const [tempSelectedSizes, setTempSelectedSizes] = useState([]);
-  const { setSelectedSizes, filterProductsBySize,selectedBrands,selectedSizes, minPrice,maxPrice } = useProductProvider();
+  const { setSelectedSizes, filterProductsBySize,selectedBrands,selectedSizes, minPrice,maxPrice, } = useProductProvider();
   
   
   useEffect(() => {
@@ -52,6 +52,11 @@ export default function SizesFilter({ categoryId }) {
     filterProductsBySize(selectedSizes);
   }, [selectedSizes])
   
+  useEffect(() => {
+    setSelectedSizes([]);
+    setTempSelectedSizes([]);
+  }, [categoryId]);
+
 
 
   const handleSizesChange = (sizeName) => {
