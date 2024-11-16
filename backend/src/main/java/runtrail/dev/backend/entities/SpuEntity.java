@@ -1,7 +1,10 @@
 package runtrail.dev.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -52,7 +55,7 @@ public class SpuEntity implements Serializable {
     @Column(name = "spu_status")
     private int spuStatus;
 
-    @JsonManagedReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "spu",fetch = FetchType.EAGER)
     private Set<SkuEntity> skuList;
 

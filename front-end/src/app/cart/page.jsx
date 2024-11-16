@@ -137,13 +137,14 @@ export default function CartPage() {
    }, []);
 
    useEffect(() => {
-      let totalPayment = 0
-      carts.map(cart => {
-         totalPayment += cart.quantity * cart.skuPrice
-      })
-      console.log(totalPayment, 'price');
-      setTotalPayment(totalPayment)
-   }, [carts])
+      const totalPayment = carts.reduce((total, cart) => {
+         const discountedPrice = cart.skuPrice * (1 - (cart.spu.discount / 100));
+         return total + (cart.quantity * discountedPrice);
+      }, 0);
+      setTotalPayment(totalPayment);
+   }, [carts]);
+   
+   
 
    const handleOrderClick = () => {
       const firstname = localStorage.getItem("firstName");
