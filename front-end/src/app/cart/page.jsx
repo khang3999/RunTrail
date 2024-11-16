@@ -199,11 +199,7 @@ export default function CartPage() {
          document.getElementById("userPhone").value = "";
          router.push("/order");
       } else {
-         if (!phoneRegex.test(phone)) {
-            toast.error("Số điện thoại không hợp lệ");
-         } else {
-            toast.error("Vui lòng nhập đầy đủ thông tin");
-         }
+         toast.error("Vui lòng nhập đầy đủ thông tin");
       }
    };
 
