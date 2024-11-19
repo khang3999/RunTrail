@@ -509,6 +509,7 @@ function OrderPage() {
                   onChange={(text) => {
                      setShippingAddress(text);
                   }}
+
                />
             </div>
 
