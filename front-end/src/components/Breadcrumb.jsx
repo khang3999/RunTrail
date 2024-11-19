@@ -2,14 +2,14 @@ import { useProductProvider } from "@/contexts/ProductProvider";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-function Breadcrumb({ categoryId }) {
+function Breadcrumb({ categoryId=-1 }) {
   const { setCategoryId } = useProductProvider();
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
   const router = useRouter();
 
   const fetchCategory = async (id) => {
     try {
-      const res = await fetch(`http://localhost:8008/api/categories/${id}`, {
+      const res = await fetch(`http://localhost:8008/api/categories${(id && `/${id}`)}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -76,8 +76,8 @@ function Breadcrumb({ categoryId }) {
       >
         Trang chủ
       </span>
-      {breadcrumbItems.map((item) => (
-        <span key={item.id} className="flex items-center">
+      {breadcrumbItems.map((item, index) => (
+        <span key={index} className="flex items-center">
           <span className="mx-2">{">"}</span>
           <span
             onClick={() => {

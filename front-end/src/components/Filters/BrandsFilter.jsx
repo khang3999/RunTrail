@@ -1,31 +1,45 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
+import AxiosInstance from "@/utils/axiosInstance";
 import debounce from "lodash.debounce";
 
 const BrandsFilter = ({ categoryId }) => {
   const [brands, setBrands] = useState([]);
   const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
-  const { selectedBrands, setSelectedBrands, filterProductsByBrand } = useProductProvider();
+  const { selectedBrands, setSelectedBrands, filterProductsByBrand } =
+    useProductProvider();
 
   useEffect(() => {
+
+    // use Axios Instance
     const fetchBrandsData = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:8008/api/brands/by-category?categoryId=${categoryId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const data = await res.json();
-        setBrands(data);
-      } catch (error) {
-        console.error("Error fetching brands:", error);
+      // try {
+      //   const res = await fetch(
+      //     `http://localhost:8008/api/brands/by-category?categoryId=${categoryId}`,
+      //     {
+      //       method: "GET",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //     },
+      //   );
+      //   const data = await res.json();
+      //   setBrands(data);
+      // } catch (error) {
+      //   console.error("Error fetching brands:", error);
+      // }
+
+      AxiosInstance.get(`/brands/by-category?categoryId=${categoryId}`).then((res)=>{
+        const data = res.data;
+        if (data.statusCode === 200) {
+          setBrands(data.metadata);
+        }
+        else{
+          console.error("Error fetching brands:", error);
+        }
+      })
       }
-    };
     if (categoryId) {
       fetchBrandsData();
     }
@@ -35,12 +49,12 @@ const BrandsFilter = ({ categoryId }) => {
     debounce((updatedBrands) => {
       setSelectedBrands(updatedBrands);
     }, 2000),
-    []
+    [],
   );
-  
+
   useEffect(() => {
     filterProductsByBrand(selectedBrands);
-  }, [setSelectedBrands])
+  }, [setSelectedBrands]);
 
   const handleBrandChange = (brandId) => {
     const updatedSelectedBrands = tempSelectedBrands.includes(brandId)

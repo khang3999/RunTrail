@@ -54,7 +54,7 @@ export default function QuickFilter() {
 
   return (
     <div
-      className="quiz"
+      className="quiz mb-3"
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -65,8 +65,9 @@ export default function QuickFilter() {
       <select
         style={{ border: "1px solid black", borderRadius: "4px" }}
         onChange={(e) => handleContentChange(e.target.value)}
+        defaultValue={""}
       >
-        <option value="" disabled selected hidden>
+        <option value="" disabled hidden>
           Chọn sắp xếp
         </option>
         <option value="asc">Giá tăng dần</option>

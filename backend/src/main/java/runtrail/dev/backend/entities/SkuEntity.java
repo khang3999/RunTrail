@@ -48,7 +48,4 @@ public class SkuEntity implements Serializable {
     @JsonManagedReference
     @OneToMany(mappedBy = "sku",fetch = FetchType.EAGER)
     private List<SkuImagesEntity> images;
-
-
-    
 }

@@ -8,7 +8,7 @@ function ProductItem(props) {
   const product = props.product;
   const price = props.price;
   const brand = props.brand;
-  
+
   // Xử lí tiền theo định dạng
   const numeral = require("numeral");
   //Làm tròn lên
@@ -29,7 +29,7 @@ function ProductItem(props) {
       <div className="group product-item rounded border-2">
         {/* Image */}
         <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden bg-gray-200">
-          <Link href={`/product/${product.slug}`} className="title">
+          <Link href={`/product/${product.slug}`} shallow className="title">
             <div className="image-wrap relative w-full h-[220px] bg-white flex justify-center items-center">
               {product && product.images && product.images.length > 0 ? (
                 <>

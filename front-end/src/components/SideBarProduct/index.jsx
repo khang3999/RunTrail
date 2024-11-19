@@ -8,11 +8,11 @@ import CategoryFilterV2 from "../Filters/CategoryFilter";
 
 const SideBarProduct = ({ categoryId }) => {
   return (
-    <div className="w-full h-auto">
+    <div className="w-full">
       {/* Filter by price */}
-      <div className="mt-4">
-      <FilterItem title={"Danh Mục"}>
-         <CategoryFilter  />
+      <div>
+        <FilterItem title={"Danh Mục"}>
+          <CategoryFilter />
         </FilterItem>
         <FilterItem title={"Thương Hiệu"}>
           <BrandsFilter categoryId={categoryId} />
@@ -26,7 +26,7 @@ const SideBarProduct = ({ categoryId }) => {
         </FilterItem>
         <FilterItem title={"Kích Thước"}>
           <SizesFilter categoryId={categoryId} />
-        </FilterItem>       
+        </FilterItem>
       </div>
     </div>
   );

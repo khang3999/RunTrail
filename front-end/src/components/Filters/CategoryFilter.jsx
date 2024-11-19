@@ -3,9 +3,9 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
 import debounce from "lodash.debounce";
 import Skeleton from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css'; 
+import "react-loading-skeleton/dist/skeleton.css";
 
-import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 
 const buildCategoryTree = (categories) => {
   const map = {};
@@ -64,10 +64,14 @@ const CategoryFilter = () => {
       return null;
     };
 
-    const categoryPath = findCategoryPath(buildCategoryTree(categories), categoryId);
+    const categoryPath = findCategoryPath(
+      buildCategoryTree(categories),
+      categoryId,
+    );
 
     if (categoryPath) {
-      const [parent, subcategory] = categoryPath.length === 2 ? categoryPath : [categoryPath[0], null];
+      const [parent, subcategory] =
+        categoryPath.length === 2 ? categoryPath : [categoryPath[0], null];
 
       setOpenParentCategory({ [parent]: true });
       setActiveSubcategory(subcategory ? { [parent]: subcategory } : {});
@@ -115,8 +119,7 @@ const CategoryFilter = () => {
   };
 
   const categoryTree = buildCategoryTree(categories);
-  
-  
+
   const renderCategories = (categories, parentId = null) => {
     return categories.map((category) => {
       const isSelectedSubcategory =
@@ -126,8 +129,8 @@ const CategoryFilter = () => {
         <div key={category.id} className="mb-2">
           <div
             className={`flex justify-between items-center cursor-pointer py-2 hover:text-purple-400 ${
-              openParentCategory[category.id] ? 'text-purple-600' : ''
-            } ${isSelectedSubcategory ? 'text-purple-600' : ''}`}
+              openParentCategory[category.id] ? "text-purple-600" : ""
+            } ${isSelectedSubcategory ? "text-purple-600" : ""}`}
             onClick={() => toggleCategory(category.id, parentId)}
           >
             {category.name}
@@ -153,14 +156,14 @@ const CategoryFilter = () => {
     <div className="w-full max-w-lg mx-auto text-black">
       <div className="p-4 bg-white rounded-lg shadow-md">
         <div className="max-h-50 overflow-y-auto">
-          {isLoading ? (            
-            // Show skeletons while loading
-            Array.from({ length: categoryTree.length || 7 }).map((_, index) => (
-              <Skeleton key={index} height={30} className="mb-2 my-4" />
-            ))
-          ) : (
-            renderCategories(categoryTree)
-          )}
+          {isLoading
+            ? // Show skeletons while loading
+              Array.from({ length: categoryTree.length || 7 }).map(
+                (_, index) => (
+                  <Skeleton key={index} height={30} className="mb-2 my-4" />
+                ),
+              )
+            : renderCategories(categoryTree)}
         </div>
       </div>
     </div>

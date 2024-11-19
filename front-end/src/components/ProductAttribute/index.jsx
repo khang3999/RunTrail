@@ -151,7 +151,7 @@ export function ProductPrice({ price, lineThrough = false }) {
   );
 }
 
-export function InputQuantity({ quantity, setQuantity, hidden,error }) {
+export function InputQuantity({ quantity, setQuantity, hidden, error }) {
   const { hiddenQuantity } = useProductDetailProvider();
 
   const handleQuantity = (type) => {
@@ -166,16 +166,18 @@ export function InputQuantity({ quantity, setQuantity, hidden,error }) {
   return (
     <ProductAttribute title="Số lượng">
       <div>
-        <label for="Quantity" class="sr-only">
+        <label htmlFor="Quantity" className="sr-only">
           {" "}
           Quantity{" "}
         </label>
-        <div className={`flex items-center rounded overflow-hidden border ${error ? "border-red-500":"border-gray-200"}`}>
+        <div
+          className={`flex items-center rounded overflow-hidden border ${error ? "border-red-500" : "border-gray-200"}`}
+        >
           <button
             disabled={!hiddenQuantity}
             onClick={() => handleQuantity("minus")}
             type="button"
-            class={`size-10 leading-10 text-gray-600 transition hover:opacity-75 ${!hiddenQuantity && "bg-gray-50 text-gray-200"}`}
+            className={`size-10 leading-10 text-gray-600 transition hover:opacity-75 ${!hiddenQuantity && "bg-gray-50 text-gray-200"}`}
           >
             &minus;
           </button>
@@ -192,13 +194,13 @@ export function InputQuantity({ quantity, setQuantity, hidden,error }) {
             disabled={!hiddenQuantity}
             onChange={(e) => setQuantity(e.target.value)}
             value={quantity}
-            class={`h-10 w-16 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none ${!hiddenQuantity && "bg-gray-50 text-gray-300 outline-none"}`}
+            className={`h-10 w-16 border-transparent text-center [-moz-appearance:_textfield] sm:text-sm [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none ${!hiddenQuantity && "bg-gray-50 text-gray-300 outline-none"}`}
           />
           <button
             disabled={!hiddenQuantity}
             onClick={() => handleQuantity("plus")}
             type="button"
-            class={`size-10 leading-10 text-gray-600 transition hover:opacity-75 ${!hiddenQuantity && "bg-gray-50 text-gray-200"}`}
+            className={`size-10 leading-10 text-gray-600 transition hover:opacity-75 ${!hiddenQuantity && "bg-gray-50 text-gray-200"}`}
           >
             &#43;
           </button>
@@ -208,7 +210,7 @@ export function InputQuantity({ quantity, setQuantity, hidden,error }) {
   );
 }
 
-export function ProductAttribute({ title, children, props }) {
+export function ProductAttribute({ title="", children, props }) {
   return (
     <div className={"flex mb-4"}>
       <span className="text-gray-400 text-[14px]">{title}</span>

@@ -1,29 +1,46 @@
 "use-client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, use } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
+import AxiosInstance from "@/utils/axiosInstance";
 import debounce from "lodash.debounce";
 
 export default function SizesFilter({ categoryId }) {
   const [sizes, setSizes] = useState([]);
   const [tempSelectedSizes, setTempSelectedSizes] = useState([]);
-  const { setSelectedSizes, filterProductsBySize,selectedBrands,selectedSizes, minPrice,maxPrice } = useProductProvider();
+  const { setSelectedSizes, filterProductsBySize,selectedBrands,selectedSizes, minPrice,maxPrice, } = useProductProvider();
   
   
   useEffect(() => {
     
 
     const fetchSizesData = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:8008/api/v1/spu/sizes-by-categoryId-price-brandIds?categoryId=${categoryId}&brandIds=${selectedBrands}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        const data = await res.json();
+
+      // use Axios Instance
+      // try {
+      //   const res = await fetch(
+      //     `http://localhost:8008/api/v1/spu/sizes-by-categoryId-price-brandIds?categoryId=${categoryId}&brandIds=${selectedBrands}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
+      //     {
+      //       method: "GET",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //     },
+      //   );
+      //   const data = await res.json();
+      //   if (data.statusCode === 200 && data.metadata) {
+      //     // Parse sizes and update state
+      //     const parsedSizes = data.metadata.map((size) => JSON.parse(size)[0]);
+      //     setSizes(parsedSizes);
+      //     console.log("Sizes:", parsedSizes);
+      //   } else {
+      //     console.error("Failed to fetch sizes:", data.message);
+      //   }  
+      // } catch (error) {
+      //   console.error("Error fetching sizes:", error);
+      // }
+
+      AxiosInstance.get(`/spu/sizes-by-categoryId-price-brandIds?categoryId=${categoryId}&brandIds=${selectedBrands}&minPrice=${minPrice}&maxPrice=${maxPrice}`).then((res)=>{
+        const data = res.data;
         if (data.statusCode === 200 && data.metadata) {
           // Parse sizes and update state
           const parsedSizes = data.metadata.map((size) => JSON.parse(size)[0]);
@@ -31,10 +48,8 @@ export default function SizesFilter({ categoryId }) {
           console.log("Sizes:", parsedSizes);
         } else {
           console.error("Failed to fetch sizes:", data.message);
-        }  
-      } catch (error) {
-        console.error("Error fetching sizes:", error);
-      }
+        }
+      }).catch((error)=>{console.error("Error fetching sizes:", error);});
     };
     if (categoryId) {
       fetchSizesData();
@@ -52,6 +67,11 @@ export default function SizesFilter({ categoryId }) {
     filterProductsBySize(selectedSizes);
   }, [selectedSizes])
   
+  useEffect(() => {
+    setSelectedSizes([]);
+    setTempSelectedSizes([]);
+  }, [categoryId]);
+
 
 
   const handleSizesChange = (sizeName) => {

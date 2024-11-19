@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import runtrail.dev.backend.dto.response.Response;
 import runtrail.dev.backend.entities.BrandEntity;
 import runtrail.dev.backend.services.BrandService;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/brands")
+@RequestMapping("/api/v1/brands")
 public class BrandController {
 
     @Autowired
@@ -33,9 +34,8 @@ public class BrandController {
     }
 
     @GetMapping("/by-category")
-    public ResponseEntity<List<BrandEntity>> getBrandsByCategory(@RequestParam Long categoryId) {
+    public Response<?> getBrandsByCategory(@RequestParam Long categoryId) {
         List<BrandEntity> brandEntities = brandService.getBrandsByCategoryId(categoryId);
-        return new ResponseEntity<>(brandEntities, HttpStatus.OK);
+        return new Response<>(brandEntities, HttpStatus.OK.value(), "Get brands by category successfully");
     }
-
 }

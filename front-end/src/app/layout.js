@@ -11,6 +11,8 @@ import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import AppProvider from "@/contexts/AppProvider";
+import Footer from "@/components/Footer";
+
 config.autoAddCss = false;
 
 export const metadatasite = {
@@ -33,6 +35,7 @@ export default function RootLayout({ children }) {
             <Header />
             {children}
             <ToastContainer />
+            <Footer />
           </AppProvider>
         </Providers>
       </body>

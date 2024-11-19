@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useContext, createContext, useEffect } from "react";
-import AxiosInstance from '@/utils/axiosInstance';
+import AxiosInstance from "@/utils/axiosInstance";
 
 const ProductDetailContext = createContext();
 export function ProductDetailProvider({ children }) {
@@ -21,7 +21,7 @@ export function ProductDetailProvider({ children }) {
   useEffect(() => {
     fetchAttributes();
     handleHiddenQuantity();
-    console.log("data", data);
+    // console.log("data", data);
   }, [data]);
 
   useEffect(() => {
@@ -80,19 +80,21 @@ export function ProductDetailProvider({ children }) {
   const fetchAttributes = async () => {
     const { spuId } = data;
     if (spuId) {
-      AxiosInstance.post(`spu/stock-price`, { ...data }).then((response) => {
-        const data = response.data;
-        if (data.statusCode === 200) {
-          const { list, skuPrice, totalStock,skuId } = data.metadata;
-          const listTemp = JSON.parse(list);
-          setListAttrOutOfStockTemp(listTemp);
-          setTotalStock(totalStock);
-          setSkuPrice(skuPrice);
-          setSkuId(skuId);
-        }
-      }).catch((error) => {
-        console.error("Error fetching attributes", error);
-      });
+      AxiosInstance.post(`spu/stock-price`, { ...data })
+        .then((response) => {
+          const data = response.data;
+          if (data.statusCode === 200) {
+            const { list, skuPrice, totalStock, skuId } = data.metadata;
+            const listTemp = JSON.parse(list);
+            setListAttrOutOfStockTemp(listTemp);
+            setTotalStock(totalStock);
+            setSkuPrice(skuPrice);
+            setSkuId(skuId);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching attributes", error);
+        });
     }
   };
 
@@ -100,8 +102,6 @@ export function ProductDetailProvider({ children }) {
     // get all key of attributes
     const totalKeyAttributes = Object.keys(data.attributes).length;
     const totalKeySpuAttributes = Object.keys(spuAttributes).length;
-    console.log("totalKeyAttributes", Object.keys(data.attributes));
-    console.log("totalKeySpuAttributes", Object.keys(spuAttributes));
     if (totalKeyAttributes === totalKeySpuAttributes) {
       setHiddenQuantity(true);
     } else {
