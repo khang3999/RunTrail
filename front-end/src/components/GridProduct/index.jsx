@@ -8,51 +8,48 @@ import ProductItemSkeleton from "../ProducItemSkeleton";
 import ProductItem from "../ProductItem";
 
 const ProductGrid = () => {
-  const {
-    products,
-    isLoading,
-    currentPage,
-    setCurrentPage,
-    productsPerPage,
-    totalPages,
-    currentProducts,
-  } = useProductProvider();
+   const {
+      products,
+      isLoading,
+      currentPage,
+      setCurrentPage,
+      productsPerPage,
+      totalPages,
+      currentProducts,
+   } = useProductProvider();
 
-  if (isLoading) {
-    return (
+   if (isLoading) {
+      return (
+         <div>
+            <div className={styles.grid}>
+               {Array(20)
+                  .fill(0)
+                  .map((_, index) => (
+                     <ProductItemSkeleton key={index} />
+                  ))}
+            </div>
+         </div>
+      );
+   }
+
+   if (products.length === 0 && !isLoading) {
+      return (
+         <h1 style={{ color: "red", fontSize: "20px" }}>
+            Không tìm thấy sản phẩm
+         </h1>
+      );
+   }
+
+   return (
       <div>
-        <div className={styles.grid}>
-          {Array(20)
-            .fill(0)
-            .map((_, index) => (
-              <ProductItemSkeleton />
+         <div className={styles.grid}>
+            {products.map((product, index) => (
+               <ProductItem key={index} product={product} />
             ))}
-        </div>
+         </div>
+         <Pagination />
       </div>
-    );
-  }
-
-  if (products.length === 0 && !isLoading) {
-    return (
-      <h1 style={{ color: "red", fontSize: "20px" }}>
-        Không tìm thấy sản phẩm
-      </h1>
-    );
-  }
-
-  return (
-    <div>
-      <div className={styles.grid}>
-        {products.map((product) => (
-          <>
-            <ProductItem product={product} />
-          </>
-        ))}
-      </div>
-
-      <Pagination />
-    </div>
-  );
+   );
 };
 
 export default ProductGrid;

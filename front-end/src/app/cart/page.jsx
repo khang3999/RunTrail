@@ -23,7 +23,7 @@ export default function CartPage() {
    const [lastNameError, setLastNameError] = useState(false);
    const [phoneError, setPhoneError] = useState(false);
 
-   //Hàm định dạng giá
+   // Hàm định dạng giá
    const formatCurrencyVND = (amount) => {
       return amount?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
    }

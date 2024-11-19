@@ -4,79 +4,87 @@ import { useProductProvider } from "@/contexts/ProductProvider";
 import debounce from "lodash.debounce";
 
 const BrandsFilter = ({ categoryId }) => {
-  const [brands, setBrands] = useState([]);
-  const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
-  const { selectedBrands, setSelectedBrands, filterProductsByBrand } =
-    useProductProvider();
+   const [brands, setBrands] = useState([]);
+   const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
+   const { selectedBrands, setSelectedBrands, filterProductsByBrand } =
+      useProductProvider();
 
-  useEffect(() => {
-    const fetchBrandsData = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:8008/api/brands/by-category?categoryId=${categoryId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          },
-        );
-        const data = await res.json();
-        setBrands(data);
-      } catch (error) {
-        console.error("Error fetching brands:", error);
+   useEffect(() => {
+      if (selectedBrands) {
+         setTempSelectedBrands(selectedBrands);
       }
-    };
-    if (categoryId) {
-      fetchBrandsData();
-    }
-  }, [categoryId]);
+   }, [selectedBrands])
 
-  const debouncedUpdateSelectedBrands = useCallback(
-    debounce((updatedBrands) => {
-      setSelectedBrands(updatedBrands);
-    }, 2000),
-    [],
-  );
 
-  useEffect(() => {
-    filterProductsByBrand(selectedBrands);
-  }, [setSelectedBrands]);
+   useEffect(() => {
+      const fetchBrandsData = async () => {
+         try {
+            const res = await fetch(
+               `http://localhost:8008/api/brands/by-category?categoryId=${categoryId}`,
+               {
+                  method: "GET",
+                  headers: {
+                     "Content-Type": "application/json",
+                  },
+               },
+            );
+            const data = await res.json();
+            // console.log("Brands DATA:", data);
+            setBrands(data);
+         } catch (error) {
+            console.error("Error fetching brands:", error);
+         }
+      };
+      if (categoryId) {
+         fetchBrandsData();
+      }
+   }, [categoryId]);
 
-  const handleBrandChange = (brandId) => {
-    const updatedSelectedBrands = tempSelectedBrands.includes(brandId)
-      ? tempSelectedBrands.filter((id) => id !== brandId)
-      : [...tempSelectedBrands, brandId];
+   const debouncedUpdateSelectedBrands = useCallback(
+      debounce((updatedBrands) => {
+         setSelectedBrands(updatedBrands);
+      }, 2000),
+      [],
+   );
 
-    setTempSelectedBrands(updatedSelectedBrands);
-    debouncedUpdateSelectedBrands(updatedSelectedBrands);
-  };
+   useEffect(() => {
+      filterProductsByBrand(selectedBrands);
+   }, [setSelectedBrands]);
 
-  return (
-    <div className="w-full max-w-lg mx-auto text-black">
-      <div className="p-4 bg-white rounded-lg shadow-md">
-        <div className="max-h-48 overflow-y-auto">
-          {brands.map((brand) => (
-            <div key={brand.id} className="flex items-center mb-2">
-              <input
-                type="checkbox"
-                id={`brand-${brand.id}`}
-                checked={tempSelectedBrands.includes(brand.id)}
-                onChange={() => handleBrandChange(brand.id)}
-                className="mr-2"
-              />
-              <label
-                htmlFor={`brand-${brand.id}`}
-                className="flex-grow text-sm"
-              >
-                {brand.brandName}
-              </label>
+   const handleBrandChange = (brandId) => {
+      const updatedSelectedBrands = tempSelectedBrands.includes(brandId)
+         ? tempSelectedBrands.filter((id) => id !== brandId)
+         : [...tempSelectedBrands, brandId];
+
+      setTempSelectedBrands(updatedSelectedBrands);
+      debouncedUpdateSelectedBrands(updatedSelectedBrands);
+   };
+
+   return (
+      <div className="w-full max-w-lg mx-auto text-black">
+         <div className="p-4 bg-white rounded-lg shadow-md">
+            <div className="max-h-48 overflow-y-auto">
+               {brands.map((brand, index) => (
+                  <div key={brand.id} className="flex items-center mb-2">
+                     <input
+                        type="checkbox"
+                        id={`brand-${brand.id}`}
+                        checked={tempSelectedBrands.includes(brand.id)}
+                        onChange={() => handleBrandChange(brand.id)}
+                        className="mr-2"
+                     />
+                     <label
+                        htmlFor={`brand-${brand.id}`}
+                        className="flex-grow text-sm"
+                     >
+                        {brand.brandName}
+                     </label>
+                  </div>
+               ))}
             </div>
-          ))}
-        </div>
+         </div>
       </div>
-    </div>
-  );
+   );
 };
 
 export default BrandsFilter;

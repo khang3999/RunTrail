@@ -344,7 +344,9 @@ function OrderPage() {
             setDistricts(convertLocationData(data.metadata));
          }
       };
-      fetchDistricts();
+      if (province) {
+         fetchDistricts();
+      }
    }, [province]);
 
    useEffect(() => {
@@ -364,7 +366,9 @@ function OrderPage() {
             setWards(convertLocationData(data.metadata));
          }
       };
-      fetchDistricts();
+      if (district) {
+         fetchDistricts();
+      }
    }, [district]);
 
    useEffect(() => {
@@ -375,7 +379,7 @@ function OrderPage() {
 
          if (data) {
             const cartData = JSON.parse(data);
-            console.log(cartData);
+            // console.log(cartData);
 
             if (cartData.length > 0) {
                const updatedCart = [];
@@ -393,7 +397,7 @@ function OrderPage() {
                      );
 
                      const productData = await response.json();
-                     console.log(productData);
+                     // console.log(productData);
 
                      updatedCart.push({ ...productData, quantity: item.quantity });
                      totalAmount += productData.skuPrice * item.quantity;
