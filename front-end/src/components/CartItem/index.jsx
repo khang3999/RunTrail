@@ -26,15 +26,14 @@ function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
    };
 
    function generateSlug(cart) {
-      const cartName = cart.skuName; 
+      const cartName = cart.skuName;
       const attributes = JSON.parse(cart.skuAttri);
       const attribute = Object.values(attributes).join(' ');
       return `${cartName} ${attribute}`;
-   }   
+   }
 
-   // Get the actual price after applying discount
    const discountedPrice = getDiscountedPrice(cart);
-   
+
    return (
       layout === 'desktop' ? (
          <tr className="border-b last:border-b-0 hover:bg-gray-100 transition duration-150">
@@ -46,8 +45,15 @@ function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
                />
             </td>
             <td className="py-2 px-2 sm:py-4 sm:px-5 text-xs sm:text-sm md:text-base">{generateSlug(cart)}</td>
-            <td className="py-2 px-2 sm:py-4 sm:px-5 text-center text-gray-600 text-xs sm:text-sm md:text-base">
-               {formatCurrencyVND(discountedPrice)}
+            <td className="py-2 px-2 sm:py-4 sm:px-5 text-gray-600">
+               <div className='flex flex-col'>
+                  <span className='text-lg font-bold text-balance'>
+                     {formatCurrencyVND(discountedPrice)}
+                  </span>
+                  <span className='text-sm line-through'>
+                     {formatCurrencyVND(cart.skuPrice)}
+                  </span>
+               </div>
             </td>
             <td className="py-2 px-2 sm:py-4 sm:px-5 text-center">
                <InputNumber
