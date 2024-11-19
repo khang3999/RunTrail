@@ -2,6 +2,7 @@ package runtrail.dev.backend.repositories.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import runtrail.dev.backend.dto.response.SkuPriceStockDTO;

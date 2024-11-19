@@ -1,10 +1,16 @@
 package runtrail.dev.backend.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.connection.stream.StreamReadOptions;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.dto.response.SpuDTO;
@@ -23,6 +29,11 @@ import java.util.List;
 
 @Service
 public class SpuServiceImpl implements SpuService {
+
+    private static final Log LOG = LogFactory.getLog(SpuServiceImpl.class);
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplateSpuDTO;
 
     @Autowired
     private SpuRepository spuRepository;
@@ -80,10 +91,46 @@ public class SpuServiceImpl implements SpuService {
 
     @Override
     public SpuDTO findProductBySlugV2(String slug) {
-        SpuDTO product = spuRepoCustom.findProductBySlug(slug);
 
-        if (product == null) {
-            throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
+
+        redisTemplateSpuDTO.delete(slug);
+
+        // check if the product is already in the cache
+        Object dataCache = redisTemplateSpuDTO.opsForValue().get(slug);
+
+        SpuDTO product = null;
+
+        if (dataCache == null) {
+            System.out.println("Product not found in cache. Getting from database.");
+            // get from db
+            product = spuRepoCustom.findProductBySlug(slug);
+            if (product == null) {
+                throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
+            }
+            // save to redis
+            // convert product to json
+            ObjectMapper mapper = new ObjectMapper();
+            String productJson = null;
+            try {
+                productJson = mapper.writeValueAsString(product);
+                redisTemplateSpuDTO.opsForValue().set(slug, productJson);
+                // set time expire
+                redisTemplateSpuDTO.expire(slug, 60, java.util.concurrent.TimeUnit.SECONDS);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        else{
+            // have cache =>
+            LOG.info("Product found in cache.");
+            // convert json to product
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                product = mapper.readValue(dataCache.toString(), SpuDTO.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return product;
     }
@@ -222,5 +269,6 @@ public class SpuServiceImpl implements SpuService {
     public List<String> getAllSlug() {
         return spuRepoCustom.findAllSlug();
     }
+
 
 }
