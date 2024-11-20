@@ -1,3 +1,4 @@
 FROM openjdk:17
 ADD target/backend-0.0.1-SNAPSHOT.jar app1.jar
 ENTRYPOINT [ "java", "-jar","app1.jar" ]    
+EXPOSE 8008
