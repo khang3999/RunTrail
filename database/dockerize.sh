@@ -1,1 +1,3 @@
-docker run -d --net runtrail-net --name custommysql -e MYSQL_ROOT_PASSWORD=runtrail123@ -e MYSQL_DATABASE=runtraildb -e MYSQL_USER=admin -e MYSQL_PASSWORD=runtrail123@ -p 3308:3306 -v mysql-storage:/var/lib/mysql chiendevj/runtraildb
+docker run  --name runtraildb -e MYSQL_ROOT_PASSWORD=runtrail123@  -e MYSQL_DATABASE="runtraildb" --network=runtrail-net  -p 3308:3306 -d  chiendevj/runtraildb
+
+docker run --name runtrailbe -e MYSQL_ROOT_PASSWORD=runtrail123@ -e DB_USERNAME=root -e DB_PASS=runtrail123@ -e DB_URL='jdbc:mysql://runtraildb:3306/runtraildb?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true' --network=runtrail-net  -p 8008:8008 chiendevj/runtrailbe
