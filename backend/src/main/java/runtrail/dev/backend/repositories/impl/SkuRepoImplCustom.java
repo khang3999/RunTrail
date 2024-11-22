@@ -2,7 +2,6 @@ package runtrail.dev.backend.repositories.impl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import runtrail.dev.backend.dto.response.SkuPriceStockDTO;
@@ -30,7 +29,7 @@ public class SkuRepoImplCustom implements SkuRepoCustom {
         Predicate spuIdEqual = builder.equal(root.get("spu").get("id"), spuId);
         predicates.add((spuIdEqual));
 
-        for (var entry : mapAttributes.entrySet()) {
+        for (Map.Entry<String,String> entry : mapAttributes.entrySet()) {
             Predicate predicate = builder.equal(builder.function("JSON_EXTRACT",String.class,root.get("skuAttri"),builder.literal("$."+entry.getKey())),entry.getValue());
             predicates.add(predicate);
         }

@@ -26,15 +26,10 @@
         <tag/>
         <url/>
     </scm>
-<<<<<<< HEAD
-   <properties>
-		<java.version>1.8</java.version>
-	</properties>
-=======
+
     <properties>
-        <java.version>17</java.version>
+        <java.version>23</java.version>
     </properties>
->>>>>>> 2e1b3101554a221c6cc6522420640b34a9e51949
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -94,22 +89,16 @@
                     </excludes>
                 </configuration>
             </plugin>
-<<<<<<< HEAD
-           <plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>		
-=======
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>23</source>
+                    <target>23</target>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
->>>>>>> 2e1b3101554a221c6cc6522420640b34a9e51949
         </plugins>
     </build>
 
