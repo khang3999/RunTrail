@@ -10,6 +10,9 @@ import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useRouter } from "next/navigation";
 import { useAppProvider } from "@/contexts/AppProvider";
+import { confirmAlert } from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import '@/assets/css/cartPage.css' ;
 
 export default function CartPage() {
    const [carts, setCarts] = useState([]);
@@ -98,14 +101,28 @@ export default function CartPage() {
    };
 
    const handleDeleteItem = (skuId) => {
-      const updatedCarts = carts.filter(cart => cart.id !== skuId);
+      confirmAlert({
+         title: 'Xác nhận',
+         message: 'Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?',
+         buttons: [
+            {
+               label: 'Có',
+               onClick: () => {
+                  const updatedCarts = carts.filter(cart => cart.id !== skuId);
 
-      const cookieData = updatedCarts.map(({ id, quantity }) => ({ skuId: id, quantity }));
-      Cookies.set("cart", JSON.stringify(cookieData));
+                  const cookieData = updatedCarts.map(({ id, quantity }) => ({ skuId: id, quantity }));
+                  Cookies.set("cart", JSON.stringify(cookieData));
 
-      setCarts(updatedCarts);
-      getTotalCart()
-      toast.success("Sản phẩm đã được xóa khỏi giỏ hàng");
+                  setCarts(updatedCarts);
+                  getTotalCart()
+                  toast.success("Sản phẩm đã được xóa khỏi giỏ hàng");
+               }
+            },
+            {
+               label: 'Không',
+            }
+         ]
+      });
    };
 
    useEffect(() => {
@@ -143,8 +160,8 @@ export default function CartPage() {
       }, 0);
       setTotalPayment(totalPayment);
    }, [carts]);
-   
-   
+
+
 
    const handleOrderClick = () => {
       const firstname = localStorage.getItem("firstName");
