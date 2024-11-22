@@ -1,7 +1,11 @@
 package runtrail.dev.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,7 +26,7 @@ public class SkuEntity implements Serializable {
     @Column(name = "sku_no", nullable = false, length = 50)
     private String skuNo;
 
-    @JsonBackReference
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "spu_id", nullable = false)
     private SpuEntity spu;
@@ -48,4 +52,8 @@ public class SkuEntity implements Serializable {
     @JsonManagedReference
     @OneToMany(mappedBy = "sku",fetch = FetchType.EAGER)
     private List<SkuImagesEntity> images;
+
+    public int getSpuDiscount() {
+        return spu != null ? spu.getDiscount() : null;
+    }
 }

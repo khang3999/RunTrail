@@ -8,12 +8,12 @@ import momo from "../../assets/images/momo.webp";
 import visa from "../../assets/images/visa.png";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTriangleExclamation, faX } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useAppProvider } from "@/contexts/AppProvider";
 import { useRouter } from 'next/navigation';
 import AxiosInstance from "@/utils/axiosInstance";
+import { faTriangleExclamation, faX } from "@fortawesome/free-solid-svg-icons";
 function OrderPage() {
    const router = useRouter();
    // Submit order
@@ -249,56 +249,38 @@ function OrderPage() {
       // Kiểm tra orderData trước khi gửi
       // console.log("Order Data:", orderData);
 
-      // const response = await fetch("http://localhost:8008/api/v1/order/new", {
-      //    method: "POST",
-      //    headers: {
-      //       "Content-Type": "application/json",
-      //    },
-      //    body: JSON.stringify(orderData),
-      // });
 
-      AxiosInstance.post("order/new", { ...orderData }).then((response) => {
-         const data = response.data;
+      try {
+         const response = await fetch("http://localhost:8008/api/v1/order/new", {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderData),
+         });
+
+         const data = await response.json();
+         // console.log(data);
          if (data.statusCode === 200) {
             // Clear cart
             reset();
 
             // Back to cart page
             setAlertType("success");
-            setAlertMessage(
-               "Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn",
-            );
+            setAlertMessage("Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn");
 
             // Chuyển trang sau khi đặt hàng thành công về cart không load lại trang
-            router.push({
-               pathname: '/cart',
-               query: { [QUERY_SIMULATION_KEY]: encodeQueryParameter(serializeStudentSolutionContext(newContext)) },
-            });
+            router.push('/cart');
          } else {
             setAlertType("error");
-            setAlertMessage(
-               "Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ",
-            );
+            setAlertMessage("Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ");
          }
-      });
-
-      // const data = await response.json();
-      // // console.log(data);
-      // if (data.statusCode === 200) {
-      //    // Clear cart
-      //    reset();
-
-      //    // Back to cart page
-      //    setAlertType("success");
-      //    setAlertMessage("Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn");
-
-      //    // Chuyển trang sau khi đặt hàng thành công về cart không load lại trang
-      //    router.push('/cart');
-      // } else {
-      //    setAlertType("error");
-      //    setAlertMessage("Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ");
-      // }
-   };
+      } catch (error) {
+         toast.error("Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ");
+         // setAlertType("error");
+         // setAlertMessage("Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ");
+      }
+   }
 
    const payments = [
       {
@@ -709,5 +691,6 @@ function OrderPage() {
       </div>
    );
 }
+
 
 export default OrderPage;

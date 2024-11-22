@@ -12,8 +12,11 @@ public class RedisConfig {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-        jedisConFactory.setHostName("127.0.0.1");
-        jedisConFactory.setPort(6379);
+        // get from env
+        jedisConFactory.setHostName("redis-17406.c295.ap-southeast-1-1.ec2.redns.redis-cloud.com");
+        jedisConFactory.setPort(17406);
+        jedisConFactory.setPassword("2xRV5iXSq735NCAxfxHBb1ytVKopVJYh");
+        jedisConFactory.setClientName("default");
         return jedisConFactory;
     }
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Header.module.css";
 import { Input } from "antd";
 import { CiShoppingCart, CiSearch } from "react-icons/ci";
@@ -39,32 +39,71 @@ export default function Header({ onCategoryClick }) {
   const [searchValue, setSearchValue] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
 
+  const dropdownRef = useRef(null); 
+  const searchRef = useRef(null); 
+
+  // Đổi ngôn ngữ
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
     setIsDropdownOpen(false);
   };
+
+  // Mở khung tìm kiếm mobile
   const handleSearchOpen = () => {
     setIsSearchOpen(!isSearchOpen);
     setIsDropdownOpen(false);
   };
+
+  // Tìm kiếm sản phẩm liên tục 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
-    // console.log(searchValue);
+    setIsDropdownOpen(false);
   };
+
+  
   useEffect(() => {
-    if (searchValue) {
-      fetch(`http://localhost:8008/api/v1/spu/search?key=${searchValue}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setProductsSearch(data.metadata);
-        });
-    }
+    const debounceTimer = setTimeout(() => {
+      if (searchValue.trim()) {
+        fetch(`http://localhost:8008/api/v1/spu/search?key=${searchValue}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setProductsSearch(data.metadata || []);
+          });
+      } else {
+        setProductsSearch([]);
+      }
+    }, 300); 
+  
+    return () => clearTimeout(debounceTimer); 
   }, [searchValue]);
-  // console.log(productsSearch);
+  
+  // Xử lý khi click vào sản phẩm
   const handleProductClick = () => {
     setSearchValue("");
     setIsSearchOpen(false);
   };
+
+  // Xử lý khi click ra ngoài dropdown hoặc search
+  const handleClickOutside = (event) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      searchRef.current &&
+      !searchRef.current.contains(event.target)
+    ) {
+      setIsDropdownOpen(false);
+      setIsSearchOpen(false);
+      setSearchValue("");
+      setProductsSearch([]);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -77,7 +116,7 @@ export default function Header({ onCategoryClick }) {
       />
       </Link>
       <div className={styles.boxRight}>
-        <div style={{ position: "relative", marginRight: 20 }}>
+        <div style={{ position: "relative", marginRight: 20 }} ref={searchRef}>
           <input
             className={styles.search}
             placeholder="Tìm sản phẩm ..."
@@ -104,15 +143,15 @@ export default function Header({ onCategoryClick }) {
         />
         <FaUserCircle className={styles.profile} color="white" size={24} />
 
-        {/* cart icon in header */}
         <CartIcon cartTotal={totalCart} />
-        {/* end cart icon in header */}
+
         <div
           style={{
             position: "relative",
             display: "flex",
             alignItems: "center",
           }}
+          ref={dropdownRef}
         >
           <img
             className={styles.iconFlag}
@@ -139,9 +178,8 @@ export default function Header({ onCategoryClick }) {
           {isDropdownOpen && (
             <div className={styles.dropdown}>
               {languages.map((language) => (
-                <div>
+                <div key={language.code}>
                   <div
-                    key={language.code}
                     className={styles.dropdownItem}
                     onClick={() => handleLanguageChange(language)}
                   >
@@ -159,16 +197,17 @@ export default function Header({ onCategoryClick }) {
               ))}
             </div>
           )}
-          {(isSearchOpen || searchValue !== "") && (
+          {(isSearchOpen ) && (
             <div className={styles.searchOpen}>
               <Search
                 placeholder="Tìm sản phẩm ..."
                 value={searchValue}
+                
                 onChange={handleSearchChange}
               />
             </div>
           )}
-          {productsSearch.length > 0 && searchValue.length > 0 ? (
+          {productsSearch.length > 0 && searchValue.length > 0 && (
             <div className={styles.searchResult}>
               {productsSearch.map((product) => (
                 <div key={product.id} className={styles.searchItem}>
@@ -194,7 +233,7 @@ export default function Header({ onCategoryClick }) {
                 </div>
               ))}
             </div>
-          ) : null}
+          )}
         </div>
       </div>
     </div>

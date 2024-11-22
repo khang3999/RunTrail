@@ -137,13 +137,14 @@ export default function CartPage() {
    }, []);
 
    useEffect(() => {
-      let totalPayment = 0
-      carts.map(cart => {
-         totalPayment += cart.quantity * cart.skuPrice
-      })
-      console.log(totalPayment, 'price');
-      setTotalPayment(totalPayment)
-   }, [carts])
+      const totalPayment = carts.reduce((total, cart) => {
+         const discountedPrice = cart.skuPrice * (1 - (cart.spu.discount / 100));
+         return total + (cart.quantity * discountedPrice);
+      }, 0);
+      setTotalPayment(totalPayment);
+   }, [carts]);
+   
+   
 
    const handleOrderClick = () => {
       const firstname = localStorage.getItem("firstName");
@@ -269,36 +270,7 @@ export default function CartPage() {
 
 
          {/* Button */}
-         <div className="flex justify-end space-x-4 my-6">
-
-            {/* From Uiverse.io by AKAspidey01  */}
-            <Button
-               className="bg-white text-center w-[218px] rounded relative group"
-            >
-               <div
-                  className="bg-green-400 rounded w-1/6 flex items-center justify-center absolute left-1 group-hover:w-[209px] z-10 duration-500"
-               >
-                  <svg
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 1024 1024"
-                     height="25px"
-                     width="25px"
-                  >
-                     <path
-                        d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"
-                        fill="#000000"
-                     ></path>
-                     <path
-                        d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
-                        fill="#000000"
-                     ></path>
-                  </svg>
-               </div>
-               <p className="px-10 translate-x-2">Tiếp tục mua hàng</p>
-            </Button>
-
-            {/* <Button>Tiếp tục mua hàng</Button> */}
-            {/* <Button disabled={carts.length <= 0 ? true: false} icon={<BsFillCartCheckFill size={22} />} >Đặt hàng</Button> */}
+         <div className="flex justify-end mt-5">
             <Button
                icon={<BsFillCartCheckFill size={22} />}
                onClick={handleOrderClick}
