@@ -210,7 +210,7 @@ export function InputQuantity({ quantity, setQuantity, hidden, error }) {
   );
 }
 
-export function ProductAttribute({ title="", children, props }) {
+export function ProductAttribute({ title = "", children, props }) {
   return (
     <div className={"flex mb-4"}>
       <span className="text-gray-400 text-[14px]">{title}</span>

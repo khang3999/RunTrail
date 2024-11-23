@@ -45,7 +45,7 @@ const PriceFilter = () => {
       <div className="w-full max-w-lg mx-auto p-4">
          <div className="px-2 mb-4">
             <Slider
-               step={100000}
+               step={10000}
                range
                min={0}
                max={20000000}

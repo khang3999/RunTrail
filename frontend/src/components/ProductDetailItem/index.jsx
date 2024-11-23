@@ -16,7 +16,10 @@ import { useState } from "react";
 import { useProductDetailProvider } from "@/contexts/ProductDetailProdvider";
 import { toast } from "react-toastify";
 import { useAppProvider } from "@/contexts/AppProvider";
-export default function ProductDetailItem({ product=null, isLoading=false }) {
+export default function ProductDetailItem({
+  product = null,
+  isLoading = false,
+}) {
   const {
     totalStock,
     skuPrice,
@@ -96,7 +99,7 @@ export default function ProductDetailItem({ product=null, isLoading=false }) {
       cartData[index].quantity += quantity;
     }
     console.log(cartData);
-    
+
     Cookies.set("cart", JSON.stringify(cartData));
     new toast("Đã thêm vào giỏ hàng", { autoClose: 2000, type: "success" });
 
