@@ -29,8 +29,9 @@ public class SpuEntity implements Serializable {
     @Column(name = "spu_name", nullable = false, length = 200)
     private String spuName;
 
+
     @Lob
-    @Column(name = "spu_description")
+    @Column(name = "spu_description",columnDefinition = "TEXT")
     private String spuDescription;
 
     @Column(name = "category_id")

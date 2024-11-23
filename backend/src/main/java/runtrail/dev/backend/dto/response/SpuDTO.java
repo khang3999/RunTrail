@@ -1,17 +1,21 @@
 package runtrail.dev.backend.dto.response;
  
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import runtrail.dev.backend.entities.SkuEntity;
 import runtrail.dev.backend.entities.SpuImagesEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @AllArgsConstructor
-public class SpuDTO {
+public class SpuDTO implements Serializable {
+
     private Long id;
 
     private String spuName;
@@ -42,18 +46,9 @@ public class SpuDTO {
 
     private String slug;
 
-    public SpuDTO(Long id, String spuName, List<SpuImagesEntity> images,List<SkuEntity> listSku) {
-        this.id = id;
-        this.spuName = spuName;
-        this.images = images;
-        this.listSku = listSku;
+    public SpuDTO() {
     }
 
-    public SpuDTO(Long id, String spuName, List<SpuImagesEntity> images) {
-        this.id = id;
-        this.spuName = spuName;
-        this.images = images;
-    }
 
     public SpuDTO(Long id,String spuNo, String spuName, String spuDescription,List<SpuImagesEntity> images, Long categoryId, String brandName, Integer spuStatus, Integer discount,String slug,String spuAttributes) {
         this.id = id;
@@ -69,7 +64,6 @@ public class SpuDTO {
         this.spuAttributes = spuAttributes;
     }
 
-
     public SpuDTO(Long id, String spuName, String spuDescription, Long categoryId, Long brandId, String brandName, Long spuPrice, String spuThumbnail, Integer spuStatus, Integer discount,String slug) {
         this.id = id;
         this.spuName = spuName;
@@ -81,9 +75,6 @@ public class SpuDTO {
         this.spuThumbnail = spuThumbnail;
         this.spuStatus = spuStatus;
         this.discount = discount;
-//        this.spuAttributes = spuAttributes;
         this.slug = slug;
     }
-
-
 }

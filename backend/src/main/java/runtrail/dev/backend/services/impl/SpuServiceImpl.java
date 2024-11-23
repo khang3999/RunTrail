@@ -1,10 +1,15 @@
 package runtrail.dev.backend.services.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.dto.response.SpuDTO;
@@ -24,6 +29,11 @@ import java.util.List;
 @Service
 public class SpuServiceImpl implements SpuService {
 
+    private static final Log LOG = LogFactory.getLog(SpuServiceImpl.class);
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
     @Autowired
     private SpuRepository spuRepository;
 
@@ -38,7 +48,7 @@ public class SpuServiceImpl implements SpuService {
 
     @Override
     public List<SpuEntity> getAllSpus() {
-        return List.of();
+        return null;
     }
 
     @Override
@@ -80,30 +90,52 @@ public class SpuServiceImpl implements SpuService {
 
     @Override
     public SpuDTO findProductBySlugV2(String slug) {
-        SpuDTO product = spuRepoCustom.findProductBySlug(slug);
 
-        if (product == null) {
-            throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
+        // check if the product is already in the cache
+        Object dataCache = redisTemplate.opsForValue().get(slug);
+
+        SpuDTO product = null;
+
+        if (dataCache == null) {
+            LOG.info("Product not found in cache.");
+            // get from db
+            product = spuRepoCustom.findProductBySlug(slug);
+            if (product == null) {
+                LOG.info("Product not found");
+                // set cache key with null value
+                redisTemplate.opsForValue().set(slug, null);
+                throw new ErrorExceptionHandler("Product not found", HttpStatus.NOT_FOUND.value());
+            }
+            // save to redis
+            // convert product to json
+            ObjectMapper mapper = new ObjectMapper();
+            String productJson = null;
+            try {
+                productJson = mapper.writeValueAsString(product);
+                redisTemplate.opsForValue().set(slug, productJson);
+                LOG.info("Product saved to cache.");
+                // set time expire
+                redisTemplate.expire(slug, 1200, java.util.concurrent.TimeUnit.SECONDS);
+            } catch (Exception e) {
+                LOG.error("Error when save product to cache");
+                e.printStackTrace();
+            }
+
+        }
+        else{
+            // have cache =>
+            LOG.info("Product found in cache.");
+            // convert json to product
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                product = mapper.readValue(dataCache.toString(), SpuDTO.class);
+            } catch (Exception e) {
+                LOG.error("Error when convert json to product");
+                e.printStackTrace();
+            }
         }
         return product;
     }
-
-
-//    @Override
-//    public Page<SpuDTO> getSpuByQuickFilter(long minPrice,long maxPrice,List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
-//        brandIds = brandIds.isEmpty() ? null : brandIds;
-//        categoryId = categoryId == -1 ? null : categoryId;
-//        key = key.isEmpty() ? null : key;
-//        value = value.isEmpty() ? null : value;
-//          if (contentOrderBy.equals("asc")) {
-//            return spuRepository.findBySpuFilterASCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
-//         }
-//         else if(contentOrderBy.equals("desc")) {
-//             return spuRepository.findBySpuFilterDESCNew(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
-//         } else {
-//              return spuRepository.findBySpuFilterSALE(minPrice, maxPrice, brandIds,categoryId, key, value, pageable);
-//          }
-//    }
     public Page<SpuDTO> getSpuByQuickFilter(long minPrice, long maxPrice, List<Long> brandIds, Long categoryId, String key, List<String> value, String contentOrderBy, Pageable pageable) {
 
         brandIds = brandIds.isEmpty() ? null : brandIds;
@@ -134,57 +166,108 @@ public class SpuServiceImpl implements SpuService {
 
 
     public List<SpuDTO> getRelatedProduct(long category, int number) {
-        // Lấy 20 sản phẩm có mã giảm giá cao nhất
-        Pageable pageable = PageRequest.of(0, 20);
-        List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category, pageable);
+        //read from cache
+        String key = "relatedProduct" + category;
+        List<Object> dataCache = redisTemplate.opsForList().range(key, 0, -1);
         List<SpuDTO> selectedProducts = new ArrayList<>();
+        // if cache is null
+        if (dataCache.isEmpty()){
+            LOG.info("Product not found in cache. list");
+            // Lấy 20 sản phẩm có mã giảm giá cao nhất
+            Pageable pageable = PageRequest.of(0, 20);
+            List<SpuDTO> topDiscountedProducts = spuRepository.findTopDiscountedSpuByCategory(category, pageable);
 
-        // Lấy 6 sản phẩm ngẫu nhiên từ danh sách 20 sản phẩm
-        if (!topDiscountedProducts.isEmpty()) {
-            Collections.shuffle(topDiscountedProducts);
-            for (SpuDTO product : topDiscountedProducts) {
-                if (selectedProducts.size() >= number) break;
-                selectedProducts.add(product);
+
+            // Thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
+            selectedProducts.addAll(topDiscountedProducts);
+            LOG.info("Product found in cache. list length 1"+selectedProducts.size());
+
+
+            int attempts = 0;
+
+            while (selectedProducts.size() < number && attempts < number) {
+                int remainingCount = number - selectedProducts.size();
+                List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
+
+                // Nếu không còn sản phẩm
+                if (randomProducts.isEmpty()) {
+                    break;
+                }
+
+                // Lọc và thêm sản phẩm
+                for (SpuDTO product : randomProducts) {
+                    if (selectedProducts.size() >= number) break;
+                    // Kiểm tra xem sản phẩm
+                    if (selectedProducts.stream().noneMatch(p -> p.getId() == product.getId())) {
+                        selectedProducts.add(product);
+                    }
+                }
+
+                attempts++;
             }
+
+            // Thêm danh sách ảnh cho mỗi sản phẩm
+            selectedProducts.forEach(product -> {
+                List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
+                product.setImages(images);
+            });
+
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                LOG.info("Product saved to cache. list length 2"+selectedProducts.size());
+                for (SpuDTO product : selectedProducts) {
+                    String productJson = mapper.writeValueAsString(product);
+                    redisTemplate.opsForList().rightPush(key, productJson);
+                }
+
+                // set time expired
+                redisTemplate.expire(key, 1200, java.util.concurrent.TimeUnit.SECONDS);
+
+                // get 6 product from 20 product
+                selectedProducts = getRandomProducts(selectedProducts, number);
+
+            } catch (Exception e) {
+                LOG.error("Error when save product to cache");
+                e.printStackTrace();
+            }
+
         }
+        else{
+            // have cache =>
+            LOG.info("Product found in cache. list");
 
-        // Thêm sản phẩm ngẫu nhiên từ tất cả các sản phẩm
-        // Giới hạn số lần lặp
-
-        int attempts = 0;
-
-        while (selectedProducts.size() < number && attempts < number) {
-            int remainingCount = number - selectedProducts.size();
-            List<SpuDTO> randomProducts = spuRepository.findRandomProducts(Pageable.ofSize(remainingCount));
-
-            // Nếu không còn sản phẩm
-            if (randomProducts.isEmpty()) {
-                break;
-            }
-
-            // Lọc và thêm sản phẩm
-            for (SpuDTO product : randomProducts) {
-                if (selectedProducts.size() >= number) break;
-
-                // Kiểm tra xem sản phẩm
-                if (selectedProducts.stream().noneMatch(p -> p.getId() == product.getId())) {
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                for (Object productJson : dataCache) {
+                    SpuDTO product = mapper.readValue(productJson.toString(), SpuDTO.class);
                     selectedProducts.add(product);
                 }
+
+                // get 6 product from 20 product
+                selectedProducts = getRandomProducts(selectedProducts, number);
+
+            } catch (Exception e) {
+                LOG.info("ERROR::"+e.getMessage());
+                e.printStackTrace();
             }
-
-            attempts++;
         }
-
-        // Thêm danh sách ảnh cho mỗi sản phẩm
-        selectedProducts.forEach(product -> {
-            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
-            product.setImages(images);
-        });
 
         return selectedProducts;
     }
 
 
+    //function get random 6 product from 20 product
+    private List<SpuDTO> getRandomProducts(List<SpuDTO> listProduct, int number) {
+        List<SpuDTO> selectedProducts = new ArrayList<>();
+        if (!listProduct.isEmpty()) {
+            Collections.shuffle(listProduct);
+            for (SpuDTO product : listProduct) {
+                if (selectedProducts.size() >= number) break;
+                selectedProducts.add(product);
+            }
+        }
+        return selectedProducts;
+    }
 
 
 
@@ -222,5 +305,6 @@ public class SpuServiceImpl implements SpuService {
     public List<String> getAllSlug() {
         return spuRepoCustom.findAllSlug();
     }
+
 
 }

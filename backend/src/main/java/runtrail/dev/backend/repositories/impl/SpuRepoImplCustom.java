@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import runtrail.dev.backend.dto.response.SpuDTO;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class SpuRepoImplCustom implements SpuRepoCustom {
     @Autowired
     private EntityManager em;
+
     @Override
     public SpuDTO findProductBySlug(String slug) {
 
@@ -28,7 +30,6 @@ public class SpuRepoImplCustom implements SpuRepoCustom {
 
 
         Root<SpuEntity> root = query.from(SpuEntity.class);
-        Join<SpuEntity,SpuImagesEntity> joinImages = root.join("images");
 
         query.where(builder.equal(root.get("slug"), slug));
 

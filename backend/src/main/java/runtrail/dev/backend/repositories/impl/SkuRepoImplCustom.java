@@ -29,7 +29,7 @@ public class SkuRepoImplCustom implements SkuRepoCustom {
         Predicate spuIdEqual = builder.equal(root.get("spu").get("id"), spuId);
         predicates.add((spuIdEqual));
 
-        for (var entry : mapAttributes.entrySet()) {
+        for (Map.Entry<String,String> entry : mapAttributes.entrySet()) {
             Predicate predicate = builder.equal(builder.function("JSON_EXTRACT",String.class,root.get("skuAttri"),builder.literal("$."+entry.getKey())),entry.getValue());
             predicates.add(predicate);
         }
