@@ -2,6 +2,7 @@ package runtrail.dev.backend.entities;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import jakarta.persistence.Column;
@@ -14,7 +15,7 @@ import jakarta.persistence.Table;
 @Data
 @Entity
 @Table(name = "sku_attribute")
-public class SkuAttributeEntity {
+public class SkuAttributeEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

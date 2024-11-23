@@ -3,11 +3,13 @@ package runtrail.dev.backend.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 
 @Data
 @Entity
 @Table(name = "brand")
-public class BrandEntity {
+public class BrandEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
