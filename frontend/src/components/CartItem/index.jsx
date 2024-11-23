@@ -40,8 +40,8 @@ function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
          <td className="py-4">
             <img
                src={
-                  cart.images?.length > 0
-                     ? cart.images[0]?.imageUrl
+                  cart.spu.images?.length > 0
+                     ? cart.spu.images[0]?.imgUrl
                      : "https://via.placeholder.com/150"
                }
                alt={generateSlug(cart)}
@@ -106,8 +106,8 @@ function CartItem({ cart, onQuantityChange, pos, layout, onDeleteItem }) {
       <div className="flex flex-row items-center bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
          <img
             src={
-               cart.images && cart.images?.length > 0
-                  ? cart.images[0]?.imageUrl
+               cart.spu.images.length > 0
+                  ? cart.spu.images[0]?.imgUrl
                   : "https://via.placeholder.com/150"
             }
             alt={generateSlug(cart)}
