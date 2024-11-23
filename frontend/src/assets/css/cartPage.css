@@ -1,25 +1,25 @@
 /* Đổi màu nền cho overlay */
 .react-confirm-alert-overlay {
-    background: rgba(0, 0, 0, 0.6); /* Màu overlay tối hơn */
- }
+  background: rgba(0, 0, 0, 0.6); /* Màu overlay tối hơn */
+}
 /* Tùy chỉnh tiêu đề */
 .react-confirm-alert h1 {
-    font-size: 24px; /* Kích thước chữ */
-    font-weight: bold; /* Đậm chữ */
-    margin-bottom: 20px; /* Khoảng cách dưới */
-    text-align: center; /* Căn giữa */
- }
- /* Style cho nút */
+  font-size: 24px; /* Kích thước chữ */
+  font-weight: bold; /* Đậm chữ */
+  margin-bottom: 20px; /* Khoảng cách dưới */
+  text-align: center; /* Căn giữa */
+}
+/* Style cho nút */
 .react-confirm-alert-button-group button {
-    background-color: #ff7675; /* Màu đỏ cho nút */
-    color: #fff; /* Chữ màu trắng */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 5px;
-    transition: all 0.3s ease;
- }
- .react-confirm-alert-button-group button:first-child {
-    background-color: #28a745; /* Màu xanh lá */
+  background-color: #ff7675; /* Màu đỏ cho nút */
+  color: #fff; /* Chữ màu trắng */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+.react-confirm-alert-button-group button:first-child {
+  background-color: #28a745; /* Màu xanh lá */
 }
