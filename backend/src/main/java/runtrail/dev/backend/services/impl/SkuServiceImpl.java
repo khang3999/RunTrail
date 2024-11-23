@@ -45,7 +45,7 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public List<SkuEntity> getSkusByCategoryOrParent(Long categoryId) {
-        return List.of();
+        return null;
     }
 
     @Override

@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
 @Entity
 @Table(name = "sku_images")
-public class SkuImagesEntity {
+public class SkuImagesEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
