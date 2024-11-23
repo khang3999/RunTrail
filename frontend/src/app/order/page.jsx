@@ -306,33 +306,33 @@ function OrderPage() {
    ];
 
    useEffect(() => {
-      // const fetchProvinces = async () => {
-      //    const response = await fetch(
-      //       "http://localhost:8008/api/v1/location/provinces",
-      //       {
-      //          method: "GET",
-      //          headers: {
-      //             "Content-Type": "application/json",
-      //          },
-      //       },
-      //    );
+      const fetchProvinces = async () => {
+         const response = await fetch(
+            "http://localhost:8008/api/v1/location/provinces",
+            {
+               method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            },
+         );
 
-      //    const data = await response.json();
+         const data = await response.json();
 
-      //    if (data.statusCode === 200) {
-      //       setProvinces(convertLocationData(data.metadata));
-      //    }
-      // };
+         if (data.statusCode === 200) {
+            setProvinces(convertLocationData(data.metadata));
+         }
+      };
 
       // use AxiosInstance to fetch data
-      const fetchProvinces = async () => {
-         AxiosInstance.get("location/provinces").then((response) => {
-            const data = response.data;
-            if (data.statusCode === 200) {
-               setProvinces(convertLocationData(data.metadata));
-            }
-         });
-      };
+      // const fetchProvinces = async () => {
+      //    AxiosInstance.get("location/provinces").then((response) => {
+      //       const data = response.data;
+      //       if (data.statusCode === 200) {
+      //          setProvinces(convertLocationData(data.metadata));
+      //       }
+      //    });
+      // };
 
       fetchProvinces();
    }, []);
@@ -343,27 +343,27 @@ function OrderPage() {
 
       // use AxiosInstance to fetch data
       const fetchDistricts = async () => {
-         // const response = await fetch(
-         //    `http://localhost:8008/api/v1/location/provinces/district/${province}`,
-         //    {
-         //       method: "GET",
-         //       headers: {
-         //          "Content-Type": "application/json",
-         //       },
-         //    },
-         // );
+         const response = await fetch(
+            `http://localhost:8008/api/v1/location/provinces/district/${province}`,
+            {
+               method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            },
+         );
 
-         // const data = await response.json();
-         // if (data.statusCode === 200) {
-         //    setDistricts(convertLocationData(data.metadata));
-         // }
+         const data = await response.json();
+         if (data.statusCode === 200) {
+            setDistricts(convertLocationData(data.metadata));
+         }
 
-         AxiosInstance.get(`location/provinces/district/${province}`).then((response) => {
-            const data = response.data;
-            if (data.statusCode === 200) {
-               setDistricts(convertLocationData(data.metadata));
-            }
-         });
+         // AxiosInstance.get(`location/provinces/district/${province}`).then((response) => {
+         //    const data = response.data;
+         //    if (data.statusCode === 200) {
+         //       setDistricts(convertLocationData(data.metadata));
+         //    }
+         // });
       };
       fetchDistricts();
    }, [province]);
@@ -371,27 +371,27 @@ function OrderPage() {
    useEffect(() => {
       // use AxiosInstance to fetch data
       const fetchDistricts = async () => {
-         // const response = await fetch(
-         //    `http://localhost:8008/api/v1/location/provinces/district/ward/${district}`,
-         //    {
-         //       method: "GET",
-         //       headers: {
-         //          "Content-Type": "application/json",
-         //       },
-         //    },
-         // );
+         const response = await fetch(
+            `http://localhost:8008/api/v1/location/provinces/district/ward/${district}`,
+            {
+               method: "GET",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+            },
+         );
 
-         // const data = await response.json();
-         // if (data.statusCode === 200) {
-         //    setWards(convertLocationData(data.metadata));
-         // }
+         const data = await response.json();
+         if (data.statusCode === 200) {
+            setWards(convertLocationData(data.metadata));
+         }
 
-         AxiosInstance.get(`location/provinces/district/ward/${district}`).then((response) => {
-            const data = response.data;
-            if (data.statusCode === 200) {
-               setWards(convertLocationData(data.metadata));
-            }
-         });
+         // AxiosInstance.get(`location/provinces/district/ward/${district}`).then((response) => {
+         //    const data = response.data;
+         //    if (data.statusCode === 200) {
+         //       setWards(convertLocationData(data.metadata));
+         //    }
+         // });
       };
       fetchDistricts();
    }, [district]);
@@ -404,7 +404,7 @@ function OrderPage() {
 
          if (data) {
             const cartData = JSON.parse(data);
-            console.log(cartData);
+            // console.log(cartData);
 
             if (cartData.length > 0) {
                const updatedCart = [];
@@ -412,27 +412,27 @@ function OrderPage() {
                for (const item of cartData) {
                   if (item.skuId) {
                      // use AxiosInstance to fetch data
-                     // const response = await fetch(
-                     //    `http://localhost:8008/api/v1/sku/${item.skuId}`,
-                     //    {
-                     //       method: "GET",
-                     //       headers: {
-                     //          "Content-Type": "application/json",
-                     //       },
-                     //    },
-                     // );
+                     const response = await fetch(
+                        `http://localhost:8008/api/v1/sku/${item.skuId}`,
+                        {
+                           method: "GET",
+                           headers: {
+                              "Content-Type": "application/json",
+                           },
+                        },
+                     );
 
-                     // const productData = await response.json();
+                     const productData = await response.json();
                      // console.log(productData);
 
-                     // updatedCart.push({ ...productData, quantity: item.quantity });
-                     // totalAmount += productData.skuPrice * item.quantity;
+                     updatedCart.push({ ...productData, quantity: item.quantity });
+                     totalAmount += Math.round(productData.skuPrice * (1 - (productData.spuDiscount / 100)) * item.quantity)
 
-                     AxiosInstance.get(`sku/${item.skuId}`).then((response) => {
-                        const productData = response.data;
-                        updatedCart.push({ ...productData, quantity: item.quantity });
-                        totalAmount += productData.skuPrice * item.quantity;
-                     });
+                     // AxiosInstance.get(`sku/${item.skuId}`).then((response) => {
+                     //    const productData = response.data;
+                     //    updatedCart.push({ ...productData, quantity: item.quantity });
+                     //    totalAmount += productData.skuPrice * item.quantity;
+                     // });
                   }
                }
 
@@ -604,7 +604,7 @@ function OrderPage() {
                         key={item.skuId}
                         className="flex items-center justify-between gap-4 mt-4"
                      >
-                        <div className="flex items-center gap-4 flex-col">
+                        <div className="flex items-start gap-4 flex-col">
                            <Image
                               alt="product"
                               src={
@@ -625,7 +625,7 @@ function OrderPage() {
                            </div>
                         </div>
                         <div>
-                           <p>{formatCurrency(item.quantity * item.skuPrice)}</p>
+                           <p>{formatCurrency(Math.round(item.skuPrice * (1 - (item.spuDiscount / 100)) * item.quantity))}</p>
                         </div>
                      </div>
                   ))}
