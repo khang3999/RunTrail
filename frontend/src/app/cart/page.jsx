@@ -73,15 +73,6 @@ export default function CartPage() {
       }
    }, []);
 
-   useEffect(() => {
-      let totalPayment = 0
-      carts.map(cart => {
-         totalPayment += cart.quantity * cart.skuPrice
-      })
-      console.log(totalPayment, 'price');
-      setTotalPayment(totalPayment)
-   }, [carts])
-
    const handleQuantityChange = (value, index) => {
       // Cập nhật số lượng trong carts
       const updatedCarts = carts.map((cart, i) =>
@@ -124,34 +115,6 @@ export default function CartPage() {
          ]
       });
    };
-
-   useEffect(() => {
-      const cartCookie = Cookies.get("cart");
-      if (cartCookie) {
-         const parsedCart = JSON.parse(cartCookie);
-         const fetchCartData = async () => {
-            try {
-               const responses = await Promise.all(
-                  parsedCart.map((item) =>
-                     fetch(`http://localhost:8008/api/v1/sku/${item.skuId}`).then((res) => res.json())
-                  )
-               );
-               const enrichedCarts = responses.map((data, index) => ({
-                  ...data,
-                  quantity: parsedCart[index].quantity,
-               }));
-               setCarts(enrichedCarts);
-            } catch (error) {
-               toast.error("Không thể tải dữ liệu giỏ hàng");
-            } finally {
-               setIsLoading(false);
-            }
-         };
-         fetchCartData();
-      } else {
-         setIsLoading(false);
-      }
-   }, []);
 
    useEffect(() => {
       const totalPayment = carts.reduce((total, cart) => {
