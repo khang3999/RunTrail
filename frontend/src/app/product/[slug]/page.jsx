@@ -8,14 +8,13 @@ export async function generateStaticParams() {
   const { metadata: slugs } = await fetch(
     "http://localhost:8008/api/v1/spu/all-slug",
   ).then((res) => res.json());
-    return slugs.map((slug) => ({
-    slug:slug
+  return slugs.map((slug) => ({
+    slug: slug,
   }));
 }
-  
 
 export default async function ProductDetailPage({ params }) {
-  const {slug} = await params;
+  const { slug } = await params;
   return (
     <PageTitle title={"Product Detail"}>
       <ProductDetail slug={slug} />

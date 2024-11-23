@@ -25,7 +25,7 @@ const ProductGrid = () => {
           {Array(20)
             .fill(0)
             .map((_, index) => (
-              <ProductItemSkeleton key={index}/>
+              <ProductItemSkeleton key={index} />
             ))}
         </div>
       </div>
@@ -48,9 +48,8 @@ const ProductGrid = () => {
             <div key={product.id}>
               <ProductItem product={product} />
             </div>
-          )
-        }
-        )}
+          );
+        })}
       </div>
       <Pagination />
     </div>
