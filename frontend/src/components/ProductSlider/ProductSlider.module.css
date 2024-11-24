@@ -1,0 +1,19 @@
+.title {
+  margin-bottom: 10px;
+  font-size: 33px;
+  margin-top: 47px;
+  text-align: center;
+  color: #333;
+}
+.slick-slide {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 50px;
+  width: 100%;
+}

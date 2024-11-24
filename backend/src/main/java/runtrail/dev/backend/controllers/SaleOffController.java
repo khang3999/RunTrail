@@ -8,19 +8,20 @@ import org.springframework.web.bind.annotation.RestController;
 import runtrail.dev.backend.dto.response.Response;
 import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.services.NewSpuService;
+import runtrail.dev.backend.services.SaleOffProductService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/new-spu")
-public class NewSpuController {
+@RequestMapping("/api/v1/sale-off")
+public class SaleOffController {
 
     @Autowired
-    private NewSpuService newSpuService;
+    private SaleOffProductService saleOffProductService;
 
     @GetMapping("/all")
     public Response<List<SpuDTO>> getAll () {
-        return new Response<>(newSpuService.getAllNewListSpus(), HttpStatus.OK.value(), " ok");
+        return new Response<>(saleOffProductService.getListSaleOffProduct(), HttpStatus.OK.value(), " ok");
     }
 
 }
