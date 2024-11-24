@@ -21,14 +21,12 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SpuEntity implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "spu_name", nullable = false, length = 200)
     private String spuName;
-
 
     @Lob
     @Column(name = "spu_description",columnDefinition = "TEXT")
@@ -47,9 +45,6 @@ public class SpuEntity implements Serializable {
     @Column(name = "spu_no")
     private String spuNo;
 
-//    @Column(name="spu_attributes",columnDefinition = "json")
-//    private String spuAttributes;
-
     @Column(name = "discount")
     private int discount;
 
@@ -64,4 +59,91 @@ public class SpuEntity implements Serializable {
     @OneToMany(mappedBy = "spu",fetch = FetchType.LAZY)
     private List<SpuImagesEntity> images;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSpuName() {
+        return spuName;
+    }
+
+    public void setSpuName(String spuName) {
+        this.spuName = spuName;
+    }
+
+    public String getSpuDescription() {
+        return spuDescription;
+    }
+
+    public void setSpuDescription(String spuDescription) {
+        this.spuDescription = spuDescription;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public BrandEntity getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandEntity brand) {
+        this.brand = brand;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getSpuNo() {
+        return spuNo;
+    }
+
+    public void setSpuNo(String spuNo) {
+        this.spuNo = spuNo;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public int getSpuStatus() {
+        return spuStatus;
+    }
+
+    public void setSpuStatus(int spuStatus) {
+        this.spuStatus = spuStatus;
+    }
+
+    public Set<SkuEntity> getSkuList() {
+        return skuList;
+    }
+
+    public void setSkuList(Set<SkuEntity> skuList) {
+        this.skuList = skuList;
+    }
+
+    public List<SpuImagesEntity> getImages() {
+        return images;
+    }
+
+    public void setImages(List<SpuImagesEntity> images) {
+        this.images = images;
+    }
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { useState, useContext, createContext } from "react";
 
 const ProductContext = createContext();
 function ProductProvider({ children }) {
