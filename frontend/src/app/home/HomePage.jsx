@@ -21,7 +21,6 @@ function HomePage() {
       title="SẢN PHẨM SALE OFF"
       apiUrl="http://localhost:8008/api/v1/sale-off/all"
     />
-    
     </div>
     </>
   );

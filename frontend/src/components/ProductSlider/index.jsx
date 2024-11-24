@@ -42,21 +42,21 @@ const ProductSlider = ({ title, apiUrl }) => {
     arrows: true,
   };
   if (isLoading) {
-    return (
+   return (
       <>
-        <div>
-          <h1 className={styles.title}>{title}</h1>
-          <div className={styles.container}>
-            <div className={styles.grid} style={{ marginBottom: 40 }}>
-              {Array.from({ length: products.length }, (_, index) => (
-                <ProductItemSkeleton key={index} />
-              ))}
+         <div>
+            <h1 className={styles.title}>{title}</h1>
+            <div className={styles.container}>
+               <div className={styles.grid} style={{ marginBottom: 40 }}>
+                  {Array.from({ length: isMobile ? 6 : 4 }, (_, index) => (
+                     <ProductItemSkeleton key={index} />
+                  ))}
+               </div>
             </div>
-          </div>
-        </div>
+         </div>
       </>
-    );
-  }
+   );
+}
 
   return (
     <div>
