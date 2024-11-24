@@ -27,9 +27,8 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
         toggleDropdown(categoryId, false);
     };
 
-    const handleCategoryClick = (categoryId) => {
-        console.log(categoryId);
-        // setCategoryId(categoryId);
+    const handleCategoryClick = (categoryId) => {        
+        setCategoryId(categoryId);
         
     };
 
@@ -40,7 +39,7 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
                 category.parentId === null ? (
                     <li key={category.id} className="relative">
                         <Link
-                            href="/"
+                            href={"/products"}
                             id={`dropdownNavbarLink_${category.id}`}
                             data-dropdown-toggle={`dropdownNavbar_${category.id}`}
                             className="flex items-center  justify-between w-full py-2 px-3 rounded hover:text-green-500  dark:text-black"
@@ -86,7 +85,7 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
                 ) : (
                     <li key={category.id}>
                         <Link
-                            href="/"
+                            href={"/products"}
                             className="block px-4 py-2 w-full text-start dark:hover:text-green-500"
                             onClick={() => handleCategoryClick(category.id)}
                         >
