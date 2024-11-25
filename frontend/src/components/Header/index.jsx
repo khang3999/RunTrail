@@ -11,7 +11,7 @@ import CartIcon from "../CartIcon";
 import { useAppProvider } from "@/contexts/AppProvider";
 
 export default function Header({ onCategoryClick }) {
-  const { totalCart } = useAppProvider();
+  const { totalCart, handleToggleMenu } = useAppProvider();
   const languages = [
     {
       name: "Vietnam",
@@ -106,7 +106,7 @@ export default function Header({ onCategoryClick }) {
 
   return (
     <div className={styles.container}>
-      <MdOutlineMenu className={styles.menuIcon} color="white" size={20} />
+      <MdOutlineMenu className={styles.menuIcon} color="white" size={20} onClick={handleToggleMenu} />
       <Link href="/">
         <img
           src="https://supersports.com.vn/cdn/shop/files/LOGO_SSP_RGB-02_c46e0135-659a-49a2-9b37-6afebf1112e4.jpg?v=1723429659&width=2082"
