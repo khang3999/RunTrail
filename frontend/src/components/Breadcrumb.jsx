@@ -61,11 +61,11 @@ function Breadcrumb({ categoryId = -1 }) {
   }
 
   const handleNavigate = (id) => {
-    router.push(`/products`);
     if (id === -1) {
-      setCategoryId(-1);
+    router.push('/')
     } else {
-      setCategoryId(id);
+    setCategoryId(id);
+    router.push(`/products`);
     }
   };
 

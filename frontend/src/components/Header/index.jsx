@@ -9,9 +9,11 @@ import Link from "next/link";
 import Search from "antd/es/transfer/search";
 import CartIcon from "../CartIcon";
 import { useAppProvider } from "@/contexts/AppProvider";
+import { Drawer } from "flowbite";
+import MenuMobile from "@/components/Menu/MenuMobile";
 
 export default function Header({ onCategoryClick }) {
-  const { totalCart, handleToggleMenu } = useAppProvider();
+  const { totalCart, handleToggleMenu, isHidden } = useAppProvider();
   const languages = [
     {
       name: "Vietnam",
@@ -38,7 +40,7 @@ export default function Header({ onCategoryClick }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
-
+  const drawerRef = useRef(null);
   const dropdownRef = useRef(null);
   const searchRef = useRef(null);
 
@@ -103,6 +105,21 @@ export default function Header({ onCategoryClick }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (drawerRef.current) {
+      const options = {
+        placement: "left",
+      };
+      const drawer = new Drawer(drawerRef.current, options);
+
+      if (!isHidden) {
+        drawer.show();
+      } else {
+        drawer.hide();
+      }
+    }
+  }, [isHidden]);
 
   return (
     <div className={styles.container}>
@@ -234,6 +251,8 @@ export default function Header({ onCategoryClick }) {
           )}
         </div>
       </div>
+
+      <MenuMobile drawerRef={drawerRef}/>
     </div>
   );
 }
