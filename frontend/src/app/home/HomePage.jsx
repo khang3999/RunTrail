@@ -13,7 +13,6 @@ function HomePage() {
       </Link>
 
       <BrandList></BrandList>
-
       <Policy></Policy>
     </div>
   );
