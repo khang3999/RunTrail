@@ -38,4 +38,10 @@ public class BrandController {
         List<BrandEntity> brandEntities = brandService.getBrandsByCategoryId(categoryId);
         return new Response<>(brandEntities, HttpStatus.OK.value(), "Get brands by category successfully");
     }
+
+    @GetMapping("/by-status")
+    public Response<?> getBrandsByStatus(@RequestParam int statusId) {
+        List<BrandEntity> brandEntities = brandService.getBrandsByStatusId(statusId);
+        return new Response<>(brandEntities, HttpStatus.OK.value(), "Get brands by statusId successfully");
+    }
 }

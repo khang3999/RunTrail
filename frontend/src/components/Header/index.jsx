@@ -39,8 +39,8 @@ export default function Header({ onCategoryClick }) {
   const [searchValue, setSearchValue] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
 
-  const dropdownRef = useRef(null); 
-  const searchRef = useRef(null); 
+  const dropdownRef = useRef(null);
+  const searchRef = useRef(null);
 
   // Đổi ngôn ngữ
   const handleLanguageChange = (language) => {
@@ -54,13 +54,12 @@ export default function Header({ onCategoryClick }) {
     setIsDropdownOpen(false);
   };
 
-  // Tìm kiếm sản phẩm liên tục 
+  // Tìm kiếm sản phẩm liên tục
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
     setIsDropdownOpen(false);
   };
 
-  
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       if (searchValue.trim()) {
@@ -72,11 +71,11 @@ export default function Header({ onCategoryClick }) {
       } else {
         setProductsSearch([]);
       }
-    }, 300); 
-  
-    return () => clearTimeout(debounceTimer); 
+    }, 300);
+
+    return () => clearTimeout(debounceTimer);
   }, [searchValue]);
-  
+
   // Xử lý khi click vào sản phẩm
   const handleProductClick = () => {
     setSearchValue("");
@@ -109,11 +108,11 @@ export default function Header({ onCategoryClick }) {
     <div className={styles.container}>
       <MdOutlineMenu className={styles.menuIcon} color="white" size={20} />
       <Link href="/">
-      <img
-        src="https://supersports.com.vn/cdn/shop/files/LOGO_SSP_RGB-02_c46e0135-659a-49a2-9b37-6afebf1112e4.jpg?v=1723429659&width=2082"
-        className={styles.logo}
-        alt="Super sport Logo"
-      />
+        <img
+          src="https://supersports.com.vn/cdn/shop/files/LOGO_SSP_RGB-02_c46e0135-659a-49a2-9b37-6afebf1112e4.jpg?v=1723429659&width=2082"
+          className={styles.logo}
+          alt="Super sport Logo"
+        />
       </Link>
       <div className={styles.boxRight}>
         <div style={{ position: "relative", marginRight: 20 }} ref={searchRef}>
@@ -197,12 +196,11 @@ export default function Header({ onCategoryClick }) {
               ))}
             </div>
           )}
-          {(isSearchOpen ) && (
+          {isSearchOpen && (
             <div className={styles.searchOpen}>
               <Search
                 placeholder="Tìm sản phẩm ..."
                 value={searchValue}
-                
                 onChange={handleSearchChange}
               />
             </div>
