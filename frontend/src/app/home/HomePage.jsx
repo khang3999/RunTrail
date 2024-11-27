@@ -2,6 +2,7 @@ import { Carousel } from "antd";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import BrandList from "@/components/HomePage/BrandList";
+import Policy from "@/components/HomePage/Policy";
 
 function HomePage() {
   return (
@@ -11,7 +12,9 @@ function HomePage() {
         Chuyển tới trang danh sách sản phẩm
       </Link>
 
-    <BrandList></BrandList>
+      <BrandList></BrandList>
+
+      <Policy></Policy>
     </div>
   );
 }
