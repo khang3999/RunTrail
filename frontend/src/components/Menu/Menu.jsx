@@ -2,14 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
-const SkeletonLoader = () => {
-    return (
-        <div className="flex items-center justify-between w-full py-2 px-3 text-white bg-gray-400 animate-pulse rounded">
-            <div className="w-20 h-5 bg-gray-300 rounded"></div>
-            <div className="w-4 h-4 bg-gray-300 rounded-full"></div>
-        </div>
-    );
-};
+
 
 const CategoryMenuItems = ({ categories, isLoading }) => {
     const { setCategoryId } = useProductProvider();
@@ -119,12 +112,6 @@ export default function Menu() {
         fetchCategories();
     }, []);
 
-    if (isLoading) {
-        // Render skeletons matching the number of top-level categories
-        return Array(7)
-            .fill(null)
-            .map((_, index) => <SkeletonLoader key={index} />);
-    }
     return (
         <div className='lg:flex hidden w-full'>
             <div className='pt-5'>
