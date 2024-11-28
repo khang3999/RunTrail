@@ -6,6 +6,7 @@ import Providers from "@/contexts/Providers";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Header from "@/components/Header";
+
 // import { Metadata } from 'next';
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
