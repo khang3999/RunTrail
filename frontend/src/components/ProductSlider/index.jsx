@@ -1,12 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import ProductItem from "../ProductItem";
-import Slider from "react-slick";
 import ProductItemSkeleton from "../ProducItemSkeleton";
 import { useAppProvider } from "@/contexts/AppProvider";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import styles from "./ProductSlider.module.css";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import "./ProductSlider.css";
 
 const ProductSlider = ({ title, apiUrl }) => {
@@ -31,38 +30,28 @@ const ProductSlider = ({ title, apiUrl }) => {
     }
   }, [apiUrl]);
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 800,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    arrows: true,
-  };
   if (isLoading) {
-   return (
+    return (
       <>
-         <div>
-            <h1 className={styles.title}>{title}</h1>
-            <div className={styles.container}>
-               <div className={styles.grid} style={{ marginBottom: 40 }}>
-                  {Array.from({ length: isMobile ? 6 : 4 }, (_, index) => (
-                     <ProductItemSkeleton key={index} />
-                  ))}
-               </div>
+        <div>
+          <h2 className={styles.title}>{title}</h2>
+          <div className={styles.container}>
+            <div className={styles.grid} style={{ marginBottom: 40 }}>
+              {Array.from({ length: isMobile ? 6 : 4 }, (_, index) => (
+                <ProductItemSkeleton key={index} />
+              ))}
             </div>
-         </div>
+          </div>
+        </div>
       </>
-   );
-}
+    );
+  }
 
   return (
     <div>
       {isMobile ? (
         <div>
-          <h1 className={styles.title}>{title}</h1>
+          <h2 className={styles.title}>{title}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
             {products.map((product, index) => (
               <ProductItem key={index} product={product} />
@@ -71,16 +60,37 @@ const ProductSlider = ({ title, apiUrl }) => {
         </div>
       ) : (
         <div className="mb-[60px]">
-          <h1 className={styles.title}>{title}</h1>
+          <h2 className={styles.title}>{title}</h2>
           <div className={styles.container}>
-            <div className="w-4/5 h-100">
-              <Slider {...settings}>
+          <div className="w-4/5 h-100">
+            <Carousel
+              draggable={true}
+              showDots={false}
+              infinite={true}
+              autoPlaySpeed={2000}
+              keyBoardControl={true}
+              customTransition="transform 0.2s ease-out"
+              transitionDuration={800}
+              autoPlay={true}
+              containerClass="carousel-container"
+              dotListClass="custom-dot-list-style"
+              responsive={{
+                desktop: {
+                  breakpoint: {
+                    max: 3000,
+                    min: 1024,
+                  },
+                  items: 4,
+                  partialVisibilityGutter: 40,
+                },
+              }}
+            >
                 {products.map((product) => (
-                  <div className={styles["slick-slide"]} key={product.id}>
+                  <div className={styles.slickslide} key={product.id}>
                     <ProductItem product={product} />
                   </div>
                 ))}
-              </Slider>
+            </Carousel>
             </div>
           </div>
         </div>
