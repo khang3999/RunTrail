@@ -19,12 +19,25 @@ function ProductProvider({ children }) {
 
    const [minPrice, setMinPrice] = useState(params.minPrice || 0);
    const [maxPrice, setMaxPrice] = useState(params.maxPrice || 20000000);
-   const [categoryId, setCategoryId] = useState(params.categoryId || 1);
+   const [categoryId, setCategoryId] = useState(params.categoryId || -1);
+   const [tempSelectedBrands, setTempSelectedBrands] = useState(
+      params.brandIds && params.brandIds.split(",").length > 0
+         ? params.brandIds.split(",")
+         : [],
+   );
+
+   useEffect(() => {
+      const temp = params.brandIds && params.brandIds.split(",").length > 0
+         ? params.brandIds.split(",")
+         : []
+      setTempSelectedBrands(temp)
+   }, [params.brandIds])
    const [selectedBrands, setSelectedBrands] = useState(
       params.brandIds && params.brandIds.split(",").length > 0
          ? params.brandIds.split(",")
          : [],
    );
+   // const [tempSelectedBrands, setTempSelectedBrands] = useState(selectedBrands);
    const [selectedSizes, setSelectedSizes] = useState(
       params.key === "Size" && params.value.split(",").length > 0
          ? params.value.split(",")
@@ -139,6 +152,9 @@ function ProductProvider({ children }) {
             setSelectedSizes,
             selectedSizes,
             fetchProducts,
+            tempSelectedBrands,
+            setTempSelectedBrands,
+            params
          }}
       >
          {children}

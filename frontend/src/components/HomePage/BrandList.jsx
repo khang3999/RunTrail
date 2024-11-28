@@ -7,9 +7,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import '@/assets/css/homePage.css'
 import Link from 'next/link';
+import { useProductProvider } from '@/contexts/ProductProvider';
 
 export default function BrandList() {
     const [dataBrands, setDataBrands] = useState([])
+    const { setCategoryId, setSelectedBrands,  } = useProductProvider()
     useEffect(() => {
         // use Axios Instance
         const fetchBrandsData = async () => {
@@ -31,6 +33,13 @@ export default function BrandList() {
         };
         fetchBrandsData();
     }, []);
+
+    const handleClickOnBrandItem = (brandId) => {
+        const selectedBrands = [brandId]
+        setCategoryId(-1)
+        setSelectedBrands(selectedBrands)
+        // setTempSelectedBrands(selectedBrands)
+    }
 
     return (
         <div className="banner w-full flex-1 h-[400px]">
@@ -63,7 +72,7 @@ export default function BrandList() {
                 {dataBrands && dataBrands.map(brand => {
                     return (
                         <SwiperSlide key={brand.id} virtualIndex={brand.id}>
-                            <Link href='#'>
+                            <Link href='/products' onClick={()=>handleClickOnBrandItem(brand.id)}>
                                 <img className="w-full" src={brand.brandLogo}></img>
                             </Link>
                         </SwiperSlide>
