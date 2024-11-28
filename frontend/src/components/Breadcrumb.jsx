@@ -2,19 +2,22 @@ import { useProductProvider } from "@/contexts/ProductProvider";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-function Breadcrumb({ categoryId=-1 }) {
+function Breadcrumb({ categoryId = -1 }) {
   const { setCategoryId } = useProductProvider();
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
   const router = useRouter();
 
   const fetchCategory = async (id) => {
     try {
-      const res = await fetch(`http://localhost:8008/api/categories${(id && `/${id}`)}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        `http://localhost:8008/api/categories${id && `/${id}`}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
       const data = await res.json();
       return data;
     } catch (error) {
@@ -58,7 +61,7 @@ function Breadcrumb({ categoryId=-1 }) {
   }
 
   const handleNavigate = (id) => {
-    router.push(`/`);
+    router.push(`/product`);
     if (id === -1) {
       setCategoryId(-1);
     } else {

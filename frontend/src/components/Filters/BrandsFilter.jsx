@@ -11,35 +11,25 @@ const BrandsFilter = ({ categoryId }) => {
     useProductProvider();
 
   useEffect(() => {
+    console.log("Selected brands:", selectedBrands);
+    setTempSelectedBrands(selectedBrands);
+  }, [selectedBrands]);
 
+  useEffect(() => {
     // use Axios Instance
     const fetchBrandsData = async () => {
-      // try {
-      //   const res = await fetch(
-      //     `http://localhost:8008/api/brands/by-category?categoryId=${categoryId}`,
-      //     {
-      //       method: "GET",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //     },
-      //   );
-      //   const data = await res.json();
-      //   setBrands(data);
-      // } catch (error) {
-      //   console.error("Error fetching brands:", error);
-      // }
+      AxiosInstance.get(`/brands/by-category?categoryId=${categoryId}`).then(
+        (res) => {
+          const data = res.data;
+          if (data.statusCode === 200) {
+            setBrands(data.metadata);
+          } else {
+            console.error("Error fetching brands:", error);
+          }
+        },
+      );
+    };
 
-      AxiosInstance.get(`/brands/by-category?categoryId=${categoryId}`).then((res)=>{
-        const data = res.data;
-        if (data.statusCode === 200) {
-          setBrands(data.metadata);
-        }
-        else{
-          console.error("Error fetching brands:", error);
-        }
-      })
-      }
     if (categoryId) {
       fetchBrandsData();
     }
@@ -58,7 +48,7 @@ const BrandsFilter = ({ categoryId }) => {
 
   const handleBrandChange = (brandId) => {
     const updatedSelectedBrands = tempSelectedBrands.includes(brandId)
-      ? tempSelectedBrands.filter((id) => id !== brandId)
+      ? tempSelectedBrands.filter((id) => id.toString() !== brandId)
       : [...tempSelectedBrands, brandId];
 
     setTempSelectedBrands(updatedSelectedBrands);
@@ -74,8 +64,8 @@ const BrandsFilter = ({ categoryId }) => {
               <input
                 type="checkbox"
                 id={`brand-${brand.id}`}
-                checked={tempSelectedBrands.includes(brand.id)}
-                onChange={() => handleBrandChange(brand.id)}
+                checked={tempSelectedBrands.includes(brand.id.toString())}
+                onChange={() => handleBrandChange(brand.id.toString())}
                 className="mr-2"
               />
               <label

@@ -1,8 +1,8 @@
 import React from "react";
-import "./Skeleton.css";
+import styles from "./Skeleton.module.css";
 
 function Skeleton({ className = "" }) {
-  return <div className={`skeleton rounded-sm ${className}`}></div>;
+  return <div className={`${styles.skeleton} rounded-sm ${className}`}></div>;
 }
 
 export default Skeleton;
