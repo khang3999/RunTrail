@@ -40,8 +40,8 @@ const Custom404 = () => {
 
     if (!isNotFound) return (
         <div className='w-[100vw] h-[100vh] bg-white fixed top-0 left-0 right-0 z-[100000] flex items-center justify-center'>
-            <div class="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin"></div>
-            <p class="text-blue-500 text-lg font-semibold ml-4">Đang tải...</p>
+            <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin"></div>
+            <p className="text-blue-500 text-lg font-semibold ml-4">Đang tải...</p>
         </div>
     );
 

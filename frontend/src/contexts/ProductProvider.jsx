@@ -25,7 +25,6 @@ function ProductProvider({ children }) {
    const fetchProducts = async () => {
       try {
          setIsLoading(true);
-
          if (minPrice > maxPrice) {
             setErrorMessage("Giá tối thiểu phải nhỏ hơn giá tối đa");
             setIsLoading(false);
@@ -44,8 +43,6 @@ function ProductProvider({ children }) {
          const sizesNameStr = (selectedSizes && selectedSizes.length > 0) ? selectedSizes.join(",") : '';
 
          const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
-
-        //  window.history.pushState({}, "", `?${stringParams}`);
 
          setIsLoading(true);
 
