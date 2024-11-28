@@ -115,6 +115,56 @@ INSERT INTO `categories` VALUES (1,'Giày Chạy Bộ',NULL),(2,'Giày Địa H�
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 --
+-- Table structure for table `collection_product`
+--
+
+DROP TABLE IF EXISTS `collection_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collection_product` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
+  `create_time` datetime DEFAULT NULL COMMENT 'Create Time',
+  `product_id` int DEFAULT NULL,
+  `collection_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collection_product`
+--
+
+/*!40000 ALTER TABLE `collection_product` DISABLE KEYS */;
+INSERT INTO `collection_product` VALUES (1,NULL,10,1),(2,NULL,11,1),(3,NULL,4,1),(4,NULL,5,1),(5,NULL,1,1),(6,NULL,2,1),(7,NULL,12,2),(8,NULL,14,2),(9,NULL,15,2),(10,NULL,16,2),(11,NULL,17,2),(12,NULL,18,2);
+/*!40000 ALTER TABLE `collection_product` ENABLE KEYS */;
+
+--
+-- Table structure for table `collections`
+--
+
+DROP TABLE IF EXISTS `collections`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collections` (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
+  `create_time` datetime DEFAULT NULL COMMENT 'Create Time',
+  `collection_name` varchar(255) DEFAULT NULL,
+  `collection_image` varchar(255) DEFAULT NULL,
+  `collection_link` varchar(255) DEFAULT NULL,
+  `numerical_order` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collections`
+--
+
+/*!40000 ALTER TABLE `collections` DISABLE KEYS */;
+INSERT INTO `collections` VALUES (1,NULL,'BỘ SƯU TẬP MỚI','https://pos.nvncdn.com/be3294-43017/campaign/20240524_oNYjSZ5b.jpeg','https://pos.nvncdn.com/be3294-43017/campaign/20240524_oNYjSZ5b.jpeg',1),(2,NULL,'MÔN THỂ THAO YÊU THÍCH','https://pos.nvncdn.com/be3294-43017/bn/20241123_QnoAOUfT.gif','https://pos.nvncdn.com/be3294-43017/bn/20241123_QnoAOUfT.gif',2);
+/*!40000 ALTER TABLE `collections` ENABLE KEYS */;
+
+--
 -- Table structure for table `districts`
 --
 
@@ -164,7 +214,7 @@ CREATE TABLE `order_product` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_product_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   CONSTRAINT `order_product_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `sku` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +222,7 @@ CREATE TABLE `order_product` (
 --
 
 /*!40000 ALTER TABLE `order_product` DISABLE KEYS */;
-INSERT INTO `order_product` VALUES (1,24,31,13000,1),(2,24,2,10000,2),(3,25,1,12000,2),(4,25,7,11000,1);
+INSERT INTO `order_product` VALUES (1,24,31,13000,1),(2,24,2,10000,2),(3,25,1,12000,2),(4,25,7,11000,1),(5,26,3,15000,1),(6,27,2,10000,1),(7,28,3,15000,1),(8,29,1,12000,1),(9,30,7,11000,1),(10,31,4,9000,1),(11,32,2,10000,1),(12,33,4,9000,1),(13,34,3,15000,1),(14,35,3,15000,1),(15,36,3,15000,1),(16,37,1,12000,2),(17,38,2,10000,1),(18,39,6,7000,1),(19,40,6,7000,1),(20,41,5,8500,1),(21,42,4,9000,2),(22,43,4,9000,1),(23,44,1,12000,1),(24,45,3,15000,1),(25,46,4,9000,1),(26,47,1,12000,1),(27,48,1,12000,3),(28,48,3,15000,1),(29,49,6,7000,3),(30,50,1,12000,1),(31,51,6,7000,2),(32,51,5,8500,3),(33,52,3,15000,4),(34,52,4,9000,2),(35,53,2,10000,4),(36,54,2,10000,4),(37,55,2,10000,1),(38,56,2,10000,6),(39,57,2,10000,5),(40,58,2,10000,6),(41,59,72,1500000,6);
 /*!40000 ALTER TABLE `order_product` ENABLE KEYS */;
 
 --
@@ -197,7 +247,7 @@ CREATE TABLE `orders` (
   `acccount_id` int DEFAULT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,7 +255,7 @@ CREATE TABLE `orders` (
 --
 
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (24,0,'2024-11-13T01:46:28.541987100',33000,0,1,0,'27, 258, 09232, 34',0,'345345',NULL,NULL,'345 34'),(25,0,'2024-11-13T01:48:49.360231900',35000,0,1,0,'79, 777, 27454, DATOO',10,'3434234',NULL,NULL,'Nguyen Dat');
+INSERT INTO `orders` VALUES (24,0,'2024-11-13T01:46:28.541987100',33000,0,1,0,'27, 258, 09232, 34',0,'345345',NULL,NULL,'345 34'),(25,0,'2024-11-13T01:48:49.360231900',35000,0,1,0,'79, 777, 27454, DATOO',10,'3434234',NULL,NULL,'Nguyen Dat'),(26,0,'2024-11-15T22:32:37.652271900',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(27,0,'2024-11-15T22:48:25.837919600',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(28,0,'2024-11-15T23:25:36.893981600',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(29,0,'2024-11-15T23:29:32.816531200',12000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(30,0,'2024-11-15T23:31:33.350592500',11000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(31,0,'2024-11-15T23:34:17.443912900',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(32,0,'2024-11-15T23:36:54.009383200',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(33,0,'2024-11-15T23:38:18.026957400',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(34,0,'2024-11-15T23:40:23.410727600',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(35,0,'2024-11-15T23:43:01.909400900',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(36,0,'2024-11-15T23:44:26.672439700',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(37,0,'2024-11-15T23:59:23.186478',24000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(38,0,'2024-11-16T00:16:18.537527700',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(39,0,'2024-11-16T00:19:20.925169500',7000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(40,0,'2024-11-16T00:23:03.427983900',7000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(41,0,'2024-11-16T00:23:54.383549800',8500,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(42,0,'2024-11-16T00:25:26.894334100',18000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(43,0,'2024-11-16T00:27:01.468340600',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(44,0,'2024-11-16T00:44:39.216196500',12000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(45,0,'2024-11-16T01:17:18.583532500',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(46,0,'2024-11-16T01:19:06.494590100',9000,0,1,0,'04, 043, 01327, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(47,0,'2024-11-16T01:28:46.139212800',12000,0,1,0,'04, 043, 01327, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(48,0,'2024-11-23T08:45:02.536390800',5100,0,1,0,'08, 071, 02266, sdfsdf',10,'0987654312',NULL,NULL,'sdf sdf'),(49,0,'2024-11-23T09:10:14.676024300',2100,0,1,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(50,0,'2024-11-23T16:07:38.253747400',1199.9999999999998,0,1,0,'08, 071, 02266, sdfsdf',10,'0987654312',NULL,NULL,'sdf sdf'),(51,0,'2024-11-23T16:21:34.360412700',3949.999999999999,0,1,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(52,0,'2024-11-23T16:25:11.165681900',7799.999999999998,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(53,0,'2024-11-23T16:27:25.730886400',3999.999999999999,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(54,0,'2024-11-23T16:28:50.294204700',3999.999999999999,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(55,0,'2024-11-23T16:30:06.688509900',999.9999999999998,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(56,0,'2024-11-23T16:33:57.125746500',5999.999999999998,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654312',NULL,NULL,'Nguyễn Đạt'),(57,0,'2024-11-23T16:40:15.784197600',4999.999999999999,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',100,'0987654312',NULL,NULL,'Nguyễn Đạt'),(58,0,'2024-11-23T16:47:18.042166700',5999.999999999998,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654312',NULL,NULL,'Nguyễn Đạt'),(59,0,'2024-11-23T17:44:43.067362100',8100000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654312',NULL,NULL,'Nguyễn Đạt');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 --
@@ -345,7 +395,7 @@ CREATE TABLE `sku_images` (
 --
 
 /*!40000 ALTER TABLE `sku_images` DISABLE KEYS */;
-INSERT INTO `sku_images` VALUES (21,2,'https://i.ebayimg.com/images/g/3boAAOSwI2ZlFdFu/s-l1200.jpghttps://i.ebayimg.com/images/g/3boAAOSwI2ZlFdFu/s-l1200.jpg',0,NULL,NULL),(22,2,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQuh2WgE8xS-fKI8EZJRFJjmapN4Xs5McjS2ZdPCwH5Qb2-9Ue-h5zlp0ZgiUMGlrrZe8&usqp=CAU',0,NULL,NULL);
+INSERT INTO `sku_images` VALUES (1,1,'https://i5.walmartimages.com/seo/Puma-Mens-Suede-Classic-XXI-Sneakers-Black-White-11-US_c089bb1c-a199-4fe4-9987-2ff66f9cd859.d48a1eac667747ed6f53b7504bf79460.jpeg',0,NULL,NULL),(2,2,'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/398846/01/sv01/fnd/PHL/fmt/png',0,NULL,NULL),(3,3,'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/395205/21/sv01/fnd/PHL/fmt/png',0,NULL,NULL),(4,4,'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/396464/01/sv01/fnd/DFA/fmt/png/Palermo-Leather-Sneakers-Unisex',0,NULL,NULL),(5,5,'https://www.sportspar.de/media/image/38/c9/c5/307311-01-1LnC2Ta5U9NxBe.jpg',0,NULL,NULL),(6,6,'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/99486859-0ff3-46b4-949b-2d16af2ad421/custom-nike-dunk-high-by-you-shoes.png',0,NULL,NULL),(7,7,'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/3f3e7049-5c99-428c-abcd-e246b086f2ed/AIR+FORCE+1+%2707.png',0,NULL,NULL),(8,8,'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/3f3e7049-5c99-428c-abcd-e246b086f2ed/AIR+FORCE+1+%2707.png',0,NULL,NULL),(9,9,'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/6b257d85-cbc4-4179-badd-b6c81e290926/W+NIKE+P-6000.png',0,NULL,NULL),(10,10,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(11,11,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(12,12,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(13,13,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(14,14,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(15,15,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(16,16,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(17,17,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(18,18,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(19,19,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(20,20,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL);
 /*!40000 ALTER TABLE `sku_images` ENABLE KEYS */;
 
 --
@@ -358,7 +408,7 @@ DROP TABLE IF EXISTS `spu`;
 CREATE TABLE `spu` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `spu_name` varchar(200) NOT NULL,
-  `spu_description` tinytext,
+  `spu_description` text,
   `category_id` bigint DEFAULT NULL,
   `brand_id` bigint DEFAULT NULL,
   `spu_status` int DEFAULT NULL,
@@ -476,4 +526,4 @@ INSERT INTO `wards` VALUES ('00001','Phúc Xá','Phuc Xa','Phường Phúc Xá',
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-13  1:50:28
+-- Dump completed on 2024-11-24 18:13:14
