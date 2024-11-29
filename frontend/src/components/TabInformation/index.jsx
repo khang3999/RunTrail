@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import "@/assets/css/markdownImage.css";
-import MarkdownPreview from "@uiw/react-markdown-preview";
+// import "@/assets/css/markdownImage.css";
+import Markdown from 'react-markdown';
 
 const TabInformation = ({ product, isLoading }) => {
   const [tab, setTab] = useState(1);
@@ -39,10 +39,11 @@ const TabInformation = ({ product, isLoading }) => {
           <Skeleton className="h-[200px]" />
         ) : (
           <div className={`${tab === 1 ? "block" : "hidden"} mark-down-wrap`}>
-            <MarkdownPreview
+            {/* <MarkdownPreview
               source={product.spuDescription}
               style={{ background: "white", color: "black" }}
-            />
+            /> */}
+            <Markdown>{product.spuDescription}</Markdown>
           </div>
         )}
         <div className={`${tab === 2 ? "block" : "hidden"} text-stone-400`}>

@@ -13,31 +13,18 @@ function ProductProvider({ children }) {
    const [isFirstFilter, setFirstFilter] = useState(true);
    const [errorMessage, setErrorMessage] = useState("");
 
-   // Kiểm tra slug in URL
-   const searchParams = new URLSearchParams(window.location.search);
-   const params = Object.fromEntries(searchParams.entries());
-
-   const [minPrice, setMinPrice] = useState(params.minPrice || 0);
-   const [maxPrice, setMaxPrice] = useState(params.maxPrice || 20000000);
-   const [categoryId, setCategoryId] = useState(params.categoryId || 1);
-   const [selectedBrands, setSelectedBrands] = useState(
-      params.brandIds && params.brandIds.split(",").length > 0
-         ? params.brandIds.split(",")
-         : [],
-   );
+   const [minPrice, setMinPrice] = useState(0);
+   const [maxPrice, setMaxPrice] = useState(20000000);
+   const [categoryId, setCategoryId] = useState( 1);
+   const [selectedBrands, setSelectedBrands] = useState([]);
    const [selectedSizes, setSelectedSizes] = useState(
-      params.key === "Size" && params.value.split(",").length > 0
-         ? params.value.split(",")
-         : [],
-   );
-   const [contentOrderBy, setContentOrderBy] = useState(
-      params.contentOrderBy || "desc",
+      []);
+   const [contentOrderBy, setContentOrderBy] = useState("desc",
    );
 
    const fetchProducts = async () => {
       try {
          setIsLoading(true);
-
          if (minPrice > maxPrice) {
             setErrorMessage("Giá tối thiểu phải nhỏ hơn giá tối đa");
             setIsLoading(false);
@@ -56,8 +43,6 @@ function ProductProvider({ children }) {
          const sizesNameStr = (selectedSizes && selectedSizes.length > 0) ? selectedSizes.join(",") : '';
 
          const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
-
-         window.history.pushState({}, "", `?${stringParams}`);
 
          setIsLoading(true);
 
