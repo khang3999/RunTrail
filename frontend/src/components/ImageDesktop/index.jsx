@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import "@/assets/css/imageDesktop.css";
+import "./imageDesktop.module.css";
 import ReactImageMagnify from "react-image-magnify";
 import Skeleton from "react-loading-skeleton";
 import ProductImageModal from "../ProductImageModal";
@@ -62,7 +62,7 @@ export default function ImageDesktop({ product = null, isLoading = false }) {
         <div className="w-full flex flex-1 justify-center items-center z-[3] mb-2">
           <>
             <button
-              className="btn-image-desktop w-full h-full"
+              className={"w-full h-full max-w-none"}
               onClick={() => {
                 if (product.images && product.images.length > 0) {
                   setShowModal(!showModal);

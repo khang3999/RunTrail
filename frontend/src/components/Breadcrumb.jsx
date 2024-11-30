@@ -71,7 +71,7 @@ function Breadcrumb() {
 
 
   const handleNavigate = (id) => {
-    router.push(`/`);
+    router.push(`/product`);
     if (id === -1) {
       setCategoryId(-1);
     } else {

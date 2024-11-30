@@ -72,7 +72,7 @@ export default function BrandList() {
                 {dataBrands && dataBrands.map(brand => {
                     return (
                         <SwiperSlide key={brand.id} virtualIndex={brand.id}>
-                            <Link href='/products' onClick={()=>handleClickOnBrandItem(brand.id)}>
+                            <Link href='/product' onClick={()=>handleClickOnBrandItem(brand.id)}>
                                 <img className="w-full" src={brand.brandLogo}></img>
                             </Link>
                         </SwiperSlide>

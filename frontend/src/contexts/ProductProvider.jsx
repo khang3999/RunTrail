@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { useState, useContext, createContext } from "react";
 
 const ProductContext = createContext();
 function ProductProvider({ children }) {
@@ -39,18 +39,13 @@ function ProductProvider({ children }) {
    );
    // const [tempSelectedBrands, setTempSelectedBrands] = useState(selectedBrands);
    const [selectedSizes, setSelectedSizes] = useState(
-      params.key === "Size" && params.value.split(",").length > 0
-         ? params.value.split(",")
-         : [],
-   );
-   const [contentOrderBy, setContentOrderBy] = useState(
-      params.contentOrderBy || "desc",
+      []);
+   const [contentOrderBy, setContentOrderBy] = useState("desc",
    );
 
    const fetchProducts = async () => {
       try {
          setIsLoading(true);
-
          if (minPrice > maxPrice) {
             setErrorMessage("Giá tối thiểu phải nhỏ hơn giá tối đa");
             setIsLoading(false);
@@ -69,8 +64,6 @@ function ProductProvider({ children }) {
          const sizesNameStr = (selectedSizes && selectedSizes.length > 0) ? selectedSizes.join(",") : '';
 
          const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
-
-         window.history.pushState({}, "", `?${stringParams}`);
 
          setIsLoading(true);
 
