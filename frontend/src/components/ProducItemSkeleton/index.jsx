@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import "@/assets/css/productItemSkeleton.css";
+// import "@/assets/css/productItemSkeleton.css";
 import Skeleton from "react-loading-skeleton";
 
 export default function ProductItemSkeleton() {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, createContext, useEffect } from "react";
+import React, { useState, useContext, createContext, useEffect, useCallback } from "react";
 
 const ProductContext = createContext();
 function ProductProvider({ children }) {
@@ -20,6 +20,7 @@ function ProductProvider({ children }) {
    const [selectedBrands, setSelectedBrands] = useState([]);
    const [selectedSizes, setSelectedSizes] = useState([]);
    const [contentOrderBy, setContentOrderBy] = useState("desc");
+   const [checkParams, setCheckParams] = useState(false);
 
    useEffect(() => {
       if (typeof window !== "undefined") {
@@ -29,21 +30,22 @@ function ProductProvider({ children }) {
          setMinPrice(Number(params.minPrice) || 0);
          setMaxPrice(Number(params.maxPrice) || 20000000);
          setCategoryId(Number(params.categoryId) || 1);
-         setSelectedBrands(
-            params.brandIds && params.brandIds.split(",").length > 0
-               ? params.brandIds.split(",")
-               : []
-         );
-         setSelectedSizes(
-            params.key === "Size" && params.value?.split(",").length > 0
-               ? params.value.split(",")
-               : []
-         );
+         setSelectedBrands(params.brandIds?.split(",")?.filter(Boolean) || []);
+         setSelectedSizes(params.value?.split(",")?.filter(Boolean) || []);
          setContentOrderBy(params.contentOrderBy || "desc");
+         setCheckParams(true);
       }
-   }, []); // Chỉ chạy một lần sau khi component mount
+   }, []);
 
-   const fetchProducts = async () => {
+   const buildQueryParams = () => {
+      const brandIdsStr = selectedBrands?.join(",") || '';
+      const sizesNameStr = selectedSizes?.join(",") || '';
+      return `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
+   };
+
+
+   const fetchProducts = useCallback(async () => {
+      console.log("fetchProducts");
       try {
          setIsLoading(true);
 
@@ -53,55 +55,40 @@ function ProductProvider({ children }) {
             return;
          }
 
-         if (selectedBrands && selectedBrands.length > 0 && selectedBrands[0] === "") {
-            selectedBrands.shift(); // Xóa phần tử rỗng
-         }
-
-         if (selectedSizes && selectedSizes.length > 0 && selectedSizes[0] === "") {
-            selectedSizes.shift(); // Xóa phần tử rỗng
-         }
-
-         const brandIdsStr = (selectedBrands && selectedBrands.length > 0) ? selectedBrands.join(",") : '';
-         const sizesNameStr = (selectedSizes && selectedSizes.length > 0) ? selectedSizes.join(",") : '';
-
-         const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
-
+         const stringParams = buildQueryParams();
          window.history.pushState({}, "", `?${stringParams}`);
-
-         setIsLoading(true);
-
          isFirstFilter && setCurrentPage(1);
+
          const response = await fetch(
             `http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`,
          );
          const data = await response.json();
+
          const {
-            metadata: {
-               content: products,
-               totalPages,
-               numberOfElements,
-               totalElements,
-            },
+            metadata: { content: products, totalPages, numberOfElements, totalElements },
          } = data;
+
          setProducts(products);
          setTotalPages(totalPages);
          setNumberOfElements(numberOfElements);
-         setIsLoading(false);
          setTotalElements(totalElements);
+         setIsLoading(false);
+         setFirstFilter(false);
       } catch (error) {
          console.error("Error fetching products:", error);
          setIsLoading(false);
       }
-   };
+   }, [minPrice, maxPrice, selectedBrands, selectedSizes, categoryId, contentOrderBy, currentPage, productsPerPage, isFirstFilter]);
+
 
    const filterProductsByBrand = (selectedBrands) => {
       setFirstFilter(true);
-      fetchProducts();
+      // fetchProducts();
    };
 
    const filterProductsBySize = (selectedSizes) => {
       setFirstFilter(true);
-      fetchProducts();
+      // fetchProducts();
    };
 
    const indexOfLastProduct = currentPage * productsPerPage;
@@ -148,6 +135,8 @@ function ProductProvider({ children }) {
             setSelectedSizes,
             selectedSizes,
             fetchProducts,
+            checkParams,
+            setCheckParams,
          }}
       >
          {children}

@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Header.module.css";
-import { Input } from "antd";
-import { CiShoppingCart, CiSearch } from "react-icons/ci";
+import {CiSearch } from "react-icons/ci";
 import { FaChevronDown, FaUserCircle } from "react-icons/fa";
 import { MdOutlineMenu } from "react-icons/md";
 import Link from "next/link";
-import Search from "antd/es/transfer/search";
+// import {Search} from "antd/es";
 import CartIcon from "../CartIcon";
 import { useAppProvider } from "@/contexts/AppProvider";
 
