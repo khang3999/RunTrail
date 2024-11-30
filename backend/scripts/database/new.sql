@@ -67,6 +67,26 @@ CREATE TABLE `administrative_units` (
 INSERT INTO `administrative_units` VALUES (1,'Thành phố trực thuộc trung ương','Municipality','Thành phố','City','thanh_pho_truc_thuoc_trung_uong','municipality'),(2,'Tỉnh','Province','Tỉnh','Province','tinh','province'),(3,'Thành phố thuộc thành phố trực thuộc trung ương','Municipal city','Thành phố','City','thanh_pho_thuoc_thanh_pho_truc_thuoc_trung_uong','municipal_city'),(4,'Thành phố thuộc tỉnh','Provincial city','Thành phố','City','thanh_pho_thuoc_tinh','provincial_city'),(5,'Quận','Urban district','Quận','District','quan','urban_district'),(6,'Thị xã','District-level town','Thị xã','Town','thi_xa','district_level_town'),(7,'Huyện','District','Huyện','District','huyen','district'),(8,'Phường','Ward','Phường','Ward','phuong','ward'),(9,'Thị trấn','Commune-level town','Thị trấn','Township','thi_tran','commune_level_town'),(10,'Xã','Commune','Xã','Commune','xa','commune');
 /*!40000 ALTER TABLE `administrative_units` ENABLE KEYS */;
 
+DROP TABLE IF EXISTS `banners`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `banners` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `source` text NOT NULL,
+  `status` int DEFAULT '1',
+  `linkTo` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `banners`
+--
+
+/*!40000 ALTER TABLE `banners` DISABLE KEYS */;
+INSERT INTO `banners` VALUES (1,'https://cf.shopee.vn/file/vn-11134258-7ras8-m2umshsqkl5267_xxhdpi',1,NULL),(2,'https://cf.shopee.vn/file/vn-11134258-7ras8-m2umuy1pfh8m1f_xxhdpi',1,NULL),(3,'https://cf.shopee.vn/file/vn-11134258-7ras8-m0sil68ehi1b66_xxhdpi',1,NULL),(4,'https://cf.shopee.vn/file/vn-11134258-7ras8-m2up8rwdszp6eb_xxhdpi',1,NULL);
+/*!40000 ALTER TABLE `banners` ENABLE KEYS */;
+
 --
 -- Table structure for table `brand`
 --
@@ -79,6 +99,7 @@ CREATE TABLE `brand` (
   `brand_name` varchar(50) NOT NULL,
   `brand_desc` varchar(255) DEFAULT NULL,
   `brand_logo` varchar(255) NOT NULL,
+  `status` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -88,8 +109,70 @@ CREATE TABLE `brand` (
 --
 
 /*!40000 ALTER TABLE `brand` DISABLE KEYS */;
-INSERT INTO `brand` VALUES (1,'NORDA','Global sports brand','NORDA.png'),(2,'ON RUNNING','Athletic shoes, apparel, and accessories','ON_RUNNING.png'),(3,'SAUCONY','Sportswear and casual wear','SAUCONY.png'),(4,'XEROSHOES','Sports and fitness apparel','XEROSHOES.png'),(5,'NEW BALANCE','Athletic shoes and apparel','NEW_BALANCE.png'),(6,'NIKE','Leading sportswear brand','NIKE.png'),(7,'ADIDAS','Global sports brand','ADIDAS.png'),(8,'PUMA','Sportswear and casual wear','PUMA.png'),(9,'REEBOK','Sports and fitness apparel','REEBOK.png'),(10,'UNDER ARMOUR','Athletic shoes and apparel','UNDER_ARMOUR.png');
+INSERT INTO `brand` VALUES (1,'NORDA','Global sports brand','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_SUPER.jpg?v=1715164070',1),(2,'ON RUNNING','Athletic shoes, apparel, and accessories','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_ON.jpg?v=1715164070',1),(3,'SAUCONY','Sportswear and casual wear','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_SAUCONY.jpg?v=1715164070',1),(4,'XEROSHOES','Sports and fitness apparel','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_2XU.jpg?v=1715164070',1),(5,'NEW BALANCE','Athletic shoes and apparel','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_NB.jpg?v=1715164070',1),(6,'NIKE','Leading sportswear brand','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_NIKE.jpg?v=1715164070',1),(7,'ADIDAS','Global sports brand','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_DAS.jpg?v=1715164070',1),(8,'PUMA','Sportswear and casual wear','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_PUMA.jpg?v=1715164070',1),(9,'REEBOK','Sports and fitness apparel','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_BALE.jpg?v=1715164070',1),(10,'UNDER ARMOUR','Athletic shoes and apparel','https://cdn.shopify.com/s/files/1/0456/5070/6581/files/ALLBRANDS_UA.jpg?v=1715164070',1);
 /*!40000 ALTER TABLE `brand` ENABLE KEYS */;
+
+--
+-- Table structure for table `new_spu`
+--
+
+DROP TABLE IF EXISTS `new_spu`;
+
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+
+CREATE TABLE `new_spu` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `spu_name` varchar(200) NOT NULL,
+  `spu_description` text,
+  `category_id` bigint DEFAULT NULL,
+  `brand_id` bigint DEFAULT NULL,
+  `spu_status` int DEFAULT NULL,
+  `discount` int DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `spu_attributes` json DEFAULT NULL,
+  `spu_no` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!40000 ALTER TABLE `new_spu` DISABLE KEYS */;
+INSERT INTO `new_spu` VALUES (1,'NORDA Sports Collection - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,1,1,90,'under-armour-hovr','{\"Size\": [\"36\"], \"Color\": [\"Black\", \"Blue\"]}','SPU008'),(2,'ON RUNNING Summer Collection  - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,2,1,90,'new-balance-fresh-foam','{\"Size\": [\"37\"], \"Color\": [\"Gray\", \"White\"]}','SPU009'),(3,'SAUCONY Retro CollectionSAUCONY Retro Collection','Miêu tả chi tiết sản phẩm Adidas NMD...',9,3,1,90,'adidas-nmd','{\"Size\": [\"38\"], \"Color\": [\"Black\", \"Red\"]}','SPU010'),(4,'XEROSHOES Fitness Collection','Miêu tả chi tiết sản phẩm Asics Gel Kayano...',9,1,1,97,'asics-gel-kayano','{\"Size\": [\"39\"], \"Color\": [\"Blue\", \"White\"]}','SPU011'),(5,'New Balance Classics','Miêu tả chi tiết sản phẩm Salomon Speedcross...',10,1,1,12,'salomon-speedcross','{\"Size\": [\"40\"], \"Color\": [\"Black\", \"Yellow\"]}','SPU012'),(6,'NIKE Air Max Collection','Miêu tả chi tiết sản phẩm Puma RS-X...',10,2,1,13,'puma-rs-x','{\"Size\": [\"41\"], \"Color\": [\"Gray\", \"Green\"]}','SPU013');
+/*!40000 ALTER TABLE `new_spu` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
+-- Table structure for table `sale_off`
+--
+
+DROP TABLE IF EXISTS `sale_off`;
+
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+
+CREATE TABLE `sale_off` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `spu_name` varchar(200) NOT NULL,
+  `spu_description` text,
+  `category_id` bigint DEFAULT NULL,
+  `brand_id` bigint DEFAULT NULL,
+  `spu_status` int DEFAULT NULL,
+  `discount` int DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `spu_attributes` json DEFAULT NULL,
+  `spu_no` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+/*!40000 ALTER TABLE `sale_off` DISABLE KEYS */;
+INSERT INTO `sale_off` VALUES (27,'NIKE Downshifter  - t','Miêu tả chi tiết sản phẩm NIKE Downshifter...',20,1,1,99,'nike-downshifter','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU034'),(28,'PUMA Tazon  - t','Miêu tả chi tiết sản phẩm PUMA Tazon...',20,2,1,97,'puma-tazon','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU035'),(29,'VANS Era  - t','Miêu tả chi tiết sản phẩm VANS Era...',21,3,1,99,'vans-era','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU036'),(30,'CONVERSE Jack  - t','Miêu tả chi tiết sản phẩm CONVERSE Jack Purcell...',21,4,1,96,'converse-jack-purcell','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU037'),(41,'Nike Air Max 270','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,1,1,89,'nike-air-max-270','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU001'),(42,'Adidas Superstar','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,2,1,99,'adidas-superstar','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU002');
+/*!40000 ALTER TABLE `sale_off` ENABLE KEYS */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 
 --
 -- Table structure for table `categories`
@@ -427,7 +510,7 @@ CREATE TABLE `spu` (
 --
 
 /*!40000 ALTER TABLE `spu` DISABLE KEYS */;
-INSERT INTO `spu` VALUES (1,'NORDA Sports Collection - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,1,1,90,'under-armour-hovr','{\"Size\": [\"36\"], \"Color\": [\"Black\", \"Blue\"]}','SPU008'),(2,'ON RUNNING Summer Collection  - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,2,1,90,'new-balance-fresh-foam','{\"Size\": [\"37\"], \"Color\": [\"Gray\", \"White\"]}','SPU009'),(3,'SAUCONY Retro CollectionSAUCONY Retro Collection','Miêu tả chi tiết sản phẩm Adidas NMD...',9,3,1,90,'adidas-nmd','{\"Size\": [\"38\"], \"Color\": [\"Black\", \"Red\"]}','SPU010'),(4,'XEROSHOES Fitness Collection','Miêu tả chi tiết sản phẩm Asics Gel Kayano...',9,1,1,97,'asics-gel-kayano','{\"Size\": [\"39\"], \"Color\": [\"Blue\", \"White\"]}','SPU011'),(5,'New Balance Classics','Miêu tả chi tiết sản phẩm Salomon Speedcross...',10,1,1,12,'salomon-speedcross','{\"Size\": [\"40\"], \"Color\": [\"Black\", \"Yellow\"]}','SPU012'),(6,'NIKE Air Max Collection','Miêu tả chi tiết sản phẩm Puma RS-X...',10,2,1,13,'puma-rs-x','{\"Size\": [\"41\"], \"Color\": [\"Gray\", \"Green\"]}','SPU013'),(7,'ADIDAS Ultra Boost Collection','Miêu tả chi tiết sản phẩm Nike React Infinity...',11,3,1,14,'nike-react-infinity','{\"Size\": [\"42\"], \"Color\": [\"Black\", \"Pink\"]}','SPU014'),(8,'PUMA RS-X Collection','Miêu tả chi tiết sản phẩm Reebok Zig Kinetica...',11,3,1,15,'reebok-zig-kinetica','{\"Size\": [\"43\"], \"Color\": [\"White\", \"Blue\"]}','SPU015'),(9,'REEBOK Nano Collection','Miêu tả chi tiết sản phẩm Asics Gel Venture...',11,4,1,16,'asics-gel-venture','{\"Size\": [\"43\"], \"Color\": [\"Brown\", \"Black\"]}','SPU016'),(10,'UNDER ARMOUR 574 Collection','Miêu tả chi tiết sản phẩm Hoka Bondi...',11,1,1,17,'hoka-bondi','{\"Size\": [\"44\"], \"Color\": [\"Blue\", \"Red\"]}','SPU017'),(11,'NIKE Revolution','Miêu tả chi tiết sản phẩm NIKE Revolution...',12,1,1,18,'nike-revolution','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU018'),(12,'ADIDAS Gazelle','Miêu tả chi tiết sản phẩm ADIDAS Gazelle...',12,2,1,19,'adidas-gazelle','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU019'),(13,'PUMA Smash -t','Miêu tả chi tiết sản phẩm PUMA Smash...',13,3,1,90,'puma-smash','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU020'),(14,'ON Running Cloud  - t','Miêu tả chi tiết sản phẩm ON Running Cloud...',13,4,1,99,'on-running-cloud','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU021'),(15,'REEBOK Club C  - t','Miêu tả chi tiết sản phẩm REEBOK Club C...',13,1,1,94,'reebok-club-c','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU022'),(16,'ASICS Gel Nimbus  - t','Miêu tả chi tiết sản phẩm ASICS Gel Nimbus...',13,2,1,99,'asics-gel-nimbus','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU023'),(17,'VANS Old Skool  - t','Miêu tả chi tiết sản phẩm VANS Old Skool...',13,3,1,90,'vans-old-skool','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU024'),(18,'CONVERSE Chuck Taylor  - t','Miêu tả chi tiết sản phẩm CONVERSE Chuck Taylor...',13,4,1,70,'converse-chuck-taylor','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU025'),(19,'NEW BALANCE 574 Core  - t','Miêu tả chi tiết sản phẩm NEW BALANCE 574 Core...',13,1,1,90,'new-balance-574-core','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU026'),(20,'SALOMON Trailster  - t','Miêu tả chi tiết sản phẩm SALOMON Trailster...',13,2,1,99,'salomon-trailster','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU027'),(21,'MIZUNO Wave Rider  - t','Miêu tả chi tiết sản phẩm MIZUNO Wave Rider...',13,3,1,76,'mizuno-wave-rider','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU028'),(22,'ASICS GT-2000  - t','Miêu tả chi tiết sản phẩm ASICS GT-2000...',13,4,1,90,'asics-gt-2000','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU029'),(23,'BROOKS Ghost  - t','Miêu tả chi tiết sản phẩm BROOKS Ghost...',18,1,1,76,'brooks-ghost','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU030'),(24,'SAUCONY Kinvara  - t','Miêu tả chi tiết sản phẩm SAUCONY Kinvara...',18,2,1,79,'saucony-kinvara','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU031'),(25,'HOKA Clifton  - t','Miêu tả chi tiết sản phẩm HOKA Clifton...',19,3,1,97,'hoka-clifton','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU032'),(26,'MERRELL Moab  - t','Miêu tả chi tiết sản phẩm MERRELL Moab...',19,4,1,90,'merrell-moab','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU033'),(27,'NIKE Downshifter  - t','Miêu tả chi tiết sản phẩm NIKE Downshifter...',20,1,1,90,'nike-downshifter','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU034'),(28,'PUMA Tazon  - t','Miêu tả chi tiết sản phẩm PUMA Tazon...',20,2,1,90,'puma-tazon','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU035'),(29,'VANS Era  - t','Miêu tả chi tiết sản phẩm VANS Era...',21,3,1,70,'vans-era','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU036'),(30,'CONVERSE Jack  - t','Miêu tả chi tiết sản phẩm CONVERSE Jack Purcell...',21,4,1,90,'converse-jack-purcell','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU037'),(41,'Nike Air Max 270','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,1,1,10,'nike-air-max-270','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU001'),(42,'Adidas Superstar','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,2,1,15,'adidas-superstar','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU002');
+INSERT INTO `spu` VALUES (1,'NORDA Sports Collection - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,1,1,90,'under-armour-hovr','{\"Size\": [\"36\"], \"Color\": [\"Black\", \"Blue\"]}','SPU008'),(2,'ON RUNNING Summer Collection  - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,2,1,90,'new-balance-fresh-foam','{\"Size\": [\"37\"], \"Color\": [\"Gray\", \"White\"]}','SPU009'),(3,'SAUCONY Retro CollectionSAUCONY Retro Collection','Miêu tả chi tiết sản phẩm Adidas NMD...',9,3,1,90,'adidas-nmd','{\"Size\": [\"38\"], \"Color\": [\"Black\", \"Red\"]}','SPU010'),(4,'XEROSHOES Fitness Collection','Miêu tả chi tiết sản phẩm Asics Gel Kayano...',9,1,1,97,'asics-gel-kayano','{\"Size\": [\"39\"], \"Color\": [\"Blue\", \"White\"]}','SPU011'),(5,'New Balance Classics','Miêu tả chi tiết sản phẩm Salomon Speedcross...',10,1,1,12,'salomon-speedcross','{\"Size\": [\"40\"], \"Color\": [\"Black\", \"Yellow\"]}','SPU012'),(6,'NIKE Air Max Collection','Miêu tả chi tiết sản phẩm Puma RS-X...',10,2,1,13,'puma-rs-x','{\"Size\": [\"41\"], \"Color\": [\"Gray\", \"Green\"]}','SPU013'),(7,'ADIDAS Ultra Boost Collection','Miêu tả chi tiết sản phẩm Nike React Infinity...',11,3,1,14,'nike-react-infinity','{\"Size\": [\"42\"], \"Color\": [\"Black\", \"Pink\"]}','SPU014'),(8,'PUMA RS-X Collection','Miêu tả chi tiết sản phẩm Reebok Zig Kinetica...',11,3,1,15,'reebok-zig-kinetica','{\"Size\": [\"43\"], \"Color\": [\"White\", \"Blue\"]}','SPU015'),(9,'REEBOK Nano Collection','Miêu tả chi tiết sản phẩm Asics Gel Venture...',11,4,1,16,'asics-gel-venture','{\"Size\": [\"43\"], \"Color\": [\"Brown\", \"Black\"]}','SPU016'),(10,'UNDER ARMOUR 574 Collection','Miêu tả chi tiết sản phẩm Hoka Bondi...',11,1,1,17,'hoka-bondi','{\"Size\": [\"44\"], \"Color\": [\"Blue\", \"Red\"]}','SPU017'),(11,'NIKE Revolution','Miêu tả chi tiết sản phẩm NIKE Revolution...',12,1,1,18,'nike-revolution','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU018'),(12,'ADIDAS Gazelle','Miêu tả chi tiết sản phẩm ADIDAS Gazelle...',12,2,1,19,'adidas-gazelle','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU019'),(13,'PUMA Smash -t','Miêu tả chi tiết sản phẩm PUMA Smash...',13,3,1,90,'puma-smash','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU020'),(14,'ON Running Cloud  - t','Miêu tả chi tiết sản phẩm ON Running Cloud...',13,4,1,99,'on-running-cloud','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU021'),(15,'REEBOK Club C  - t','Miêu tả chi tiết sản phẩm REEBOK Club C...',13,1,1,94,'reebok-club-c','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU022'),(16,'ASICS Gel Nimbus  - t','Miêu tả chi tiết sản phẩm ASICS Gel Nimbus...',13,2,1,99,'asics-gel-nimbus','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU023'),(17,'VANS Old Skool  - t','Miêu tả chi tiết sản phẩm VANS Old Skool...',13,3,1,90,'vans-old-skool','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU024'),(18,'CONVERSE Chuck Taylor  - t','Miêu tả chi tiết sản phẩm CONVERSE Chuck Taylor...',13,4,1,70,'converse-chuck-taylor','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU025'),(19,'NEW BALANCE 574 Core  - t','Miêu tả chi tiết sản phẩm NEW BALANCE 574 Core...',13,1,1,90,'new-balance-574-core','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU026'),(20,'SALOMON Trailster  - t','Miêu tả chi tiết sản phẩm SALOMON Trailster...',13,2,1,99,'salomon-trailster','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU027'),(21,'MIZUNO Wave Rider  - t','Miêu tả chi tiết sản phẩm MIZUNO Wave Rider...',13,3,1,76,'mizuno-wave-rider','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU028'),(22,'ASICS GT-2000  - t','Miêu tả chi tiết sản phẩm ASICS GT-2000...',13,4,1,90,'asics-gt-2000','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU029'),(23,'BROOKS Ghost  - t','Miêu tả chi tiết sản phẩm BROOKS Ghost...',18,1,1,76,'brooks-ghost','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU030'),(24,'SAUCONY Kinvara  - t','Miêu tả chi tiết sản phẩm SAUCONY Kinvara...',18,2,1,79,'saucony-kinvara','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU031'),(25,'HOKA Clifton  - t','Miêu tả chi tiết sản phẩm HOKA Clifton...',19,3,1,97,'hoka-clifton','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU032'),(26,'MERRELL Moab  - t','Miêu tả chi tiết sản phẩm MERRELL Moab...',19,4,1,90,'merrell-moab','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU033'),(27,'NIKE Downshifter  - t','Miêu tả chi tiết sản phẩm NIKE Downshifter...',20,1,1,99,'nike-downshifter','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU034'),(28,'PUMA Tazon  - t','Miêu tả chi tiết sản phẩm PUMA Tazon...',20,2,1,97,'puma-tazon','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU035'),(29,'VANS Era  - t','Miêu tả chi tiết sản phẩm VANS Era...',21,3,1,99,'vans-era','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU036'),(30,'CONVERSE Jack  - t','Miêu tả chi tiết sản phẩm CONVERSE Jack Purcell...',21,4,1,96,'converse-jack-purcell','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU037'),(41,'Nike Air Max 270','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,1,1,89,'nike-air-max-270','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU001'),(42,'Adidas Superstar','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,2,1,99,'adidas-superstar','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU002');
 /*!40000 ALTER TABLE `spu` ENABLE KEYS */;
 
 --

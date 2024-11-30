@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { FaStarHalfStroke, FaStar } from "react-icons/fa6";
-import "@/assets/css/addToCartBtn.css";
+import "./ProductItem.module.css";
 
 function ProductItem(props) {
    const product = props.product;
