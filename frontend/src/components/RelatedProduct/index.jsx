@@ -7,7 +7,6 @@ import { useAppProvider } from "@/contexts/AppProvider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./RelatedProduct.module.css";
-import "./RelatedProduct.css";
 
 const RelatedProduct = ({ categories }) => {
    const [products, setProducts] = useState([]);
@@ -36,6 +35,7 @@ const RelatedProduct = ({ categories }) => {
       slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 2500,
+      arrows: false,
    };
 
    if (isLoading) {
@@ -85,5 +85,7 @@ const RelatedProduct = ({ categories }) => {
       </div>
    );
 };
+
+
 
 export default RelatedProduct;

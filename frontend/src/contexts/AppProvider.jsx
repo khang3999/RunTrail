@@ -9,7 +9,8 @@ function AppProvider({ children }) {
   const [totalCart, setTotalCart] = useState(0);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("none");
-  const [isHidden, setIsHidden] = useState(true)
+  const [isNotFound,setIsNotFound] = useState(false);
+
   // Resize when load page
   useEffect(() => {
     if (window.innerWidth <= 768) {
@@ -62,9 +63,8 @@ function AppProvider({ children }) {
         alertType,
         setAlertType,
         getTotalCart,
-        isHidden,
-        setIsHidden,
-        handleToggleMenu
+        isNotFound,
+        setIsNotFound
       }}
     >
       {children}
