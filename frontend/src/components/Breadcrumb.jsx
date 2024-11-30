@@ -2,8 +2,8 @@ import { useProductProvider } from "@/contexts/ProductProvider";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-function Breadcrumb({ categoryId = -1 }) {
-  const { setCategoryId } = useProductProvider();
+function Breadcrumb() {
+  const { setCategoryId, categoryId } = useProductProvider();
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
   const router = useRouter();
 

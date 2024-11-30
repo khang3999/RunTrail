@@ -19,7 +19,7 @@ function ProductProvider({ children }) {
 
    const [minPrice, setMinPrice] = useState(params.minPrice || 0);
    const [maxPrice, setMaxPrice] = useState(params.maxPrice || 20000000);
-   const [categoryId, setCategoryId] = useState(params.categoryId || 1);
+   const [categoryId, setCategoryId] = useState(params.categoryId || -1);
    const [activeSubcategory, setActiveSubcategory] = useState({});
    const [openParentCategory, setOpenParentCategory] = useState({});
    const [selectedBrands, setSelectedBrands] = useState(
