@@ -6,7 +6,6 @@ import styles from "./Products.module.css";
 import QuickFilter from "@/components/Filters/QuickFilter";
 import { useProductProvider } from "@/contexts/ProductProvider";
 import Breadcrumb from "@/components/Breadcrumb";
-import PageTitle from "@/components/PageTitle";
 import GoToTopButton from "@/components/GoToTopButton";
 const ProductPage = ({ }) => {
    const {
@@ -17,12 +16,16 @@ const ProductPage = ({ }) => {
       minPrice,
       maxPrice,
       categoryId,
-      fetchProducts
+      fetchProducts,
+      checkParams
    } = useProductProvider();
 
+
    useEffect(() => {
+      if (!checkParams) return;
       fetchProducts();
    }, [
+      checkParams,
       currentPage,
       contentOrderBy,
       selectedBrands,
@@ -33,21 +36,19 @@ const ProductPage = ({ }) => {
    ]);
 
    return (
-      <PageTitle title={"Home Page"}>
-         <div className={""}>
-            <Breadcrumb categoryId={categoryId} />
-            <div className={styles.mainContent}>
-               <div className={styles.sidebar}>
-                  <SideBarProduct categoryId={categoryId} />
-               </div>
-               <div className={styles.productSection}>
-                  <QuickFilter />
-                  <ProductGrid />
-               </div>
+      <div className={""}>
+         <Breadcrumb categoryId={categoryId} />
+         <div className={styles.mainContent}>
+            <div className={styles.sidebar}>
+               <SideBarProduct categoryId={categoryId} />
             </div>
-            <GoToTopButton />
+            <div className={styles.productSection}>
+               <QuickFilter />
+               <ProductGrid />
+            </div>
          </div>
-      </PageTitle>
+         <GoToTopButton />
+      </div>
    );
 };
 
