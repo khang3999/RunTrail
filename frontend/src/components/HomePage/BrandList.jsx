@@ -42,7 +42,7 @@ export default function BrandList() {
     }
 
     return (
-        <div className="banner w-full flex-1 h-[400px]">
+        <div className="banner w-full flex-1">
             <Swiper
                 autoFocus={true}
                 loop={true}
