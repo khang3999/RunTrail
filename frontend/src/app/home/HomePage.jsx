@@ -12,8 +12,8 @@ function HomePage() {
         Chuyển tới trang danh sách sản phẩm
       </Link>
 
-      <BrandList></BrandList>
-      <Policy></Policy>
+      {/* <BrandList></BrandList>
+      <Policy></Policy> */}
     </div>
   );
 }

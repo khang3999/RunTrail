@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 
 const ProductContext = createContext();
 function ProductProvider({ children }) {
@@ -13,35 +13,51 @@ function ProductProvider({ children }) {
    const [isFirstFilter, setFirstFilter] = useState(true);
    const [errorMessage, setErrorMessage] = useState("");
 
-   // Kiểm tra slug in URL
-   const searchParams = new URLSearchParams(window.location.search);
-   const params = Object.fromEntries(searchParams.entries());
-
-   const [minPrice, setMinPrice] = useState(params.minPrice || 0);
-   const [maxPrice, setMaxPrice] = useState(params.maxPrice || 20000000);
-   const [categoryId, setCategoryId] = useState(params.categoryId || -1);
-   const [tempSelectedBrands, setTempSelectedBrands] = useState(
-      params.brandIds && params.brandIds.split(",").length > 0
-         ? params.brandIds.split(",")
-         : [],
-   );
-
+   // Slug: minPrice-maxPrice-categoryId-brandIds-contentOrderBy
+   const [minPrice, setMinPrice] = useState(0);
+   const [maxPrice, setMaxPrice] = useState(20000000);
+   const [categoryId, setCategoryId] = useState(-1);
+   const [selectedBrands, setSelectedBrands] = useState([]);
+   const [selectedSizes, setSelectedSizes] = useState([]);
+   const [contentOrderBy, setContentOrderBy] = useState("desc");
+   const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
+   const [params, setParams] = useState({});
    useEffect(() => {
-      const temp = params.brandIds && params.brandIds.split(",").length > 0
-         ? params.brandIds.split(",")
-         : []
-      setTempSelectedBrands(temp)
-   }, [params.brandIds])
-   const [selectedBrands, setSelectedBrands] = useState(
-      params.brandIds && params.brandIds.split(",").length > 0
-         ? params.brandIds.split(",")
-         : [],
-   );
-   // const [tempSelectedBrands, setTempSelectedBrands] = useState(selectedBrands);
-   const [selectedSizes, setSelectedSizes] = useState(
-      []);
-   const [contentOrderBy, setContentOrderBy] = useState("desc",
-   );
+      if (params.brandIds) {
+         setTempSelectedBrands(
+            params.brandIds && params.brandIds.split(",").length > 0
+               ? params.brandIds.split(",")
+               : []
+         );
+      }
+   }, [params])
+   useEffect(() => {
+      if (typeof window !== "undefined") {
+         const searchParams = new URLSearchParams(window.location.search);
+         const params = Object.fromEntries(searchParams.entries());
+         setParams(Object.fromEntries(searchParams.entries()))
+
+         setMinPrice(Number(params.minPrice) || 0);
+         setMaxPrice(Number(params.maxPrice) || 20000000);
+         setCategoryId(Number(params.categoryId) || -1);
+         setSelectedBrands(
+            params.brandIds && params.brandIds.split(",").length > 0
+               ? params.brandIds.split(",")
+               : []
+         );
+         // setTempSelectedBrands(
+         //    params.brandIds && params.brandIds.split(",").length > 0
+         //       ? params.brandIds.split(",")
+         //       : []
+         // );
+         setSelectedSizes(
+            params.key === "Size" && params.value?.split(",").length > 0
+               ? params.value.split(",")
+               : []
+         );
+         setContentOrderBy(params.contentOrderBy || "desc");
+      }
+   }, []); // Chỉ chạy một lần sau khi component mount
 
    const fetchProducts = async () => {
       try {
