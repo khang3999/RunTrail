@@ -5,12 +5,13 @@ import {CiSearch } from "react-icons/ci";
 import { FaChevronDown, FaUserCircle } from "react-icons/fa";
 import { MdOutlineMenu } from "react-icons/md";
 import Link from "next/link";
-// import {Search} from "antd/es";
 import CartIcon from "../CartIcon";
 import { useAppProvider } from "@/contexts/AppProvider";
+import { Drawer } from "flowbite";
+import MenuMobile from "@/components/Menu/MenuMobile";
 
 export default function Header({ onCategoryClick }) {
-  const { totalCart } = useAppProvider();
+  const { totalCart, handleToggleMenu, isHidden } = useAppProvider();
   const languages = [
     {
       name: "Vietnam",
@@ -37,7 +38,7 @@ export default function Header({ onCategoryClick }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [productsSearch, setProductsSearch] = useState([]);
-
+  const drawerRef = useRef(null);
   const dropdownRef = useRef(null);
   const searchRef = useRef(null);
 
@@ -103,9 +104,24 @@ export default function Header({ onCategoryClick }) {
     };
   }, []);
 
+  useEffect(() => {
+    if (drawerRef.current) {
+      const options = {
+        placement: "left",
+      };
+      const drawer = new Drawer(drawerRef.current, options);
+
+      if (!isHidden) {
+        drawer.show();
+      } else {
+        drawer.hide();
+      }
+    }
+  }, [isHidden]);
+
   return (
     <div className={styles.container}>
-      <MdOutlineMenu className={styles.menuIcon} color="white" size={20} />
+      <MdOutlineMenu className={styles.menuIcon} color="white" size={20} onClick={handleToggleMenu}/>
       <Link href="/">
         <img
           src="https://supersports.com.vn/cdn/shop/files/LOGO_SSP_RGB-02_c46e0135-659a-49a2-9b37-6afebf1112e4.jpg?v=1723429659&width=2082"
@@ -232,7 +248,8 @@ export default function Header({ onCategoryClick }) {
             </div>
           )}
         </div>
-      </div>
+      </div>  
+      <MenuMobile drawerRef={drawerRef}/>
     </div>
   );
 }
