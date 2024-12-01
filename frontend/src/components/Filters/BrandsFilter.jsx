@@ -6,12 +6,36 @@ import debounce from "lodash.debounce";
 
 const BrandsFilter = ({ categoryId }) => {
   const [brands, setBrands] = useState([]);
-  const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
-  const { selectedBrands, setSelectedBrands, filterProductsByBrand } =
+  // const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
+  const { selectedBrands, setSelectedBrands, filterProductsByBrand, tempSelectedBrands, setTempSelectedBrands } =
     useProductProvider();
 
   useEffect(() => {
+    console.log('tempBrand', tempSelectedBrands);
+    // use Axios Instance
+    const fetchBrandsData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8008/api/v1/brands/by-status?statusId=1`);
+        const data = await response.json();
+        console.log(data);
+        if (data.statusCode === 200) {
+          // Kiểm tra dữ liệu và lọc theo `status = 1`
+          const filteredData = data.metadata.filter((brand) => brand.status === 1);
+          console.log(filteredData);
+          setBrands(filteredData);
+        } else {
+          console.error("Get brands by statusId failed");
+        }
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+    fetchBrandsData();
+  }, []);
+
+  useEffect(() => {
     console.log("Selected brands:", selectedBrands);
+    console.log('tempBrand111', tempSelectedBrands);
     setTempSelectedBrands(selectedBrands);
   }, [selectedBrands]);
 

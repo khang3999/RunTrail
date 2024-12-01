@@ -9,6 +9,7 @@ function AppProvider({ children }) {
   const [totalCart, setTotalCart] = useState(0);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("none");
+  const [isNotFound,setIsNotFound] = useState(false);
 
   // Resize when load page
   useEffect(() => {
@@ -58,6 +59,8 @@ function AppProvider({ children }) {
         alertType,
         setAlertType,
         getTotalCart,
+        isNotFound,
+        setIsNotFound
       }}
     >
       {children}
