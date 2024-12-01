@@ -24,5 +24,7 @@ public class BrandEntity implements Serializable {
     @Column(name = "brand_logo", nullable = false)
     private String brandLogo;
 
+    @Column(name = "status", nullable = false)
+    private int status;
 
 }
