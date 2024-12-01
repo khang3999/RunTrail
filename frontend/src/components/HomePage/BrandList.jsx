@@ -48,7 +48,7 @@ export default function BrandList() {
                 loop={true}
                 spaceBetween={30}
                 autoplay={{
-                    delay: 1000,
+                    delay: 6000,
                     disableOnInteraction: false,
                     waitForTransition: false
                 }}
