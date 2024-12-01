@@ -30,5 +30,10 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.findBrandEntitiesByCategoryId(categoryId);
     }
 
+    @Override
+    public List<BrandEntity> getBrandsByStatusId(int statusId) {
+        return brandRepository.findBrandEntitiesByStatusId(statusId);
+    }
+
 
 }

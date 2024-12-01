@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect, useCallback } from "react";
 
 const ProductContext = createContext();
 function ProductProvider({ children }) {
@@ -13,71 +13,99 @@ function ProductProvider({ children }) {
    const [isFirstFilter, setFirstFilter] = useState(true);
    const [errorMessage, setErrorMessage] = useState("");
 
+   // Slug: minPrice-maxPrice-categoryId-brandIds-contentOrderBy
    const [minPrice, setMinPrice] = useState(0);
    const [maxPrice, setMaxPrice] = useState(20000000);
-   const [categoryId, setCategoryId] = useState( 1);
+   const [categoryId, setCategoryId] = useState(-1);
    const [selectedBrands, setSelectedBrands] = useState([]);
-   const [selectedSizes, setSelectedSizes] = useState(
-      []);
-   const [contentOrderBy, setContentOrderBy] = useState("desc",
-   );
+   const [selectedSizes, setSelectedSizes] = useState([]);
+   const [contentOrderBy, setContentOrderBy] = useState("desc");
+   const [checkParams, setCheckParams] = useState(false);
+   const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
+   const [params, setParams] = useState({});
+   useEffect(() => {
+      if (params.brandIds) {
+         setTempSelectedBrands(
+            params.brandIds && params.brandIds.split(",").length > 0
+               ? params.brandIds.split(",")
+               : []
+         );
+      }
+   }, [params])
+   useEffect(() => {
+      if (typeof window !== "undefined") {
+         const searchParams = new URLSearchParams(window.location.search);
+         // const params = Object.fromEntries(searchParams.entries());
+         setParams(Object.fromEntries(searchParams.entries()))
 
-   const fetchProducts = async () => {
+         setMinPrice(Number(params.minPrice) || 0);
+         setMaxPrice(Number(params.maxPrice) || 20000000);
+         setCategoryId(Number(params.categoryId) || -1);
+         setSelectedBrands(params.brandIds?.split(",")?.filter(Boolean) || []);
+         setTempSelectedBrands(params.brandIds?.split(",")?.filter(Boolean) || []);
+         // setTempSelectedBrands(
+         //    params.brandIds && params.brandIds.split(",").length > 0
+         //       ? params.brandIds.split(",")
+         //       : []
+         // );
+         setSelectedSizes(params.value?.split(",")?.filter(Boolean) || []);
+         setContentOrderBy(params.contentOrderBy || "desc");
+         setCheckParams(true);
+      }
+   }, []);
+
+   const buildQueryParams = () => {
+      const brandIdsStr = selectedBrands?.join(",") || '';
+      const sizesNameStr = selectedSizes?.join(",") || '';
+      return `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
+   };
+
+
+   const fetchProducts = useCallback(async () => {
+      console.log("fetchProducts");
       try {
          setIsLoading(true);
+
          if (minPrice > maxPrice) {
             setErrorMessage("Giá tối thiểu phải nhỏ hơn giá tối đa");
             setIsLoading(false);
             return;
          }
 
-         if (selectedBrands && selectedBrands.length > 0 && selectedBrands[0] === "") {
-            selectedBrands.shift(); // Xóa phần tử rỗng
-         }
-
-         if (selectedSizes && selectedSizes.length > 0 && selectedSizes[0] === "") {
-            selectedSizes.shift(); // Xóa phần tử rỗng
-         }
-
-         const brandIdsStr = (selectedBrands && selectedBrands.length > 0) ? selectedBrands.join(",") : '';
-         const sizesNameStr = (selectedSizes && selectedSizes.length > 0) ? selectedSizes.join(",") : '';
-
-         const stringParams = `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
-
-         setIsLoading(true);
-
+         const stringParams = buildQueryParams();
+         window.history.pushState({}, "", `?${stringParams}`);
          isFirstFilter && setCurrentPage(1);
+
          const response = await fetch(
             `http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`,
          );
          const data = await response.json();
+
          const {
-            metadata: {
-               content: products,
-               totalPages,
-               numberOfElements,
-               totalElements,
-            },
+            metadata: { content: products, totalPages, numberOfElements, totalElements },
          } = data;
+
          setProducts(products);
          setTotalPages(totalPages);
          setNumberOfElements(numberOfElements);
-         setIsLoading(false);
          setTotalElements(totalElements);
+         setIsLoading(false);
+         setFirstFilter(false);
       } catch (error) {
          console.error("Error fetching products:", error);
          setIsLoading(false);
       }
-   };
+   }, [minPrice, maxPrice, selectedBrands, selectedSizes, categoryId, contentOrderBy, currentPage, productsPerPage, isFirstFilter]);
+
 
    const filterProductsByBrand = (selectedBrands) => {
       setFirstFilter(true);
-      fetchProducts();
+      // fetchProducts();
    };
 
    const filterProductsBySize = (selectedSizes) => {
       setFirstFilter(true);
-      fetchProducts();
+      // fetchProducts();
    };
 
    const indexOfLastProduct = currentPage * productsPerPage;
@@ -124,6 +152,11 @@ function ProductProvider({ children }) {
             setSelectedSizes,
             selectedSizes,
             fetchProducts,
+            checkParams,
+            setCheckParams,
+            tempSelectedBrands,
+            setTempSelectedBrands,
+            params
          }}
       >
          {children}

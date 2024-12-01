@@ -11,4 +11,5 @@ public interface BrandService {
     List<BrandEntity> getAllBrands();
     Optional<BrandEntity> getBrandById(long id);
     List<BrandEntity> getBrandsByCategoryId(long categoryId);
+    List<BrandEntity> getBrandsByStatusId(int statusId);
 }
