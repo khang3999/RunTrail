@@ -104,20 +104,20 @@ export default function Header({ onCategoryClick }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (drawerRef.current) {
-  //     const options = {
-  //       placement: "left",
-  //     };
-  //     const drawer = new Drawer(drawerRef.current, options);
+  useEffect(() => {
+    if (drawerRef.current) {
+      const options = {
+        placement: "left",
+      };
+      const drawer = new Drawer(drawerRef.current, options);
 
-  //     if (!isHidden) {
-  //       drawer.show();
-  //     } else {
-  //       drawer.hide();
-  //     }
-  //   }
-  // }, [isHidden]);
+      if (!isHidden) {
+        drawer.show();
+      } else {
+        drawer.hide();
+      }
+    }
+  }, [isHidden]);
 
   return (
     <div className={styles.container}>
@@ -249,7 +249,7 @@ export default function Header({ onCategoryClick }) {
           )}
         </div>
       </div>  
-      {/* <MenuMobile drawerRef={drawerRef}/> */}
+      <MenuMobile drawerRef={drawerRef}/>
     </div>
   );
 }
