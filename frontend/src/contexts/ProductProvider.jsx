@@ -49,6 +49,7 @@ function ProductProvider({ children }) {
       try {
          setIsLoading(true);
 
+
          if (minPrice > maxPrice) {
             setErrorMessage("Giá tối thiểu phải nhỏ hơn giá tối đa");
             setIsLoading(false);
@@ -147,3 +148,4 @@ function ProductProvider({ children }) {
 export const useProductProvider = () => useContext(ProductContext);
 
 export default ProductProvider;
+
