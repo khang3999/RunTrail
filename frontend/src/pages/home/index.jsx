@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import AxiosInstance from "@/utils/axiosInstance";
 import { Image } from "antd";
+import Banner from "@/components/HomePage/Banner"
 import ProductItem from "@/components/ProductItem";
 import BrandList from "@/components/HomePage/BrandList";
 import Policy from "@/components/HomePage/Policy";
@@ -36,6 +37,7 @@ function HomePage() {
                Chuyển tới trang danh sách sản phẩm
             </Link>
          </div>
+         <Banner></Banner>
          <BrandList></BrandList>
          <Policy></Policy>
          {/* Product Slider */}
