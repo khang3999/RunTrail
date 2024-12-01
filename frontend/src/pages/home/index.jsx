@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import AxiosInstance from "@/utils/axiosInstance";
 import { Image } from "antd";
 import ProductItem from "@/components/ProductItem";
+import BrandList from "@/components/HomePage/BrandList";
+import Policy from "@/components/HomePage/Policy";
 import { minPrice } from "@/utils";
 import ProductSlider from "@/components/ProductSlider";
 function HomePage() {
@@ -34,6 +36,8 @@ function HomePage() {
                Chuyển tới trang danh sách sản phẩm
             </Link>
          </div>
+         <BrandList></BrandList>
+         <Policy></Policy>
          {/* Product Slider */}
          <div>
             <ProductSlider

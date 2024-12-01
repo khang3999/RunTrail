@@ -12,4 +12,7 @@ import java.util.List;
 public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
     @Query("SELECT b FROM BrandEntity b  JOIN SpuEntity s ON b.id = s.brand.id JOIN CategoryEntity c ON s.categoryId = c.id  WHERE (:categoryId IS NULL OR s.categoryId = :categoryId OR c.parentId = :categoryId)")
     List<BrandEntity> findBrandEntitiesByCategoryId(@RequestParam Long categoryId);
+
+    @Query("SELECT b FROM BrandEntity b  WHERE b.status = :statusId")
+    List<BrandEntity> findBrandEntitiesByStatusId(@RequestParam int statusId);
 }
