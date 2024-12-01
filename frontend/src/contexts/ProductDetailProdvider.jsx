@@ -30,7 +30,7 @@ export function ProductDetailProvider({ children }) {
     // listAttrOutOfStock : [{attribute: "Size", values: ["S"]}, {attribute: "Color", values: ["White"]}]
     // ouput => [{attribute: "Color", values: ["White"]}]
     if (!listAttrOutOfStockTemp) return;
-    if (Object.keys(data.attributes).length === 1 && listAttrOutOfStockTemp.length !== 0) {
+    if (Object.keys(data.attributes).length === 1 && listAttrOutOfStockTemp?.length !== 0) {
 
       const firstListAttrOutOfStock = listAttrOutOfStockTemp[0];
       const attributes = Object.keys(data.attributes); // ["Color"]

@@ -128,20 +128,20 @@ export default function ImageDesktop({ product = null, isLoading = false }) {
                 modules={[Pagination]}
                 className="h-[80px] w-[100%]"
               >
-                {dataImages &&
-                  dataImages.map((image, index) => {
-                    return (
-                      <SwiperSlide
-                        key={index}
-                        className="border-1 flex justify-center"
-                      >
-                        <button onClick={() => handleThumnailClick(index)}>
-                          <img className="w-full" src={image.imgUrl}></img>
-                          {/* <Image src={image.imgUrl} className="w-full"  /> */}
-                        </button>
-                      </SwiperSlide>
-                    );
-                  })}
+                  {dataImages &&
+                    dataImages.map((image, index) => {
+                      return (
+                        <SwiperSlide
+                          key={index}
+                          className="border-1 flex justify-center"
+                        >
+                          <button onClick={() => handleThumnailClick(index)}>
+                            <img className="w-full" src={image.imgUrl}></img>
+                            {/* <Image src={image.imgUrl} className="w-full"  /> */}
+                          </button>
+                        </SwiperSlide>
+                      );
+                    })}
               </Swiper>
             </>
           )}
