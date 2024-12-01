@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { useProductProvider } from "@/contexts/ProductProvider";
@@ -14,8 +14,14 @@ const PriceFilter = () => {
    const maxRef = useRef();
    const { } = useProductProvider();
 
-   const { setMinPrice, setMaxPrice, errorMessage, setErrorMessage } =
+   const { minPrice, maxPrice, setMinPrice, setMaxPrice, errorMessage, setErrorMessage } =
       useProductProvider();
+
+   useEffect(() => {
+      setRange([minPrice, maxPrice]);
+      setMinValue(minPrice);
+      setMaxValue(maxPrice);
+   }, [minPrice, maxPrice]);
 
    const handleFilterProducts = async () => {
       setMinPrice(range[0]);
