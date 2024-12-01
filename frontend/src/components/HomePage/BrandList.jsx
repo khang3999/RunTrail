@@ -33,13 +33,13 @@ export default function BrandList() {
     }, []);
 
     return (
-        <div className="banner w-full flex-1 h-[400px]">
+        <div className="brand w-full flex-1 h-[400px]">
             <Swiper
                 autoFocus={true}
                 loop={true}
                 spaceBetween={30}
                 autoplay={{
-                    delay: 1000,
+                    delay: 6000,
                     disableOnInteraction: false,
                     waitForTransition: false
                 }}
