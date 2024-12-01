@@ -6,7 +6,9 @@ import Policy from "@/components/HomePage/Policy";
 
 function HomePage() {
   return (
-    <div className="flex items-center justify-center flex-col p-4">
+    <div className="relative flex flex-col items-center justify-center ps-7">
+      {/* Main Content */}
+      <Menu />
       <h1>Đây là trang chủ</h1>
       <Link className="text-lg text-blue-500" href={"/products"}>
         Chuyển tới trang danh sách sản phẩm
