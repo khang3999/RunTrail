@@ -24,7 +24,7 @@ public class SaleOffEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_spu", insertable = false, updatable = false)
     private SpuEntity spu;
 
