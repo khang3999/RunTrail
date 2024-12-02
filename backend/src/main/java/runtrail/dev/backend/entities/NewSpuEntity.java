@@ -12,50 +12,24 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
-    @Entity
-    @Table(name = "new_spu")
-    @Builder
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class NewSpuEntity implements Serializable {
+@Entity
+@Table(name = "new_spu")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class NewSpuEntity {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @Column(name = "spu_name", nullable = false, length = 200)
-        private String spuName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_spu", insertable = false, updatable = false)
+    private SpuEntity spu;
 
+    @Column(name = "id_spu", insertable = false, updatable = false)
+    private Long idSpu;
+}
 
-        @Lob
-        @Column(name = "spu_description",columnDefinition = "TEXT")
-        private String spuDescription;
-
-        @Column(name = "category_id")
-        private Long categoryId;
-
-        @OneToOne(cascade = CascadeType.ALL)
-        @JoinColumn(name = "brand_id")
-        private BrandEntity brand;
-
-        @Column(name = "slug")
-        private String slug;
-
-        @Column(name = "spu_no")
-        private String spuNo;
-
-//    @Column(name="spu_attributes",columnDefinition = "json")
-//    private String spuAttributes;
-
-        @Column(name = "discount")
-        private int discount;
-
-        @Column(name = "spu_status")
-        private int spuStatus;
-
-
-
-    }
 

@@ -9,31 +9,36 @@ import runtrail.dev.backend.entities.NewSpuEntity;
 import runtrail.dev.backend.entities.SpuImagesEntity;
 import runtrail.dev.backend.repositories.NewSpuRepository;
 import runtrail.dev.backend.repositories.SpuImagesRepository;
+import runtrail.dev.backend.repositories.SpuRepository;
 import runtrail.dev.backend.services.NewSpuService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class NewSpuServiceImpl implements NewSpuService {
 
     private final NewSpuRepository newSpuRepository;
-    @Autowired
-    private SpuImagesRepository spuImagesRepository;
+    private final SpuImagesRepository spuImagesRepository;
 
-    public NewSpuServiceImpl(NewSpuRepository newSpuRepository) {
+    // Constructor-based injection
+    @Autowired
+    public NewSpuServiceImpl(NewSpuRepository newSpuRepository, SpuImagesRepository spuImagesRepository) {
         this.newSpuRepository = newSpuRepository;
+        this.spuImagesRepository = spuImagesRepository;
     }
 
     @Override
     public List<SpuDTO> getAllNewListSpus() {
-        List<SpuDTO> listNewSpu  = newSpuRepository.getAllNewSpu();
-        listNewSpu.forEach(product -> {
-            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(product.getId());
-            product.setImages(images);
-        });
-
+        List<SpuDTO> listNewSpu = newSpuRepository.getAllNewSpuWithDetails();
+        for (SpuDTO spuDTO : listNewSpu) {
+            List<SpuImagesEntity> images = spuImagesRepository.findBySpuId(spuDTO.getId());
+            spuDTO.setImages(images);
+        }
         return listNewSpu;
     }
-
-
 }
+
+
+
+
