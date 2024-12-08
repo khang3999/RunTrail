@@ -1,11 +1,15 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-	output: 'export',
+	// output: 'export',
 	transpilePackages: ['@components/*', '@styles/*', '@assets/*'],
-	output: 'export',
 	images: { unoptimized: true },
 	reactStrictMode: false,
+	i18n: {
+		locales:['en-US', 'vi-VN'],
+		defaultLocale: 'en-US',
+	},
+
 };
 
 export default nextConfig;

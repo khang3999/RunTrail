@@ -49,6 +49,11 @@ function AppProvider({ children }) {
   };
 
 
+  const handleToggleMenu = () => {
+    setIsHidden(prev => !prev)
+  }
+
+
   return (
     <AppContext.Provider
       value={{

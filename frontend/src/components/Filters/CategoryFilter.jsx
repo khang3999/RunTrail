@@ -27,13 +27,10 @@ const buildCategoryTree = (categories) => {
 };
 
 const CategoryFilter = () => {
-   const [categories, setCategories] = useState([]);
-   const [openParentCategory, setOpenParentCategory] = useState({});
+   const [categories, setCategories] = useState([]);   
    const { categoryId, setCategoryId } = useProductProvider();
-   const [activeSubcategory, setActiveSubcategory] = useState({});
-   const [isLoading, setIsLoading] = useState(true);
-   const [parentCategoryLength, setParentCategoryLength] = useState(0);
-   const { setSelectedSizes, setSelectedBrands } = useProductProvider();
+   const [isLoading, setIsLoading] = useState(true);   
+   const { setSelectedSizes, setSelectedBrands,openParentCategory, setOpenParentCategory,activeSubcategory, setActiveSubcategory } = useProductProvider();
 
    useEffect(() => {
       const fetchCategories = async () => {

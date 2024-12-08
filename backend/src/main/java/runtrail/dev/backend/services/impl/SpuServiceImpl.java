@@ -30,7 +30,7 @@ import java.util.List;
 public class SpuServiceImpl implements SpuService {
 
     private static final Log LOG = LogFactory.getLog(SpuServiceImpl.class);
-
+    private static final int TIME_REDIS = 24*60*60;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -115,7 +115,7 @@ public class SpuServiceImpl implements SpuService {
                 redisTemplate.opsForValue().set(slug, productJson);
                 LOG.info("Product saved to cache.");
                 // set time expire
-                redisTemplate.expire(slug, 1200, java.util.concurrent.TimeUnit.SECONDS);
+                redisTemplate.expire(slug, TIME_REDIS, java.util.concurrent.TimeUnit.SECONDS);
             } catch (Exception e) {
                 LOG.error("Error when save product to cache");
                 e.printStackTrace();
@@ -221,7 +221,7 @@ public class SpuServiceImpl implements SpuService {
                 }
 
                 // set time expired
-                redisTemplate.expire(key, 1200, java.util.concurrent.TimeUnit.SECONDS);
+                redisTemplate.expire(key, TIME_REDIS, java.util.concurrent.TimeUnit.SECONDS);
 
                 // get 6 product from 20 product
                 selectedProducts = getRandomProducts(selectedProducts, number);
