@@ -22,16 +22,7 @@ function ProductProvider({ children }) {
    const [contentOrderBy, setContentOrderBy] = useState("desc");
    const [checkParams, setCheckParams] = useState(false);
    const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
-   // const [params, setParams] = useState({});
-   // useEffect(() => {
-   //    if (params.brandIds) {
-   //       setTempSelectedBrands(
-   //          params.brandIds && params.brandIds.split(",").length > 0
-   //             ? params.brandIds.split(",")
-   //             : []
-   //       );
-   //    }
-   // }, [params])
+
    useEffect(() => {
       if (typeof window !== "undefined") {
          const searchParams = new URLSearchParams(window.location.search);
@@ -60,9 +51,7 @@ function ProductProvider({ children }) {
       return `minPrice=${minPrice}&maxPrice=${maxPrice}&brandIds=${brandIdsStr}&categoryId=${categoryId}&contentOrderBy=${contentOrderBy}&key=Size&value=${sizesNameStr}`;
    };
 
-
    const fetchProducts = useCallback(async () => {
-      console.log("fetchProducts");
       try {
          setIsLoading(true);
 
@@ -73,7 +62,7 @@ function ProductProvider({ children }) {
          }
 
          const stringParams = buildQueryParams();
-         window.history.pushState({}, "", `?${stringParams}`);
+         window.history.replaceState({}, "", `?${stringParams}`);
          isFirstFilter && setCurrentPage(1);
 
          const response = await fetch(
@@ -96,7 +85,6 @@ function ProductProvider({ children }) {
          setIsLoading(false);
       }
    }, [minPrice, maxPrice, selectedBrands, selectedSizes, categoryId, contentOrderBy, currentPage, productsPerPage, isFirstFilter]);
-
 
    const filterProductsByBrand = (selectedBrands) => {
       setFirstFilter(true);
