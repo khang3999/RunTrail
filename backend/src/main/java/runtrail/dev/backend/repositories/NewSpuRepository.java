@@ -10,12 +10,15 @@ import java.util.List;
 
 public interface NewSpuRepository extends JpaRepository<NewSpuEntity, Long> {
 
-    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.id, u.spuName, u.spuDescription, u.categoryId, u.brand.id, br.brandName, min(sk.skuPrice), 'image', u.spuStatus, u.discount, u.slug) " +
+    @Query("SELECT new runtrail.dev.backend.dto.response.SpuDTO(u.idSpu, u.spu.spuName, u.spu.spuDescription, u.spu.categoryId, u.spu.brand.id, br.brandName, min(sk.skuPrice), 'image', u.spu.spuStatus, u.spu.discount, u.spu.slug) " +
             "FROM NewSpuEntity u " +
-            "INNER JOIN SkuEntity sk ON sk.spu.id = u.id " +
-            "INNER JOIN BrandEntity br ON u.brand.id = br.id " +
-            "INNER JOIN SpuImagesEntity img ON img.spu.id = u.id " +
-            "GROUP BY u.id, u.spuName, u.spuDescription, u.categoryId, u.brand.id, br.brandName, u.spuStatus, u.discount, u.slug")
-    List<SpuDTO> getAllNewSpu();
+            "INNER JOIN SkuEntity sk ON sk.spu.id = u.idSpu " +
+            "INNER JOIN BrandEntity br ON u.spu.brand.id = br.id " +
+            "INNER JOIN SpuImagesEntity img ON img.spu.id = u.idSpu " +
+            "GROUP BY u.idSpu, u.spu.spuName, u.spu.spuDescription, u.spu.categoryId, u.spu.brand.id, br.brandName, u.spu.spuStatus, u.spu.discount, u.spu.slug")
+    List<SpuDTO> getAllNewSpuWithDetails();
+
+
+
 
 }
