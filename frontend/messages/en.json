@@ -1,0 +1,16 @@
+{
+    "About": {
+      "title": "About us"
+    },
+    "Home":{
+        "thisIsHome": "This is home page",
+        "welcome": "Welcome to our website"
+    },
+    "Detail":{
+      "description":"Description",
+      "comments":"Comments",
+      "relatedProducts":"Related products",
+      "addToCart":"Add to cart",
+      "buyNow":"Buy now"
+    }
+}

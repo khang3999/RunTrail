@@ -30,7 +30,7 @@ const MenuMobile = ({ drawerRef }) => {
 
     const handleCategoryClick = (category) => {
         setCategoryId(category.id);
-        router.push(`/products`);
+        router.push(`/product`);
         // Mở dropdown nếu là danh mục con
         if (categories.some((cat) => cat.parentId === category.id)) {
             setOpenDropdownId(category.id);

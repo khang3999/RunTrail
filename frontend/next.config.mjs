@@ -5,11 +5,6 @@ const nextConfig = {
 	transpilePackages: ['@components/*', '@styles/*', '@assets/*'],
 	images: { unoptimized: true },
 	reactStrictMode: false,
-	i18n: {
-		locales:['en-US', 'vi-VN'],
-		defaultLocale: 'en-US',
-	},
-
 };
 
 export default nextConfig;

@@ -9,6 +9,8 @@ import AxiosInstance from "@/utils/axiosInstance";
 import { useRouter } from 'next/router';
 import { useAppProvider } from '../../contexts/AppProvider';
 import NotFound from '../../components/NotFound';
+
+
 export default function ProductDetailPage() {
   const { query }= useRouter();
   const { isNotFound, setIsNotFound } = useAppProvider();
