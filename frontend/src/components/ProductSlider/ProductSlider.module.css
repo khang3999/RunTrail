@@ -44,3 +44,7 @@
   margin-top: 50px;
   width: 100%;
 }
+.react-multi-carousel-list {
+  position: static;
+}
+

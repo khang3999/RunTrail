@@ -121,10 +121,11 @@ const CategoryFilter = () => {
    const categoryTree = buildCategoryTree(categories);
 
    const renderCategories = (categories, parentId = null) => {
+      console.log("categories", categories);
+      console.log("activeSubcategory", activeSubcategory);
       return categories.map((category) => {
          const isSelectedSubcategory =
             activeSubcategory[parentId] === category.id && parentId !== null;
-
          return (
             <div key={category.id} className="mb-2">
                <div

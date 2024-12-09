@@ -5,8 +5,6 @@ import Markdown from 'react-markdown';
 
 
 const TabInformation = ({ product, isLoading }) => {
-  // const t = useTranslations('Detail');
-  const t = useTranslations('About');
   const [tab, setTab] = useState(1);
   useEffect(() => {
     console.log("tab", product.spuDescription);
