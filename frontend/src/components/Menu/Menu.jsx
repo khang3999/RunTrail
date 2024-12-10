@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
 
 
-const CategoryMenuItems = ({ categories, isLoading }) => {
+const CategoryMenuItems = ({ categories, isLoading, toggleRefreshing }) => {
     const { setCategoryId } = useProductProvider();
     const [openDropdownId, setOpenDropdownId] = useState(null);
 
@@ -20,9 +20,9 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
         toggleDropdown(categoryId, false);
     };
 
-    const handleCategoryClick = (categoryId) => {        
+    const handleCategoryClick = (categoryId) => {
         setCategoryId(categoryId);
-        
+
     };
 
     const renderMenuItems = (parentId) => {
@@ -37,7 +37,9 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
                             data-dropdown-toggle={`dropdownNavbar_${category.id}`}
                             className="flex items-center  justify-between w-full py-2 px-3 rounded hover:text-green-500  dark:text-black"
                             onMouseEnter={() => handleMouseEnter(category.id)}
-                            onClick={() => handleCategoryClick(category.id)}
+                            onClick={() => {
+                                handleCategoryClick(category.id); toggleRefreshing()
+                            }}
                         >
                             {category.name}
                             {categories.some((cat) => cat.parentId === category.id) && (
@@ -80,7 +82,9 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
                         <Link
                             href={"/product"}
                             className="block px-4 py-2 w-full text-start hover:text-green-500"
-                            onClick={() => handleCategoryClick(category.id)}
+                            onClick={() => {
+                                handleCategoryClick(category.id); toggleRefreshing()
+                            }}
                         >
                             {category.name}
                         </Link>
@@ -95,7 +99,7 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
 export default function Menu() {
     const [isLoading, setIsLoading] = useState(true);
     const [categories, setCategories] = useState([]);
-
+    const { toggleRefreshing } = useProductProvider()
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -117,7 +121,7 @@ export default function Menu() {
             <div className='pt-5'>
                 <nav className="mb-4 ">
                     <ul className="flex justify-start space-x-4">
-                        <CategoryMenuItems categories={categories} />
+                        <CategoryMenuItems categories={categories} toggleRefreshing={toggleRefreshing} />
                     </ul>
                 </nav>
             </div>
