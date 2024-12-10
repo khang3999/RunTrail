@@ -62,40 +62,9 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public SkuPriceStockDTO findPriceAndStockProduct(Long id,Object attributes) {
-        String key = "sku_" + id;
-        if (id <= 0) {
-            // set cache null
-            redisTemplate.opsForValue().set(key, null);
-            return null;
-        }
-
-        // found in cache redis
-        Object dataCache = redisTemplate.opsForValue().get(key);
-
-        // found in cache redis
-        if (dataCache != null){
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                return mapper.readValue(dataCache.toString(), SkuPriceStockDTO.class);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        // found in database
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String,String> mapAttributes = objectMapper.convertValue(attributes,Map.class);
-        SkuPriceStockDTO skuPriceStockDTO = skuRepoCustom.findStockAndPriceProductBySpuId(id,mapAttributes);
-        try{
-            String json = objectMapper.writeValueAsString(skuPriceStockDTO);
-            redisTemplate.opsForValue().set(key, json);
-            redisTemplate.expire(key, TIME_REDIS, java.util.concurrent.TimeUnit.SECONDS);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        // save to cache
-        return skuPriceStockDTO;
+        return skuRepoCustom.findStockAndPriceProductBySpuId(id,mapAttributes);
     }
 
 }

@@ -27,10 +27,13 @@ const buildCategoryTree = (categories) => {
 };
 
 const CategoryFilter = () => {
-   const [categories, setCategories] = useState([]);   
+   const [categories, setCategories] = useState([]);
+   const [openParentCategory, setOpenParentCategory] = useState({});
    const { categoryId, setCategoryId } = useProductProvider();
-   const [isLoading, setIsLoading] = useState(true);   
-   const { setSelectedSizes, setSelectedBrands,openParentCategory, setOpenParentCategory,activeSubcategory, setActiveSubcategory } = useProductProvider();
+   const [activeSubcategory, setActiveSubcategory] = useState({});
+   const [isLoading, setIsLoading] = useState(true);
+   const [parentCategoryLength, setParentCategoryLength] = useState(0);
+   const { setSelectedSizes, setSelectedBrands } = useProductProvider();
 
    useEffect(() => {
       const fetchCategories = async () => {
@@ -79,6 +82,7 @@ const CategoryFilter = () => {
    const toggleCategory = (categoryId, parentId = null) => {
       if (parentId === null) {
          if (openParentCategory[categoryId]) {
+            if (categoryId === categoryId) return; // Do nothing if the category is already selected
             setCategoryId(-1);
             setOpenParentCategory((prev) => {
                const newOpenCategories = { ...prev };
@@ -104,6 +108,7 @@ const CategoryFilter = () => {
             return updatedSelected;
          });
       } else {
+         if (activeSubcategory[parentId] === categoryId) return; // Do nothing if the subcategory is already selected
          setCategoryId(categoryId);
          setOpenParentCategory((prev) => ({
             ...prev,
@@ -121,11 +126,10 @@ const CategoryFilter = () => {
    const categoryTree = buildCategoryTree(categories);
 
    const renderCategories = (categories, parentId = null) => {
-      console.log("categories", categories);
-      console.log("activeSubcategory", activeSubcategory);
       return categories.map((category) => {
          const isSelectedSubcategory =
             activeSubcategory[parentId] === category.id && parentId !== null;
+
          return (
             <div key={category.id} className="mb-2">
                <div
