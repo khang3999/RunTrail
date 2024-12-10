@@ -144,7 +144,7 @@ function ProductProvider({ children }) {
             checkParams,
             setCheckParams,
             tempSelectedBrands,
-            setTempSelectedBrands,
+            setTempSelectedBrands
             // params
          }}
       >

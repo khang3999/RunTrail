@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Breadcrumb() {
-  const { setCategoryId, tempSelectedBrands, categoryId } = useProductProvider();
+  const { setCategoryId, tempSelectedBrands, categoryId, setSelectedBrands } = useProductProvider();
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
   const [dataBrands, setDataBrands] = useState([]);
   const router = useRouter();
@@ -75,12 +75,7 @@ function Breadcrumb() {
 
 
   const handleNavigate = (id) => {
-    router.push(`/product`);
-    if (id === -1) {
-      setCategoryId(-1);
-    } else {
       setCategoryId(id);
-    }
   };
 
   useEffect(() => {
@@ -106,7 +101,9 @@ function Breadcrumb() {
     <div className="md:px-20 px-5 py-10 flex items-center space-x-2 md:text-base text-sm">
       <span
         onClick={() => {
-          handleNavigate(-1);
+          setCategoryId(-1)
+          setSelectedBrands([])
+          router.push('/')
         }}
         className="hover:underline cursor-pointer"
       >

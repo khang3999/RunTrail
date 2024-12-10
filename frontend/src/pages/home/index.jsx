@@ -1,8 +1,6 @@
 "use client"
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import AxiosInstance from "@/utils/axiosInstance";
-import { Image } from "antd";
 import Banner from "@/components/HomePage/Banner"
 import ProductItem from "@/components/ProductItem";
 import BrandList from "@/components/HomePage/BrandList";
@@ -34,10 +32,6 @@ function HomePage() {
       <div className="">
          <div className="w-full flex items-center justify-center p-4 flex-col">
             <Menu />
-            <h1>Đây là trang chủ</h1>
-            <Link className="text-blue-500" href={"/product"}>
-               Chuyển tới trang danh sách sản phẩm
-            </Link>
          </div>
          <Banner></Banner>
          <BrandList></BrandList>
