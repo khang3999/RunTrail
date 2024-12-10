@@ -39,11 +39,6 @@ function ProductProvider({ children }) {
          setCategoryId(Number(params.categoryId) || -1);
          setSelectedBrands(params.brandIds?.split(",")?.filter(Boolean) || []);
          setTempSelectedBrands(params.brandIds?.split(",")?.filter(Boolean) || []);
-         setTempSelectedBrands(
-            params.brandIds && params.brandIds.split(",").length > 0
-               ? params.brandIds.split(",")
-               : []
-         );
          setSelectedSizes(params.value?.split(",")?.filter(Boolean) || []);
          setContentOrderBy(params.contentOrderBy || "desc");
          setCheckParams(true);
@@ -67,6 +62,12 @@ function ProductProvider({ children }) {
          }
 
          const stringParams = buildQueryParams();
+         const params = new URLSearchParams(stringParams);
+         // Lấy giá trị của brandIds
+         const brandIdsStr = params.get("brandIds"); // "3,2,1"
+         // Chuyển giá trị thành mảng số
+         const brandIdsArray = brandIdsStr ? brandIdsStr.split(",").map(String) : [];
+         setTempSelectedBrands(brandIdsArray);
          window.history.replaceState({}, "", `?${stringParams}`);
          isFirstFilter && setCurrentPage(1);
 

@@ -26,6 +26,10 @@ function Breadcrumb() {
     }
   };
 
+  useEffect(()=>{
+    console.log(tempSelectedBrands, 'tempppp');
+    
+  },[tempSelectedBrands])
 
   // use Axios Instance
   const fetchBrandName = async () => {
