@@ -79,7 +79,7 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
                     <li key={category.id}>
                         <Link
                             href={"/product"}
-                            className="block px-4 py-2 w-full text-start dark:hover:text-green-500"
+                            className="block px-4 py-2 w-full text-start hover:text-green-500"
                             onClick={() => handleCategoryClick(category.id)}
                         >
                             {category.name}
