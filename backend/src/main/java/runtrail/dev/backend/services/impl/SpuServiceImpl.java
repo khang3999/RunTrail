@@ -100,6 +100,7 @@ public class SpuServiceImpl implements SpuService {
             LOG.info("Product not found in cache.");
             // get from db
             product = spuRepoCustom.findProductBySlug(slug);
+            System.out.println("product: "+product);
             if (product == null) {
                 LOG.info("Product not found");
                 // set cache key with null value
