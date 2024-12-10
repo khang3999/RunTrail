@@ -16,7 +16,7 @@ const Banner = () => {
             try {
                 const response = await fetch(`http://localhost:8008/api/v1/banners`);
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 if (data.statusCode === 200) {
                     setDataBanners(data.metadata);
                 } else {

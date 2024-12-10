@@ -17,7 +17,7 @@ function HomePage() {
       const fetchCollections = async () => {
          try {
             const res = await AxiosInstance.get("/collection/all");
-            console.log(res);
+            // console.log(res);
             if (res.data.statusCode === 200) {
                setCollections(res.data.metadata);
             }
