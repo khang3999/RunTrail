@@ -18,11 +18,11 @@ export default function BrandList() {
             try {
                 const response = await fetch(`http://localhost:8008/api/v1/brands/by-status?statusId=1`);
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 if (data.statusCode === 200) {
                     // Kiểm tra dữ liệu và lọc theo `status = 1`
                     const filteredData = data.metadata.filter((brand) => brand.status === 1);
-                    console.log(filteredData);
+                    // console.log(filteredData);
                     setDataBrands(filteredData);
                 } else {
                     console.error("Get brands by statusId failed");

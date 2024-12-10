@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-// import '@/assets/css/homePage.css'
+
 import Link from 'next/link';
 
 const Banner = () => {
@@ -16,7 +12,7 @@ const Banner = () => {
             try {
                 const response = await fetch(`http://localhost:8008/api/v1/banners`);
                 const data = await response.json();
-                console.log(data);
+                // console.log(data);
                 if (data.statusCode === 200) {
                     setDataBanners(data.metadata);
                 } else {
