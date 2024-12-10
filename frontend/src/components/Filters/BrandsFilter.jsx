@@ -11,7 +11,6 @@ const BrandsFilter = ({ categoryId }) => {
     useProductProvider();
 
   useEffect(() => {
-    console.log('tempBrand', tempSelectedBrands);
     // use Axios Instance
     const fetchBrandsData = async () => {
       try {
@@ -34,8 +33,6 @@ const BrandsFilter = ({ categoryId }) => {
   }, []);
 
   useEffect(() => {
-    console.log("Selected brands:", selectedBrands);
-    console.log('tempBrand111', tempSelectedBrands);
     setTempSelectedBrands(selectedBrands);
   }, [selectedBrands]);
 
@@ -68,7 +65,7 @@ const BrandsFilter = ({ categoryId }) => {
 
   useEffect(() => {
     filterProductsByBrand(selectedBrands);
-  }, [setSelectedBrands]);
+  }, [selectedBrands]);
 
   const handleBrandChange = (brandId) => {
     const updatedSelectedBrands = tempSelectedBrands.includes(brandId)
