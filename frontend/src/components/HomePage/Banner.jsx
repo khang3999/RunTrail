@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import '@/assets/css/homePage.css'
+// import '@/assets/css/homePage.css'
 import Link from 'next/link';
 
 const Banner = () => {

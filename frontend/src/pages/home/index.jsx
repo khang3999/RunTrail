@@ -8,6 +8,7 @@ import ProductItem from "@/components/ProductItem";
 import BrandList from "@/components/HomePage/BrandList";
 import Policy from "@/components/HomePage/Policy";
 import { minPrice } from "@/utils";
+import Menu from "@/components/Menu/Menu";
 import ProductSlider from "@/components/ProductSlider";
 function HomePage() {
    // Collections
@@ -32,6 +33,7 @@ function HomePage() {
    return (
       <div className="">
          <div className="w-full flex items-center justify-center p-4 flex-col">
+            <Menu />
             <h1>Đây là trang chủ</h1>
             <Link className="text-blue-500" href={"/product"}>
                Chuyển tới trang danh sách sản phẩm
@@ -63,7 +65,7 @@ function HomePage() {
                <div className="grid xl:grid-cols-2 gap-4 grid-cols-1 w-full">
                   {/* Collection Image */}
                   <div className="mx-auto">
-                     <Image
+                     <img
                         src={collection.collectionImage}
                         alt={collection.collectionName}
                         className="object-cover max-w-[100%] rounded-lg"

@@ -121,24 +121,16 @@ DROP TABLE IF EXISTS `new_spu`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 
-CREATE TABLE `new_spu` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `spu_name` varchar(200) NOT NULL,
-  `spu_description` text,
-  `category_id` bigint DEFAULT NULL,
-  `brand_id` bigint DEFAULT NULL,
-  `spu_status` int DEFAULT NULL,
-  `discount` int DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `spu_attributes` json DEFAULT NULL,
-  `spu_no` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE new_spu (
+     `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+  `id_spu` BIGINT,
+    FOREIGN KEY (id_spu) REFERENCES spu(id) 
 );
 
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40000 ALTER TABLE `new_spu` DISABLE KEYS */;
-INSERT INTO `new_spu` VALUES (1,'NORDA Sports Collection - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,1,1,90,'under-armour-hovr','{\"Size\": [\"36\"], \"Color\": [\"Black\", \"Blue\"]}','SPU008'),(2,'ON RUNNING Summer Collection  - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,2,1,90,'new-balance-fresh-foam','{\"Size\": [\"37\"], \"Color\": [\"Gray\", \"White\"]}','SPU009'),(3,'SAUCONY Retro CollectionSAUCONY Retro Collection','Miêu tả chi tiết sản phẩm Adidas NMD...',9,3,1,90,'adidas-nmd','{\"Size\": [\"38\"], \"Color\": [\"Black\", \"Red\"]}','SPU010'),(4,'XEROSHOES Fitness Collection','Miêu tả chi tiết sản phẩm Asics Gel Kayano...',9,1,1,97,'asics-gel-kayano','{\"Size\": [\"39\"], \"Color\": [\"Blue\", \"White\"]}','SPU011'),(5,'New Balance Classics','Miêu tả chi tiết sản phẩm Salomon Speedcross...',10,1,1,12,'salomon-speedcross','{\"Size\": [\"40\"], \"Color\": [\"Black\", \"Yellow\"]}','SPU012'),(6,'NIKE Air Max Collection','Miêu tả chi tiết sản phẩm Puma RS-X...',10,2,1,13,'puma-rs-x','{\"Size\": [\"41\"], \"Color\": [\"Gray\", \"Green\"]}','SPU013');
+INSERT INTO `new_spu` VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6);
 /*!40000 ALTER TABLE `new_spu` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -152,24 +144,16 @@ DROP TABLE IF EXISTS `sale_off`;
 /*!50503 SET character_set_client = utf8mb4 */;
 
 CREATE TABLE `sale_off` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `spu_name` varchar(200) NOT NULL,
-  `spu_description` text,
-  `category_id` bigint DEFAULT NULL,
-  `brand_id` bigint DEFAULT NULL,
-  `spu_status` int DEFAULT NULL,
-  `discount` int DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `spu_attributes` json DEFAULT NULL,
-  `spu_no` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+  `id_spu` BIGINT,
+  FOREIGN KEY (id_spu) REFERENCES spu(id) 
 );
 
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
 /*!40000 ALTER TABLE `sale_off` DISABLE KEYS */;
-INSERT INTO `sale_off` VALUES (27,'NIKE Downshifter  - t','Miêu tả chi tiết sản phẩm NIKE Downshifter...',20,1,1,99,'nike-downshifter','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU034'),(28,'PUMA Tazon  - t','Miêu tả chi tiết sản phẩm PUMA Tazon...',20,2,1,97,'puma-tazon','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU035'),(29,'VANS Era  - t','Miêu tả chi tiết sản phẩm VANS Era...',21,3,1,99,'vans-era','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU036'),(30,'CONVERSE Jack  - t','Miêu tả chi tiết sản phẩm CONVERSE Jack Purcell...',21,4,1,96,'converse-jack-purcell','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU037'),(41,'Nike Air Max 270','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,1,1,89,'nike-air-max-270','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU001'),(42,'Adidas Superstar','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,2,1,99,'adidas-superstar','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU002');
+INSERT INTO `sale_off` VALUES (1,27),(2,28),(3,29),(4,30),(5,41),(6,42);
 /*!40000 ALTER TABLE `sale_off` ENABLE KEYS */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
