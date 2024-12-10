@@ -30,11 +30,13 @@ function HomePage() {
 
    return (
       <div className="">
-         <div className="w-full flex items-center justify-center p-4 flex-col">
+         <div className="w-full flex items-center justify-center flex-col">
             <Menu />
          </div>
          <Banner></Banner>
-         <BrandList></BrandList>
+         <div className="px-4">
+            <BrandList></BrandList>
+         </div>
          <Policy></Policy>
          {/* Product Slider */}
          <div>
