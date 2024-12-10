@@ -1,8 +1,6 @@
 "use client"
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import AxiosInstance from "@/utils/axiosInstance";
-import { Image } from "antd";
 import Banner from "@/components/HomePage/Banner"
 import ProductItem from "@/components/ProductItem";
 import BrandList from "@/components/HomePage/BrandList";
@@ -10,8 +8,6 @@ import Policy from "@/components/HomePage/Policy";
 import { minPrice } from "@/utils";
 import Menu from "@/components/Menu/Menu";
 import ProductSlider from "@/components/ProductSlider";
-
-
 function HomePage() {
    // Collections
    const [collections, setCollections] = useState([]);
@@ -20,7 +16,7 @@ function HomePage() {
       const fetchCollections = async () => {
          try {
             const res = await AxiosInstance.get("/collection/all");
-            console.log(res);
+            // console.log(res);
             if (res.data.statusCode === 200) {
                setCollections(res.data.metadata);
             }
@@ -34,15 +30,13 @@ function HomePage() {
 
    return (
       <div className="">
-         <div className="w-full flex items-center justify-center p-4 flex-col">
+         <div className="w-full flex items-center justify-center flex-col">
             <Menu />
-            <h1>Welcome to our website</h1>
-            <Link className="text-blue-500" href={"/product"}>
-               Chuyển tới trang danh sách sản phẩm
-            </Link>
          </div>
          <Banner></Banner>
-         <BrandList></BrandList>
+         <div className="px-4">
+            <BrandList></BrandList>
+         </div>
          <Policy></Policy>
          {/* Product Slider */}
          <div>

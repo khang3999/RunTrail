@@ -44,7 +44,7 @@ const TabInformation = ({ product, isLoading }) => {
               source={product.spuDescription}
               style={{ background: "white", color: "black" }}
             /> */}
-            <Markdown>{product.spuDescription}</Markdown>
+            <Markdown className="prose">{product.spuDescription}</Markdown>
           </div>
         )}
         <div className={`${tab === 2 ? "block" : "hidden"} text-stone-400`}>

@@ -75,6 +75,7 @@ export default function ImageDesktop({ product = null, isLoading = false }) {
                 <Skeleton className="w-full md:h-full h-[300px]"></Skeleton>
               ) : (
                 <ReactImageMagnify
+                  className="btnImageDesktop"
                   {...{
                     smallImage: {
                       alt: "Wristwatch by Ted Baker London",
@@ -91,6 +92,7 @@ export default function ImageDesktop({ product = null, isLoading = false }) {
                           : "",
                       width: 1200,
                       height: 1200,
+                      className: 'max-w-none'
                     },
                     enlargedImageContainerDimensions: {
                       width: "120%",
@@ -128,20 +130,20 @@ export default function ImageDesktop({ product = null, isLoading = false }) {
                 modules={[Pagination]}
                 className="h-[80px] w-[100%]"
               >
-                  {dataImages &&
-                    dataImages.map((image, index) => {
-                      return (
-                        <SwiperSlide
-                          key={index}
-                          className="border-1 flex justify-center"
-                        >
-                          <button onClick={() => handleThumnailClick(index)}>
-                            <img className="w-full" src={image.imgUrl}></img>
-                            {/* <Image src={image.imgUrl} className="w-full"  /> */}
-                          </button>
-                        </SwiperSlide>
-                      );
-                    })}
+                {dataImages &&
+                  dataImages.map((image, index) => {
+                    return (
+                      <SwiperSlide
+                        key={index}
+                        className="border-1 flex justify-center"
+                      >
+                        <button onClick={() => handleThumnailClick(index)}>
+                          <img className="w-full" src={image.imgUrl}></img>
+                          {/* <Image src={image.imgUrl} className="w-full"  /> */}
+                        </button>
+                      </SwiperSlide>
+                    );
+                  })}
               </Swiper>
             </>
           )}

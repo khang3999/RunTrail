@@ -21,6 +21,6 @@ public class BannerEntity implements Serializable {
 
     @Column(name = "status", nullable = false)
     private int status;
-    @Column(name = "linkTo")
+    @Column(name = "link_to")
     private String linkTo;
 }

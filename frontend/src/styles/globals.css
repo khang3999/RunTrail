@@ -11,3 +11,7 @@
 .react-multi-carousel-list {
     position: static;
 }
+.btnImageDesktop img {
+    max-width: none !important;
+}
+

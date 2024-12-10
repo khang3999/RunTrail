@@ -9,7 +9,7 @@ import CartIcon from "../CartIcon";
 import { useAppProvider } from "@/contexts/AppProvider";
 import { Drawer } from "flowbite";
 import MenuMobile from "@/components/Menu/MenuMobile";
-import Cookies from "js-cookie";
+import { useProductProvider } from "../../contexts/ProductProvider";
 
 export default function Header({ onCategoryClick }) {
   const { totalCart, handleToggleMenu, isHidden } = useAppProvider();
@@ -33,7 +33,7 @@ export default function Header({ onCategoryClick }) {
         "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/1200px-Flag_of_Japan.svg.png",
     },
   ];
-
+  const {setCategoryId, setSelectedBrands} = useProductProvider()
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -46,10 +46,6 @@ export default function Header({ onCategoryClick }) {
   // Đổi ngôn ngữ
   const handleLanguageChange = (language) => {
     setSelectedLanguage(language);
-
-    // set cookie
-    Cookies.set("language", language.code, { expires: 365 });
-
     setIsDropdownOpen(false);
   };
 
@@ -64,14 +60,6 @@ export default function Header({ onCategoryClick }) {
     setSearchValue(event.target.value);
     setIsDropdownOpen(false);
   };
-
-  useEffect(() => {
-    const languageCode = Cookies.get("language");
-    if (languageCode) {
-      const language = languages.find((item) => item.code === languageCode);
-      setSelectedLanguage(language);
-    }
-  }, []);
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
@@ -134,9 +122,9 @@ export default function Header({ onCategoryClick }) {
 
   return (
     <div className={styles.container}>
-      <MdOutlineMenu className={styles.menuIcon} color="white" size={20} onClick={handleToggleMenu} />
-
-      <Link href="/">
+      <MdOutlineMenu className={styles.menuIcon} color="white" size={20} onClick={handleToggleMenu}/>
+      <Link href="/" onClick={()=>{setCategoryId(-1)
+          setSelectedBrands([])}}>
         <img
           src="https://supersports.com.vn/cdn/shop/files/LOGO_SSP_RGB-02_c46e0135-659a-49a2-9b37-6afebf1112e4.jpg?v=1723429659&width=2082"
           className={styles.logo}
@@ -262,7 +250,7 @@ export default function Header({ onCategoryClick }) {
             </div>
           )}
         </div>
-      </div>
+      </div>  
       <MenuMobile drawerRef={drawerRef}/>
     </div>
   );

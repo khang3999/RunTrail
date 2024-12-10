@@ -26,7 +26,7 @@ export const minPrice = (skuList) => {
 		}),
 	];
 
-	console.log(price);
+	// console.log(price);
 
 	const filteredPrice = price.filter((item) => item);
 	const min = Math.min(...filteredPrice);

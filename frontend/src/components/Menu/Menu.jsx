@@ -20,9 +20,9 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
         toggleDropdown(categoryId, false);
     };
 
-    const handleCategoryClick = (categoryId) => {        
+    const handleCategoryClick = (categoryId) => {
         setCategoryId(categoryId);
-        
+
     };
 
     const renderMenuItems = (parentId) => {
@@ -37,7 +37,9 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
                             data-dropdown-toggle={`dropdownNavbar_${category.id}`}
                             className="flex items-center  justify-between w-full py-2 px-3 rounded hover:text-green-500  dark:text-black"
                             onMouseEnter={() => handleMouseEnter(category.id)}
-                            onClick={() => handleCategoryClick(category.id)}
+                            onClick={() => {
+                                handleCategoryClick(category.id);
+                            }}
                         >
                             {category.name}
                             {categories.some((cat) => cat.parentId === category.id) && (
@@ -95,7 +97,6 @@ const CategoryMenuItems = ({ categories, isLoading }) => {
 export default function Menu() {
     const [isLoading, setIsLoading] = useState(true);
     const [categories, setCategories] = useState([]);
-
     useEffect(() => {
         const fetchCategories = async () => {
             try {
