@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import '@/assets/css/homePage.css'
+
 import Link from 'next/link';
 
 const Banner = () => {
