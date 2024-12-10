@@ -82,6 +82,7 @@ const CategoryFilter = () => {
    const toggleCategory = (categoryId, parentId = null) => {
       if (parentId === null) {
          if (openParentCategory[categoryId]) {
+            if (categoryId === categoryId) return; // Do nothing if the category is already selected
             setCategoryId(-1);
             setOpenParentCategory((prev) => {
                const newOpenCategories = { ...prev };
@@ -107,6 +108,7 @@ const CategoryFilter = () => {
             return updatedSelected;
          });
       } else {
+         if (activeSubcategory[parentId] === categoryId) return; // Do nothing if the subcategory is already selected
          setCategoryId(categoryId);
          setOpenParentCategory((prev) => ({
             ...prev,
