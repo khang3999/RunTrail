@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
 
 
-const CategoryMenuItems = ({ categories, isLoading, toggleRefreshing }) => {
+const CategoryMenuItems = ({ categories, isLoading }) => {
     const { setCategoryId } = useProductProvider();
     const [openDropdownId, setOpenDropdownId] = useState(null);
 
@@ -38,7 +38,7 @@ const CategoryMenuItems = ({ categories, isLoading, toggleRefreshing }) => {
                             className="flex items-center  justify-between w-full py-2 px-3 rounded hover:text-green-500  dark:text-black"
                             onMouseEnter={() => handleMouseEnter(category.id)}
                             onClick={() => {
-                                handleCategoryClick(category.id); toggleRefreshing()
+                                handleCategoryClick(category.id);
                             }}
                         >
                             {category.name}
@@ -83,7 +83,7 @@ const CategoryMenuItems = ({ categories, isLoading, toggleRefreshing }) => {
                             href={"/product"}
                             className="block px-4 py-2 w-full text-start hover:text-green-500"
                             onClick={() => {
-                                handleCategoryClick(category.id); toggleRefreshing()
+                                handleCategoryClick(category.id);
                             }}
                         >
                             {category.name}
@@ -99,7 +99,6 @@ const CategoryMenuItems = ({ categories, isLoading, toggleRefreshing }) => {
 export default function Menu() {
     const [isLoading, setIsLoading] = useState(true);
     const [categories, setCategories] = useState([]);
-    const { toggleRefreshing } = useProductProvider()
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -121,7 +120,7 @@ export default function Menu() {
             <div className='pt-5'>
                 <nav className="mb-4 ">
                     <ul className="flex justify-start space-x-4">
-                        <CategoryMenuItems categories={categories} toggleRefreshing={toggleRefreshing} />
+                        <CategoryMenuItems categories={categories} />
                     </ul>
                 </nav>
             </div>

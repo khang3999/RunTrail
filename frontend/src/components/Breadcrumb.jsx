@@ -76,11 +76,7 @@ function Breadcrumb() {
 
   const handleNavigate = (id) => {
     router.push(`/product`);
-    if (id === -1) {
-      setCategoryId(-1);
-    } else {
       setCategoryId(id);
-    }
   };
 
   useEffect(() => {
@@ -106,7 +102,8 @@ function Breadcrumb() {
     <div className="md:px-20 px-5 py-10 flex items-center space-x-2 md:text-base text-sm">
       <span
         onClick={() => {
-          handleNavigate(-1);
+          setCategoryId(-1)
+          router.push('/')
         }}
         className="hover:underline cursor-pointer"
       >

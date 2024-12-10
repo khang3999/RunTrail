@@ -22,11 +22,6 @@ function ProductProvider({ children }) {
    const [contentOrderBy, setContentOrderBy] = useState("desc");
    const [checkParams, setCheckParams] = useState(false);
    const [tempSelectedBrands, setTempSelectedBrands] = useState([]);
-   const [refreshing, setFreshing] = useState([]);
-
-   const toggleRefreshing = () => {
-      return setFreshing(prev => !prev)
-   }
 
    useEffect(() => {
       if (typeof window !== "undefined") {
@@ -43,7 +38,7 @@ function ProductProvider({ children }) {
          setContentOrderBy(params.contentOrderBy || "desc");
          setCheckParams(true);
       }
-   }, [refreshing]);
+   }, []);
 
    const buildQueryParams = () => {
       const brandIdsStr = selectedBrands?.join(",") || '';
@@ -149,8 +144,7 @@ function ProductProvider({ children }) {
             checkParams,
             setCheckParams,
             tempSelectedBrands,
-            setTempSelectedBrands,
-            toggleRefreshing
+            setTempSelectedBrands
             // params
          }}
       >
