@@ -32,15 +32,17 @@ function HomePage() {
 
    return (
       <div className="">
-         <div className="w-full flex items-center justify-center p-4 flex-col">
+         <div className="w-full flex items-center justify-center flex-col">
             <Menu />
-            <h1>Đây là trang chủ</h1>
+            {/* <h1>Đây là trang chủ</h1>
             <Link className="text-blue-500" href={"/product"}>
                Chuyển tới trang danh sách sản phẩm
-            </Link>
+            </Link> */}
          </div>
          <Banner></Banner>
-         <BrandList></BrandList>
+         <div className="px-4">
+            <BrandList></BrandList>
+         </div>
          <Policy></Policy>
          {/* Product Slider */}
          <div>

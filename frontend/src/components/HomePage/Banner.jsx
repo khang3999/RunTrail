@@ -26,16 +26,16 @@ const Banner = () => {
     }, []);
     return (
         <div className="banner w-full flex-1 h-auto ">
-     
+
             <Swiper
-            autoFocus={true}
-            loop={true}
-            autoplay={{
-                delay: 10000,
-                disableOnInteraction: false,
-                waitForTransition: false
-            }}
-            slidesPerView={1}
+                autoFocus={true}
+                loop={true}
+                autoplay={{
+                    delay: 10000,
+                    disableOnInteraction: false,
+                    waitForTransition: false
+                }}
+                slidesPerView={1}
                 pagination={{
                     clickable: true,
                 }}
@@ -44,19 +44,29 @@ const Banner = () => {
             >
                 {dataBanners &&
                     dataBanners.map((banner) => {
+                        console.log(banner.linkTo);
+                        
                         return (
+                            
                             <SwiperSlide
                                 key={banner.id}
                                 className="border-1 flex justify-center"
                             >
-                                <Link href='/products'>
-                                    <img className="w-full" src={banner.source}></img>
-                                </Link>
+                                {banner.linkTo !== null ?
+                                    <Link href={banner.linkTo}>
+                                        <img className="w-full" src={banner.source}></img>
+                                    </Link>
+                                    :
+                                    <div>
+                                        <img className="w-full" src={banner.source}></img>
+                                    </div>
+                                }
+
                             </SwiperSlide>
                         );
                     })}
             </Swiper>
-            </div>
+        </div>
     );
 }
 

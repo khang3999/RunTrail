@@ -6,7 +6,6 @@ import styles from "./Products.module.css";
 import QuickFilter from "@/components/Filters/QuickFilter";
 import { useProductProvider } from "@/contexts/ProductProvider";
 import Breadcrumb from "@/components/Breadcrumb";
-import GoToTopButton from "@/components/GoToTopButton";
 const ProductPage = ({ }) => {
    const {
       currentPage,
@@ -47,7 +46,6 @@ const ProductPage = ({ }) => {
                <ProductGrid />
             </div>
          </div>
-         <GoToTopButton />
       </div>
    );
 };
