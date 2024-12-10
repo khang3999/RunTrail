@@ -3,6 +3,7 @@ import Skeleton from "react-loading-skeleton";
 // import "@/assets/css/markdownImage.css";
 import Markdown from 'react-markdown';
 
+
 const TabInformation = ({ product, isLoading }) => {
   const [tab, setTab] = useState(1);
   useEffect(() => {

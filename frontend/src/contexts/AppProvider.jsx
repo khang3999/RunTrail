@@ -1,6 +1,8 @@
 "use client";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
+import AxiosInstance from "@/utils/axiosInstance";
+import Page500 from "../components/Page500";
 
 const AppContext = React.createContext();
 function AppProvider({ children }) {
@@ -10,6 +12,7 @@ function AppProvider({ children }) {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("none");
   const [isNotFound,setIsNotFound] = useState(false);
+
   const [isHidden, setIsHidden] = useState(true)
   // Resize when load page
   useEffect(() => {
@@ -44,9 +47,11 @@ function AppProvider({ children }) {
     }
     return 0;
   };
+
   const handleToggleMenu = () => {
     setIsHidden(prev => !prev)
   }
+
 
   return (
     <AppContext.Provider

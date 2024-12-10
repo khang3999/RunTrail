@@ -1,6 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* fix React Image Magnifiers not working when zoom in using nextjs */
+.fix-image-magnifier img{
+    max-width: none;
+}
+
+/* product s */
+.react-multi-carousel-list {
+    position: static;
+}
 .btnImageDesktop img {
     max-width: none !important;
 }
+

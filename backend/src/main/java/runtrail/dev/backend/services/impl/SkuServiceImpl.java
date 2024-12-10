@@ -5,9 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import runtrail.dev.backend.controllers.SpuController;
 import runtrail.dev.backend.dto.response.SkuPriceStockDTO;
+import runtrail.dev.backend.dto.response.SpuDTO;
 import runtrail.dev.backend.entities.SkuEntity;
 import runtrail.dev.backend.repositories.CategoryRepository;
 import runtrail.dev.backend.repositories.SkuRepoCustom;
@@ -24,11 +26,16 @@ import java.util.Optional;
 @Service
 public class SkuServiceImpl implements SkuService {
 
+    private static final int TIME_REDIS = 24*60*60;
+
     @Autowired
     private SkuRepository skuRepository;
 
     @Autowired
     private SkuRepoCustom skuRepoCustom;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private CategoryRepository categoryRepository;

@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: runtraildb
 -- ------------------------------------------------------
--- Server version	8.0.39
+-- Server version	9.1.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,6 +18,10 @@
 --
 -- Table structure for table `administrative_regions`
 --
+
+-- select database 
+USE runtraildb;
+
 
 DROP TABLE IF EXISTS `administrative_regions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -67,6 +71,10 @@ CREATE TABLE `administrative_units` (
 INSERT INTO `administrative_units` VALUES (1,'Thành phố trực thuộc trung ương','Municipality','Thành phố','City','thanh_pho_truc_thuoc_trung_uong','municipality'),(2,'Tỉnh','Province','Tỉnh','Province','tinh','province'),(3,'Thành phố thuộc thành phố trực thuộc trung ương','Municipal city','Thành phố','City','thanh_pho_thuoc_thanh_pho_truc_thuoc_trung_uong','municipal_city'),(4,'Thành phố thuộc tỉnh','Provincial city','Thành phố','City','thanh_pho_thuoc_tinh','provincial_city'),(5,'Quận','Urban district','Quận','District','quan','urban_district'),(6,'Thị xã','District-level town','Thị xã','Town','thi_xa','district_level_town'),(7,'Huyện','District','Huyện','District','huyen','district'),(8,'Phường','Ward','Phường','Ward','phuong','ward'),(9,'Thị trấn','Commune-level town','Thị trấn','Township','thi_tran','commune_level_town'),(10,'Xã','Commune','Xã','Commune','xa','commune');
 /*!40000 ALTER TABLE `administrative_units` ENABLE KEYS */;
 
+--
+-- Table structure for table `banners`
+--
+
 DROP TABLE IF EXISTS `banners`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -113,68 +121,6 @@ INSERT INTO `brand` VALUES (1,'NORDA','Global sports brand','https://cdn.shopify
 /*!40000 ALTER TABLE `brand` ENABLE KEYS */;
 
 --
--- Table structure for table `new_spu`
---
-
-DROP TABLE IF EXISTS `new_spu`;
-
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-
-CREATE TABLE `new_spu` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `spu_name` varchar(200) NOT NULL,
-  `spu_description` text,
-  `category_id` bigint DEFAULT NULL,
-  `brand_id` bigint DEFAULT NULL,
-  `spu_status` int DEFAULT NULL,
-  `discount` int DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `spu_attributes` json DEFAULT NULL,
-  `spu_no` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
-
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-/*!40000 ALTER TABLE `new_spu` DISABLE KEYS */;
-INSERT INTO `new_spu` VALUES (1,'NORDA Sports Collection - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,1,1,90,'under-armour-hovr','{\"Size\": [\"36\"], \"Color\": [\"Black\", \"Blue\"]}','SPU008'),(2,'ON RUNNING Summer Collection  - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,2,1,90,'new-balance-fresh-foam','{\"Size\": [\"37\"], \"Color\": [\"Gray\", \"White\"]}','SPU009'),(3,'SAUCONY Retro CollectionSAUCONY Retro Collection','Miêu tả chi tiết sản phẩm Adidas NMD...',9,3,1,90,'adidas-nmd','{\"Size\": [\"38\"], \"Color\": [\"Black\", \"Red\"]}','SPU010'),(4,'XEROSHOES Fitness Collection','Miêu tả chi tiết sản phẩm Asics Gel Kayano...',9,1,1,97,'asics-gel-kayano','{\"Size\": [\"39\"], \"Color\": [\"Blue\", \"White\"]}','SPU011'),(5,'New Balance Classics','Miêu tả chi tiết sản phẩm Salomon Speedcross...',10,1,1,12,'salomon-speedcross','{\"Size\": [\"40\"], \"Color\": [\"Black\", \"Yellow\"]}','SPU012'),(6,'NIKE Air Max Collection','Miêu tả chi tiết sản phẩm Puma RS-X...',10,2,1,13,'puma-rs-x','{\"Size\": [\"41\"], \"Color\": [\"Gray\", \"Green\"]}','SPU013');
-/*!40000 ALTER TABLE `new_spu` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
---
--- Table structure for table `sale_off`
---
-
-DROP TABLE IF EXISTS `sale_off`;
-
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-
-CREATE TABLE `sale_off` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `spu_name` varchar(200) NOT NULL,
-  `spu_description` text,
-  `category_id` bigint DEFAULT NULL,
-  `brand_id` bigint DEFAULT NULL,
-  `spu_status` int DEFAULT NULL,
-  `discount` int DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `spu_attributes` json DEFAULT NULL,
-  `spu_no` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
-
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
-/*!40000 ALTER TABLE `sale_off` DISABLE KEYS */;
-INSERT INTO `sale_off` VALUES (27,'NIKE Downshifter  - t','Miêu tả chi tiết sản phẩm NIKE Downshifter...',20,1,1,99,'nike-downshifter','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU034'),(28,'PUMA Tazon  - t','Miêu tả chi tiết sản phẩm PUMA Tazon...',20,2,1,97,'puma-tazon','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU035'),(29,'VANS Era  - t','Miêu tả chi tiết sản phẩm VANS Era...',21,3,1,99,'vans-era','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU036'),(30,'CONVERSE Jack  - t','Miêu tả chi tiết sản phẩm CONVERSE Jack Purcell...',21,4,1,96,'converse-jack-purcell','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU037'),(41,'Nike Air Max 270','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,1,1,89,'nike-air-max-270','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU001'),(42,'Adidas Superstar','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,2,1,99,'adidas-superstar','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU002');
-/*!40000 ALTER TABLE `sale_off` ENABLE KEYS */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-
---
 -- Table structure for table `categories`
 --
 
@@ -196,56 +142,6 @@ CREATE TABLE `categories` (
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` VALUES (1,'Giày Chạy Bộ',NULL),(2,'Giày Địa Hình',NULL),(3,'Phụ Kiện',NULL),(4,'Đồng Hồ',NULL),(5,'Dinh Dưỡng',NULL),(6,'Quần',NULL),(7,'Áo',NULL),(8,'Giày Chạy Bộ Nam',1),(9,'Giày Chạy Bộ Nữ',1),(10,'Giày Địa Hình Nữ',2),(11,'Giày Địa Hình Nam',2),(12,'Kính',3),(13,'Mũ',3),(14,'Tất',3),(15,'Gậy Địa Hình',3),(16,'Suunto',4),(17,'Coros',4),(18,'Garmin',4),(19,'Gel Năng Lượng',5),(20,'Điện Giải - Hydration',5),(21,'Quần Nam',6),(22,'Quần Nữ',6),(23,'Áo Nam',7),(24,'Áo Nữ',7);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
-
---
--- Table structure for table `collection_product`
---
-
-DROP TABLE IF EXISTS `collection_product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `collection_product` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
-  `create_time` datetime DEFAULT NULL COMMENT 'Create Time',
-  `product_id` int DEFAULT NULL,
-  `collection_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `collection_product`
---
-
-/*!40000 ALTER TABLE `collection_product` DISABLE KEYS */;
-INSERT INTO `collection_product` VALUES (1,NULL,10,1),(2,NULL,11,1),(3,NULL,4,1),(4,NULL,5,1),(5,NULL,1,1),(6,NULL,2,1),(7,NULL,12,2),(8,NULL,14,2),(9,NULL,15,2),(10,NULL,16,2),(11,NULL,17,2),(12,NULL,18,2);
-/*!40000 ALTER TABLE `collection_product` ENABLE KEYS */;
-
---
--- Table structure for table `collections`
---
-
-DROP TABLE IF EXISTS `collections`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `collections` (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
-  `create_time` datetime DEFAULT NULL COMMENT 'Create Time',
-  `collection_name` varchar(255) DEFAULT NULL,
-  `collection_image` varchar(255) DEFAULT NULL,
-  `collection_link` varchar(255) DEFAULT NULL,
-  `numerical_order` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `collections`
---
-
-/*!40000 ALTER TABLE `collections` DISABLE KEYS */;
-INSERT INTO `collections` VALUES (1,NULL,'BỘ SƯU TẬP MỚI','https://pos.nvncdn.com/be3294-43017/campaign/20240524_oNYjSZ5b.jpeg','https://pos.nvncdn.com/be3294-43017/campaign/20240524_oNYjSZ5b.jpeg',1),(2,NULL,'MÔN THỂ THAO YÊU THÍCH','https://pos.nvncdn.com/be3294-43017/bn/20241123_QnoAOUfT.gif','https://pos.nvncdn.com/be3294-43017/bn/20241123_QnoAOUfT.gif',2);
-/*!40000 ALTER TABLE `collections` ENABLE KEYS */;
 
 --
 -- Table structure for table `districts`
@@ -297,7 +193,7 @@ CREATE TABLE `order_product` (
   KEY `product_id` (`product_id`),
   CONSTRAINT `order_product_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   CONSTRAINT `order_product_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `sku` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,7 +201,7 @@ CREATE TABLE `order_product` (
 --
 
 /*!40000 ALTER TABLE `order_product` DISABLE KEYS */;
-INSERT INTO `order_product` VALUES (1,24,31,13000,1),(2,24,2,10000,2),(3,25,1,12000,2),(4,25,7,11000,1),(5,26,3,15000,1),(6,27,2,10000,1),(7,28,3,15000,1),(8,29,1,12000,1),(9,30,7,11000,1),(10,31,4,9000,1),(11,32,2,10000,1),(12,33,4,9000,1),(13,34,3,15000,1),(14,35,3,15000,1),(15,36,3,15000,1),(16,37,1,12000,2),(17,38,2,10000,1),(18,39,6,7000,1),(19,40,6,7000,1),(20,41,5,8500,1),(21,42,4,9000,2),(22,43,4,9000,1),(23,44,1,12000,1),(24,45,3,15000,1),(25,46,4,9000,1),(26,47,1,12000,1),(27,48,1,12000,3),(28,48,3,15000,1),(29,49,6,7000,3),(30,50,1,12000,1),(31,51,6,7000,2),(32,51,5,8500,3),(33,52,3,15000,4),(34,52,4,9000,2),(35,53,2,10000,4),(36,54,2,10000,4),(37,55,2,10000,1),(38,56,2,10000,6),(39,57,2,10000,5),(40,58,2,10000,6),(41,59,72,1500000,6);
+INSERT INTO `order_product` VALUES (1,24,31,13000,1),(2,24,2,10000,2),(3,25,1,12000,2),(4,25,7,11000,1),(5,26,3,15000,1),(6,27,2,10000,1),(7,28,3,15000,1),(8,29,1,12000,1),(9,30,7,11000,1),(10,31,4,9000,1),(11,32,2,10000,1),(12,33,4,9000,1),(13,34,3,15000,1),(14,35,3,15000,1),(15,36,3,15000,1),(16,37,1,12000,2),(17,38,2,10000,1),(18,39,6,7000,1),(19,40,6,7000,1),(20,41,5,8500,1),(21,42,4,9000,2),(22,43,4,9000,1),(23,44,1,12000,1),(24,45,3,15000,1),(25,46,4,9000,1),(26,47,1,12000,1),(27,48,4,9000,1),(28,48,5,8500,1),(29,48,1,12000,1);
 /*!40000 ALTER TABLE `order_product` ENABLE KEYS */;
 
 --
@@ -330,7 +226,7 @@ CREATE TABLE `orders` (
   `acccount_id` int DEFAULT NULL,
   `customer_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +234,7 @@ CREATE TABLE `orders` (
 --
 
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (24,0,'2024-11-13T01:46:28.541987100',33000,0,1,0,'27, 258, 09232, 34',0,'345345',NULL,NULL,'345 34'),(25,0,'2024-11-13T01:48:49.360231900',35000,0,1,0,'79, 777, 27454, DATOO',10,'3434234',NULL,NULL,'Nguyen Dat'),(26,0,'2024-11-15T22:32:37.652271900',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(27,0,'2024-11-15T22:48:25.837919600',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(28,0,'2024-11-15T23:25:36.893981600',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(29,0,'2024-11-15T23:29:32.816531200',12000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(30,0,'2024-11-15T23:31:33.350592500',11000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(31,0,'2024-11-15T23:34:17.443912900',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(32,0,'2024-11-15T23:36:54.009383200',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(33,0,'2024-11-15T23:38:18.026957400',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(34,0,'2024-11-15T23:40:23.410727600',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(35,0,'2024-11-15T23:43:01.909400900',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(36,0,'2024-11-15T23:44:26.672439700',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(37,0,'2024-11-15T23:59:23.186478',24000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(38,0,'2024-11-16T00:16:18.537527700',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(39,0,'2024-11-16T00:19:20.925169500',7000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(40,0,'2024-11-16T00:23:03.427983900',7000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(41,0,'2024-11-16T00:23:54.383549800',8500,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(42,0,'2024-11-16T00:25:26.894334100',18000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(43,0,'2024-11-16T00:27:01.468340600',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(44,0,'2024-11-16T00:44:39.216196500',12000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(45,0,'2024-11-16T01:17:18.583532500',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(46,0,'2024-11-16T01:19:06.494590100',9000,0,1,0,'04, 043, 01327, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(47,0,'2024-11-16T01:28:46.139212800',12000,0,1,0,'04, 043, 01327, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(48,0,'2024-11-23T08:45:02.536390800',5100,0,1,0,'08, 071, 02266, sdfsdf',10,'0987654312',NULL,NULL,'sdf sdf'),(49,0,'2024-11-23T09:10:14.676024300',2100,0,1,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(50,0,'2024-11-23T16:07:38.253747400',1199.9999999999998,0,1,0,'08, 071, 02266, sdfsdf',10,'0987654312',NULL,NULL,'sdf sdf'),(51,0,'2024-11-23T16:21:34.360412700',3949.999999999999,0,1,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(52,0,'2024-11-23T16:25:11.165681900',7799.999999999998,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(53,0,'2024-11-23T16:27:25.730886400',3999.999999999999,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(54,0,'2024-11-23T16:28:50.294204700',3999.999999999999,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(55,0,'2024-11-23T16:30:06.688509900',999.9999999999998,0,2,0,'08, 071, 02266, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(56,0,'2024-11-23T16:33:57.125746500',5999.999999999998,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654312',NULL,NULL,'Nguyễn Đạt'),(57,0,'2024-11-23T16:40:15.784197600',4999.999999999999,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',100,'0987654312',NULL,NULL,'Nguyễn Đạt'),(58,0,'2024-11-23T16:47:18.042166700',5999.999999999998,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654312',NULL,NULL,'Nguyễn Đạt'),(59,0,'2024-11-23T17:44:43.067362100',8100000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654312',NULL,NULL,'Nguyễn Đạt');
+INSERT INTO `orders` VALUES (24,0,'2024-11-13T01:46:28.541987100',33000,0,1,0,'27, 258, 09232, 34',0,'345345',NULL,NULL,'345 34'),(25,0,'2024-11-13T01:48:49.360231900',35000,0,1,0,'79, 777, 27454, DATOO',10,'3434234',NULL,NULL,'Nguyen Dat'),(26,0,'2024-11-15T22:32:37.652271900',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(27,0,'2024-11-15T22:48:25.837919600',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(28,0,'2024-11-15T23:25:36.893981600',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(29,0,'2024-11-15T23:29:32.816531200',12000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(30,0,'2024-11-15T23:31:33.350592500',11000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(31,0,'2024-11-15T23:34:17.443912900',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(32,0,'2024-11-15T23:36:54.009383200',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(33,0,'2024-11-15T23:38:18.026957400',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(34,0,'2024-11-15T23:40:23.410727600',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(35,0,'2024-11-15T23:43:01.909400900',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(36,0,'2024-11-15T23:44:26.672439700',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987667666',NULL,NULL,'Nguyễn  Đạt'),(37,0,'2024-11-15T23:59:23.186478',24000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(38,0,'2024-11-16T00:16:18.537527700',10000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(39,0,'2024-11-16T00:19:20.925169500',7000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(40,0,'2024-11-16T00:23:03.427983900',7000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(41,0,'2024-11-16T00:23:54.383549800',8500,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(42,0,'2024-11-16T00:25:26.894334100',18000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(43,0,'2024-11-16T00:27:01.468340600',9000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(44,0,'2024-11-16T00:44:39.216196500',12000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(45,0,'2024-11-16T01:17:18.583532500',15000,0,1,0,'79, 769, 26824, 166/16/5 Đặng Văn Bi',0,'0987654321',NULL,NULL,'Nguyen Dat'),(46,0,'2024-11-16T01:19:06.494590100',9000,0,1,0,'04, 043, 01327, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(47,0,'2024-11-16T01:28:46.139212800',12000,0,1,0,'04, 043, 01327, sdfsdf',0,'0987654312',NULL,NULL,'sdf sdf'),(48,0,'2024-11-24T08:21:49.533968700',2949.999999999999,0,1,0,'12, 110, 03637, 77 đường 8',0,'0358535671',NULL,NULL,'Nguyễn Khang');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 --
@@ -390,9 +286,9 @@ CREATE TABLE `sku` (
   `sku_price` bigint DEFAULT NULL,
   `sku_attri` json DEFAULT NULL,
   `sku_no` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKehokkbtij47fmc8iwwhgepor2` (`spu_id`),
-  CONSTRAINT `FKehokkbtij47fmc8iwwhgepor2` FOREIGN KEY (`spu_id`) REFERENCES `spu` (`id`)
+  PRIMARY KEY (`id`)
+  -- KEY `FKehokkbtij47fmc8iwwhgepor2` (`spu_id`),
+  -- CONSTRAINT `FKehokkbtij47fmc8iwwhgepor2` FOREIGN KEY (`spu_id`) REFERENCES `spu` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -401,7 +297,7 @@ CREATE TABLE `sku` (
 --
 
 /*!40000 ALTER TABLE `sku` DISABLE KEYS */;
-INSERT INTO `sku` VALUES (1,1,'NORDA Air Max','Classic cushioned shoe',1,50,12000,'{\"Size\": \"36\", \"Color\": \"Black\"}',''),(2,1,'NORDA Revolution','Lightweight running shoe',1,60,10000,'{\"Size\": \"36\", \"Color\": \"Blue\"}',''),(3,2,'ON RUNNING Ultra Boost','Premium running shoe',1,40,15000,'{\"Size\": \"37\", \"Color\": \"Gray\"}',''),(4,2,'ON RUNNING Gazelle','Stylish casual shoe',1,70,9000,'{\"Size\": \"37\", \"Color\": \"White\"}',''),(5,3,'SAUCONY RS-X','Retro style sneaker',1,30,8500,'{\"Size\": \"38\", \"Color\": \"Red\"}',''),(6,3,'SAUCONY Suede Classic','Casual everyday sneaker',1,80,7000,'{\"Size\": \"38\", \"Color\": \"Black\"}',''),(7,4,'XEROSHOES Nano','High-performance cross-training shoe',1,25,11000,'{\"Size\": \"39\", \"Color\": \"Blue\"}',''),(8,4,'XEROSHOES Classic Leather','Iconic everyday sneaker',1,90,9500,'{\"Size\": \"39\", \"Color\": \"White\"}',''),(9,5,'New Balance 574','Classic retro running shoe',1,45,9500,'{\"Size\": \"40\", \"Color\": \"Black\"}',''),(10,5,'New Balance Fresh Foam','Premium cushioned shoe',1,55,14000,'{\"Size\": \"40\", \"Color\": \"Yellow\"}',''),(11,6,'NIKE Air Max','Classic cushioned shoe',1,50,12000,'{\"Size\": \"41\", \"Color\": \"Gray\"}',''),(12,6,'NIKE Revolution','Lightweight running shoe',1,60,10000,'{\"Size\": \"41\", \"Color\": \"Green\"}',''),(13,7,'ADIDAS Ultra Boost','Premium running shoe',1,40,15000,'{\"Size\": \"42\", \"Color\": \"Black\"}',''),(14,7,'ADIDAS Gazelle','Stylish casual shoe',1,70,9000,'{\"Size\": \"42\", \"Color\": \"Pink\"}',''),(15,8,'PUMA RS-X','Retro style sneaker',1,30,8500,'{\"Size\": \"43\", \"Color\": \"White\"}',''),(16,8,'PUMA Suede Classic','Casual everyday sneaker',1,80,7000,'{\"Size\": \"43\", \"Color\": \"Blue\"}',''),(17,9,'REEBOK Nano','High-performance cross-training shoe',1,25,11000,'{\"Size\": \"43\", \"Color\": \"Brown\"}',''),(18,9,'REEBOK Classic Leather','Iconic everyday sneaker',1,90,9500,'{\"Size\": \"43\", \"Color\": \"Black\"}',''),(19,10,'UNDER ARMOUR 574','Classic retro running shoe',1,45,9500,'{\"Size\": \"44\", \"Color\": \"Blue\"}',''),(20,10,'UNDER ARMOUR Fresh Foam','Premium cushioned shoe',1,55,14000,'{\"Size\": \"44\", \"Color\": \"Red\"}',''),(31,11,'NIKE Legend','Lightweight and flexible sports shoe',1,45,13000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(32,11,'NIKE Legend Pro','Lightweight premium sports shoe',1,50,13500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(33,12,'ADIDAS Classic Run','Comfortable running shoe',1,55,12500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(34,12,'ADIDAS Classic Run Plus','Enhanced comfort running shoe',1,60,13000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(35,13,'PUMA Racer','High-performance racing shoe',1,35,9000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(36,13,'PUMA Racer XT','Advanced racing shoe',1,40,9500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(37,14,'ON Runner Swift','Swift and comfortable running shoe',1,50,15000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(38,14,'ON Runner Swift Max','Enhanced speed and comfort',1,55,15500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(39,15,'REEBOK Trail Master','Durable trail shoe',1,45,10500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(40,15,'REEBOK Trail Master Pro','Upgraded durability for trails',1,50,11000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(41,16,'UNDER ARMOUR Sprint','Lightweight sprint shoe',1,60,12000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(42,16,'UNDER ARMOUR Sprint Elite','Enhanced lightweight sprint shoe',1,65,12500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(43,17,'ASICS Speedrunner','High-speed running shoe',1,55,11500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(44,17,'ASICS Speedrunner Max','High-speed performance shoe',1,60,11800,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(45,18,'SALOMON Terrain','Rugged outdoor terrain shoe',1,40,14000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(46,18,'SALOMON Terrain Pro','Advanced rugged terrain shoe',1,45,14500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(47,19,'MIZUNO Wave','Balanced cushioned shoe',1,50,12500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(48,19,'MIZUNO Wave Elite','Enhanced cushioned performance shoe',1,55,13000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(49,20,'CONVERSE Allstar','Iconic casual sneaker',1,60,10000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(50,20,'CONVERSE Allstar Pro','Upgraded classic sneaker',1,65,10500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(51,21,'VANS Sk8-Hi','High-top skate shoe',1,50,9000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(52,21,'VANS Sk8-Hi Pro','Enhanced high-top skate shoe',1,55,9500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(53,22,'NEW BALANCE Trailblazer','Durable trail shoe',1,40,10500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(54,22,'NEW BALANCE Trailblazer Pro','Upgraded durability for trail',1,45,11000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(55,23,'ASICS Gel-Quantum','Comfort-focused athletic shoe',1,55,11500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(56,23,'ASICS Gel-Quantum Pro','Enhanced comfort athletic shoe',1,60,12000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(57,24,'BROOKS Glycerin','Cushioned running shoe',1,65,12500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(58,24,'BROOKS Glycerin Plus','Enhanced cushioned running shoe',1,70,13000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(59,25,'HOKA One One','Premium high-cushion shoe',1,40,15000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(60,25,'HOKA One One Elite','Enhanced high-cushion shoe',1,45,15500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(61,26,'VANS Old Skool','Classic skate shoe',1,55,8500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(62,26,'VANS Old Skool Pro','Enhanced classic skate shoe',1,60,9000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(63,27,'NIKE Free Run','Flexible running shoe',1,50,12000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(64,27,'NIKE Free Run Pro','Enhanced flexibility running shoe',1,55,12500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(65,28,'ADIDAS NMD','Stylish everyday sneaker',1,45,13000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(66,28,'ADIDAS NMD R1','Premium stylish sneaker',1,50,13500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(67,29,'PUMA FIERCE','Training and workout shoe',1,40,9000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(68,29,'PUMA FIERCE Core','Enhanced training shoe',1,45,9500,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(69,30,'UNDER ARMOUR Charged','High-performance training shoe',1,55,11500,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(70,30,'UNDER ARMOUR Charged Elite','Premium training performance shoe',1,60,12000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(71,41,'Nike Air Max 270 - Black - Size M','Black Nike Air Max 270, size M',1,100,1500000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(72,41,'Nike Air Max 270 - Black - Size L','Black Nike Air Max 270, size L',1,80,1500000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(73,42,'Adidas Superstar - White - Size S','Classic Adidas Superstar, white color, size S',1,0,1400000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(74,42,'Adidas Superstar - White - Size M','Classic Adidas Superstar, white color, size M',1,100,1400000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(75,42,'Adidas Superstar - White - Size L','Classic Adidas Superstar, white color, size L',1,80,1400000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(76,42,'Adidas Superstar - Black - Size S','Classic Adidas Superstar, black color, size S',1,90,1400000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(77,42,'Adidas Superstar - Black - Size M','Classic Adidas Superstar, black color, size M',1,0,1400000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(78,42,'Adidas Superstar - Black - Size L','Classic Adidas Superstar, black color, size L',1,60,1400000,'{\"Size\": \"S\", \"Color\": \"Blue\"}',''),(79,42,'Adidas Superstar - White - Size XL','Classic Adidas Superstar, white color, size XL',1,50,1400000,'{\"Size\": \"S\", \"Color\": \"Red\"}',''),(80,42,'Adidas Superstar - Black - Size XL','Classic Adidas Superstar, black color, size XL',1,40,1400000,'{\"Size\": \"S\", \"Color\": \"Blue\"}','');
+
 /*!40000 ALTER TABLE `sku` ENABLE KEYS */;
 
 --
@@ -470,7 +366,7 @@ CREATE TABLE `sku_images` (
   PRIMARY KEY (`id`),
   KEY `FK1jhbc0bgvqatf0il70rj004hw` (`sku_id`),
   CONSTRAINT `FK1jhbc0bgvqatf0il70rj004hw` FOREIGN KEY (`sku_id`) REFERENCES `sku` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -478,7 +374,7 @@ CREATE TABLE `sku_images` (
 --
 
 /*!40000 ALTER TABLE `sku_images` DISABLE KEYS */;
-INSERT INTO `sku_images` VALUES (1,1,'https://i5.walmartimages.com/seo/Puma-Mens-Suede-Classic-XXI-Sneakers-Black-White-11-US_c089bb1c-a199-4fe4-9987-2ff66f9cd859.d48a1eac667747ed6f53b7504bf79460.jpeg',0,NULL,NULL),(2,2,'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/398846/01/sv01/fnd/PHL/fmt/png',0,NULL,NULL),(3,3,'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_450,h_450/global/395205/21/sv01/fnd/PHL/fmt/png',0,NULL,NULL),(4,4,'https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/396464/01/sv01/fnd/DFA/fmt/png/Palermo-Leather-Sneakers-Unisex',0,NULL,NULL),(5,5,'https://www.sportspar.de/media/image/38/c9/c5/307311-01-1LnC2Ta5U9NxBe.jpg',0,NULL,NULL),(6,6,'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/99486859-0ff3-46b4-949b-2d16af2ad421/custom-nike-dunk-high-by-you-shoes.png',0,NULL,NULL),(7,7,'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/3f3e7049-5c99-428c-abcd-e246b086f2ed/AIR+FORCE+1+%2707.png',0,NULL,NULL),(8,8,'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/3f3e7049-5c99-428c-abcd-e246b086f2ed/AIR+FORCE+1+%2707.png',0,NULL,NULL),(9,9,'https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/6b257d85-cbc4-4179-badd-b6c81e290926/W+NIKE+P-6000.png',0,NULL,NULL),(10,10,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(11,11,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(12,12,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(13,13,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(14,14,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(15,15,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(16,16,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(17,17,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(18,18,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(19,19,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL),(20,20,'https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=1858&h=1045&vtcrop=y',0,NULL,NULL);
+INSERT INTO `sku_images` VALUES (21,2,'https://i.ebayimg.com/images/g/3boAAOSwI2ZlFdFu/s-l1200.jpghttps://i.ebayimg.com/images/g/3boAAOSwI2ZlFdFu/s-l1200.jpg',0,NULL,NULL),(22,2,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQuh2WgE8xS-fKI8EZJRFJjmapN4Xs5McjS2ZdPCwH5Qb2-9Ue-h5zlp0ZgiUMGlrrZe8&usqp=CAU',0,NULL,NULL),(23,1,'https://pos.nvncdn.com/be3294-43017/ps/20231208_7LnI3iZkJX.jpeg',0,NULL,NULL);
 /*!40000 ALTER TABLE `sku_images` ENABLE KEYS */;
 
 --
@@ -497,7 +393,6 @@ CREATE TABLE `spu` (
   `spu_status` int DEFAULT NULL,
   `discount` int DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
-  `spu_attributes` json DEFAULT NULL,
   `spu_no` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKcdgvlv0nq45bmy69la2ou5pes` (`brand_id`),
@@ -510,8 +405,6 @@ CREATE TABLE `spu` (
 --
 
 /*!40000 ALTER TABLE `spu` DISABLE KEYS */;
-INSERT INTO `spu` VALUES (1,'NORDA Sports Collection - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,1,1,90,'under-armour-hovr','{\"Size\": [\"36\"], \"Color\": [\"Black\", \"Blue\"]}','SPU008'),(2,'ON RUNNING Summer Collection  - t','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',8,2,1,90,'new-balance-fresh-foam','{\"Size\": [\"37\"], \"Color\": [\"Gray\", \"White\"]}','SPU009'),(3,'SAUCONY Retro CollectionSAUCONY Retro Collection','Miêu tả chi tiết sản phẩm Adidas NMD...',9,3,1,90,'adidas-nmd','{\"Size\": [\"38\"], \"Color\": [\"Black\", \"Red\"]}','SPU010'),(4,'XEROSHOES Fitness Collection','Miêu tả chi tiết sản phẩm Asics Gel Kayano...',9,1,1,97,'asics-gel-kayano','{\"Size\": [\"39\"], \"Color\": [\"Blue\", \"White\"]}','SPU011'),(5,'New Balance Classics','Miêu tả chi tiết sản phẩm Salomon Speedcross...',10,1,1,12,'salomon-speedcross','{\"Size\": [\"40\"], \"Color\": [\"Black\", \"Yellow\"]}','SPU012'),(6,'NIKE Air Max Collection','Miêu tả chi tiết sản phẩm Puma RS-X...',10,2,1,13,'puma-rs-x','{\"Size\": [\"41\"], \"Color\": [\"Gray\", \"Green\"]}','SPU013'),(7,'ADIDAS Ultra Boost Collection','Miêu tả chi tiết sản phẩm Nike React Infinity...',11,3,1,14,'nike-react-infinity','{\"Size\": [\"42\"], \"Color\": [\"Black\", \"Pink\"]}','SPU014'),(8,'PUMA RS-X Collection','Miêu tả chi tiết sản phẩm Reebok Zig Kinetica...',11,3,1,15,'reebok-zig-kinetica','{\"Size\": [\"43\"], \"Color\": [\"White\", \"Blue\"]}','SPU015'),(9,'REEBOK Nano Collection','Miêu tả chi tiết sản phẩm Asics Gel Venture...',11,4,1,16,'asics-gel-venture','{\"Size\": [\"43\"], \"Color\": [\"Brown\", \"Black\"]}','SPU016'),(10,'UNDER ARMOUR 574 Collection','Miêu tả chi tiết sản phẩm Hoka Bondi...',11,1,1,17,'hoka-bondi','{\"Size\": [\"44\"], \"Color\": [\"Blue\", \"Red\"]}','SPU017'),(11,'NIKE Revolution','Miêu tả chi tiết sản phẩm NIKE Revolution...',12,1,1,18,'nike-revolution','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU018'),(12,'ADIDAS Gazelle','Miêu tả chi tiết sản phẩm ADIDAS Gazelle...',12,2,1,19,'adidas-gazelle','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU019'),(13,'PUMA Smash -t','Miêu tả chi tiết sản phẩm PUMA Smash...',13,3,1,90,'puma-smash','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU020'),(14,'ON Running Cloud  - t','Miêu tả chi tiết sản phẩm ON Running Cloud...',13,4,1,99,'on-running-cloud','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU021'),(15,'REEBOK Club C  - t','Miêu tả chi tiết sản phẩm REEBOK Club C...',13,1,1,94,'reebok-club-c','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU022'),(16,'ASICS Gel Nimbus  - t','Miêu tả chi tiết sản phẩm ASICS Gel Nimbus...',13,2,1,99,'asics-gel-nimbus','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU023'),(17,'VANS Old Skool  - t','Miêu tả chi tiết sản phẩm VANS Old Skool...',13,3,1,90,'vans-old-skool','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU024'),(18,'CONVERSE Chuck Taylor  - t','Miêu tả chi tiết sản phẩm CONVERSE Chuck Taylor...',13,4,1,70,'converse-chuck-taylor','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU025'),(19,'NEW BALANCE 574 Core  - t','Miêu tả chi tiết sản phẩm NEW BALANCE 574 Core...',13,1,1,90,'new-balance-574-core','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU026'),(20,'SALOMON Trailster  - t','Miêu tả chi tiết sản phẩm SALOMON Trailster...',13,2,1,99,'salomon-trailster','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU027'),(21,'MIZUNO Wave Rider  - t','Miêu tả chi tiết sản phẩm MIZUNO Wave Rider...',13,3,1,76,'mizuno-wave-rider','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU028'),(22,'ASICS GT-2000  - t','Miêu tả chi tiết sản phẩm ASICS GT-2000...',13,4,1,90,'asics-gt-2000','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU029'),(23,'BROOKS Ghost  - t','Miêu tả chi tiết sản phẩm BROOKS Ghost...',18,1,1,76,'brooks-ghost','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU030'),(24,'SAUCONY Kinvara  - t','Miêu tả chi tiết sản phẩm SAUCONY Kinvara...',18,2,1,79,'saucony-kinvara','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU031'),(25,'HOKA Clifton  - t','Miêu tả chi tiết sản phẩm HOKA Clifton...',19,3,1,97,'hoka-clifton','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU032'),(26,'MERRELL Moab  - t','Miêu tả chi tiết sản phẩm MERRELL Moab...',19,4,1,90,'merrell-moab','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU033'),(27,'NIKE Downshifter  - t','Miêu tả chi tiết sản phẩm NIKE Downshifter...',20,1,1,99,'nike-downshifter','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU034'),(28,'PUMA Tazon  - t','Miêu tả chi tiết sản phẩm PUMA Tazon...',20,2,1,97,'puma-tazon','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU035'),(29,'VANS Era  - t','Miêu tả chi tiết sản phẩm VANS Era...',21,3,1,99,'vans-era','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU036'),(30,'CONVERSE Jack  - t','Miêu tả chi tiết sản phẩm CONVERSE Jack Purcell...',21,4,1,96,'converse-jack-purcell','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU037'),(41,'Nike Air Max 270','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,1,1,89,'nike-air-max-270','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU001'),(42,'Adidas Superstar','## MIÊU TẢ\nNếu bạn đang tìm kiếm một đôi giày chạy bộ đa năng trung tính đáng tin cậy thì HOKA Clifton 9 chính là đôi giày bạn cần! Bất kể tốc độ bạn chạy là gì - 5 km hay chạy dài - bạn đều có ',22,2,1,99,'adidas-superstar','{\"Size\": [\"S\"], \"Color\": [\"Red\", \"Blue\"]}','SPU002');
-/*!40000 ALTER TABLE `spu` ENABLE KEYS */;
 
 --
 -- Table structure for table `spu_images`
@@ -609,4 +502,4 @@ INSERT INTO `wards` VALUES ('00001','Phúc Xá','Phuc Xa','Phường Phúc Xá',
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-24 18:14:34
+-- Dump completed on 2024-11-27 12:38:10

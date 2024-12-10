@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import "./imageDesktop.module.css";
+import cssImageDesktop from "./imageDesktop.module.css";
 import ReactImageMagnify from "react-image-magnify";
 import Skeleton from "react-loading-skeleton";
 import ProductImageModal from "../ProductImageModal";
@@ -57,7 +57,7 @@ export default function ImageDesktop({ product = null, isLoading = false }) {
         </>
       )}
       {/* Image section */}
-      <div className="w-full h-full flex flex-col  border-1 justify-center items-center">
+      <div className={`w-full h-full flex flex-col  border-1 justify-center items-center fix-image-magnifier`}>
         {/* Hover image */}
         <div className="w-full flex flex-1 justify-center items-center z-[3] mb-2">
           <>
