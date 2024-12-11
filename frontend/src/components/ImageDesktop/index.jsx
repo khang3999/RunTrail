@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import cssImageDesktop from "./imageDesktop.module.css";
 import ReactImageMagnify from "react-image-magnify";
 import Skeleton from "react-loading-skeleton";
 import ProductImageModal from "../ProductImageModal";
