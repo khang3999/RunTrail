@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - cicd
 jobs:
   sync:
     runs-on: ubuntu-latest
