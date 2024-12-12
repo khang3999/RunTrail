@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-	// output: 'export',
+	output: 'export',
 	transpilePackages: ['@components/*', '@styles/*', '@assets/*'],
 	images: { unoptimized: true },
 	reactStrictMode: false,
