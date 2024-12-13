@@ -1,0 +1,1 @@
+docker run --restart=always  --name runtrailbe -e DB_HOST=runtraildb  -e DB_NAME=runtraildb -e DB_PORT:3306 -e DB_USER=root -e DB_PASS=runtrail123@ -e APP_PORT=8080 --network=runtrail-net -p 8080:8080 -d 10102004tan/runtrailbe
