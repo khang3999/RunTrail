@@ -11,7 +11,11 @@ import runtrail.dev.backend.dto.response.SpuDTO;
 public class RedisConfig {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory();
+         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+         jedisConnectionFactory.setHostName("redis-17406.c295.ap-southeast-1-1.ec2.redns.redis-cloud.com");
+         jedisConnectionFactory.setPort(17406);
+         jedisConnectionFactory.setPassword("2xRV5iXSq735NCAxfxHBb1ytVKopVJYh");
+         return jedisConnectionFactory;
     }
 
     @Bean
