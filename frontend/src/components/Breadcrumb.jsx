@@ -64,6 +64,7 @@ function Breadcrumb() {
 
   const handleNavigate = (id) => {
     setCategoryId(id);
+    router.push(`/product`);
   };
 
   useEffect(() => {
