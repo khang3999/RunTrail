@@ -4,9 +4,9 @@ on:
     branches:
       - main
       - cicd
-    paths:
-      - 'database/Dockerfile'
-      - 'backend/Dockerfile'
+    # paths:
+    #   - 'database/Dockerfile'
+    #   - 'backend/Dockerfile'
 jobs:
   publish_images:
     runs-on: ubuntu-latest
