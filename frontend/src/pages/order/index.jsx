@@ -247,39 +247,68 @@ function OrderPage() {
     // Kiểm tra orderData trước khi gửi
     // console.log("Order Data:", orderData);
 
-    try {
-      const response = await fetch("http://localhost:8008/api/v1/order/new", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderData),
-      });
+    AxiosInstance.post('order/new', { ...orderData })
+      .then((response) => {
+        const data = response.data;
+        if (data.statusCode === 200) {
+          // Clear cart
+          reset();
 
-      const data = await response.json();
-      // console.log(data);
-      if (data.statusCode === 200) {
-        // Clear cart
-        reset();
+          // Back to cart page
+          setAlertType("success");
+          setAlertMessage(
+            "Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn",
+          );
 
-        // Back to cart page
-        setAlertType("success");
-        setAlertMessage(
-          "Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn",
-        );
-
-        // Chuyển trang sau khi đặt hàng thành công về cart không load lại trang
-        router.push("/cart");
-      } else {
+          // Chuyển trang sau khi đặt hàng thành công về cart không load lại trang
+          router.push("/cart");
+        } else {
+          toast.error(
+            "Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ",
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error)
         toast.error(
           "Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ",
         );
-      }
-    } catch (error) {
-      toast.error(
-        "Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ",
-      );
-    }
+        // console.error("Error fetching attributes", error);
+      });
+
+    // try {
+    //   const response = await fetch("http://localhost:8008/api/v1/order/new", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(orderData),
+    //   });
+
+    //   const data = await response.json();
+    //   // console.log(data);
+    //   if (data.statusCode === 200) {
+    //     // Clear cart
+    //     reset();
+
+    //     // Back to cart page
+    //     setAlertType("success");
+    //     setAlertMessage(
+    //       "Đơn hàng đã được ghi nhận, nhân viên chúng tôi sẽ liên hệ quý khách sớm nhất có thể để xác nhận đơn",
+    //     );
+
+    //     // Chuyển trang sau khi đặt hàng thành công về cart không load lại trang
+    //     router.push("/cart");
+    //   } else {
+    //     toast.error(
+    //       "Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ",
+    //     );
+    //   }
+    // } catch (error) {
+    //   toast.error(
+    //     "Có lỗi trong quá trình ghi nhận đơn đặt hàng, xin thử lại hoặc liên hệ số hotline để được hỗ trợ",
+    //   );
+    // }
   };
 
   const payments = [
@@ -627,7 +656,7 @@ function OrderPage() {
                     {formatCurrency(
                       Math.round(
                         item.quantity *
-                          (item.skuPrice * (1 - item.spuDiscount / 100)),
+                        (item.skuPrice * (1 - item.spuDiscount / 100)),
                       ),
                     )}
                   </p>

@@ -10,6 +10,7 @@ import { useAppProvider } from "@/contexts/AppProvider";
 import { Drawer } from "flowbite";
 import MenuMobile from "@/components/Menu/MenuMobile";
 import { useProductProvider } from "../../contexts/ProductProvider";
+import AxiosInstance from "@/utils/axiosInstance";
 
 export default function Header({ onCategoryClick }) {
   const { totalCart, handleToggleMenu, isHidden } = useAppProvider();
@@ -64,11 +65,14 @@ export default function Header({ onCategoryClick }) {
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       if (searchValue.trim()) {
-        fetch(`http://localhost:8008/api/v1/spu/search?key=${searchValue}`)
-          .then((response) => response.json())
-          .then((data) => {
-            setProductsSearch(data.metadata || []);
-          });
+          AxiosInstance.get(`spu/search?key=${searchValue}`)
+                .then((response) => {
+                    const data = response.data;
+                    setProductsSearch(data.metadata || []);
+                })
+                .catch((error) => {
+                    console.error("Error fetching attributes", error);
+                });
       } else {
         setProductsSearch([]);
       }

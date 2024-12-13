@@ -7,6 +7,7 @@ import styles from "./ProductSlider.module.css";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./ProductSlider.module.css";
+import AxiosInstance from "@/utils/axiosInstance";
 
 const ProductSlider = ({ title, apiUrl }) => {
    const [products, setProducts] = useState([]);
@@ -16,18 +17,20 @@ const ProductSlider = ({ title, apiUrl }) => {
    useEffect(() => {
       setIsLoading(true);
       if (apiUrl) {
-         fetch(apiUrl)
-            .then((response) => response.json())
-            .then((data) => {
-               if (data.statusCode === 200) {
-                  setProducts(data.metadata);
-               }
-               setIsLoading(false);
-            })
-            .catch((error) => {
-               console.error("Error fetching data:", error);
-               setIsLoading(false);
-            });
+         const fetchData = async () => {
+            AxiosInstance.get(apiUrl)
+               .then((response) => {
+                  const data = response.data;
+                  if (data.statusCode === 200) {
+                     setProducts(data.metadata);
+                  }
+               })
+               .catch((error) => {
+                  console.error("Error fetching attributes", error);
+               })
+            setIsLoading(false);
+         };
+         fetchData();
       }
    }, [apiUrl]);
 

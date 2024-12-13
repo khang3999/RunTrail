@@ -1,4 +1,5 @@
 "use client";
+import AxiosInstance from "@/utils/axiosInstance";
 import React, { useState, useContext, createContext, useEffect, useCallback } from "react";
 
 const ProductContext = createContext();
@@ -67,21 +68,26 @@ function ProductProvider({ children }) {
          window.history.replaceState({}, "", `?${stringParams}`);
          isFirstFilter && setCurrentPage(1);
 
-         const response = await fetch(
-            `http://localhost:8008/api/v1/spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`,
-         );
-         const data = await response.json();
-
-         const {
-            metadata: { content: products, totalPages, numberOfElements, totalElements },
-         } = data;
-
-         setProducts(products);
-         setTotalPages(totalPages);
-         setNumberOfElements(numberOfElements);
-         setTotalElements(totalElements);
-         setIsLoading(false);
-         setFirstFilter(false);
+         AxiosInstance.get(`spu/filter1?page=${currentPage}&size=${productsPerPage}&${stringParams}`)
+            // AxiosInstance.get(`working`)
+            .then((response) => {
+               const data = response.data;
+               if (data.statusCode === 200) {
+                  // console.log(data, 'testData');
+                  const {
+                     metadata: { content: products, totalPages, numberOfElements, totalElements },
+                  } = data;
+                  setProducts(products);
+                  setTotalPages(totalPages);
+                  setNumberOfElements(numberOfElements);
+                  setTotalElements(totalElements);
+                  setIsLoading(false);
+                  setFirstFilter(false);
+               }
+            })
+            .catch((error) => {
+               console.error("Error fetching attributes", error);
+            });
       } catch (error) {
          console.error("Error fetching products:", error);
          setIsLoading(false);

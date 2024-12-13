@@ -1,6 +1,7 @@
 import { useProductProvider } from "@/contexts/ProductProvider";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import AxiosInstance from "@/utils/axiosInstance";
 
 function Breadcrumb() {
   const { setCategoryId, tempSelectedBrands, categoryId, setSelectedBrands } = useProductProvider();
@@ -8,39 +9,21 @@ function Breadcrumb() {
   const [dataBrands, setDataBrands] = useState([]);
   const router = useRouter();
 
-  const fetchCategory = async (id) => {
-    try {
-      const res = await fetch(
-        `http://localhost:8008/api/categories${id && `/${id}`}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching category:", error);
-    }
-  };
-
-  useEffect(()=>{
+  useEffect(() => {
     console.log(tempSelectedBrands, 'tempppp');
-    
-  },[tempSelectedBrands])
+
+  }, [tempSelectedBrands])
 
   // use Axios Instance
   const fetchBrandName = async () => {
-    try {
-      const response = await fetch(`http://localhost:8008/api/v1/brands/by-status?statusId=1`);
-      const data = await response.json();
-      setDataBrands(data.metadata)
-      // setBrandName(data.brandName)
-    } catch (error) {
-      console.error("Error fetching brands:", error);
-    }
+    AxiosInstance.get(`brands/by-status?statusId=1`)
+      .then((response) => {
+        const data = response.data;
+        setDataBrands(data.metadata)
+      })
+      .catch((error) => {
+        console.error("Error fetching attributes", error);
+      });
   };
   useEffect(() => {
     fetchBrandName()
@@ -62,11 +45,16 @@ function Breadcrumb() {
   useEffect(() => {
     // Nếu categoryId khác -1 (có danh mục được chọn) thì fetchCategory
     if (categoryId !== -1) {
-      fetchCategory(categoryId).then((category) => {
-        if (category) {
-          buildBreadcrumb(category);
-        }
-      });
+      AxiosInstance.get(`categories${categoryId && `/${categoryId}`}`)
+        .then((response) => {
+          const data = response.data;
+          if (data) {
+            buildBreadcrumb(data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching attributes", error);
+        });
     } else {
       setBreadcrumbItems([]);
     }
@@ -75,7 +63,7 @@ function Breadcrumb() {
 
 
   const handleNavigate = (id) => {
-      setCategoryId(id);
+    setCategoryId(id);
   };
 
   useEffect(() => {
@@ -112,7 +100,7 @@ function Breadcrumb() {
       {categoryId == -1
         ?
         <span className="flex items-center">
-          {breadcrumbItems.length == 0 ?'':<span className="mx-2">{">"}</span>}
+          {breadcrumbItems.length == 0 ? '' : <span className="mx-2">{">"}</span>}
           {breadcrumbItems.map((item, index) => (
             <span key={index}>
               {item.name}

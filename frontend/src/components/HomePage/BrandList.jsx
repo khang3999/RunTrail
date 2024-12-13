@@ -8,28 +8,27 @@ import "swiper/css/scrollbar";
 // import '@/assets/css/homePage.css'
 import Link from 'next/link';
 import { useProductProvider } from '@/contexts/ProductProvider';
+import AxiosInstance from '@/utils/axiosInstance';
 
 export default function BrandList() {
     const [dataBrands, setDataBrands] = useState([])
-    const { setCategoryId, setSelectedBrands,  } = useProductProvider()
+    const { setCategoryId, setSelectedBrands, } = useProductProvider()
     useEffect(() => {
         // use Axios Instance
         const fetchBrandsData = async () => {
-            try {
-                const response = await fetch(`http://localhost:8008/api/v1/brands/by-status?statusId=1`);
-                const data = await response.json();
-                // console.log(data);
-                if (data.statusCode === 200) {
-                    // Kiểm tra dữ liệu và lọc theo `status = 1`
-                    const filteredData = data.metadata.filter((brand) => brand.status === 1);
-                    // console.log(filteredData);
-                    setDataBrands(filteredData);
-                } else {
-                    console.error("Get brands by statusId failed");
-                }
-            } catch (error) {
-                console.error("Error fetching brands:", error);
-            }
+            AxiosInstance.get(`brands/by-status?statusId=1`)
+                .then((response) => {
+                    const data = response.data;
+                    if (data.statusCode === 200) {
+                        const filteredData = data.metadata.filter((brand) => brand.status === 1);
+                        setDataBrands(filteredData);
+                    } else {
+                        console.error("Error fetching brands by status 1:", error);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching attributes", error);
+                });
         };
         fetchBrandsData();
     }, []);
@@ -72,7 +71,7 @@ export default function BrandList() {
                 {dataBrands && dataBrands.map(brand => {
                     return (
                         <SwiperSlide key={brand.id} virtualIndex={brand.id}>
-                            <Link href='/product' onClick={()=>handleClickOnBrandItem(brand.id)}>
+                            <Link href='/product' onClick={() => handleClickOnBrandItem(brand.id)}>
                                 <img className="w-full" src={brand.brandLogo}></img>
                             </Link>
                         </SwiperSlide>

@@ -42,11 +42,11 @@ function HomePage() {
          <div>
             <ProductSlider
                title="SẢN PHẨM MỚI"
-               apiUrl="http://localhost:8008/api/v1/new-spu/all"
+               apiUrl="new-spu/all"
             />
             <ProductSlider
                title="SẢN PHẨM SALE OFF"
-               apiUrl="http://localhost:8008/api/v1/sale-off/all"
+               apiUrl="sale-off/all"
             />
          </div>
          {/* Collections */}
