@@ -1,5 +1,6 @@
 import { useAppProvider } from '@/contexts/AppProvider';
 import { useProductProvider } from '@/contexts/ProductProvider';
+import AxiosInstance from '@/utils/axiosInstance';
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
@@ -14,17 +15,16 @@ const MenuMobile = ({ drawerRef }) => {
     // Fetch categories data
     useEffect(() => {
         const fetchCategories = async () => {
-            try {
-                const response = await fetch("http://localhost:8008/api/categories");
-                const data = await response.json();
-                setCategories(data);
-            } catch (error) {
-                console.error("Error fetching categories:", error);
-            } finally {
-                setIsLoading(false);
-            }
+            AxiosInstance.get(`categories`)
+                .then((response) => {
+                    const data = response.data;
+                    setCategories(data);
+                })
+                .catch((error) => {
+                    console.error("Error fetching attributes", error);
+                })
+            setIsLoading(false);
         };
-
         fetchCategories();
     }, []);
 

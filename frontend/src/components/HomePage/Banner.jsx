@@ -3,24 +3,26 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 
 import Link from 'next/link';
+import AxiosInstance from '@/utils/axiosInstance';
 
 const Banner = () => {
     const [dataBanners, setDataBanners] = useState([])
     useEffect(() => {
         // use Axios Instance
         const fetchBannersData = async () => {
-            try {
-                const response = await fetch(`http://localhost:8008/api/v1/banners`);
-                const data = await response.json();
-                // console.log(data);
-                if (data.statusCode === 200) {
+            AxiosInstance.get(`banners`)
+              .then((response) => {
+                  const data = response.data;
+                  if (data.statusCode === 200) {
                     setDataBanners(data.metadata);
                 } else {
                     console.error("Get banners by statusId failed");
                 }
-            } catch (error) {
-                console.error("Error fetching banners:", error);
-            }
+              })
+              .catch((error) => {
+                  console.error("Error fetching attributes", error);
+              })
+        //   setIsLoading(false);
         };
         fetchBannersData();
     }, []);

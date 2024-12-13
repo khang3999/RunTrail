@@ -6,6 +6,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import AxiosInstance from "@/utils/axiosInstance";
 
 const buildCategoryTree = (categories) => {
    const map = {};
@@ -37,19 +38,18 @@ const CategoryFilter = () => {
 
    useEffect(() => {
       const fetchCategories = async () => {
-         try {
-            const response = await fetch("http://localhost:8008/api/categories");
-            const data = await response.json();
-            setCategories(data);
-         } catch (error) {
-            console.error("Error fetching categories:", error);
-         } finally {
-            setIsLoading(false); // Set loading to false after fetching
-         }
+          AxiosInstance.get(`categories`)
+              .then((response) => {
+                  const data = response.data;
+                  setCategories(data);
+              })
+              .catch((error) => {
+                  console.error("Error fetching attributes", error);
+              })
+          setIsLoading(false);
       };
-
       fetchCategories();
-   }, []);
+  }, []);
 
    useEffect(() => {
       if (!categoryId || categoryId === -1) return;

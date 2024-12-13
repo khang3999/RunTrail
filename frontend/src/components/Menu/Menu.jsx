@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useState, useEffect } from "react";
 import { useProductProvider } from "@/contexts/ProductProvider";
+import AxiosInstance from '@/utils/axiosInstance';
 
 
 const CategoryMenuItems = ({ categories, isLoading }) => {
@@ -99,17 +100,16 @@ export default function Menu() {
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         const fetchCategories = async () => {
-            try {
-                const response = await fetch("http://localhost:8008/api/categories");
-                const data = await response.json();
-                setCategories(data);
-            } catch (error) {
-                console.error("Error fetching categories:", error);
-            } finally {
-                setIsLoading(false);
-            }
+            AxiosInstance.get(`categories`)
+                .then((response) => {
+                    const data = response.data;
+                    setCategories(data);
+                })
+                .catch((error) => {
+                    console.error("Error fetching attributes", error);
+                })
+            setIsLoading(false);
         };
-
         fetchCategories();
     }, []);
 

@@ -15,7 +15,7 @@ import runtrail.dev.backend.services.SkuService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/categories")
+@RequestMapping("api/v1/categories")
 public class CategoryController {
    @Autowired
    private CategoryService categoryService;

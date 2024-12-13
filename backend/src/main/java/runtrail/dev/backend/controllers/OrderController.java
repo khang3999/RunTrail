@@ -28,6 +28,7 @@ public class OrderController {
 
    @PostMapping("/new")
    public Response<OrderEntity> createNewOrder(@RequestBody OrderRequest orderRequest) {
+      
       OrderEntity order = orderService.createNewOrder(orderRequest.getTotalPrice(), orderRequest.getPaymentId(),
             orderRequest.getShippingFee(), orderRequest.getShippingAddress(), orderRequest.getDiscount(),
             orderRequest.getPhone(), orderRequest.getCustomerName(), orderRequest.getProducts());

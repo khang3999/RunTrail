@@ -7,6 +7,7 @@ import { useAppProvider } from "@/contexts/AppProvider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./RelatedProduct.module.css";
+import AxiosInstance from "@/utils/axiosInstance";
 
 const RelatedProduct = ({ categories }) => {
    const [products, setProducts] = useState([]);
@@ -16,12 +17,13 @@ const RelatedProduct = ({ categories }) => {
    useEffect(() => {
       setIsLoading(true);
       if (categories) {
-         fetch(
-            `http://localhost:8008/api/v1/spu/random?category=${categories}&number=6`,
-         )
-            .then((response) => response.json())
-            .then((data) => {
+         AxiosInstance.get(`spu/random?category=${categories}&number=6`)
+            .then((response) => {
+               const data = response.data;
                setProducts(data.metadata);
+            })
+            .catch((error) => {
+               console.error("Error fetching attributes", error);
             });
          setIsLoading(false);
       }
