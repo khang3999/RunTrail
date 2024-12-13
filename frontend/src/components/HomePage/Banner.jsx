@@ -27,7 +27,7 @@ const Banner = () => {
         fetchBannersData();
     }, []);
     return (
-        <div className="banner w-full flex-1 h-auto ">
+        <div className="banner w-full flex-1">
 
             <Swiper
                 autoFocus={true}
@@ -56,11 +56,11 @@ const Banner = () => {
                             >
                                 {banner.linkTo !== null ?
                                     <Link href={banner.linkTo}>
-                                        <img className="w-full" src={banner.source}></img>
+                                        <img className="w-full h-[500px] object-cover" src={banner.source}></img>
                                     </Link>
                                     :
                                     <div>
-                                        <img className="w-full" src={banner.source}></img>
+                                        <img className="w-full h-[500px] object-cover" src={banner.source}></img>
                                     </div>
                                 }
 
