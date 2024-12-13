@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import AxiosInstance from "@/utils/axiosInstance";
 
 function Breadcrumb() {
-  const { setCategoryId, tempSelectedBrands, categoryId, setSelectedBrands } = useProductProvider();
+  const { setCategoryId, tempSelectedBrands, categoryId, setSelectedBrands,setTempSelectedBrands } = useProductProvider();
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
   const [dataBrands, setDataBrands] = useState([]);
   const router = useRouter();
@@ -92,6 +92,7 @@ function Breadcrumb() {
         onClick={() => {
           setCategoryId(-1)
           setSelectedBrands([])
+          setTempSelectedBrands([])
           router.push('/')
         }}
         className="hover:underline cursor-pointer"
