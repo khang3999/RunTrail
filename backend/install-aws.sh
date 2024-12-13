@@ -21,4 +21,4 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 #change DB_HOST
 sudo docker run -d --restart=always  --name runtrailbe -e DB_HOST=18.138.250.249 -e DB_PORT:3306 -e DB_USER=root -e DB_PASS=runtrail123@  -p 8080:8080 10102004tan/runtrailbe
 
-sudo docker run -d --restart=always --name runtrailbe -e DB_HOST=18.138.250.249 -e DB_PORT:3306 -e DB_USER=root -e DB_PASS=runtrail123@  -p 8080:8080 10102004tan/runtrailbe
+sudo docker run -d --restart=always --name runtrailbe -e DB_HOST=runtraildb -e DB_PORT:3306 -e DB_USER=root -e DB_PASS=runtrail123@ -e APP_PORT=8080  -p 8080:8080 10102004tan/runtrailbe
