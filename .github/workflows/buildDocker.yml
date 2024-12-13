@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build Maven
-        run: mvn -f ./backend/pom.xml clean package
+        run: mvn --batch-mode --update-snapshots package
         working-directory: ./backend
 
       - name: Build image runtraildb and runtrailbe
