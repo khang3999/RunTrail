@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build Maven
-        run: mvn --batch-mode --update-snapshots package
+        run: mvn --batch-mode --update-snapshots clean package -DskipTests
         working-directory: ./backend
 
       - name: Build image runtraildb and runtrailbe
