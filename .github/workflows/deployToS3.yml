@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deployToS3.yml'
 jobs:
   sync:
     runs-on: ubuntu-latest
