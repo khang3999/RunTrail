@@ -17,4 +17,4 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 
 
 # run docker hub 10102004tan/runtraildb
-sudo docker run --name runtraildb -e MYSQL_ROOT_PASSWORD=runtrail123@ -e MYSQL_DATABASE=runtraildb -p 3306:3306 -d 10102004tan/runtraildb
+sudo docker run --restart=always --name runtraildb -e MYSQL_ROOT_PASSWORD=runtrail123@ -e MYSQL_DATABASE=runtraildb -p 3306:3306 -d 10102004tan/runtraildb
