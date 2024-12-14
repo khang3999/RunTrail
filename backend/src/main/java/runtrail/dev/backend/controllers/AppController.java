@@ -19,7 +19,7 @@ public class AppController {
 
     @GetMapping("/working")
     public Response<?> working() {
-        return new Response<>("Server is working!!!", HttpStatus.OK.value(), "OK");
+        return new Response<>("Server is working ok prod!!!", HttpStatus.OK.value(), "OK");
     }
 
     // delete all cache in redis
