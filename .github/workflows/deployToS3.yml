@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - cicd
     paths:
       - 'frontend/**'
       - '.github/workflows/deployToS3.yml'
