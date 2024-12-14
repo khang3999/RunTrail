@@ -40,7 +40,7 @@ public class BrandController {
     }
 
     @GetMapping("/by-status")
-    public Response<?> getBrandsByStatus(@RequestParam int statusId) {
+    public Response<?> getBrandsByStatus(@RequestParam(defaultValue = "1") int statusId) {
         List<BrandEntity> brandEntities = brandService.getBrandsByStatusId(statusId);
         return new Response<>(brandEntities, HttpStatus.OK.value(), "Get brands by statusId successfully");
     }
