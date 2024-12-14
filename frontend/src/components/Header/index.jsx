@@ -14,6 +14,7 @@ import AxiosInstance from "@/utils/axiosInstance";
 
 export default function Header({ onCategoryClick }) {
   const { totalCart, handleToggleMenu, isHidden } = useAppProvider();
+  const { setCategoryId, tempSelectedBrands, categoryId, setSelectedBrands,setTempSelectedBrands } = useProductProvider();
   const languages = [
     {
       name: "Vietnam",
@@ -34,7 +35,6 @@ export default function Header({ onCategoryClick }) {
         "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/1200px-Flag_of_Japan.svg.png",
     },
   ];
-  const {setCategoryId, setSelectedBrands} = useProductProvider()
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -127,7 +127,9 @@ export default function Header({ onCategoryClick }) {
   return (
     <div className={styles.container}>
       <MdOutlineMenu className={styles.menuIcon} color="white" size={20} onClick={handleToggleMenu}/>
-      <Link href="/" onClick={()=>{setCategoryId(-1)
+      <Link href="/" onClick={()=>{
+          setCategoryId(-1)
+          setTempSelectedBrands([])
           setSelectedBrands([])}}>
         <img
           src="https://supersports.com.vn/cdn/shop/files/LOGO_SSP_RGB-02_c46e0135-659a-49a2-9b37-6afebf1112e4.jpg?v=1723429659&width=2082"
